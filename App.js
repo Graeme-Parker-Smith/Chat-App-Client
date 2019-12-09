@@ -5,8 +5,10 @@ import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import AccountScreen from "./src/screens/AccountScreen";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
+import RoomScreen from "./src/screens/RoomScreen";
 import { setNavigator } from "./src/navigationRef";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
+import { Provider as ChannelProvider } from "./src/context/ChannelContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { StyleSheet, Text, View, YellowBox } from "react-native";
@@ -20,11 +22,16 @@ YellowBox.ignoreWarnings([
 
 let socket;
 
+const channelFlow = createStackNavigator({
+  Account: AccountScreen,
+  Room: RoomScreen
+});
+
 const navigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
   Signin: SigninScreen,
   Signup: SignupScreen,
-  Account: AccountScreen
+  channelFlow
 });
 
 const App = createAppContainer(navigator);
@@ -35,27 +42,16 @@ export default () => {
   // enter ipconfig on terminal and use IPv4 Address instead!
   // in this case it is: 192.168.1.233
 
-  const ENDPOINT = "https://graeme-chat-app.herokuapp.com";
-  
-
-  useEffect(() => {
-    console.log("JOINING!!!");
-
-    socket = io(ENDPOINT);
-
-    socket.emit("join", { name: "g", room: "g" }, error => {
-      if (error) {
-        alert(error);
-      }
-    });
-  }, []);
+  // const ENDPOINT = "https://graeme-chat-app.herokuapp.com";
   return (
-    <AuthProvider>
-      <App
-        ref={navigator => {
-          setNavigator(navigator);
-        }}
-      />
-    </AuthProvider>
+    <ChannelProvider>
+      <AuthProvider>
+        <App
+          ref={navigator => {
+            setNavigator(navigator);
+          }}
+        />
+      </AuthProvider>
+    </ChannelProvider>
   );
 };
