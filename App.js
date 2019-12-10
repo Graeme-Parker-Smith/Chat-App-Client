@@ -9,18 +9,18 @@ import RoomScreen from "./src/screens/RoomScreen";
 import { setNavigator } from "./src/navigationRef";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as ChannelProvider } from "./src/context/ChannelContext";
+import { Provider as MessageProvider } from "./src/context/MessageContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { StyleSheet, Text, View, YellowBox } from "react-native";
 window.navigator.userAgent = "react-native";
+import SocketContext from "./src/context/SocketContext";
 import io from "socket.io-client";
 // console.ignoredYellowBox = ['Remote debugger'];
 YellowBox.ignoreWarnings([
   "Accessing view manager configs directly off UIManager via UIManager['getConstants'] is no longer supported. Use UIManager.getViewManagerConfig('getConstants') instead.",
   "Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?"
 ]);
-
-let socket;
 
 const channelFlow = createStackNavigator({
   Account: AccountScreen,
@@ -34,24 +34,29 @@ const navigator = createSwitchNavigator({
   channelFlow
 });
 
-const App = createAppContainer(navigator);
+const ENDPOINT = "http://192.168.1.233:3000";
+const socket = io(ENDPOINT);
 
+const App = createAppContainer(navigator);
 export default () => {
-  const [name, setName] = useState("Billy");
   // socket.io connection does not work when using localhost:3000 as ENDPOINT!
   // enter ipconfig on terminal and use IPv4 Address instead!
   // in this case it is: 192.168.1.233
 
   // const ENDPOINT = "https://graeme-chat-app.herokuapp.com";
   return (
-    <ChannelProvider>
+    <SocketContext.Provider value={socket}>
       <AuthProvider>
-        <App
-          ref={navigator => {
-            setNavigator(navigator);
-          }}
-        />
+        <ChannelProvider>
+          <MessageProvider>
+            <App
+              ref={navigator => {
+                setNavigator(navigator);
+              }}
+            />
+          </MessageProvider>
+        </ChannelProvider>
       </AuthProvider>
-    </ChannelProvider>
+    </SocketContext.Provider>
   );
 };

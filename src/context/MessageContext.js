@@ -4,30 +4,33 @@ import chatApi from "../api/requester";
 const messageReducer = (state, action) => {
   switch (action.type) {
     case "fetch_messages":
-      return action.payload;
+      return action.payload.messages;
     case "add_message":
-      return [...state, action.payload];
+      return [...action.payload];
     default:
       return state;
   }
 };
 
-const fetchMessages = dispatch => async () => {
-  const response = await chatApi.get("/messages");
-  console.log("message fetched!");
+const fetchMessages = dispatch => async roomName => {
+  // console.log("roomName to fetch messages is: ", roomName);
+  const response = await chatApi.get("/messages", {
+    params: { roomName: roomName }
+  });
+  // console.log("messages fetched!");
   dispatch({ type: "fetch_messages", payload: response.data });
 };
-const addMessage = dispatch => async ({ username, content, roomName }) => {
+const addMessage = dispatch => async ({ creator, content, roomName }) => {
   const date = new Date();
-  const combo = date.toLocaleString();
-  const message = { creator: username, content, time: combo, roomName };
-  console.log("message is: ", message);
+  const time = date.toLocaleString();
+  const message = { creator, content, roomName, time };
+  // console.log("message is: ", message);
   const response = await chatApi.post("/messages", { ...message });
-  console.log("Message successfully saved!");
-  console.log("response.data is: ", response.data);
+  // console.log("Message successfully saved!");
+  // console.log("response.data is: ", response.data);
   dispatch({
     type: "add_message",
-    payload: { ...message }
+    payload: response.data.messages
   });
 };
 

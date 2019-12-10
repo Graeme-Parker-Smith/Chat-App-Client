@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity
 } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Input } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
 import { NavigationEvents } from "react-navigation";
 import Spacer from "../components/Spacer";
@@ -16,8 +16,9 @@ import { Context as ChannelContext } from "../context/ChannelContext";
 import { FontAwesome } from "@expo/vector-icons";
 
 const AccountScreen = ({ navigation }) => {
+  const [newChannelName, setNewChannelName] = useState("");
   const { signout } = useContext(AuthContext);
-  const { state, fetchChannels } = useContext(ChannelContext);
+  const { state, fetchChannels, createChannel } = useContext(ChannelContext);
   console.log(state);
 
   return (
@@ -27,13 +28,19 @@ const AccountScreen = ({ navigation }) => {
         <Text style={{ fontSize: 48, textAlign: "center" }}>
           Account Screen. Yay! You made it! Your username is {state.currentUser}
         </Text>
-        <Spacer>
-          <Button title="Sign Out" onPress={signout} />
-        </Spacer>
+        <Input
+          value={newChannelName}
+          onChangeText={setNewChannelName}
+          placeholder="Name your new channel"
+        />
+        <Button
+          title="Create New Channel"
+          onPress={() => createChannel({ name: newChannelName, creator: state.currentUser })}
+        />
         <FlatList
           style={{ marginTop: 20 }}
           data={state.channels}
-          keyExtractor={item => item._id}
+          keyExtractor={item => item.name}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -54,6 +61,9 @@ const AccountScreen = ({ navigation }) => {
             );
           }}
         />
+        <Spacer>
+          <Button title="Sign Out" onPress={signout} />
+        </Spacer>
       </SafeAreaView>
     </>
   );

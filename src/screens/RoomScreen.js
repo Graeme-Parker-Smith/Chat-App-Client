@@ -13,46 +13,30 @@ import Spacer from "../components/Spacer";
 import { ListItem } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as MessageContext } from "../context/MessageContext";
+import SocketContext from "../context/SocketContext";
 import { FontAwesome } from "@expo/vector-icons";
-import io from "socket.io-client";
 
 const RoomScreen = ({ navigation }) => {
-  const [content, setContent] = useState("");
-  const { state, fetchMessages, addMessage } = useContext(MessageContext);
   const roomName = navigation.getParam("roomName");
   const username = navigation.getParam("username");
-
-  const ENDPOINT = "http://192.168.1.233:3000";
-
+  const [content, setContent] = useState("");
+  const { state, fetchMessages, addMessage } = useContext(MessageContext);
+  const socket = useContext(SocketContext);
   useEffect(() => {
-    console.log("JOINING!!!");
-
-    socket = io(ENDPOINT);
-
+    console.log("socket is: ", socket);
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
         alert(error);
       }
     });
-  }, [state]);
+  }, []);
 
   useEffect(() => {
-    console.log("JOINING!!!");
 
-    socket = io(ENDPOINT);
-
-    socket.emit("join", { name, room }, error => {
-      if (error) {
-        alert(error);
-      }
+    socket.on("message", ({user, text}) => {
+      addMessage({creator: user, content: text, roomName})
     });
-  }, [ENDPOINT]);
-
-  useEffect(() => {
-    // socket.on("message", message => {
-    //   setMessages([...messages, message]);
-    // });
-    // console.log("[messages useEffect called]");
+    console.log("[messages useEffect called]");
 
     // app slowing down and crashing after 10 messages sent...
     // caused by this return statement being in the first useEffect
@@ -61,14 +45,16 @@ const RoomScreen = ({ navigation }) => {
       socket.emit("disconnect");
 
       socket.off();
-      // console.log("DISCONNECTING!!!");
-      // console.log("returning!!!");
+      console.log("DISCONNECTING!!!");
+      console.log("returning!!!");
     };
   }, [state]);
 
+  // component does not unmount when navigating back to account screen, but remounts when re-navigating back into the room???
+
   return (
     <>
-      <NavigationEvents onWillFocus={fetchMessages} />
+      <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
       <View style={{ marginTop: 50 }}>
         <Text style={{ fontSize: 30 }}>
           Welcome to the {roomName} room! Your username is {username}
@@ -88,11 +74,14 @@ const RoomScreen = ({ navigation }) => {
           }}
         />
         <Input
-        value={content}
-        onChangeText={setContent}
-        placeholder="Type Your message here"
+          value={content}
+          onChangeText={setContent}
+          placeholder="Type Your message here"
         />
-        <Button title="Send Message" onPress={() => addMessage({username, content, roomName})} />
+        <Button
+          title="Send Message"
+          onPress={() => addMessage({ creator: username, content, roomName })}
+        />
       </View>
     </>
   );
