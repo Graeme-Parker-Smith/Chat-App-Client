@@ -34,16 +34,16 @@ const navigator = createSwitchNavigator({
   channelFlow
 });
 
-const ENDPOINT = "http://192.168.1.233:3000";
+// socket.io connection does not work when using localhost:3000 as ENDPOINT!
+// enter ipconfig on terminal and use IPv4 Address instead!
+// in my case it is: 192.168.1.233
+
+const ENDPOINT = "https://graeme-chat-app.herokuapp.com";
 const socket = io(ENDPOINT);
 
 const App = createAppContainer(navigator);
 export default () => {
-  // socket.io connection does not work when using localhost:3000 as ENDPOINT!
-  // enter ipconfig on terminal and use IPv4 Address instead!
-  // in this case it is: 192.168.1.233
 
-  // const ENDPOINT = "https://graeme-chat-app.herokuapp.com";
   return (
     <SocketContext.Provider value={socket}>
       <AuthProvider>
