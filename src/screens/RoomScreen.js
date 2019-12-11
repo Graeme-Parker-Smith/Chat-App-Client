@@ -8,13 +8,10 @@ import {
   ScrollView
 } from "react-native";
 import { Button, Input, ListItem } from "react-native-elements";
-import { SafeAreaView } from "react-navigation";
 import { NavigationEvents, withNavigationFocus } from "react-navigation";
 import Spacer from "../components/Spacer";
-import { Context as AuthContext } from "../context/AuthContext";
 import { Context as MessageContext } from "../context/MessageContext";
 import SocketContext from "../context/SocketContext";
-import { FontAwesome } from "@expo/vector-icons";
 import uuid from "uuid/v4";
 
 
