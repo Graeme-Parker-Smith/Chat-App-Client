@@ -29,7 +29,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
     MessageContext
   );
   useEffect(() => {
-    // console.log("socket is: ", socket);
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
         console.log(error);
