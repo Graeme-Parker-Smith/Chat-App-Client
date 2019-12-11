@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
@@ -19,13 +20,12 @@ const AccountScreen = ({ navigation }) => {
   const [newChannelName, setNewChannelName] = useState("");
   const { signout } = useContext(AuthContext);
   const { state, fetchChannels, createChannel } = useContext(ChannelContext);
-  console.log(state);
 
   return (
     <>
       <NavigationEvents onWillFocus={fetchChannels} />
       <SafeAreaView forceInset={{ top: "always" }}>
-        <Text style={{ fontSize: 48, textAlign: "center" }}>
+        <Text style={{ fontSize: 24, textAlign: "center" }}>
           Account Screen. Yay! You made it! Your username is {state.currentUser}
         </Text>
         <Input
@@ -35,32 +35,38 @@ const AccountScreen = ({ navigation }) => {
         />
         <Button
           title="Create New Channel"
-          onPress={() => createChannel({ name: newChannelName, creator: state.currentUser })}
+          onPress={() =>
+            createChannel({ name: newChannelName, creator: state.currentUser })
+          }
         />
-        <FlatList
-          style={{ marginTop: 20 }}
-          data={state.channels}
-          keyExtractor={item => item.name}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("Room", {
-                    roomName: item.name,
-                    username: state.currentUser
-                  })
-                }
-              >
-                <ListItem
-                  containerStyle={styles.channel}
-                  chevron
-                  title={item.name}
-                  titleStyle={styles.title}
-                />
-              </TouchableOpacity>
-            );
-          }}
-        />
+        <View >
+          <ScrollView style={{height: 400}} >
+            <FlatList
+              style={{ marginTop: 20 }}
+              data={state.channels}
+              keyExtractor={item => item.name}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("Room", {
+                        roomName: item.name,
+                        username: state.currentUser
+                      })
+                    }
+                  >
+                    <ListItem
+                      containerStyle={styles.channel}
+                      chevron
+                      title={item.name}
+                      titleStyle={styles.title}
+                    />
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </ScrollView>
+        </View>
         <Spacer>
           <Button title="Sign Out" onPress={signout} />
         </Spacer>

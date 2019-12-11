@@ -4,39 +4,50 @@ import {
   StyleSheet,
   Text,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { Button, Input, ListItem } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
-import { NavigationEvents } from "react-navigation";
+import { NavigationEvents, withNavigationFocus } from "react-navigation";
 import Spacer from "../components/Spacer";
-import { ListItem } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as MessageContext } from "../context/MessageContext";
 import SocketContext from "../context/SocketContext";
 import { FontAwesome } from "@expo/vector-icons";
+import uuid from "uuid/v4";
 
-const RoomScreen = ({ navigation }) => {
+
+const RoomScreen = ({ navigation, isFocused }) => {
+  const socket = useContext(SocketContext);
   const roomName = navigation.getParam("roomName");
   const username = navigation.getParam("username");
-  const [content, setContent] = useState("");
-  const { state, fetchMessages, addMessage } = useContext(MessageContext);
-  const socket = useContext(SocketContext);
+  // socket.emit("disconnect") is a special event. It cannot be used like a custom event like socket.emit("leave") or socket.emit("whatever")
   useEffect(() => {
-    console.log("socket is: ", socket);
+    if (!isFocused) socket.emit("leave", { room: roomName });
+    console.log("emitting leave");
+  }, [isFocused]);
+  const [content, setContent] = useState("");
+  const { state, fetchMessages, addMessage, addQuickMessage } = useContext(
+    MessageContext
+  );
+  useEffect(() => {
+    // console.log("socket is: ", socket);
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
-        alert(error);
+        console.log(error);
       }
     });
+    console.log("Mounting");
   }, []);
 
   useEffect(() => {
-
-    socket.on("message", ({user, text}) => {
-      addMessage({creator: user, content: text, roomName})
+    socket.on("message", ({ user, text }) => {
+      const newMessage = { creator: user, content: text, roomName };
+      console.log("receiving message: ", newMessage);
+      addQuickMessage(newMessage);
+      if (user === username) addMessage(newMessage);
     });
-    console.log("[messages useEffect called]");
 
     // app slowing down and crashing after 10 messages sent...
     // caused by this return statement being in the first useEffect
@@ -45,13 +56,16 @@ const RoomScreen = ({ navigation }) => {
       socket.emit("disconnect");
 
       socket.off();
-      console.log("DISCONNECTING!!!");
-      console.log("returning!!!");
+      console.log("Unmounting");
     };
   }, [state]);
 
   // component does not unmount when navigating back to account screen, but remounts when re-navigating back into the room???
 
+  const sendNewMessage = () => {
+    const messageToSend = { creator: username, content, roomName };
+    socket.emit("sendMessage", messageToSend);
+  };
   return (
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
@@ -59,29 +73,30 @@ const RoomScreen = ({ navigation }) => {
         <Text style={{ fontSize: 30 }}>
           Welcome to the {roomName} room! Your username is {username}
         </Text>
-        <FlatList
-          data={state}
-          keyExtractor={item => item.time}
-          renderItem={({ item }) => {
-            return (
-              <ListItem
-                containerStyle={styles.channel}
-                chevron
-                title={item.content}
-                titleStyle={styles.title}
-              />
-            );
-          }}
-        />
+        <View>
+          <ScrollView style={{ height: 400 }}>
+            <FlatList
+              data={state}
+              keyExtractor={item => uuid()}
+              renderItem={({ item }) => {
+                return (
+                  <ListItem
+                    containerStyle={styles.channel}
+                    chevron
+                    title={item.content}
+                    titleStyle={styles.title}
+                  />
+                );
+              }}
+            />
+          </ScrollView>
+        </View>
         <Input
           value={content}
           onChangeText={setContent}
           placeholder="Type Your message here"
         />
-        <Button
-          title="Send Message"
-          onPress={() => addMessage({ creator: username, content, roomName })}
-        />
+        <Button title="Send Message" onPress={sendNewMessage} />
       </View>
     </>
   );
@@ -98,4 +113,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RoomScreen;
+export default withNavigationFocus(RoomScreen);
