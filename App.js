@@ -10,7 +10,7 @@ import { setNavigator } from "./src/navigationRef";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as ChannelProvider } from "./src/context/ChannelContext";
 import { Provider as MessageProvider } from "./src/context/MessageContext";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons"
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { YellowBox } from "react-native";
 window.navigator.userAgent = "react-native";
