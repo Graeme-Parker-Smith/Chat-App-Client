@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import SigninScreen from "./src/screens/SigninScreen";
@@ -12,11 +12,10 @@ import { Provider as ChannelProvider } from "./src/context/ChannelContext";
 import { Provider as MessageProvider } from "./src/context/MessageContext";
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { StyleSheet, Text, View, YellowBox } from "react-native";
+import { YellowBox } from "react-native";
 window.navigator.userAgent = "react-native";
 import SocketContext from "./src/context/SocketContext";
 import io from "socket.io-client";
-// console.ignoredYellowBox = ['Remote debugger'];
 YellowBox.ignoreWarnings([
   "Accessing view manager configs directly off UIManager via UIManager['getConstants'] is no longer supported. Use UIManager.getViewManagerConfig('getConstants') instead.",
   "Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?"

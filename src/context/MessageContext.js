@@ -16,11 +16,9 @@ const messageReducer = (state, action) => {
 };
 
 const fetchMessages = dispatch => async roomName => {
-  // console.log("roomName to fetch messages is: ", roomName);
   const response = await chatApi.get("/messages", {
     params: { roomName: roomName }
   });
-  // console.log("messages fetched!");
   dispatch({ type: "fetch_messages", payload: response.data });
 };
 const addMessage = dispatch => async ({ creator, content, roomName }) => {
@@ -28,8 +26,6 @@ const addMessage = dispatch => async ({ creator, content, roomName }) => {
   const time = date.toLocaleString();
   const message = { creator, content, roomName, time, id: uuid() };
   const response = await chatApi.post("/messages", { ...message });
-  // console.log("Message successfully saved!");
-  // console.log("response.data is: ", response.data);
   dispatch({
     type: "add_message",
     payload: response.data.messages
@@ -37,7 +33,6 @@ const addMessage = dispatch => async ({ creator, content, roomName }) => {
 };
 const addQuickMessage = dispatch => ({ creator, content, roomName }) => {
   const quickMessage = { creator, content, roomName, id: uuid() };
-  console.log("quickMessage is: ", quickMessage);
   dispatch({
     type: "add_quick_message",
     payload: quickMessage
