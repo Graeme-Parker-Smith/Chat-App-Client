@@ -56,8 +56,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
     };
   }, [state]);
 
-  // component does not unmount when navigating back to account screen, but remounts when re-navigating back into the room???
-
   const sendNewMessage = () => {
     const messageToSend = { creator: username, content, roomName };
     socket.emit("sendMessage", messageToSend);
