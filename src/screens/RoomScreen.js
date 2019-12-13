@@ -57,7 +57,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
   useEffect(() => {
     socket.on("message", ({ user, text }) => {
       const newMessage = { creator: user, content: text, roomName };
-      console.log("receiving message: ", newMessage);
       addQuickMessage(newMessage);
       if (user === username) addMessage(newMessage);
     });
