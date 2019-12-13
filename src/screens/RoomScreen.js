@@ -72,6 +72,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const sendNewMessage = () => {
     const messageToSend = { creator: username, content, roomName };
     socket.emit("sendMessage", messageToSend);
+    setContent("");
   };
   return (
     <>
