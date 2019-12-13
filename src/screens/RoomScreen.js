@@ -77,10 +77,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
   return (
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
-      <View style={{ marginTop: 50 }}>
-        <Text style={{ fontSize: 30 }}>
-          Welcome to the {roomName} room! Your username is {username}
+      <View style={{ marginTop: 10 }}>
+        <Text style={{ marginLeft: 20, fontSize: 40 }}>
+            User: {username}
         </Text>
+        <Text style={{ marginLeft: 20, fontSize: 20}}>@{roomName}</Text>
         <View>
           <ScrollView
             style={{ height: 400 }}
