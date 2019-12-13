@@ -7,7 +7,7 @@ const messageReducer = (state, action) => {
     case "fetch_messages":
       return action.payload.messages;
     case "add_message":
-      return [...action.payload];
+      return [...action.payload.messages];
     case "add_quick_message":
       return [...state, action.payload];
     default:
@@ -28,7 +28,7 @@ const addMessage = dispatch => async ({ creator, content, roomName }) => {
   const response = await chatApi.post("/messages", { ...message });
   dispatch({
     type: "add_message",
-    payload: response.data.messages
+    payload: response.data
   });
 };
 const addQuickMessage = dispatch => ({ creator, content, roomName }) => {
