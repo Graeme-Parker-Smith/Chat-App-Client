@@ -25,10 +25,11 @@ const AccountScreen = ({ navigation }) => {
     <>
       <NavigationEvents onWillFocus={fetchChannels} />
       <SafeAreaView forceInset={{ top: "always" }}>
-        <Text style={{ fontSize: 24, textAlign: "center" }}>
-          Account Screen. Yay! You made it! Your username is {state.currentUser}
+        <Text style={{ fontSize: 24, textAlign: "center", borderBottomWidth: 1, borderBottomColor: '#d3d3d3', marginBottom: 3 }}>
+          User: {state.currentUser}
         </Text>
         <Input
+        
           value={newChannelName}
           onChangeText={setNewChannelName}
           placeholder="Name your new channel"
