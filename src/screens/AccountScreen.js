@@ -39,8 +39,8 @@ const AccountScreen = ({ navigation }) => {
             createChannel({ name: newChannelName, creator: state.currentUser })
           }
         />
-        <View >
-          <ScrollView style={{height: 400}} >
+        <View>
+          <ScrollView style={{ height: 400 }}>
             <FlatList
               style={{ marginTop: 20 }}
               data={state.channels}

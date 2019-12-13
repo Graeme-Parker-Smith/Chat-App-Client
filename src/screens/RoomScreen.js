@@ -1,4 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useRef,
+  memo,
+  useMemo
+} from "react";
 import {
   View,
   StyleSheet,
@@ -13,16 +20,23 @@ import Spacer from "../components/Spacer";
 import { Context as MessageContext } from "../context/MessageContext";
 import SocketContext from "../context/SocketContext";
 import uuid from "uuid/v4";
-
+import MessageItem from "../components/MessageItem";
 
 const RoomScreen = ({ navigation, isFocused }) => {
+  console.log("Rendering ROOMSCREEN!!!!!!");
+  const scrollViewRef = useRef();
+  const didMountRef = useRef(false);
   const socket = useContext(SocketContext);
   const roomName = navigation.getParam("roomName");
   const username = navigation.getParam("username");
   // socket.emit("disconnect") is a special event. It cannot be used like a custom event like socket.emit("leave") or socket.emit("whatever")
   useEffect(() => {
-    if (!isFocused) socket.emit("leave", { room: roomName });
-    console.log("emitting leave");
+    if (didMountRef.current) {
+      if (!isFocused) socket.emit("leave", { room: roomName });
+      console.log("emitting leave");
+    } else {
+      didMountRef.current = true;
+    }
   }, [isFocused]);
   const [content, setContent] = useState("");
   const { state, fetchMessages, addMessage, addQuickMessage } = useContext(
@@ -44,7 +58,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
       addQuickMessage(newMessage);
       if (user === username) addMessage(newMessage);
     });
-
     // app slowing down and crashing after 10 messages sent...
     // caused by this return statement being in the first useEffect
     // hook rather than this one
@@ -68,17 +81,22 @@ const RoomScreen = ({ navigation, isFocused }) => {
           Welcome to the {roomName} room! Your username is {username}
         </Text>
         <View>
-          <ScrollView style={{ height: 400 }}>
+          <ScrollView
+            style={{ height: 400 }}
+            ref={scrollViewRef}
+            onContentSizeChange={(contentWidth, contentHeight) => {
+              scrollViewRef.current.scrollToEnd({ animated: true });
+            }}
+          >
             <FlatList
               data={state}
               keyExtractor={item => uuid()}
               renderItem={({ item }) => {
                 return (
-                  <ListItem
-                    containerStyle={styles.channel}
-                    chevron
-                    title={item.content}
-                    titleStyle={styles.title}
+                  <MessageItem
+                    content={item.content}
+                    username={item.creator}
+                    time={item.time}
                   />
                 );
               }}
@@ -96,15 +114,4 @@ const RoomScreen = ({ navigation, isFocused }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  channel: {
-    backgroundColor: "rgba(228,60,63,1.0)",
-    margin: 5,
-    borderRadius: 10
-  },
-  title: {
-    color: "white"
-  }
-});
-
-export default withNavigationFocus(RoomScreen);
+export default memo(withNavigationFocus(RoomScreen));

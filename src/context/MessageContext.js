@@ -32,7 +32,7 @@ const addMessage = dispatch => async ({ creator, content, roomName }) => {
   });
 };
 const addQuickMessage = dispatch => ({ creator, content, roomName }) => {
-  const quickMessage = { creator, content, roomName, id: uuid() };
+  const quickMessage = { creator, content, roomName, time: "", id: uuid() };
   dispatch({
     type: "add_quick_message",
     payload: quickMessage
