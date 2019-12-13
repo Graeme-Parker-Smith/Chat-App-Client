@@ -12,7 +12,9 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  KeyboardAvoidingView,
+  Keyboard
 } from "react-native";
 import { Button, Input, ListItem } from "react-native-elements";
 import { NavigationEvents, withNavigationFocus } from "react-navigation";
@@ -21,6 +23,7 @@ import { Context as MessageContext } from "../context/MessageContext";
 import SocketContext from "../context/SocketContext";
 import uuid from "uuid/v4";
 import MessageItem from "../components/MessageItem";
+import KeyboardShift from '../components/KeyBoardShift';
 
 const RoomScreen = ({ navigation, isFocused }) => {
   console.log("Rendering ROOMSCREEN!!!!!!");
@@ -77,41 +80,41 @@ const RoomScreen = ({ navigation, isFocused }) => {
   return (
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
-      <View style={{ marginTop: 10 }}>
-        <Text style={{ marginLeft: 20, fontSize: 40 }}>
-            User: {username}
-        </Text>
-        <Text style={{ marginLeft: 20, fontSize: 20}}>@{roomName}</Text>
-        <View>
-          <ScrollView
-            style={{ height: 400 }}
-            ref={scrollViewRef}
-            onContentSizeChange={(contentWidth, contentHeight) => {
-              scrollViewRef.current.scrollToEnd({ animated: true });
-            }}
-          >
-            <FlatList
-              data={state}
-              keyExtractor={item => uuid()}
-              renderItem={({ item }) => {
-                return (
-                  <MessageItem
-                    content={item.content}
-                    username={item.creator}
-                    time={item.time}
-                  />
-                );
+      <KeyboardShift>
+        <View style={{ marginTop: 10 }}>
+          <Text style={{ marginLeft: 20, fontSize: 40 }}>User: {username}</Text>
+          <Text style={{ marginLeft: 20, fontSize: 20 }}>@{roomName}</Text>
+          <View>
+            <ScrollView
+              style={{ height: 400 }}
+              ref={scrollViewRef}
+              onContentSizeChange={(contentWidth, contentHeight) => {
+                scrollViewRef.current.scrollToEnd({ animated: true });
               }}
-            />
-          </ScrollView>
+            >
+              <FlatList
+                data={state}
+                keyExtractor={item => uuid()}
+                renderItem={({ item }) => {
+                  return (
+                    <MessageItem
+                      content={item.content}
+                      username={item.creator}
+                      time={item.time}
+                    />
+                  );
+                }}
+              />
+            </ScrollView>
+          </View>
+          <Input
+            value={content}
+            onChangeText={setContent}
+            placeholder="Type Your message here"
+          />
+          <Button title="Send Message" onPress={sendNewMessage} />
         </View>
-        <Input
-          value={content}
-          onChangeText={setContent}
-          placeholder="Type Your message here"
-        />
-        <Button title="Send Message" onPress={sendNewMessage} />
-      </View>
+      </KeyboardShift>
     </>
   );
 };
