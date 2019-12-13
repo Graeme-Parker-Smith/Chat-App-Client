@@ -35,9 +35,10 @@ const AccountScreen = ({ navigation }) => {
         />
         <Button
           title="Create New Channel"
-          onPress={() =>
-            createChannel({ name: newChannelName, creator: state.currentUser })
-          }
+          onPress={() => {
+            createChannel({ name: newChannelName, creator: state.currentUser });
+            setNewChannelName("");
+          }}
         />
         <View>
           <ScrollView style={{ height: 400 }}>
