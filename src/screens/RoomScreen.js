@@ -94,14 +94,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
               style={{ height: 400 }}
               ref={scrollViewRef}
               onContentSizeChange={(contentWidth, contentHeight) => {
-                if (scrollPosition >= endScrollPosition - 2) {
+                if (scrollPosition >= endScrollPosition - 0.5) {
                   scrollViewRef.current.scrollToEnd({ animated: true });
                   setEndScrollPosition(scrollPosition);
                   console.log("end pos is: ", endScrollPosition);
                 }
               }}
               onScroll={handleScroll}
-              scrollEventThrottle={0}
+              scrollEventThrottle={64}
             >
               <FlatList
                 data={state}
