@@ -23,7 +23,7 @@ import { Context as MessageContext } from "../context/MessageContext";
 import SocketContext from "../context/SocketContext";
 import uuid from "uuid/v4";
 import MessageItem from "../components/MessageItem";
-import KeyboardShift from '../components/KeyBoardShift';
+import KeyboardShift from "../components/KeyBoardShift";
 
 const RoomScreen = ({ navigation, isFocused }) => {
   console.log("Rendering ROOMSCREEN!!!!!!");
@@ -42,6 +42,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
     }
   }, [isFocused]);
   const [content, setContent] = useState("");
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [endScrollPosition, setEndScrollPosition] = useState(0);
   const { state, fetchMessages, addMessage, addQuickMessage } = useContext(
     MessageContext
   );
@@ -76,6 +78,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
     socket.emit("sendMessage", messageToSend);
     setContent("");
   };
+  const handleScroll = e => {
+    console.log("scroll position: ", e.nativeEvent.contentOffset.y);
+    setScrollPosition(e.nativeEvent.contentOffset.y);
+  };
   return (
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
@@ -88,8 +94,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
               style={{ height: 400 }}
               ref={scrollViewRef}
               onContentSizeChange={(contentWidth, contentHeight) => {
-                scrollViewRef.current.scrollToEnd({ animated: true });
+                if (scrollPosition >= endScrollPosition - 5) {
+                  scrollViewRef.current.scrollToEnd({ animated: true });
+                  setEndScrollPosition(scrollPosition);
+                  console.log("end pos is: ", endScrollPosition);
+                }
               }}
+              onScroll={handleScroll}
+              scrollEventThrottle={0}
             >
               <FlatList
                 data={state}

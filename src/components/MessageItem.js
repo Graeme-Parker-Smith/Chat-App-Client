@@ -22,12 +22,13 @@ const MessageItem = ({ content, username, time }) => {
 const styles = StyleSheet.create({
   messageBody: {
     backgroundColor: "rgba(228,60,63,1.0)",
-    margin: 5,
+    margin: 2,
+    padding: 5,
     borderRadius: 10
   },
   title: {
     color: "#d3d3d3",
-    fontSize: 20
+    fontSize: 18
   },
   subtitle: {
     color: "white"
