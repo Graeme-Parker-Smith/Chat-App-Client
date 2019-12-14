@@ -89,6 +89,12 @@ const RoomScreen = ({ navigation, isFocused }) => {
         <View style={{ marginTop: 10 }}>
           <Text style={{ marginLeft: 20, fontSize: 40 }}>User: {username}</Text>
           <Text style={{ marginLeft: 20, fontSize: 20 }}>@{roomName}</Text>
+          {scrollPosition < endScrollPosition ? (
+            <Button
+              title="Jump to Bottom"
+              onPress={() => console.log("pressed autoScroll button!")}
+            />
+          ) : null}
           <View>
             <ScrollView
               style={{ height: 400 }}
