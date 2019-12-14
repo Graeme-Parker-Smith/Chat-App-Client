@@ -94,7 +94,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
               style={{ height: 400 }}
               ref={scrollViewRef}
               onContentSizeChange={(contentWidth, contentHeight) => {
-                if (scrollPosition >= endScrollPosition - 5) {
+                if (scrollPosition >= endScrollPosition - 2) {
                   scrollViewRef.current.scrollToEnd({ animated: true });
                   setEndScrollPosition(scrollPosition);
                   console.log("end pos is: ", endScrollPosition);
