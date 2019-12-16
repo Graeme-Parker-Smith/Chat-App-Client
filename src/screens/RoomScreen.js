@@ -31,7 +31,7 @@ import KeyboardShift from "../components/KeyBoardShift";
 
 const RoomScreen = ({ navigation, isFocused }) => {
   let listHeight = 200;
-  
+
   const scrollViewRef = useRef();
   const didMountRef = useRef(false);
   const socket = useContext(SocketContext);
@@ -51,8 +51,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const [endScrollPosition, setEndScrollPosition] = useState(0);
   const { state, fetchMessages, addMessage, addQuickMessage } = useContext(
     MessageContext
-    );
-    console.log("LOGGING STATE...: ", state);
+  );
+  console.log("LOGGING STATE...: ", state);
   useEffect(() => {
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
@@ -89,6 +89,12 @@ const RoomScreen = ({ navigation, isFocused }) => {
     setScrollPosition(e.nativeEvent.contentOffset.y);
   };
 
+  const scrollToBottom = () => {
+    if (scrollViewRef.current.scrollToEnd) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }
+  };
+
   return (
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
@@ -99,7 +105,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
           {scrollPosition < endScrollPosition ? (
             <Button
               title="Jump to Bottom"
-              onPress={() => console.log("pressed autoScroll button!")}
+              onPress={scrollToBottom}
             />
           ) : null}
           <View>
@@ -140,7 +146,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
             placeholderTextColor="#fff"
           />
           <Button title="Send Message" onPress={sendNewMessage} />
-          
         </View>
       </KeyboardShift>
     </>
