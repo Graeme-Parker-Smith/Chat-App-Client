@@ -41,7 +41,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
   useEffect(() => {
     if (didMountRef.current) {
       if (!isFocused) socket.emit("leave", { room: roomName });
-      console.log("emitting leave");
     } else {
       didMountRef.current = true;
     }
@@ -52,14 +51,12 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const { state, fetchMessages, addMessage, addQuickMessage } = useContext(
     MessageContext
   );
-  console.log("LOGGING STATE...: ", state);
   useEffect(() => {
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
         console.log(error);
       }
     });
-    console.log("Mounting");
   }, []);
 
   useEffect(() => {
@@ -75,7 +72,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
       socket.emit("disconnect");
 
       socket.off();
-      console.log("Unmounting");
     };
   }, [state]);
 
@@ -85,7 +81,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
     setContent("");
   };
   const handleScroll = e => {
-    console.log("scroll position: ", e.nativeEvent.contentOffset.y);
     setScrollPosition(e.nativeEvent.contentOffset.y);
   };
 
