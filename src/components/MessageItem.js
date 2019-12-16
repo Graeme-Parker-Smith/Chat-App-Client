@@ -21,7 +21,7 @@ const MessageItem = ({ content, username, time }) => {
 
 const styles = StyleSheet.create({
   messageBody: {
-    backgroundColor: "rgba(228,60,63,1.0)",
+    backgroundColor: "#0af",
     margin: 2,
     padding: 5,
     borderRadius: 10

@@ -85,8 +85,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
   return (
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
-      <KeyboardShift>
-        <View style={{ marginTop: 10 }}>
+      <KeyboardShift style={styles.body}>
+        <View style={{ marginTop: 10, backgroundColor: "#000" }}>
           <Text style={{ marginLeft: 20, fontSize: 40 }}>User: {username}</Text>
           <Text style={{ marginLeft: 20, fontSize: 20 }}>@{roomName}</Text>
           {scrollPosition < endScrollPosition ? (
@@ -128,6 +128,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
             value={content}
             onChangeText={setContent}
             placeholder="Type Your message here"
+            inputStyle={{color: "#fff"}}
           />
           <Button title="Send Message" onPress={sendNewMessage} />
         </View>
@@ -135,5 +136,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  body: {
+    backgroundColor: "#000"
+  }
+});
 
 export default memo(withNavigationFocus(RoomScreen));
