@@ -26,7 +26,6 @@ const addMessage = dispatch => async ({ creator, content, roomName }) => {
   const time = date.toLocaleString();
   const message = { creator, content, roomName, time, id: uuid() };
   const response = await chatApi.post("/messages", { ...message });
-  console.log("all users is: ", response.data.members)
   dispatch({
     type: "add_message",
     payload: response.data

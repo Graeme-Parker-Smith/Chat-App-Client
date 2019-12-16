@@ -48,6 +48,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const [content, setContent] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
   const [endScrollPosition, setEndScrollPosition] = useState(0);
+  const [users, setUsers] = useState("");
   const { state, fetchMessages, addMessage, addQuickMessage } = useContext(
     MessageContext
   );
@@ -65,6 +66,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
       addQuickMessage(newMessage);
       if (user === username) addMessage(newMessage);
     });
+
+    socket.on("roomData", ({ users }) => {
+      const userNames = users.map(u => u.name);
+      setUsers(userNames);
+    });
     // app slowing down and crashing after 10 messages sent...
     // caused by this return statement being in the first useEffect
     // hook rather than this one
@@ -73,7 +79,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
       socket.off();
     };
-  }, [state]);
+  }, [state, users]);
 
   const sendNewMessage = () => {
     const messageToSend = { creator: username, content, roomName };
@@ -95,13 +101,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
       <KeyboardShift style={styles.body} messages={state}>
         <View style={{ marginTop: 10, backgroundColor: "#000" }}>
-          <Text style={{ marginLeft: 20, fontSize: 40 }}>User: {username}</Text>
-          <Text style={{ marginLeft: 20, fontSize: 20 }}>@{roomName}</Text>
+          <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>User: {username}</Text>
+          <Text style={{ marginLeft: 20, fontSize: 20, color: "#fff" }}>@{roomName} ({users.length} users online)</Text>
           {scrollPosition < endScrollPosition ? (
-            <Button
-              title="Jump to Bottom"
-              onPress={scrollToBottom}
-            />
+            <Button title="Jump to Bottom" onPress={scrollToBottom} />
           ) : null}
           <View>
             <ScrollView
@@ -111,8 +114,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
                 if (scrollPosition >= endScrollPosition) {
                   scrollViewRef.current.scrollToEnd({ animated: true });
                   setEndScrollPosition(scrollPosition);
-                  console.log("end pos is: ", endScrollPosition);
-                  console.log("state.length is: ", state.length);
                 }
               }}
               onScroll={handleScroll}
