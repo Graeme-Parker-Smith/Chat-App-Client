@@ -48,7 +48,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const [content, setContent] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
   const [endScrollPosition, setEndScrollPosition] = useState(0);
-  const [users, setUsers] = useState("");
+  const [users, setUsers] = useState([]);
   const { state, fetchMessages, addMessage, addQuickMessage } = useContext(
     MessageContext
   );
@@ -95,14 +95,21 @@ const RoomScreen = ({ navigation, isFocused }) => {
       scrollViewRef.current.scrollToEnd({ animated: true });
     }
   };
-
+  let userList = users.reduce((total, value) => {
+    return total + ", " + value;
+  }, []);
+  console.log("userList", userList);
   return (
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
       <KeyboardShift style={styles.body} messages={state}>
         <View style={{ marginTop: 10, backgroundColor: "#000" }}>
-          <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>User: {username}</Text>
-          <Text style={{ marginLeft: 20, fontSize: 20, color: "#fff" }}>@{roomName} ({users.length} users online)</Text>
+          <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
+            User: {username}
+          </Text>
+          <Text style={{ marginLeft: 20, fontSize: 20, color: "#fff" }}>
+            @{roomName} ({users.length} users online): {userList}
+          </Text>
           {scrollPosition < endScrollPosition ? (
             <Button title="Jump to Bottom" onPress={scrollToBottom} />
           ) : null}
