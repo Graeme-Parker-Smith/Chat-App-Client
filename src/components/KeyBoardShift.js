@@ -20,7 +20,7 @@ export default class KeyboardShift extends Component {
   }
 
   render() {
-    const { children: renderProp } = this.props;
+    const { messages } = this.props;
     const { shift } = this.state;
     return (
       <Animated.View style={[styles.container, { transform: [{translateY: shift}] }]}>

@@ -17,7 +17,11 @@ import {
   Keyboard
 } from "react-native";
 import { Button, Input, ListItem } from "react-native-elements";
-import { NavigationEvents, withNavigationFocus } from "react-navigation";
+import {
+  NavigationEvents,
+  withNavigationFocus,
+  SafeAreaView
+} from "react-navigation";
 import Spacer from "../components/Spacer";
 import { Context as MessageContext } from "../context/MessageContext";
 import SocketContext from "../context/SocketContext";
@@ -26,7 +30,8 @@ import MessageItem from "../components/MessageItem";
 import KeyboardShift from "../components/KeyBoardShift";
 
 const RoomScreen = ({ navigation, isFocused }) => {
-  console.log("Rendering ROOMSCREEN!!!!!!");
+  let listHeight = 200;
+  
   const scrollViewRef = useRef();
   const didMountRef = useRef(false);
   const socket = useContext(SocketContext);
@@ -46,7 +51,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const [endScrollPosition, setEndScrollPosition] = useState(0);
   const { state, fetchMessages, addMessage, addQuickMessage } = useContext(
     MessageContext
-  );
+    );
+    console.log("LOGGING STATE...: ", state);
   useEffect(() => {
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
@@ -82,10 +88,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
     console.log("scroll position: ", e.nativeEvent.contentOffset.y);
     setScrollPosition(e.nativeEvent.contentOffset.y);
   };
+
   return (
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
-      <KeyboardShift style={styles.body}>
+      <KeyboardShift style={styles.body} messages={state}>
         <View style={{ marginTop: 10, backgroundColor: "#000" }}>
           <Text style={{ marginLeft: 20, fontSize: 40 }}>User: {username}</Text>
           <Text style={{ marginLeft: 20, fontSize: 20 }}>@{roomName}</Text>
@@ -97,13 +104,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
           ) : null}
           <View>
             <ScrollView
-              style={{ height: 400 }}
+              style={{ height: 450 }}
               ref={scrollViewRef}
               onContentSizeChange={(contentWidth, contentHeight) => {
                 if (scrollPosition >= endScrollPosition) {
                   scrollViewRef.current.scrollToEnd({ animated: true });
                   setEndScrollPosition(scrollPosition);
                   console.log("end pos is: ", endScrollPosition);
+                  console.log("state.length is: ", state.length);
                 }
               }}
               onScroll={handleScroll}
@@ -128,9 +136,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
             value={content}
             onChangeText={setContent}
             placeholder="Type Your message here"
-            inputStyle={{color: "#fff"}}
+            inputStyle={{ color: "#fff" }}
+            placeholderTextColor="#fff"
           />
           <Button title="Send Message" onPress={sendNewMessage} />
+          
         </View>
       </KeyboardShift>
     </>

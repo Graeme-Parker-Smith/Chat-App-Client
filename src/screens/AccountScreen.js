@@ -44,6 +44,7 @@ const AccountScreen = ({ navigation }) => {
           onChangeText={setNewChannelName}
           placeholder="Name your new channel"
           inputStyle={{color: "#fff"}}
+          placeholderTextColor="#fff"
         />
         <Button
           title="Create New Channel"
@@ -53,7 +54,7 @@ const AccountScreen = ({ navigation }) => {
           }}
         />
         <View>
-          <ScrollView style={{ height: 400 }}>
+          <ScrollView style={{ height: 450 }}>
             <FlatList
               style={{ marginTop: 20 }}
               data={state.channels}
