@@ -104,7 +104,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       />
     );
   };
-  const keyExtractor = item => `${item._id}`;
+  const keyExtractor = item => item._id ? item._id : uuid();
   const handleContentChange = (contentWidth, contentHeight) => {
     if (scrollPosition >= endScrollPosition) {
       scrollViewRef.current.scrollToEnd({ animated: true });
