@@ -10,7 +10,7 @@ const MessageItem = ({ content, username, time }) => {
   // console.log("MESSAGEITEM RENDERED!!!")
   return (
     <ListItem
-      containerStyle={styles.messageBody}
+      containerStyle={username === "Admin" ? {...styles.messageBody, backgroundColor: 'green'} : styles.messageBody}
       title={"from: " + username + " at..." + time}
       titleStyle={styles.title}
       subtitle={content}

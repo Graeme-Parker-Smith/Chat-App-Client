@@ -25,7 +25,7 @@ const addMessage = dispatch => async ({ creator, content, roomName }, state) => 
   const date = new Date();
   const time = date.toLocaleString();
   const message = { creator, content, roomName, time, _id: uuid() };
-  const newState = state.filter(msg => msg.creator !== "admin");
+  const newState = state.filter(msg => msg.creator !== "Admin");
   const response = await chatApi.post("/messages", { ...message });
   dispatch({
     type: "add_message",

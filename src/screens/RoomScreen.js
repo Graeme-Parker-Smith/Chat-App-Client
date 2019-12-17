@@ -104,7 +104,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       />
     );
   };
-  const keyExtractor = item => item._id ? item._id : uuid();
+  const keyExtractor = item => (item._id ? item._id : uuid());
   const handleContentChange = (contentWidth, contentHeight) => {
     if (scrollPosition >= endScrollPosition) {
       scrollViewRef.current.scrollToEnd({ animated: true });
@@ -131,7 +131,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
       <KeyboardShift style={styles.body} messages={state}>
-        <View onLayout={handleContentChange} style={{ marginTop: 10, backgroundColor: "#000" }}>
+        <View
+          onLayout={handleContentChange}
+          style={{ marginTop: 10, backgroundColor: "#000" }}
+        >
           <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
             User: {username}
           </Text>
@@ -139,8 +142,15 @@ const RoomScreen = ({ navigation, isFocused }) => {
             @{roomName} ({users.length} users online): {userList}
           </Text>
           {scrollPosition < endScrollPosition ? (
-            <Button title="Jump to Bottom" onPress={scrollToBottom} />
-          ) : null}
+            <Button
+              buttonStyle={{ height: 40, backgroundColor: "orange" }}
+              title="Jump to Bottom"
+              titleStyle={{ color: "black" }}
+              onPress={scrollToBottom}
+            />
+          ) : (
+            <View style={{ backgroundColor: "black", height: 40 }} />
+          )}
           <View>
             {/* Let's try using only FlatList with no ScrollView...seems to work so far? */}
             {/* <ScrollView> */}
