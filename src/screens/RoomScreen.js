@@ -64,7 +64,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
     socket.on("message", ({ user, text }) => {
       const newMessage = { creator: user, content: text, roomName };
       addQuickMessage(newMessage);
-      if (user === username) addMessage(newMessage);
+      if (user === username) addMessage(newMessage, state);
     });
 
     socket.on("roomData", ({ users }) => {
@@ -106,10 +106,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
   };
   const keyExtractor = item => `${item._id}`;
   const handleContentChange = (contentWidth, contentHeight) => {
-    // if (scrollPosition >= endScrollPosition) {
+    if (scrollPosition >= endScrollPosition) {
       scrollViewRef.current.scrollToEnd({ animated: true });
       setEndScrollPosition(scrollPosition);
-    // }
+    }
   };
   const onLayout = () => {
     if (scrollViewRef.current) {
@@ -131,7 +131,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
       <KeyboardShift style={styles.body} messages={state}>
-        <View style={{ marginTop: 10, backgroundColor: "#000" }}>
+        <View onLayout={handleContentChange} style={{ marginTop: 10, backgroundColor: "#000" }}>
           <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
             User: {username}
           </Text>
@@ -154,11 +154,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
               data={state}
               keyExtractor={keyExtractor}
               renderItem={({ item }) => renderItemOutside(item)}
-              getItemLayout={(data, index) => ({
-                length: 45,
-                offset: 45 * index,
-                index
-              })}
+              // getItemLayout={(data, index) => ({
+              //   length: 45,
+              //   offset: 45 * index,
+              //   index
+              // })}
               removeClippedSubviews={true}
             />
             {/* </ScrollView> */}
