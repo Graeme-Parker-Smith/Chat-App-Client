@@ -24,7 +24,7 @@ const fetchMessages = dispatch => async roomName => {
 const addMessage = dispatch => async ({ creator, content, roomName }) => {
   const date = new Date();
   const time = date.toLocaleString();
-  const message = { creator, content, roomName, time, id: uuid() };
+  const message = { creator, content, roomName, time, _id: uuid() };
   const response = await chatApi.post("/messages", { ...message });
   dispatch({
     type: "add_message",
@@ -32,7 +32,7 @@ const addMessage = dispatch => async ({ creator, content, roomName }) => {
   });
 };
 const addQuickMessage = dispatch => ({ creator, content, roomName }) => {
-  const quickMessage = { creator, content, roomName, time: "", id: uuid() };
+  const quickMessage = { creator, content, roomName, time: "", _id: uuid() };
   dispatch({
     type: "add_quick_message",
     payload: quickMessage

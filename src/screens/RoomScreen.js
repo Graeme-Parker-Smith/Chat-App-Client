@@ -95,10 +95,38 @@ const RoomScreen = ({ navigation, isFocused }) => {
       scrollViewRef.current.scrollToEnd({ animated: true });
     }
   };
+  const renderItemOutside = item => {
+    return (
+      <MessageItem
+        content={item.content}
+        username={item.creator}
+        time={item.time}
+      />
+    );
+  };
+  const keyExtractor = item => `${item._id}`;
+  const handleContentChange = (contentWidth, contentHeight) => {
+    // if (scrollPosition >= endScrollPosition) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+      setEndScrollPosition(scrollPosition);
+    // }
+  };
+  const onLayout = () => {
+    if (scrollViewRef.current) {
+      setTimeout(() => {
+        console.log("state.length: ", state.length);
+        scrollViewRef.current.scrollToIndex({
+          index: -1,
+          animated: false,
+          viewPosition: 1
+        });
+      }, 500);
+    }
+  };
   let userList = users.reduce((total, value) => {
     return total + ", " + value;
   }, []);
-  console.log("userList", userList);
+  // console.log("state", state);
   return (
     <>
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
@@ -114,32 +142,26 @@ const RoomScreen = ({ navigation, isFocused }) => {
             <Button title="Jump to Bottom" onPress={scrollToBottom} />
           ) : null}
           <View>
-            <ScrollView
+            {/* Let's try using only FlatList with no ScrollView...seems to work so far? */}
+            {/* <ScrollView> */}
+            <FlatList
               style={{ height: 450 }}
               ref={scrollViewRef}
-              onContentSizeChange={(contentWidth, contentHeight) => {
-                if (scrollPosition >= endScrollPosition) {
-                  scrollViewRef.current.scrollToEnd({ animated: true });
-                  setEndScrollPosition(scrollPosition);
-                }
-              }}
+              onContentSizeChange={handleContentChange}
               onScroll={handleScroll}
               scrollEventThrottle={64}
-            >
-              <FlatList
-                data={state}
-                keyExtractor={item => uuid()}
-                renderItem={({ item }) => {
-                  return (
-                    <MessageItem
-                      content={item.content}
-                      username={item.creator}
-                      time={item.time}
-                    />
-                  );
-                }}
-              />
-            </ScrollView>
+              overScrollMode="always"
+              data={state}
+              keyExtractor={keyExtractor}
+              renderItem={({ item }) => renderItemOutside(item)}
+              getItemLayout={(data, index) => ({
+                length: 45,
+                offset: 45 * index,
+                index
+              })}
+              removeClippedSubviews={true}
+            />
+            {/* </ScrollView> */}
           </View>
           <Input
             value={content}

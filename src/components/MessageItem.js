@@ -7,6 +7,7 @@ import { Entypo } from "@expo/vector-icons";
 const Avatar = () => <Entypo name="user" size={20} />;
 
 const MessageItem = ({ content, username, time }) => {
+  // console.log("MESSAGEITEM RENDERED!!!")
   return (
     <ListItem
       containerStyle={styles.messageBody}
@@ -24,7 +25,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#0af",
     margin: 2,
     padding: 5,
-    borderRadius: 10
+    borderRadius: 10,
+    height: 45,
   },
   title: {
     color: "#d3d3d3",
