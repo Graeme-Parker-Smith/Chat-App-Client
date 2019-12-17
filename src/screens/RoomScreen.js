@@ -105,7 +105,19 @@ const RoomScreen = ({ navigation, isFocused }) => {
     );
   };
   const keyExtractor = item => (item._id ? item._id : uuid());
-  const handleContentChange = (contentWidth, contentHeight) => {
+  const isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize
+  }) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
+  const handleAutoScroll = ({ nativeEvent }) => {
+    console.log("nativeEvent", nativeEvent)
     if (scrollPosition >= endScrollPosition) {
       scrollViewRef.current.scrollToEnd({ animated: true });
       setEndScrollPosition(scrollPosition);
@@ -132,7 +144,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
       <KeyboardShift style={styles.body} messages={state}>
         <View
-          onLayout={handleContentChange}
+          onLayout={handleAutoScroll}
           style={{ marginTop: 10, backgroundColor: "#000" }}
         >
           <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
@@ -141,7 +153,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
           <Text style={{ marginLeft: 20, fontSize: 20, color: "#fff" }}>
             @{roomName} ({users.length} users online): {userList}
           </Text>
-          {scrollPosition < endScrollPosition ? (
+          {scrollPosition < endScrollPosition - 2 ? (
             <Button
               buttonStyle={{ height: 40, backgroundColor: "orange" }}
               title="Jump to Bottom"
@@ -157,18 +169,18 @@ const RoomScreen = ({ navigation, isFocused }) => {
             <FlatList
               style={{ height: 450 }}
               ref={scrollViewRef}
-              onContentSizeChange={handleContentChange}
+              onContentSizeChange={handleAutoScroll}
               onScroll={handleScroll}
               scrollEventThrottle={64}
-              overScrollMode="always"
+              overScrollMode="auto"
               data={state}
               keyExtractor={keyExtractor}
               renderItem={({ item }) => renderItemOutside(item)}
-              // getItemLayout={(data, index) => ({
-              //   length: 45,
-              //   offset: 45 * index,
-              //   index
-              // })}
+              getItemLayout={(data, index) => ({
+                length: 50,
+                offset: 50 * index,
+                index
+              })}
               removeClippedSubviews={true}
             />
             {/* </ScrollView> */}
