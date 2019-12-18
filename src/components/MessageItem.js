@@ -23,9 +23,7 @@ const MessageItem = ({ content, username, time }) => {
 const styles = StyleSheet.create({
   messageBody: {
     backgroundColor: "#0af",
-    margin: 2,
     padding: 5,
-    borderRadius: 10,
     height: 45,
   },
   title: {

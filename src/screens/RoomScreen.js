@@ -167,7 +167,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
             {/* Let's try using only FlatList with no ScrollView...seems to work so far? */}
             {/* <ScrollView> */}
             <FlatList
-              style={{ height: 450 }}
+              style={{ backgroundColor: "#0af", height: 450 }}
               ref={scrollViewRef}
               onContentSizeChange={handleAutoScroll}
               onScroll={handleScroll}
