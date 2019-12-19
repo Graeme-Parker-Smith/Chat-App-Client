@@ -86,16 +86,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
     socket.emit("sendMessage", messageToSend);
     setContent("");
   };
-  const handleScroll = e => {
-    setScrollPosition(e.nativeEvent.contentOffset.y);
-  };
 
-  const scrollToBottom = () => {
-    if (scrollViewRef.current.scrollToEnd) {
-      scrollViewRef.current.scrollToEnd({ animated: true });
-    }
-  };
-  const renderItemOutside = item => {
+  const renderItemOutside = (item, index) => {
+    // console.log("current index is :", index);
     return (
       <MessageItem
         content={item.content}
@@ -105,36 +98,56 @@ const RoomScreen = ({ navigation, isFocused }) => {
     );
   };
   const keyExtractor = item => (item._id ? item._id : uuid());
-  const isCloseToBottom = ({
-    layoutMeasurement,
-    contentOffset,
-    contentSize
-  }) => {
-    const paddingToBottom = 20;
-    return (
-      layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - paddingToBottom
-    );
+
+  // scroll functions
+  const scrollToBottom = () => {
+    if (scrollViewRef.current.scrollToEnd) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }
   };
-  const handleAutoScroll = ({ nativeEvent }) => {
-    console.log("nativeEvent", nativeEvent)
+  const handleScroll = e => {
+    setScrollPosition(e.nativeEvent.contentOffset.y);
+    // console.log("scroll event CONTENT OFFSET: ", e.nativeEvent.contentOffset);
+    
+    // e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
+    if (e.nativeEvent.contentOffset.y < 1) {
+      console.log("FETCH EARLIER MESSAGES");
+    }
+  };
+  const handleAutoScroll = (width, height) => {
+    // console.log("width", width);
+    // console.log("height", height);
     if (scrollPosition >= endScrollPosition) {
       scrollViewRef.current.scrollToEnd({ animated: true });
       setEndScrollPosition(scrollPosition);
+      // console.log("END SCROLL POS: ", endScrollPosition);
     }
   };
-  const onLayout = () => {
-    if (scrollViewRef.current) {
-      setTimeout(() => {
-        console.log("state.length: ", state.length);
-        scrollViewRef.current.scrollToIndex({
-          index: -1,
-          animated: false,
-          viewPosition: 1
-        });
-      }, 500);
-    }
-  };
+
+  // const isCloseToBottom = ({
+  //   layoutMeasurement,
+  //   contentOffset,
+  //   contentSize
+  // }) => {
+  //   const paddingToBottom = 20;
+  //   return (
+  //     layoutMeasurement.height + contentOffset.y >=
+  //     contentSize.height - paddingToBottom
+  //   );
+  // };
+
+  // const onLayout = () => {
+  //   if (scrollViewRef.current) {
+  //     setTimeout(() => {
+  //       console.log("state.length: ", state.length);
+  //       scrollViewRef.current.scrollToIndex({
+  //         index: -1,
+  //         animated: false,
+  //         viewPosition: 1
+  //       });
+  //     }, 500);
+  //   }
+  // };
   let userList = users.reduce((total, value) => {
     return total + ", " + value;
   }, []);
@@ -171,11 +184,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
               ref={scrollViewRef}
               onContentSizeChange={handleAutoScroll}
               onScroll={handleScroll}
-              scrollEventThrottle={64}
+              scrollEventThrottle={16}
               overScrollMode="auto"
               data={state}
               keyExtractor={keyExtractor}
-              renderItem={({ item }) => renderItemOutside(item)}
+              renderItem={({ item, index }) => renderItemOutside(item, index)}
               getItemLayout={(data, index) => ({
                 length: 50,
                 offset: 50 * index,
