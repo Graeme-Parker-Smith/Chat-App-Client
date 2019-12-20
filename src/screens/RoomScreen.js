@@ -14,7 +14,8 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  Keyboard
+  Keyboard,
+  Platform
 } from "react-native";
 import { Button, Input, ListItem } from "react-native-elements";
 import {
@@ -49,6 +50,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const [content, setContent] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
   const [endScrollPosition, setEndScrollPosition] = useState(0);
+  const [scrollValues, setScrollValues] = useState({
+    layoutHeight: 0,
+    offsetY: 0,
+    contentHeight: 0
+  });
   const [users, setUsers] = useState([]);
   const {
     state,
@@ -108,15 +114,20 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // scroll functions
   const scrollToBottom = () => {
     if (scrollViewRef.current.scrollToEnd) {
-      console.log("SCROLL TO BOTTOM FIRED!");
+      // console.log("SCROLL TO BOTTOM FIRED!");
       scrollViewRef.current.scrollToEnd({ animated: true });
     } else {
-      console.log("scrollToBottom failed.");
+      // console.log("scrollToBottom failed.");
     }
   };
   const handleScroll = async e => {
+    setScrollValues({
+      layoutHeight: e.nativeEvent.layoutMeasurement.height,
+      offsetY: e.nativeEvent.contentOffset.y,
+      contentHeight: e.nativeEvent.contentSize.height
+    });
     setScrollPosition(e.nativeEvent.contentOffset.y);
-    // console.log("scroll event CONTENT OFFSET: ", e.nativeEvent.contentOffset);
+    // console.log("scroll event CONTENT OFFSET.y: ", e.nativeEvent);
 
     // e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
     if (e.nativeEvent.contentOffset.y < 1 && loading === false) {
@@ -131,32 +142,25 @@ const RoomScreen = ({ navigation, isFocused }) => {
       });
       setTimeout(() => {
         setLoading(false);
-        console.log("LOADING IS DONE");
+        // console.log("LOADING IS DONE");
       }, 100);
     }
   };
   const handleAutoScroll = (width, height) => {
     // console.log("width", width);
     // console.log("height", height);
-    if (scrollPosition >= endScrollPosition) {
-      console.log("FIRING SCROLL TO BOTTOM");
+    if (isCloseToBottom(scrollValues)) {
+      // console.log("FIRING SCROLL TO BOTTOM");
       scrollViewRef.current.scrollToEnd({ animated: true });
       setEndScrollPosition(scrollPosition);
-      console.log("END SCROLL POS: ", endScrollPosition);
+      // console.log("END SCROLL POS: ", endScrollPosition);
     }
   };
 
-  // const isCloseToBottom = ({
-  //   layoutMeasurement,
-  //   contentOffset,
-  //   contentSize
-  // }) => {
-  //   const paddingToBottom = 20;
-  //   return (
-  //     layoutMeasurement.height + contentOffset.y >=
-  //     contentSize.height - paddingToBottom
-  //   );
-  // };
+  const isCloseToBottom = ({ layoutHeight, offsetY, contentHeight }) => {
+    const paddingToBottom = 20;
+    return layoutHeight + offsetY >= contentHeight - paddingToBottom;
+  };
 
   // const onLayout = () => {
   //   if (scrollViewRef.current) {
@@ -172,7 +176,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // };
   const handleOnFocus = async () => {
     await fetchMessages(roomName);
-    console.log("state.length after fetch messages is: ", state.length);
+    // console.log("state.length after fetch messages is: ", state.length);
     scrollToBottom();
   };
   let userList = users.reduce((total, value) => {
@@ -193,7 +197,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
           <Text style={{ marginLeft: 20, fontSize: 20, color: "#fff" }}>
             @{roomName} ({users.length} users online): {userList}
           </Text>
-          {scrollPosition < endScrollPosition - 2 ? (
+          {!isCloseToBottom(scrollValues) ? (
             <Button
               buttonStyle={{ height: 40, backgroundColor: "orange" }}
               title="Jump to Bottom"
@@ -207,9 +211,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
             {/* Let's try using only FlatList with no ScrollView...seems to work so far? */}
             {/* <ScrollView> */}
             <FlatList
-              style={{ backgroundColor: "#0af", height: 450 }}
+              style={{
+                backgroundColor: "black",
+                height: Platform.OS === "ios" ? 470 : 447
+              }}
+              indicatorStyle="white"
               ref={scrollViewRef}
-              // onContentSizeChange={handleAutoScroll}
+              onContentSizeChange={handleAutoScroll}
               onScroll={handleScroll}
               scrollEventThrottle={16}
               overScrollMode="auto"

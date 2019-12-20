@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@inteach/react-native-scroll-indicator": "0.0.5",
     "axios": "^0.19.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "expo": "^35.0.0",

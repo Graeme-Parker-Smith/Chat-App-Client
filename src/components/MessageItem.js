@@ -4,7 +4,7 @@ import { ListItem } from "react-native-elements";
 import Spacer from "./Spacer";
 import { Entypo } from "@expo/vector-icons";
 
-const Avatar = () => <Entypo name="user" size={20} />;
+const Avatar = () => <Entypo name="user" size={20} color="#0af" />
 
 const MessageItem = ({ content, username, time }) => {
   // console.log("MESSAGEITEM RENDERED!!!")
@@ -22,12 +22,12 @@ const MessageItem = ({ content, username, time }) => {
 
 const styles = StyleSheet.create({
   messageBody: {
-    backgroundColor: "#0af",
+    backgroundColor: "black",
     padding: 5,
     height: 45,
   },
   title: {
-    color: "#d3d3d3",
+    color: "#0af",
     fontSize: 18
   },
   subtitle: {
