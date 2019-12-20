@@ -43,7 +43,7 @@ export default class KeyboardShift extends Component {
       Animated.timing(
         this.state.shift,
         {
-          toValue: gap - 50,
+          toValue: gap - 42,
           duration: 100,
           useNativeDriver: true,
         }

@@ -199,7 +199,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
           </Text>
           {!isCloseToBottom(scrollValues) ? (
             <Button
-              buttonStyle={{ height: 40, backgroundColor: "orange" }}
+              buttonStyle={{ height: 40, backgroundColor: "#0af" }}
               title="Jump to Bottom"
               titleStyle={{ color: "black" }}
               onPress={scrollToBottom}
