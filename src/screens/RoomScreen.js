@@ -45,13 +45,18 @@ const RoomScreen = ({ navigation, isFocused }) => {
       didMountRef.current = true;
     }
   }, [isFocused]);
+  const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
   const [endScrollPosition, setEndScrollPosition] = useState(0);
   const [users, setUsers] = useState([]);
-  const { state, fetchMessages, addMessage, addQuickMessage } = useContext(
-    MessageContext
-  );
+  const {
+    state,
+    fetchMessages,
+    addMessage,
+    addQuickMessage,
+    fetchEarlierMessages
+  } = useContext(MessageContext);
   useEffect(() => {
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
@@ -65,6 +70,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       const newMessage = { creator: user, content: text, roomName };
       addQuickMessage(newMessage);
       if (user === username) addMessage(newMessage, state);
+      handleAutoScroll();
     });
 
     socket.on("roomData", ({ users }) => {
@@ -102,25 +108,41 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // scroll functions
   const scrollToBottom = () => {
     if (scrollViewRef.current.scrollToEnd) {
+      console.log("SCROLL TO BOTTOM FIRED!");
       scrollViewRef.current.scrollToEnd({ animated: true });
+    } else {
+      console.log("scrollToBottom failed.");
     }
   };
-  const handleScroll = e => {
+  const handleScroll = async e => {
     setScrollPosition(e.nativeEvent.contentOffset.y);
     // console.log("scroll event CONTENT OFFSET: ", e.nativeEvent.contentOffset);
-    
+
     // e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
-    if (e.nativeEvent.contentOffset.y < 1) {
-      console.log("FETCH EARLIER MESSAGES");
+    if (e.nativeEvent.contentOffset.y < 1 && loading === false) {
+      setLoading(true);
+      // console.log("FETCH EARLIER MESSAGES");
+      await fetchEarlierMessages(state, roomName);
+      scrollViewRef.current.scrollToIndex({
+        index: 11,
+        viewOffset: 100,
+        viewPosition: 0,
+        animated: false
+      });
+      setTimeout(() => {
+        setLoading(false);
+        console.log("LOADING IS DONE");
+      }, 100);
     }
   };
   const handleAutoScroll = (width, height) => {
     // console.log("width", width);
     // console.log("height", height);
     if (scrollPosition >= endScrollPosition) {
+      console.log("FIRING SCROLL TO BOTTOM");
       scrollViewRef.current.scrollToEnd({ animated: true });
       setEndScrollPosition(scrollPosition);
-      // console.log("END SCROLL POS: ", endScrollPosition);
+      console.log("END SCROLL POS: ", endScrollPosition);
     }
   };
 
@@ -148,13 +170,18 @@ const RoomScreen = ({ navigation, isFocused }) => {
   //     }, 500);
   //   }
   // };
+  const handleOnFocus = async () => {
+    await fetchMessages(roomName);
+    console.log("state.length after fetch messages is: ", state.length);
+    scrollToBottom();
+  };
   let userList = users.reduce((total, value) => {
     return total + ", " + value;
   }, []);
   // console.log("state", state);
   return (
     <>
-      <NavigationEvents onWillFocus={() => fetchMessages(roomName)} />
+      <NavigationEvents onWillFocus={handleOnFocus} />
       <KeyboardShift style={styles.body} messages={state}>
         <View
           onLayout={handleAutoScroll}
@@ -182,7 +209,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
             <FlatList
               style={{ backgroundColor: "#0af", height: 450 }}
               ref={scrollViewRef}
-              onContentSizeChange={handleAutoScroll}
+              // onContentSizeChange={handleAutoScroll}
               onScroll={handleScroll}
               scrollEventThrottle={16}
               overScrollMode="auto"

@@ -15,13 +15,31 @@ const messageReducer = (state, action) => {
   }
 };
 
+const fetchEarlierMessages = dispatch => async (state, roomName) => {
+  // console.log("STATE BEING PASSED TO SERVER IS: ", state);
+  console.log("STATE.length is: ", state.length);
+  if (state.length > 18) {
+    const response = await chatApi.get("/messages", {
+      params: { roomName: roomName, stateLength: state.length }
+    });
+    console.log(
+      "response.data.messages.length is: ",
+      response.data.messages.length
+    );
+    dispatch({ type: "fetch_messages", payload: response.data });
+  }
+};
+
 const fetchMessages = dispatch => async roomName => {
   const response = await chatApi.get("/messages", {
     params: { roomName: roomName }
   });
   dispatch({ type: "fetch_messages", payload: response.data });
 };
-const addMessage = dispatch => async ({ creator, content, roomName }, state) => {
+const addMessage = dispatch => async (
+  { creator, content, roomName },
+  state
+) => {
   const date = new Date();
   const time = date.toLocaleString();
   const message = { creator, content, roomName, time, _id: uuid() };
@@ -42,6 +60,6 @@ const addQuickMessage = dispatch => ({ creator, content, roomName }) => {
 
 export const { Provider, Context } = createDataContext(
   messageReducer,
-  { fetchMessages, addMessage, addQuickMessage },
+  { fetchMessages, addMessage, addQuickMessage, fetchEarlierMessages },
   []
 );
