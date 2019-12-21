@@ -98,6 +98,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
   const renderItemOutside = (item, index) => {
     // console.log("current index is :", index);
+    console.log("index is: ", index);
     return (
       <MessageItem
         content={item.content}
