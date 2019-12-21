@@ -83,9 +83,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
       const userNames = users.map(u => u.name);
       setUsers(userNames);
     });
-    // app slowing down and crashing after 10 messages sent...
-    // caused by this return statement being in the first useEffect
-    // hook rather than this one
     return () => {
       socket.emit("disconnect");
 
@@ -208,8 +205,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
             <View style={{ backgroundColor: "black", height: 40 }} />
           )}
           <View>
-            {/* Let's try using only FlatList with no ScrollView...seems to work so far? */}
-            {/* <ScrollView> */}
             <FlatList
               style={{
                 backgroundColor: "black",
@@ -231,7 +226,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
               })}
               removeClippedSubviews={true}
             />
-            {/* </ScrollView> */}
           </View>
           <Input
             value={content}
