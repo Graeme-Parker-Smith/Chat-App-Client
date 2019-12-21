@@ -140,7 +140,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       setTimeout(() => {
         setLoading(false);
         // console.log("LOADING IS DONE");
-        console.log("something");
+        console.log("loading is: ", loading);
       }, 100);
     }
   };
