@@ -98,7 +98,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
   const renderItemOutside = (item, index) => {
     // console.log("current index is :", index);
-    console.log("index is: ", index);
+    // console.log("index is: ", index);
     return (
       <MessageItem
         content={item.content}
@@ -112,7 +112,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // scroll functions
   const scrollToBottom = () => {
     if (scrollViewRef.current.scrollToEnd) {
-      // console.log("SCROLL TO BOTTOM FIRED!");
+      console.log("SCROLL TO BOTTOM FIRED!");
       scrollViewRef.current.scrollToEnd({ animated: true });
     } else {
       // console.log("scrollToBottom failed.");
