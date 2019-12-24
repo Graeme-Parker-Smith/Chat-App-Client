@@ -130,6 +130,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
     if (e.nativeEvent.contentOffset.y < 1 && loading === false) {
       setLoading(true);
       // console.log("FETCH EARLIER MESSAGES");
+      // should try using callbacks instead?
       await fetchEarlierMessages(state, roomName);
       scrollViewRef.current.scrollToIndex({
         index: 11,
