@@ -111,7 +111,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // scroll functions
   const scrollToBottom = () => {
     if (scrollViewRef.current.scrollToEnd) {
-      console.log("SCROLL TO BOTTOM FIRED!");
+      // console.log("SCROLL TO BOTTOM FIRED!");
       scrollViewRef.current.scrollToEnd({ animated: true });
     } else {
       console.log("scrollToBottom failed.");
