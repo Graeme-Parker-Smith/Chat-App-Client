@@ -146,7 +146,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
   };
   const handleAutoScroll = (width, height) => {
     if (isCloseToBottom(scrollValues)) {
-      // console.log("FIRING SCROLL TO BOTTOM");
       scrollViewRef.current.scrollToEnd({ animated: true });
       setEndScrollPosition(scrollPosition);
     }
