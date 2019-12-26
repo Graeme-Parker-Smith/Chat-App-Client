@@ -124,7 +124,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       contentHeight: e.nativeEvent.contentSize.height
     });
     setScrollPosition(e.nativeEvent.contentOffset.y);
-    // console.log("scroll event CONTENT OFFSET.y: ", e.nativeEvent);
+    console.log("scroll event CONTENT OFFSET.y: ", e.nativeEvent);
 
     // e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
     if (e.nativeEvent.contentOffset.y < 1 && loading === false) {
