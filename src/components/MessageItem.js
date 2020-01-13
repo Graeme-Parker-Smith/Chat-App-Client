@@ -43,11 +43,11 @@ const MessageItem = ({ content, username, time }) => {
   let howLongAgo;
   if (time) {
     const now = new Date();
-    console.log("Time: ", time);
-    console.log("now: ", now);
+    // console.log("Time: ", time);
+    // console.log("now: ", now);
 
     howLongAgo = dateDiffInSeconds(time, now);
-    console.log("howLongAgo is: ", howLongAgo);
+    // console.log("howLongAgo is: ", howLongAgo);
   }
   const deets = howLongAgo
     ? "from: " + username + "  -  " + howLongAgo

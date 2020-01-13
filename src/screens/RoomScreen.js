@@ -30,6 +30,9 @@ import SocketContext from "../context/SocketContext";
 import uuid from "uuid/v4";
 import MessageItem from "../components/MessageItem";
 import KeyboardShift from "../components/KeyBoardShift";
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const RoomScreen = ({ navigation, isFocused }) => {
   let listHeight = 200;
@@ -91,6 +94,33 @@ const RoomScreen = ({ navigation, isFocused }) => {
     };
   }, [state, users]);
 
+  // for expo image picker
+  const getPermissionAsync = async () => {
+    if (Platform.OS === "ios") {
+      console.log("starting async permissions");
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
+
+  const _pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: undefined
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      const messageToSend = { creator: username, content: result.uri, roomName };
+      socket.emit("sendMessage", messageToSend);
+    }
+  };
+
   const sendNewMessage = () => {
     const messageToSend = { creator: username, content, roomName };
     socket.emit("sendMessage", messageToSend);
@@ -125,7 +155,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       contentHeight: e.nativeEvent.contentSize.height
     });
     setScrollPosition(e.nativeEvent.contentOffset.y);
-    console.log("scroll event CONTENT OFFSET.y: ", e.nativeEvent);
+    // console.log("scroll event CONTENT OFFSET.y: ", e.nativeEvent);
 
     // e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
     if (e.nativeEvent.contentOffset.y < 1 && loading === false) {
@@ -181,7 +211,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   return (
     <SafeAreaView style={styles.body}>
       <NavigationEvents onWillFocus={handleOnFocus} />
-      <KeyboardShift  messages={state}>
+      <KeyboardShift messages={state}>
         <View
           onLayout={handleAutoScroll}
           style={{ marginTop: 10, backgroundColor: "#000" }}
@@ -231,6 +261,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
             placeholder="Type Your message here"
             inputStyle={{ color: "#fff" }}
             placeholderTextColor="#fff"
+            leftIcon={
+              <MaterialIcons
+                name="photo-library"
+                size={32}
+                color="#0af"
+                onPress={_pickImage}
+              />
+            }
           />
           <Button title="Send Message" onPress={sendNewMessage} />
         </View>
