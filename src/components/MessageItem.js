@@ -6,7 +6,7 @@ import { Entypo } from "@expo/vector-icons";
 
 const Avatar = () => <Entypo name="user" size={20} color="#0af" />;
 
-const MessageItem = ({ content, username, time }) => {
+const MessageItem = ({ content, username, time, isImage }) => {
   const _MS_PER_SEC = 1000;
   // console.log("MESSAGEITEM RENDERED!!!")
   function dateDiffInSeconds(a, b) {
@@ -61,7 +61,8 @@ const MessageItem = ({ content, username, time }) => {
       }
       title={deets}
       titleStyle={styles.title}
-      subtitle={content}
+      // subtitle={content}
+      subtitle={isImage ? <View><Image source={{uri: content}} /></View> : content}
       subtitleStyle={styles.subtitle}
       leftAvatar={Avatar}
     ></ListItem>
@@ -76,10 +77,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#0af",
-    fontSize: 18
+    fontSize: 12
   },
   subtitle: {
-    color: "white"
+    color: "white",
+    fontSize: 18
   }
 });
 

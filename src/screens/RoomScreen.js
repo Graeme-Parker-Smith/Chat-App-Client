@@ -116,13 +116,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
     console.log(result);
 
     if (!result.cancelled) {
-      const messageToSend = { creator: username, content: result.uri, roomName };
-      socket.emit("sendMessage", messageToSend);
+      const imageToSend = { creator: username, content: result.uri, roomName, isImage: true };
+      socket.emit("sendMessage", imageToSend);
     }
   };
 
   const sendNewMessage = () => {
-    const messageToSend = { creator: username, content, roomName };
+    const messageToSend = { creator: username, content, roomName, isImage: false };
     socket.emit("sendMessage", messageToSend);
     setContent("");
   };
@@ -134,6 +134,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
         content={item.content}
         username={item.creator}
         time={item.time}
+        isImage={item.isImage ? true : false}
       />
     );
   };
