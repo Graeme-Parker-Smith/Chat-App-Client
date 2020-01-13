@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, Icon } from "react-native-elements";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import SigninScreen from "./src/screens/SigninScreen";
@@ -6,7 +7,7 @@ import SignupScreen from "./src/screens/SignupScreen";
 import AccountScreen from "./src/screens/AccountScreen";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import RoomScreen from "./src/screens/RoomScreen";
-import { setNavigator } from "./src/navigationRef";
+import { setNavigator, navigate } from "./src/navigationRef";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as ChannelProvider } from "./src/context/ChannelContext";
 import { Provider as MessageProvider } from "./src/context/MessageContext";
@@ -29,7 +30,46 @@ const navigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
   Signin: SigninScreen,
   Signup: SignupScreen,
-  channelFlow
+  channelFlow: {
+    screen: createStackNavigator(
+      {
+        Account: {
+          screen: AccountScreen,
+          navigationOptions: {
+            title: "Account",
+            headerTitleStyle: {
+              color: 'white',
+              textAlign: 'center',
+              flexGrow: 1
+            },
+          }
+        },
+        Room: {
+          screen: RoomScreen,
+          navigationOptions: {
+            headerLeft: (
+              <Button
+                title="Back To Channels"
+                onPress={() => {
+                  navigate("Account");
+                }}
+                type="clear"
+                titleStyle={{ color: "rgba(0,122,255,1)" }}
+              />
+            )
+          }
+        }
+      },
+      {
+        initialRouteName: "Account",
+        defaultNavigationOptions: {
+          headerStyle: {
+            backgroundColor: "black"
+          }
+        }
+      }
+    )
+  }
 });
 
 // socket.io connection does not work when using localhost:3000 as ENDPOINT!
@@ -42,7 +82,6 @@ const socket = io(ENDPOINT);
 
 const App = createAppContainer(navigator);
 export default () => {
-
   return (
     <SocketContext.Provider value={socket}>
       <AuthProvider>

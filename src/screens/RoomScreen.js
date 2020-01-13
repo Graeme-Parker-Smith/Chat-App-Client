@@ -15,7 +15,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Keyboard,
-  Platform
+  Platform,
+  Dimensions
 } from "react-native";
 import { Button, Input, ListItem } from "react-native-elements";
 import {
@@ -178,9 +179,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
   }, []);
   // console.log("state", state);
   return (
-    <>
+    <SafeAreaView style={styles.body}>
       <NavigationEvents onWillFocus={handleOnFocus} />
-      <KeyboardShift style={styles.body} messages={state}>
+      <KeyboardShift  messages={state}>
         <View
           onLayout={handleAutoScroll}
           style={{ marginTop: 10, backgroundColor: "#000" }}
@@ -234,13 +235,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
           <Button title="Send Message" onPress={sendNewMessage} />
         </View>
       </KeyboardShift>
-    </>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   body: {
-    backgroundColor: "#000"
+    backgroundColor: "#000",
+    height: Dimensions.get("window").height
   }
 });
 

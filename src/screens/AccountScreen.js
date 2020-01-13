@@ -5,7 +5,8 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Dimensions
 } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
@@ -26,7 +27,10 @@ const AccountScreen = ({ navigation }) => {
       <NavigationEvents onWillFocus={fetchChannels} />
       <SafeAreaView
         forceInset={{ top: "always" }}
-        style={{ backgroundColor: "#000" }}
+        style={{
+          backgroundColor: "#000",
+          height: Dimensions.get("window").height
+        }}
       >
         <Text
           style={{
@@ -43,7 +47,7 @@ const AccountScreen = ({ navigation }) => {
           value={newChannelName}
           onChangeText={setNewChannelName}
           placeholder="Name your new channel"
-          inputStyle={{color: "#fff"}}
+          inputStyle={{ color: "#fff" }}
           placeholderTextColor="#fff"
         />
         <Button
