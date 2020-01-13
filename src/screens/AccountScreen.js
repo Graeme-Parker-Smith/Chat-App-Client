@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
