@@ -10,9 +10,16 @@ const messageReducer = (state, action) => {
       return [...action.payload];
     case "add_quick_message":
       return [...state, action.payload];
+    case "clear_messages":
+      return [];
     default:
       return state;
   }
+};
+
+const clearMessages = dispatch => () => {
+  console.log("clearing message state");
+  dispatch({ type: "clear_messages" });
 };
 
 const fetchEarlierMessages = dispatch => async (state, roomName) => {
@@ -50,8 +57,20 @@ const addMessage = dispatch => async (
     payload: [...newState, response.data]
   });
 };
-const addQuickMessage = dispatch => ({ creator, content, roomName, isImage }) => {
-  const quickMessage = { creator, content, roomName, time: "", isImage, _id: uuid() };
+const addQuickMessage = dispatch => ({
+  creator,
+  content,
+  roomName,
+  isImage
+}) => {
+  const quickMessage = {
+    creator,
+    content,
+    roomName,
+    time: "",
+    isImage,
+    _id: uuid()
+  };
   dispatch({
     type: "add_quick_message",
     payload: quickMessage
@@ -60,6 +79,6 @@ const addQuickMessage = dispatch => ({ creator, content, roomName, isImage }) =>
 
 export const { Provider, Context } = createDataContext(
   messageReducer,
-  { fetchMessages, addMessage, addQuickMessage, fetchEarlierMessages },
+  { fetchMessages, addMessage, addQuickMessage, fetchEarlierMessages, clearMessages },
   []
 );

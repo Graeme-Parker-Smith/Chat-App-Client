@@ -1,5 +1,12 @@
 import React, { memo } from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  View,
+  Dimensions
+} from "react-native";
 import { ListItem } from "react-native-elements";
 import Spacer from "./Spacer";
 import { Entypo } from "@expo/vector-icons";
@@ -57,12 +64,23 @@ const MessageItem = ({ content, username, time, isImage }) => {
       containerStyle={
         username === "Admin"
           ? { ...styles.messageBody, backgroundColor: "green" }
-          : styles.messageBody
+          : styles.messageBody(isImage)
       }
       title={deets}
       titleStyle={styles.title}
       // subtitle={content}
-      subtitle={isImage ? <View><Image source={{uri: content}} /></View> : content}
+      subtitle={
+        isImage ? (
+          <View>
+            <Image
+              source={{ uri: content }}
+              style={{ height: 200, width: 200 }}
+            />
+          </View>
+        ) : (
+          content
+        )
+      }
       subtitleStyle={styles.subtitle}
       leftAvatar={Avatar}
     ></ListItem>
@@ -70,11 +88,12 @@ const MessageItem = ({ content, username, time, isImage }) => {
 };
 
 const styles = StyleSheet.create({
-  messageBody: {
+  messageBody: (isImage, contentLength) => ({
     backgroundColor: "black",
     padding: 5,
-    height: 45
-  },
+    // height: isImage ? 215 : 45,
+    width: Dimensions.get("window").width
+  }),
   title: {
     color: "#0af",
     fontSize: 12

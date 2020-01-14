@@ -7,7 +7,7 @@ import SignupScreen from "./src/screens/SignupScreen";
 import AccountScreen from "./src/screens/AccountScreen";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import RoomScreen from "./src/screens/RoomScreen";
-import { setNavigator, navigate } from "./src/navigationRef";
+import { setNavigator, navigate, back } from "./src/navigationRef";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as ChannelProvider } from "./src/context/ChannelContext";
 import { Provider as MessageProvider } from "./src/context/MessageContext";
@@ -51,7 +51,7 @@ const navigator = createSwitchNavigator({
               <Button
                 title="Back To Channels"
                 onPress={() => {
-                  navigate("Account");
+                  back("Account");
                 }}
                 type="clear"
                 titleStyle={{ color: "rgba(0,122,255,1)" }}

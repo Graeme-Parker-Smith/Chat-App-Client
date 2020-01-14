@@ -14,3 +14,12 @@ export const navigate = (routeName, params) => {
     })
   );
 };
+
+export const back = (routeName, params) => {
+  navigator.dispatch(
+    NavigationActions.back({
+      routeName,
+      params
+    })
+  );
+};

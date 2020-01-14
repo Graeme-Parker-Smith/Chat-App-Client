@@ -45,7 +45,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // socket.emit("disconnect") is a special event. It cannot be used like a custom event like socket.emit("leave") or socket.emit("whatever")
   useEffect(() => {
     if (didMountRef.current) {
-      if (!isFocused) socket.emit("leave", { room: roomName });
+      if (!isFocused) {
+        socket.emit("leave", { room: roomName });
+      }
     } else {
       didMountRef.current = true;
     }
@@ -65,19 +67,28 @@ const RoomScreen = ({ navigation, isFocused }) => {
     fetchMessages,
     addMessage,
     addQuickMessage,
-    fetchEarlierMessages
+    fetchEarlierMessages,
+    clearMessages
   } = useContext(MessageContext);
   useEffect(() => {
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
-        console.log(error);
+        if (error === "Username is taken") {
+          socket.emit("leave", { room: roomName });
+          navigation.replace("Account");
+          alert("Error: Username is Taken.")
+        }
       }
     });
+
+    return () => {
+      clearMessages();
+    };
   }, []);
 
   useEffect(() => {
-    socket.on("message", ({ user, text }) => {
-      const newMessage = { creator: user, content: text, roomName };
+    socket.on("message", ({ user, text, isImage }) => {
+      const newMessage = { creator: user, content: text, isImage, roomName };
       addQuickMessage(newMessage);
       if (user === username) addMessage(newMessage, state);
       handleAutoScroll();
@@ -89,8 +100,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
     });
     return () => {
       socket.emit("disconnect");
-
       socket.off();
+
+      // clearMessages();
     };
   }, [state, users]);
 
@@ -116,13 +128,23 @@ const RoomScreen = ({ navigation, isFocused }) => {
     console.log(result);
 
     if (!result.cancelled) {
-      const imageToSend = { creator: username, content: result.uri, roomName, isImage: true };
+      const imageToSend = {
+        creator: username,
+        content: result.uri,
+        roomName,
+        isImage: true
+      };
       socket.emit("sendMessage", imageToSend);
     }
   };
 
   const sendNewMessage = () => {
-    const messageToSend = { creator: username, content, roomName, isImage: false };
+    const messageToSend = {
+      creator: username,
+      content,
+      roomName,
+      isImage: false
+    };
     socket.emit("sendMessage", messageToSend);
     setContent("");
   };
@@ -142,9 +164,15 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
   // scroll functions
   const scrollToBottom = () => {
-    if (scrollViewRef.current.scrollToEnd) {
+    if (scrollViewRef.current.scrollToEnd && state.length > 10) {
       // console.log("SCROLL TO BOTTOM FIRED!");
-      scrollViewRef.current.scrollToEnd({ animated: true });
+      // scrollViewRef.current.scrollToEnd({ animated: true });
+      scrollViewRef.current.scrollToIndex({
+        index: state.length - 1,
+        viewOffset: 100,
+        viewPosition: 0,
+        animated: false
+      });
     } else {
       console.log("scrollToBottom failed.");
     }
@@ -177,8 +205,15 @@ const RoomScreen = ({ navigation, isFocused }) => {
     }
   };
   const handleAutoScroll = (width, height) => {
-    if (isCloseToBottom(scrollValues)) {
-      scrollViewRef.current.scrollToEnd({ animated: true });
+    if (isCloseToBottom(scrollValues) && state.length > 10) {
+      // scrollViewRef.current.scrollToEnd({ animated: true });
+      console.log("state.length is: ", state.length);
+      scrollViewRef.current.scrollToIndex({
+        index: state.length - 1,
+        viewOffset: 100,
+        viewPosition: 0,
+        animated: true
+      });
       setEndScrollPosition(scrollPosition);
     }
   };
@@ -237,7 +272,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
             <FlatList
               style={{
                 backgroundColor: "black",
-                height: Platform.OS === "ios" ? 470 : 447
+                height: Platform.OS === "ios" ? 470 : 447,
+                flexGrow: 0
               }}
               indicatorStyle="white"
               ref={scrollViewRef}
@@ -248,11 +284,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
               data={state}
               keyExtractor={keyExtractor}
               renderItem={({ item, index }) => renderItemOutside(item, index)}
-              getItemLayout={(data, index) => ({
-                length: 50,
-                offset: 50 * index,
-                index
-              })}
+              getItemLayout={(data, index) => {
+                return {
+                  length: 50,
+                  offset: 50 * index,
+                  index
+                };
+              }}
               removeClippedSubviews={true}
             />
           </View>
