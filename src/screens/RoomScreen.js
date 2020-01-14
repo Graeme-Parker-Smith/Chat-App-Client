@@ -338,12 +338,27 @@ const RoomScreen = ({ navigation, isFocused }) => {
             inputStyle={{ color: "#fff" }}
             placeholderTextColor="#fff"
             leftIcon={
-              <MaterialIcons
-                name="photo-library"
-                size={32}
-                color="#0af"
-                onPress={launchCamera}
-              />
+              <View
+                style={{
+                  width: 75,
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  marginLeft: 0
+                }}
+              >
+                <MaterialIcons
+                  name="photo-camera"
+                  size={32}
+                  color="#0af"
+                  onPress={launchCamera}
+                />
+                <MaterialIcons
+                  name="photo-library"
+                  size={32}
+                  color="#0af"
+                  onPress={_pickImage}
+                />
+              </View>
             }
           />
           <Button title="Send Message" onPress={sendNewMessage} />
