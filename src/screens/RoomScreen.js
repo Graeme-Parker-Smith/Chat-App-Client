@@ -75,14 +75,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
       if (error) {
         if (error === "Username is taken") {
           navigation.replace("Account");
-          alert("Error: Username is Taken.")
+          alert("Error: Username is Taken.");
         }
       }
     });
 
-    return () => {
-      clearMessages();
-    };
+    // return () => {
+    //   clearMessages();
+    // };
   }, []);
 
   useEffect(() => {
@@ -166,12 +166,16 @@ const RoomScreen = ({ navigation, isFocused }) => {
     if (scrollViewRef.current.scrollToEnd && state.length > 10) {
       // console.log("SCROLL TO BOTTOM FIRED!");
       // scrollViewRef.current.scrollToEnd({ animated: true });
-      scrollViewRef.current.scrollToIndex({
-        index: state.length - 1,
-        viewOffset: 100,
-        viewPosition: 1,
-        animated: false
-      });
+      try {
+        scrollViewRef.current.scrollToIndex({
+          index: state.length - 1,
+          viewOffset: 100,
+          viewPosition: 1,
+          animated: false
+        });
+      } catch {
+        console.log("scroll bs");
+      }
     } else {
       console.log("scrollToBottom failed.");
     }
@@ -207,12 +211,17 @@ const RoomScreen = ({ navigation, isFocused }) => {
     if (isCloseToBottom(scrollValues) && state.length > 10) {
       // scrollViewRef.current.scrollToEnd({ animated: true });
       console.log("state.length is: ", state.length);
-      scrollViewRef.current.scrollToIndex({
-        index: state.length - 1,
-        viewOffset: 100,
-        viewPosition: 0,
-        animated: true
-      });
+      try {
+        scrollViewRef.current.scrollToIndex({
+          index: state.length - 1,
+          viewOffset: 100,
+          viewPosition: 0,
+          animated: false
+        });
+      } catch {
+        console.log("scroll bs");
+      }
+
       setEndScrollPosition(scrollPosition);
     }
   };
@@ -235,6 +244,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
   //   }
   // };
   const handleOnFocus = async () => {
+    await clearMessages();
+    console.log("FETCHING MESSAGES!!!!!!!!!");
     await fetchMessages(roomName);
     // console.log("state.length after fetch messages is: ", state.length);
     scrollToBottom();
@@ -248,7 +259,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       <NavigationEvents onWillFocus={handleOnFocus} />
       <KeyboardShift messages={state}>
         <View
-          onLayout={handleAutoScroll}
+          // onLayout={handleAutoScroll}
           style={{ marginTop: 10, backgroundColor: "#000" }}
         >
           <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
