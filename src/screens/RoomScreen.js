@@ -136,6 +136,28 @@ const RoomScreen = ({ navigation, isFocused }) => {
       socket.emit("sendMessage", imageToSend);
     }
   };
+  const launchCamera = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    await Permissions.askAsync(Permissions.CAMERA);
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: undefined
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      const imageToSend = {
+        creator: username,
+        content: result.uri,
+        roomName,
+        isImage: true
+      };
+      socket.emit("sendMessage", imageToSend);
+    }
+  };
 
   const sendNewMessage = () => {
     const messageToSend = {
@@ -167,6 +189,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       // console.log("SCROLL TO BOTTOM FIRED!");
       // scrollViewRef.current.scrollToEnd({ animated: true });
       try {
+        console.log("scrolling to ...", state.length - 1);
         scrollViewRef.current.scrollToIndex({
           index: state.length - 1,
           viewOffset: 100,
@@ -294,6 +317,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
               data={state}
               keyExtractor={keyExtractor}
               renderItem={({ item, index }) => renderItemOutside(item, index)}
+              onLayout={event => {
+                const { height } = event.nativeEvent.layout;
+                console.log("FlatList height is: ", height);
+              }}
               getItemLayout={(data, index) => {
                 return {
                   length: 50,
@@ -315,7 +342,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
                 name="photo-library"
                 size={32}
                 color="#0af"
-                onPress={_pickImage}
+                onPress={launchCamera}
               />
             }
           />
