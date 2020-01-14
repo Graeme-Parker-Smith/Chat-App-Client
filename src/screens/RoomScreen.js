@@ -46,7 +46,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   useEffect(() => {
     if (didMountRef.current) {
       if (!isFocused) {
-        socket.emit("leave", { room: roomName });
+        socket.emit("leave", { room: roomName, name: username });
       }
     } else {
       didMountRef.current = true;
@@ -74,7 +74,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
         if (error === "Username is taken") {
-          socket.emit("leave", { room: roomName });
           navigation.replace("Account");
           alert("Error: Username is Taken.")
         }
@@ -170,7 +169,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       scrollViewRef.current.scrollToIndex({
         index: state.length - 1,
         viewOffset: 100,
-        viewPosition: 0,
+        viewPosition: 1,
         animated: false
       });
     } else {
