@@ -13,7 +13,14 @@ import { Entypo } from "@expo/vector-icons";
 
 const Avatar = () => <Entypo name="user" size={20} color="#0af" />;
 
-const MessageItem = ({ content, username, time, isImage }) => {
+const MessageItem = ({
+  content,
+  username,
+  time,
+  isImage,
+  index,
+  addToLayoutsMap
+}) => {
   const _MS_PER_SEC = 1000;
   // console.log("MESSAGEITEM RENDERED!!!")
   function dateDiffInSeconds(a, b) {
@@ -83,6 +90,10 @@ const MessageItem = ({ content, username, time, isImage }) => {
       }
       subtitleStyle={styles.subtitle}
       leftAvatar={Avatar}
+      onLayout={event => {
+        const layout = event.nativeEvent.layout;
+        addToLayoutsMap(layout, index);
+      }}
     ></ListItem>
   );
 };

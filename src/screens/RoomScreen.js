@@ -34,9 +34,9 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const RoomScreen = ({ navigation, isFocused }) => {
-  let listHeight = 200;
+let _layoutsMap = [];
 
+const RoomScreen = ({ navigation, isFocused }) => {
   const scrollViewRef = useRef();
   const didMountRef = useRef(false);
   const socket = useContext(SocketContext);
@@ -170,6 +170,16 @@ const RoomScreen = ({ navigation, isFocused }) => {
     setContent("");
   };
 
+  // const [totalHeight, setTotalHeight] = useState(0);
+  // const sumListItemHeights = height => {
+  //   setTotalHeight(prevState => prevState +)
+  //   console.log("Total Height is: ", totalHeight);
+  // };
+
+  const addToLayoutsMap = (layout, index) => {
+    _layoutsMap[index] = layout;
+  };
+
   const renderItemOutside = (item, index) => {
     // console.log("current index is :", index);
     return (
@@ -178,24 +188,39 @@ const RoomScreen = ({ navigation, isFocused }) => {
         username={item.creator}
         time={item.time}
         isImage={item.isImage ? true : false}
+        index={index}
+        addToLayoutsMap={addToLayoutsMap}
       />
     );
   };
   const keyExtractor = item => (item._id ? item._id : uuid());
 
+  const getOffsetByIndex = index => {
+    let offset = 0;
+    for (let i = 0; i < index; i += 1) {
+      const elementLayout = _layoutsMap[i];
+      if (elementLayout && elementLayout.height) {
+        offset += _layoutsMap[i].height;
+      }
+    }
+    return offset;
+  };
   // scroll functions
   const scrollToBottom = () => {
     if (scrollViewRef.current.scrollToEnd && state.length > 10) {
       // console.log("SCROLL TO BOTTOM FIRED!");
       // scrollViewRef.current.scrollToEnd({ animated: true });
       try {
-        console.log("scrolling to ...", state.length - 1);
-        scrollViewRef.current.scrollToIndex({
-          index: state.length - 1,
-          viewOffset: 100,
-          viewPosition: 1,
-          animated: false
-        });
+        // console.log("scrolling to ...", state.length - 1);
+        const offset = getOffsetByIndex(state.length - 1);
+        scrollViewRef.current.scrollToOffset({ offset, animated: true });
+        // scrollViewRef.current.scrollToEnd({ animated: false });
+        // scrollViewRef.current.scrollToIndex({
+        //   index: state.length - 1,
+        //   viewOffset: 100,
+        //   viewPosition: 1,
+        //   animated: false
+        // });
       } catch {
         console.log("scroll bs");
       }
@@ -233,14 +258,16 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const handleAutoScroll = (width, height) => {
     if (isCloseToBottom(scrollValues) && state.length > 10) {
       // scrollViewRef.current.scrollToEnd({ animated: true });
-      console.log("state.length is: ", state.length);
+      // console.log("state.length is: ", state.length);
       try {
-        scrollViewRef.current.scrollToIndex({
-          index: state.length - 1,
-          viewOffset: 100,
-          viewPosition: 0,
-          animated: false
-        });
+        const offset = getOffsetByIndex(state.length - 1);
+        scrollViewRef.current.scrollToOffset({ offset, animated: true });
+        // scrollViewRef.current.scrollToIndex({
+        //   index: state.length - 1,
+        //   viewOffset: 100,
+        //   viewPosition: 0,
+        //   animated: false
+        // });
       } catch {
         console.log("scroll bs");
       }
@@ -253,22 +280,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
     const paddingToBottom = 20;
     return layoutHeight + offsetY >= contentHeight - paddingToBottom;
   };
-
-  // const onLayout = () => {
-  //   if (scrollViewRef.current) {
-  //     setTimeout(() => {
-  //       console.log("state.length: ", state.length);
-  //       scrollViewRef.current.scrollToIndex({
-  //         index: -1,
-  //         animated: false,
-  //         viewPosition: 1
-  //       });
-  //     }, 500);
-  //   }
-  // };
   const handleOnFocus = async () => {
     await clearMessages();
-    console.log("FETCHING MESSAGES!!!!!!!!!");
+    // console.log("FETCHING MESSAGES!!!!!!!!!");
     await fetchMessages(roomName);
     // console.log("state.length after fetch messages is: ", state.length);
     scrollToBottom();
@@ -317,17 +331,20 @@ const RoomScreen = ({ navigation, isFocused }) => {
               data={state}
               keyExtractor={keyExtractor}
               renderItem={({ item, index }) => renderItemOutside(item, index)}
-              onLayout={event => {
-                const { height } = event.nativeEvent.layout;
-                console.log("FlatList height is: ", height);
-              }}
-              getItemLayout={(data, index) => {
-                return {
-                  length: 50,
-                  offset: 50 * index,
-                  index
-                };
-              }}
+              // getItemLayout={(data, index) => {
+              //   let height = 46;
+              //   if (data[index].isImage) {
+              //     height = 224.33325;
+              //   } else if (data[index].content.length > 32) {
+              //     height = 67.33337;
+              //   }
+              //   // console.log(height);
+              //   return {
+              //     length: height,
+              //     offset: height * index,
+              //     index
+              //   };
+              // }}
               removeClippedSubviews={true}
             />
           </View>
