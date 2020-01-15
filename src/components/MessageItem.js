@@ -10,6 +10,7 @@ import {
 import { ListItem } from "react-native-elements";
 import Spacer from "./Spacer";
 import { Entypo } from "@expo/vector-icons";
+import { Video } from "expo-av";
 
 const Avatar = () => <Entypo name="user" size={20} color="#0af" />;
 
@@ -18,6 +19,7 @@ const MessageItem = ({
   username,
   time,
   isImage,
+  isVideo,
   index,
   addToLayoutsMap
 }) => {
@@ -66,6 +68,31 @@ const MessageItem = ({
   const deets = howLongAgo
     ? "from: " + username + "  -  " + howLongAgo
     : "from: " + username;
+
+  let renderedContent;
+  if (isVideo) {
+    renderedContent = (
+      <Video
+        source={{ uri: content }}
+        rate={1.0}
+        volume={1.0}
+        isMuted={false}
+        resizeMode="cover"
+        shouldPlay
+        isLooping
+        style={{ height: 200, width: 200 }}
+      />
+    );
+  } else if (isImage) {
+    renderedContent = (
+      <View>
+        <Image source={{ uri: content }} style={{ height: 200, width: 200 }} />
+      </View>
+    );
+  } else {
+    renderedContent = content;
+  }
+
   return (
     <ListItem
       containerStyle={
@@ -76,18 +103,7 @@ const MessageItem = ({
       title={deets}
       titleStyle={styles.title}
       // subtitle={content}
-      subtitle={
-        isImage ? (
-          <View>
-            <Image
-              source={{ uri: content }}
-              style={{ height: 200, width: 200 }}
-            />
-          </View>
-        ) : (
-          content
-        )
-      }
+      subtitle={renderedContent}
       subtitleStyle={styles.subtitle}
       leftAvatar={Avatar}
       // onLayout={event => {

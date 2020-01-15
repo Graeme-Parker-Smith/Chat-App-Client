@@ -88,8 +88,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
   }, []);
 
   useEffect(() => {
-    socket.on("message", ({ user, text, isImage }) => {
-      const newMessage = { creator: user, content: text, isImage, roomName };
+    socket.on("message", ({ user, text, isImage, isVideo }) => {
+      const newMessage = {
+        creator: user,
+        content: text,
+        isImage,
+        isVideo,
+        roomName
+      };
       addQuickMessage(newMessage);
       if (user === username) addMessage(newMessage, state);
       handleAutoScroll();
@@ -129,12 +135,24 @@ const RoomScreen = ({ navigation, isFocused }) => {
     console.log(result);
 
     if (!result.cancelled) {
-      const imageToSend = {
-        creator: username,
-        content: result.uri,
-        roomName,
-        isImage: true
-      };
+      let imageToSend;
+      if (result.type === "video") {
+        imageToSend = {
+          creator: username,
+          content: result.uri,
+          roomName,
+          isImage: false,
+          isVideo: true
+        };
+      } else {
+        imageToSend = {
+          creator: username,
+          content: result.uri,
+          roomName,
+          isImage: true,
+          isVideo: false
+        };
+      }
       socket.emit("sendMessage", imageToSend);
     }
   };
@@ -151,12 +169,24 @@ const RoomScreen = ({ navigation, isFocused }) => {
     console.log(result);
 
     if (!result.cancelled) {
-      const imageToSend = {
-        creator: username,
-        content: result.uri,
-        roomName,
-        isImage: true
-      };
+      let imageToSend;
+      if (result.type === "video") {
+        imageToSend = {
+          creator: username,
+          content: result.uri,
+          roomName,
+          isImage: false,
+          isVideo: true
+        };
+      } else {
+        imageToSend = {
+          creator: username,
+          content: result.uri,
+          roomName,
+          isImage: true,
+          isVideo: false
+        };
+      }
       socket.emit("sendMessage", imageToSend);
     }
   };
@@ -166,7 +196,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
       creator: username,
       content,
       roomName,
-      isImage: false
+      isImage: false,
+      isVideo: false
     };
     socket.emit("sendMessage", messageToSend);
     setContent("");
@@ -184,6 +215,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
         username={item.creator}
         time={item.time}
         isImage={item.isImage ? true : false}
+        isVideo={item.isVideo ? true : false}
         index={index}
         addToLayoutsMap={addToLayoutsMap}
       />
@@ -332,7 +364,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
               renderItem={({ item, index }) => renderItemOutside(item, index)}
               getItemLayout={(data, index) => {
                 let height = 46;
-                if (data[index].isImage) {
+                if (data[index].isImage || data[index].isVideo) {
                   height = 224.33325;
                 } else if (data[index].content.length > 32) {
                   height = 67.33337;
