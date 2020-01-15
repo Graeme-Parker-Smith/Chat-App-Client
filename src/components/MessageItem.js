@@ -30,9 +30,6 @@ const MessageItem = ({
     let utc1 = new Date(`${a}`);
     let utc2 = new Date(`${b}`);
 
-    // utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-    // utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-
     let secondsValue = Math.floor((utc2 - utc1) / _MS_PER_SEC);
     if (secondsValue > 63072000)
       return `${Math.floor(secondsValue / (60 * 60 * 24 * 365))} years ago`;
