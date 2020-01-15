@@ -90,10 +90,10 @@ const MessageItem = ({
       }
       subtitleStyle={styles.subtitle}
       leftAvatar={Avatar}
-      onLayout={event => {
-        const layout = event.nativeEvent.layout;
-        addToLayoutsMap(layout, index);
-      }}
+      // onLayout={event => {
+      //   const layout = event.nativeEvent.layout;
+      //   addToLayoutsMap(layout, index);
+      // }}
     ></ListItem>
   );
 };

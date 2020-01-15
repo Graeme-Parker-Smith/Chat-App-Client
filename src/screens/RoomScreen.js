@@ -35,6 +35,7 @@ import * as Permissions from "expo-permissions";
 import { MaterialIcons } from "@expo/vector-icons";
 
 let _layoutsMap = [];
+let itemHeights = [];
 
 const RoomScreen = ({ navigation, isFocused }) => {
   const scrollViewRef = useRef();
@@ -212,8 +213,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
       // scrollViewRef.current.scrollToEnd({ animated: true });
       try {
         // console.log("scrolling to ...", state.length - 1);
-        const offset = getOffsetByIndex(state.length - 1);
-        scrollViewRef.current.scrollToOffset({ offset, animated: true });
+        // const offset = getOffsetByIndex(state.length - 1);
+        const offset = itemHeights.reduce((a, b) => a + b, 0);
+        scrollViewRef.current.scrollToOffset({ offset, animated: false });
         // scrollViewRef.current.scrollToEnd({ animated: false });
         // scrollViewRef.current.scrollToIndex({
         //   index: state.length - 1,
@@ -260,8 +262,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
       // scrollViewRef.current.scrollToEnd({ animated: true });
       // console.log("state.length is: ", state.length);
       try {
-        const offset = getOffsetByIndex(state.length - 1);
-        scrollViewRef.current.scrollToOffset({ offset, animated: true });
+        // const offset = getOffsetByIndex(state.length - 1);
+        const offset = itemHeights.reduce((a, b) => a + b, 0);
+        scrollViewRef.current.scrollToOffset({ offset, animated: false });
         // scrollViewRef.current.scrollToIndex({
         //   index: state.length - 1,
         //   viewOffset: 100,
@@ -331,20 +334,20 @@ const RoomScreen = ({ navigation, isFocused }) => {
               data={state}
               keyExtractor={keyExtractor}
               renderItem={({ item, index }) => renderItemOutside(item, index)}
-              // getItemLayout={(data, index) => {
-              //   let height = 46;
-              //   if (data[index].isImage) {
-              //     height = 224.33325;
-              //   } else if (data[index].content.length > 32) {
-              //     height = 67.33337;
-              //   }
-              //   // console.log(height);
-              //   return {
-              //     length: height,
-              //     offset: height * index,
-              //     index
-              //   };
-              // }}
+              getItemLayout={(data, index) => {
+                let height = 46;
+                if (data[index].isImage) {
+                  height = 224.33325;
+                } else if (data[index].content.length > 32) {
+                  height = 67.33337;
+                }
+                itemHeights[index] = height;
+                return {
+                  length: height,
+                  offset: height * index,
+                  index
+                };
+              }}
               removeClippedSubviews={true}
             />
           </View>
