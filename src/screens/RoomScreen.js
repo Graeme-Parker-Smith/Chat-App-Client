@@ -81,9 +81,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
       }
     });
 
-    // return () => {
-    //   clearMessages();
-    // };
+    return () => {
+      console.log("component unmounting");
+      socket.emit("leave", { room: roomName, name: username });
+    };
   }, []);
 
   useEffect(() => {
@@ -170,12 +171,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
     socket.emit("sendMessage", messageToSend);
     setContent("");
   };
-
-  // const [totalHeight, setTotalHeight] = useState(0);
-  // const sumListItemHeights = height => {
-  //   setTotalHeight(prevState => prevState +)
-  //   console.log("Total Height is: ", totalHeight);
-  // };
 
   const addToLayoutsMap = (layout, index) => {
     _layoutsMap[index] = layout;
@@ -290,7 +285,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
     // console.log("state.length after fetch messages is: ", state.length);
     scrollToBottom();
   };
-  let userList = users.reduce((total, value) => {
+  let userList = users.reduce((total, value, idx) => {
+    if (idx === 0) return total + value;
     return total + ", " + value;
   }, []);
   // console.log("state", state);
