@@ -353,6 +353,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
                 height: Platform.OS === "ios" ? 470 : 447,
                 flexGrow: 0
               }}
+              bounces={false}
               indicatorStyle="white"
               ref={scrollViewRef}
               onContentSizeChange={handleAutoScroll}
