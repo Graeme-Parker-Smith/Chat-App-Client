@@ -69,7 +69,6 @@ const MessageItem = ({
       }
       title={deets}
       titleStyle={styles.title}
-      // subtitle={content}
       subtitle={renderedContent}
       subtitleStyle={styles.subtitle}
       leftAvatar={Avatar}
@@ -82,10 +81,9 @@ const MessageItem = ({
 };
 
 const styles = StyleSheet.create({
-  messageBody: (isImage, contentLength) => ({
+  messageBody: () => ({
     backgroundColor: "black",
     padding: 5,
-    // height: isImage ? 215 : 45,
     width: Dimensions.get("window").width
   }),
   title: {
