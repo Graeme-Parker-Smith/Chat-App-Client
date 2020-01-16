@@ -34,7 +34,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { MaterialIcons } from "@expo/vector-icons";
 
-let _layoutsMap = [];
+// let _layoutsMap = [];
 let itemHeights = [];
 
 const RoomScreen = ({ navigation, isFocused }) => {
