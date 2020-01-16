@@ -21,8 +21,6 @@ const MessageItem = ({
   time,
   isImage,
   isVideo,
-  index,
-  
 }) => {
 
   // calculate how long ago msg was sent and create title content for msg
