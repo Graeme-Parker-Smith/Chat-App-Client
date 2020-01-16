@@ -298,7 +298,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       />
     );
   };
-  
+
   const keyExtractor = item => (item._id ? item._id : uuid());
 
   // ============================================================
@@ -324,7 +324,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
       <NavigationEvents onWillFocus={handleOnFocus} />
       <KeyboardShift messages={state}>
         <View
-          // onLayout={handleAutoScroll}
           style={{ marginTop: 10, backgroundColor: "#000" }}
         >
           <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
