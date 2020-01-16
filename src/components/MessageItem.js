@@ -1,7 +1,5 @@
 import React, { memo } from "react";
 import {
-  Text,
-  TouchableOpacity,
   StyleSheet,
   Image,
   View,
