@@ -113,6 +113,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
     };
   }, [state, users]);
 
+// ============================================================
+//                IMAGE AND VIDEO STUFF
+// ============================================================
   // for expo image picker
   const getPermissionAsync = async () => {
     if (Platform.OS === "ios") {
@@ -203,9 +206,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
     setContent("");
   };
 
-  const addToLayoutsMap = (layout, index) => {
-    _layoutsMap[index] = layout;
-  };
+  // const addToLayoutsMap = (layout, index) => {
+  //   _layoutsMap[index] = layout;
+  // };
 
   const renderItemOutside = (item, index) => {
     // console.log("current index is :", index);
@@ -217,39 +220,33 @@ const RoomScreen = ({ navigation, isFocused }) => {
         isImage={item.isImage ? true : false}
         isVideo={item.isVideo ? true : false}
         index={index}
-        addToLayoutsMap={addToLayoutsMap}
+        // addToLayoutsMap={addToLayoutsMap}
       />
     );
   };
   const keyExtractor = item => (item._id ? item._id : uuid());
 
-  const getOffsetByIndex = index => {
-    let offset = 0;
-    for (let i = 0; i < index; i += 1) {
-      const elementLayout = _layoutsMap[i];
-      if (elementLayout && elementLayout.height) {
-        offset += _layoutsMap[i].height;
-      }
-    }
-    return offset;
-  };
-  // scroll functions
+  // const getOffsetByIndex = index => {
+  //   let offset = 0;
+  //   for (let i = 0; i < index; i += 1) {
+  //     const elementLayout = _layoutsMap[i];
+  //     if (elementLayout && elementLayout.height) {
+  //       offset += _layoutsMap[i].height;
+  //     }
+  //   }
+  //   return offset;
+  // };
+
+
+// ============================================================
+//                SCROLL FUNCTIONS
+// ============================================================
   const scrollToBottom = () => {
     if (scrollViewRef.current.scrollToEnd && state.length > 10) {
-      // console.log("SCROLL TO BOTTOM FIRED!");
-      // scrollViewRef.current.scrollToEnd({ animated: true });
       try {
-        // console.log("scrolling to ...", state.length - 1);
         // const offset = getOffsetByIndex(state.length - 1);
         const offset = itemHeights.reduce((a, b) => a + b, 0);
         scrollViewRef.current.scrollToOffset({ offset, animated: false });
-        // scrollViewRef.current.scrollToEnd({ animated: false });
-        // scrollViewRef.current.scrollToIndex({
-        //   index: state.length - 1,
-        //   viewOffset: 100,
-        //   viewPosition: 1,
-        //   animated: false
-        // });
       } catch {
         console.log("scroll bs");
       }
@@ -269,9 +266,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
     // e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
     if (e.nativeEvent.contentOffset.y < 1 && loading === false) {
       setLoading(true);
-      // console.log("FETCH EARLIER MESSAGES");
-      // should try using callbacks instead?
       await fetchEarlierMessages(state, roomName);
+      // May need to change this to scrollToOffset
       scrollViewRef.current.scrollToIndex({
         index: 11,
         viewOffset: 100,
@@ -286,18 +282,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
   };
   const handleAutoScroll = (width, height) => {
     if (isCloseToBottom(scrollValues) && state.length > 10) {
-      // scrollViewRef.current.scrollToEnd({ animated: true });
-      // console.log("state.length is: ", state.length);
       try {
-        // const offset = getOffsetByIndex(state.length - 1);
         const offset = itemHeights.reduce((a, b) => a + b, 0);
         scrollViewRef.current.scrollToOffset({ offset, animated: false });
-        // scrollViewRef.current.scrollToIndex({
-        //   index: state.length - 1,
-        //   viewOffset: 100,
-        //   viewPosition: 0,
-        //   animated: false
-        // });
       } catch {
         console.log("scroll bs");
       }
@@ -310,17 +297,20 @@ const RoomScreen = ({ navigation, isFocused }) => {
     const paddingToBottom = 20;
     return layoutHeight + offsetY >= contentHeight - paddingToBottom;
   };
+
+  // DO THIS WHEN ROOMSCREEN GAINS FOCUS
   const handleOnFocus = async () => {
     await clearMessages();
     // console.log("FETCHING MESSAGES!!!!!!!!!");
     await fetchMessages(roomName);
     scrollToBottom();
   };
+
+  // CREATE LIST OF USERS CURRENTLY IN ROOM
   let userList = users.reduce((total, value, idx) => {
     if (idx === 0) return total + value;
     return total + ", " + value;
   }, []);
-  // console.log("state", state);
   return (
     <SafeAreaView style={styles.body}>
       <NavigationEvents onWillFocus={handleOnFocus} />

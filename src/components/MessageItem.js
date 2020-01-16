@@ -22,7 +22,7 @@ const MessageItem = ({
   isImage,
   isVideo,
   index,
-  addToLayoutsMap
+  
 }) => {
 
   // calculate how long ago msg was sent and create title content for msg
