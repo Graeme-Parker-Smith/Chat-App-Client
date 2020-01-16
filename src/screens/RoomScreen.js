@@ -43,16 +43,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const socket = useContext(SocketContext);
   const roomName = navigation.getParam("roomName");
   const username = navigation.getParam("username");
-  // socket.emit("disconnect") is a special event. It cannot be used like a custom event like socket.emit("leave") or socket.emit("whatever")
-  useEffect(() => {
-    if (didMountRef.current) {
-      if (!isFocused) {
-        socket.emit("leave", { room: roomName, name: username });
-      }
-    } else {
-      didMountRef.current = true;
-    }
-  }, [isFocused]);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -71,6 +61,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
     fetchEarlierMessages,
     clearMessages
   } = useContext(MessageContext);
+
+  // ============================================================
+  //                HANDLE COMPONENT DID MOUNT AND UNMOUNT
+  // ============================================================
+
   useEffect(() => {
     socket.emit("join", { name: username, room: roomName }, error => {
       if (error) {
@@ -86,6 +81,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
       socket.emit("leave", { room: roomName, name: username });
     };
   }, []);
+
+  // ============================================================
+  //              HANDLE COMPONENT RECEIVE DATA FROM SERVER
+  // ============================================================
 
   useEffect(() => {
     socket.on("message", ({ user, text, isImage, isVideo }) => {
@@ -113,10 +112,39 @@ const RoomScreen = ({ navigation, isFocused }) => {
     };
   }, [state, users]);
 
-// ============================================================
-//                IMAGE AND VIDEO STUFF
-// ============================================================
-  // for expo image picker
+  // ============================================================
+  //   HANDLE COMPONENT LOSE FOCUS/NAVIGATE AWAY FROM SCREEN
+  // ============================================================
+
+  useEffect(() => {
+    if (didMountRef.current) {
+      if (!isFocused) {
+        socket.emit("leave", { room: roomName, name: username });
+      }
+    } else {
+      didMountRef.current = true;
+    }
+  }, [isFocused]);
+
+  // ============================================================
+  //                SEND TEXT MESSAGE FUNCTION
+  // ============================================================
+
+  const sendNewMessage = () => {
+    const messageToSend = {
+      creator: username,
+      content,
+      roomName,
+      isImage: false,
+      isVideo: false
+    };
+    socket.emit("sendMessage", messageToSend);
+    setContent("");
+  };
+
+  // ============================================================
+  //                IMAGE AND VIDEO FUNCTIONS
+  // ============================================================
   const getPermissionAsync = async () => {
     if (Platform.OS === "ios") {
       console.log("starting async permissions");
@@ -194,53 +222,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
     }
   };
 
-  const sendNewMessage = () => {
-    const messageToSend = {
-      creator: username,
-      content,
-      roomName,
-      isImage: false,
-      isVideo: false
-    };
-    socket.emit("sendMessage", messageToSend);
-    setContent("");
-  };
-
-  // const addToLayoutsMap = (layout, index) => {
-  //   _layoutsMap[index] = layout;
-  // };
-
-  const renderItemOutside = (item, index) => {
-    // console.log("current index is :", index);
-    return (
-      <MessageItem
-        content={item.content}
-        username={item.creator}
-        time={item.time}
-        isImage={item.isImage ? true : false}
-        isVideo={item.isVideo ? true : false}
-        index={index}
-        // addToLayoutsMap={addToLayoutsMap}
-      />
-    );
-  };
-  const keyExtractor = item => (item._id ? item._id : uuid());
-
-  // const getOffsetByIndex = index => {
-  //   let offset = 0;
-  //   for (let i = 0; i < index; i += 1) {
-  //     const elementLayout = _layoutsMap[i];
-  //     if (elementLayout && elementLayout.height) {
-  //       offset += _layoutsMap[i].height;
-  //     }
-  //   }
-  //   return offset;
-  // };
-
-
-// ============================================================
-//                SCROLL FUNCTIONS
-// ============================================================
+  // ============================================================
+  //                SCROLL FUNCTIONS
+  // ============================================================
   const scrollToBottom = () => {
     if (scrollViewRef.current.scrollToEnd && state.length > 10) {
       try {
@@ -298,7 +282,36 @@ const RoomScreen = ({ navigation, isFocused }) => {
     return layoutHeight + offsetY >= contentHeight - paddingToBottom;
   };
 
-  // DO THIS WHEN ROOMSCREEN GAINS FOCUS
+  // ============================================================
+  //                PREPARE FLATLIST PROPS
+  // ============================================================
+
+  const renderItemOutside = (item, index) => {
+    return (
+      <MessageItem
+        content={item.content}
+        username={item.creator}
+        time={item.time}
+        isImage={item.isImage ? true : false}
+        isVideo={item.isVideo ? true : false}
+        index={index}
+      />
+    );
+  };
+  
+  const keyExtractor = item => (item._id ? item._id : uuid());
+
+  // ============================================================
+  //                CREATE LIST OF USERS IN ROOM
+  // ============================================================
+  let userList = users.reduce((total, value, idx) => {
+    if (idx === 0) return total + value;
+    return total + ", " + value;
+  }, []);
+
+  // ============================================================
+  //                DO THIS ON SCREEN FOCUS
+  // ============================================================
   const handleOnFocus = async () => {
     await clearMessages();
     // console.log("FETCHING MESSAGES!!!!!!!!!");
@@ -306,11 +319,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
     scrollToBottom();
   };
 
-  // CREATE LIST OF USERS CURRENTLY IN ROOM
-  let userList = users.reduce((total, value, idx) => {
-    if (idx === 0) return total + value;
-    return total + ", " + value;
-  }, []);
   return (
     <SafeAreaView style={styles.body}>
       <NavigationEvents onWillFocus={handleOnFocus} />
