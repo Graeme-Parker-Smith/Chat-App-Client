@@ -314,7 +314,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
     await clearMessages();
     // console.log("FETCHING MESSAGES!!!!!!!!!");
     await fetchMessages(roomName);
-    // console.log("state.length after fetch messages is: ", state.length);
     scrollToBottom();
   };
   let userList = users.reduce((total, value, idx) => {
