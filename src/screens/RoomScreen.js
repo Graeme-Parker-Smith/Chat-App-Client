@@ -87,9 +87,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // ============================================================
 
   useEffect(() => {
-    socket.on("message", ({ user, text, isImage, isVideo }) => {
+    socket.on("message", ({ user, avatar, text, isImage, isVideo }) => {
       const newMessage = {
         creator: user,
+        avatar,
         content: text,
         isImage,
         isVideo,
