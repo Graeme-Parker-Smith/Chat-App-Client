@@ -293,6 +293,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
         content={item.content}
         username={item.creator}
         time={item.time}
+        avatar={item.avatar}
         isImage={item.isImage ? true : false}
         isVideo={item.isVideo ? true : false}
         index={index}

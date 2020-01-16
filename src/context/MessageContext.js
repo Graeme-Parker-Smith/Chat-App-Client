@@ -44,13 +44,14 @@ const fetchMessages = dispatch => async roomName => {
   dispatch({ type: "fetch_messages", payload: response.data });
 };
 const addMessage = dispatch => async (
-  { creator, content, roomName, isImage, isVideo },
+  { creator, avatar, content, roomName, isImage, isVideo },
   state
 ) => {
   const date = new Date();
   const time = date.toLocaleString();
   const message = {
     creator,
+    avatar,
     content,
     roomName,
     time,
@@ -58,15 +59,16 @@ const addMessage = dispatch => async (
     isVideo,
     _id: uuid()
   };
-  const newState = state.filter(msg => msg.creator !== "Admin");
+  // const newState = state.filter(msg => msg.creator !== "Admin");
   const response = await chatApi.post("/messages", { ...message });
   dispatch({
     type: "add_message",
-    payload: [...newState, response.data]
+    payload: [...state, response.data]
   });
 };
 const addQuickMessage = dispatch => ({
   creator,
+  avatar,
   content,
   roomName,
   isImage,
@@ -74,6 +76,7 @@ const addQuickMessage = dispatch => ({
 }) => {
   const quickMessage = {
     creator,
+    avatar,
     content,
     roomName,
     time: "",
