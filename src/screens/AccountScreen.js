@@ -37,7 +37,6 @@ const AccountScreen = ({ navigation }) => {
   console.log("currentUser", state.currentUser);
   return (
     <>
-      {/* <NavigationEvents onWillFocus={fetchChannels} /> */}
       <SafeAreaView
         forceInset={{ top: "always" }}
         style={{
