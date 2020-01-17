@@ -82,8 +82,8 @@ const SignupScreen = () => {
         />
         <Text>Choose User Avatar to Display</Text>
         <View>
-        <Image source={{ uri: avatar }} style={styles.avatarStyle} />
-      </View>
+          <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+        </View>
         <Input
           label="avatar"
           value={avatar}
@@ -92,8 +92,8 @@ const SignupScreen = () => {
           autoCorrect={false}
         />
       </View>
-      {errorMessage ? (
-        <Text style={styles.errorMessage}>{errorMessage}</Text>
+      {state.errorMessage ? (
+        <Text style={styles.errorMessage}>{state.errorMessage}</Text>
       ) : null}
       <Spacer>
         <Button
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginTop: 15
   },
-  avatarStyle : {
+  avatarStyle: {
     height: 20,
     width: 20,
     borderRadius: 20
