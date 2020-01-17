@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   avatarStyle : {
-    height: 20,
-    width: 20,
+    height: 45,
+    width: 45,
     borderRadius: 20
   }
 });
