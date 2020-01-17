@@ -27,9 +27,9 @@ const AccountScreen = ({ navigation }) => {
 
   if (!state.currentUser) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={{ flex: 1, backgroundColor: "black", justifyContent: "center", alignItems: "center" }}>
         <NavigationEvents onWillFocus={fetchChannels} />
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#0af" />
       </View>
     );
   }
