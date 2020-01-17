@@ -26,6 +26,7 @@ import {
 } from "react-navigation";
 import Spacer from "../components/Spacer";
 import { Context as MessageContext } from "../context/MessageContext";
+import { Context as ChannelContext } from "../context/ChannelContext";
 import SocketContext from "../context/SocketContext";
 import uuid from "uuid/v4";
 import MessageItem from "../components/MessageItem";
@@ -41,8 +42,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const scrollViewRef = useRef();
   const didMountRef = useRef(false);
   const socket = useContext(SocketContext);
+  const {
+    state: { currentUser }
+  } = useContext(ChannelContext);
+  const { username, avatar } = currentUser;
   const roomName = navigation.getParam("roomName");
-  const username = navigation.getParam("username");
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -134,6 +138,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const sendNewMessage = () => {
     const messageToSend = {
       creator: username,
+      avatar,
       content,
       roomName,
       isImage: false,
@@ -325,9 +330,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
     <SafeAreaView style={styles.body}>
       <NavigationEvents onWillFocus={handleOnFocus} />
       <KeyboardShift messages={state}>
-        <View
-          style={{ marginTop: 10, backgroundColor: "#000" }}
-        >
+        <View style={{ marginTop: 10, backgroundColor: "#000" }}>
           <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
             User: {username}
           </Text>
