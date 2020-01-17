@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
+import { Text, Button, Input } from "react-native-elements";
+import Spacer from "../components/Spacer";
 import { NavigationEvents } from "react-navigation";
 import { Context as AuthContext } from "../context/AuthContext";
 import AuthForm from "../components/AuthForm";
@@ -48,7 +50,7 @@ const SignupScreen = () => {
   return (
     <>
       <Spacer>
-        <Text h3>{headerText}</Text>
+        <Text h3>Sign Up</Text>
       </Spacer>
       <Input
         label="username"
@@ -82,15 +84,10 @@ const SignupScreen = () => {
         />
         <Text>Choose User Avatar to Display</Text>
         <View>
-          <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+          {avatar ? (
+            <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+          ) : null}
         </View>
-        <Input
-          label="avatar"
-          value={avatar}
-          onChangeText={setAvatar}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
       </View>
       {state.errorMessage ? (
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
@@ -125,9 +122,9 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   avatarStyle: {
-    height: 20,
-    width: 20,
-    borderRadius: 20
+    height: 100,
+    width: 100,
+    borderRadius: 50
   }
 });
 

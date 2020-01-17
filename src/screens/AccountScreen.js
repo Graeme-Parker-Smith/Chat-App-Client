@@ -20,7 +20,10 @@ import { FontAwesome } from "@expo/vector-icons";
 
 const AccountScreen = ({ navigation }) => {
   const [newChannelName, setNewChannelName] = useState("");
-  const { signout } = useContext(AuthContext);
+  const {
+    signout,
+    state: { avatar }
+  } = useContext(AuthContext);
   const { state, fetchChannels, createChannel } = useContext(ChannelContext);
 
   return (
@@ -44,6 +47,11 @@ const AccountScreen = ({ navigation }) => {
         >
           User: {state.currentUser}
         </Text>
+        <View>
+          {avatar ? (
+            <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+          ) : null}
+        </View>
         <Input
           value={newChannelName}
           onChangeText={setNewChannelName}
@@ -116,6 +124,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white"
+  },
+  avatarStyle: {
+    height: 100,
+    width: 100,
+    borderRadius: 50
   }
 });
 
