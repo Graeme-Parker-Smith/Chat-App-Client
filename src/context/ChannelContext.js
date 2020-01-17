@@ -5,7 +5,7 @@ const channelReducer = (state, action) => {
   switch (action.type) {
     case "fetch_channels":
       return {
-        currentUser: action.payload.username,
+        currentUser: action.payload.currentUser,
         channels: action.payload.channels
       };
     case "create_channel":
@@ -17,6 +17,7 @@ const channelReducer = (state, action) => {
 
 const fetchChannels = dispatch => async () => {
   const response = await chatApi.get("/channels");
+  // console.log("fetchChannels response.data", response.data);
   dispatch({ type: "fetch_channels", payload: response.data });
 };
 const createChannel = dispatch => async ({ name, creator }) => {

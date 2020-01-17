@@ -7,7 +7,8 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
-  Dimensions
+  Dimensions,
+  ActivityIndicator
 } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
@@ -20,15 +21,23 @@ import { FontAwesome } from "@expo/vector-icons";
 
 const AccountScreen = ({ navigation }) => {
   const [newChannelName, setNewChannelName] = useState("");
-  const {
-    signout,
-    state: { avatar }
-  } = useContext(AuthContext);
+  const { signout } = useContext(AuthContext);
+  // const { avatar } = useContext(AuthContext).state;
   const { state, fetchChannels, createChannel } = useContext(ChannelContext);
 
+  if (!state.currentUser) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <NavigationEvents onWillFocus={fetchChannels} />
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
+  console.log("currentUser", state.currentUser);
   return (
     <>
-      <NavigationEvents onWillFocus={fetchChannels} />
+      {/* <NavigationEvents onWillFocus={fetchChannels} /> */}
       <SafeAreaView
         forceInset={{ top: "always" }}
         style={{
@@ -42,14 +51,18 @@ const AccountScreen = ({ navigation }) => {
             textAlign: "center",
             borderBottomWidth: 1,
             borderBottomColor: "#d3d3d3",
-            marginBottom: 3
+            marginBottom: 3,
+            color: "white"
           }}
         >
-          User: {state.currentUser}
+          User: {state.currentUser.username}
         </Text>
         <View>
-          {avatar ? (
-            <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+          {state.currentUser ? (
+            <Image
+              source={{ uri: state.currentUser.avatar }}
+              style={styles.avatarStyle}
+            />
           ) : null}
         </View>
         <Input
@@ -86,7 +99,7 @@ const AccountScreen = ({ navigation }) => {
                     onPress={() =>
                       navigation.navigate("Room", {
                         roomName: item.name,
-                        username: state.currentUser
+                        username: state.currentUser.username
                       })
                     }
                   >
