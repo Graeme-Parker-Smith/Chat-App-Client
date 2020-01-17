@@ -48,9 +48,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const { username, avatar } = currentUser;
   const roomName = navigation.getParam("roomName");
   const [loading, setLoading] = useState(false);
+  const [keyboardShowing, setKeyboardShowing] = useState(false);
   const [content, setContent] = useState("");
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [endScrollPosition, setEndScrollPosition] = useState(0);
+  // const [scrollPosition, setScrollPosition] = useState(0);
+  // const [endScrollPosition, setEndScrollPosition] = useState(0);
   const [scrollValues, setScrollValues] = useState({
     layoutHeight: 0,
     offsetY: 0,
@@ -80,11 +81,30 @@ const RoomScreen = ({ navigation, isFocused }) => {
       }
     });
 
+    keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      _keyboardDidShow
+    );
+    keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      _keyboardDidHide
+    );
+
     return () => {
       console.log("component unmounting");
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
       socket.emit("leave", { room: roomName, name: username });
     };
   }, []);
+
+  const _keyboardDidShow = () => {
+    setKeyboardShowing(true);
+  };
+
+  const _keyboardDidHide = () => {
+    setKeyboardShowing(false);
+  };
 
   // ============================================================
   //              HANDLE COMPONENT RECEIVE DATA FROM SERVER
@@ -250,11 +270,15 @@ const RoomScreen = ({ navigation, isFocused }) => {
       offsetY: e.nativeEvent.contentOffset.y,
       contentHeight: e.nativeEvent.contentSize.height
     });
-    setScrollPosition(e.nativeEvent.contentOffset.y);
+    // setScrollPosition(e.nativeEvent.contentOffset.y);
     // console.log("scroll event CONTENT OFFSET.y: ", e.nativeEvent);
 
     // e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
-    if (e.nativeEvent.contentOffset.y < 1 && loading === false) {
+    if (
+      e.nativeEvent.contentOffset.y < 1 &&
+      loading === false &&
+      state.length > 18
+    ) {
       setLoading(true);
       await fetchEarlierMessages(state, roomName);
       // May need to change this to scrollToOffset
@@ -278,8 +302,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
       } catch {
         console.log("scroll bs");
       }
-
-      setEndScrollPosition(scrollPosition);
     }
   };
 
@@ -329,7 +351,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   return (
     <SafeAreaView style={styles.body}>
       <NavigationEvents onWillFocus={handleOnFocus} />
-      <KeyboardShift messages={state}>
+      {/* <KeyboardShift messages={state}> */}
         <View style={{ marginTop: 10, backgroundColor: "#000" }}>
           <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
             User: {username}
@@ -351,7 +373,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
             <FlatList
               style={{
                 backgroundColor: "black",
-                height: Platform.OS === "ios" ? 470 : 447,
+                // height: Platform.OS === "ios" ? 470 : 447,
+                height: keyboardShowing ? 270 : 470,
                 flexGrow: 0
               }}
               bounces={false}
@@ -410,10 +433,18 @@ const RoomScreen = ({ navigation, isFocused }) => {
                 />
               </View>
             }
+            rightIcon={
+              <MaterialIcons
+                name="send"
+                size={32}
+                color="#0af"
+                onPress={sendNewMessage}
+              />
+            }
           />
-          <Button title="Send Message" onPress={sendNewMessage} />
+          {/* <Button title="Send Message" onPress={sendNewMessage} /> */}
         </View>
-      </KeyboardShift>
+      {/* </KeyboardShift> */}
     </SafeAreaView>
   );
 };
