@@ -27,7 +27,14 @@ const AccountScreen = ({ navigation }) => {
 
   if (!state.currentUser) {
     return (
-      <View style={{ flex: 1, backgroundColor: "black", justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "black",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
         <NavigationEvents onWillFocus={fetchChannels} />
         <ActivityIndicator size="large" color="#0af" />
       </View>
@@ -64,6 +71,10 @@ const AccountScreen = ({ navigation }) => {
             />
           ) : null}
         </View>
+        <Button
+          title="Edit User"
+          onPress={() => console.log("open editUserForm")}
+        />
         <Input
           value={newChannelName}
           onChangeText={setNewChannelName}
