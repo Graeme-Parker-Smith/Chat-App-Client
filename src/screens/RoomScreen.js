@@ -67,6 +67,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
     clearMessages
   } = useContext(MessageContext);
 
+  const _keyboardDidShow = () => {
+    setKeyboardShowing(true);
+  };
+
+  const _keyboardDidHide = () => {
+    setKeyboardShowing(false);
+  };
+
   // ============================================================
   //                HANDLE COMPONENT DID MOUNT AND UNMOUNT
   // ============================================================
@@ -97,14 +105,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
       socket.emit("leave", { room: roomName, name: username });
     };
   }, []);
-
-  const _keyboardDidShow = () => {
-    setKeyboardShowing(true);
-  };
-
-  const _keyboardDidHide = () => {
-    setKeyboardShowing(false);
-  };
 
   // ============================================================
   //              HANDLE COMPONENT RECEIVE DATA FROM SERVER
