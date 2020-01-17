@@ -1,26 +1,14 @@
 import React, { memo } from "react";
-import {
-  StyleSheet,
-  Image,
-  View,
-  Dimensions
-} from "react-native";
+import { StyleSheet, Image, View, Dimensions } from "react-native";
 import { ListItem } from "react-native-elements";
 import Spacer from "./Spacer";
 import timeConverter from "../helpers/timeConverter";
 import { Entypo } from "@expo/vector-icons";
 import { Video } from "expo-av";
 
-const Avatar = () => <Entypo name="user" size={20} color="#0af" />;
+const DefaultAvatar = () => <Entypo name="user" size={20} color="#0af" />;
 
-const MessageItem = ({
-  content,
-  username,
-  time,
-  isImage,
-  isVideo,
-}) => {
-
+const MessageItem = ({ content, username, time, avatar, isImage, isVideo }) => {
   // calculate how long ago msg was sent and create title content for msg
   let howLongAgo;
   if (time) {
@@ -30,6 +18,18 @@ const MessageItem = ({
   const deets = howLongAgo
     ? "from: " + username + "  -  " + howLongAgo
     : "from: " + username;
+
+  // If user avatar, display that in left icon, else use default avatar
+  let avatarImage;
+  if (avatar) {
+    avatarImage = (
+      <View>
+        <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+      </View>
+    );
+  } else {
+    avatarImage = DefaultAvatar;
+  }
 
   // check whether subtitle prop should render content as Text, Image, or Video
   let renderedContent;
@@ -67,7 +67,7 @@ const MessageItem = ({
       titleStyle={styles.title}
       subtitle={renderedContent}
       subtitleStyle={styles.subtitle}
-      leftAvatar={Avatar}
+      leftAvatar={avatarImage}
       // onLayout={event => {
       //   const layout = event.nativeEvent.layout;
       //   addToLayoutsMap(layout, index);
@@ -89,6 +89,11 @@ const styles = StyleSheet.create({
   subtitle: {
     color: "white",
     fontSize: 18
+  },
+  avatarStyle : {
+    height: 20,
+    width: 20,
+    borderRadius: 20
   }
 });
 

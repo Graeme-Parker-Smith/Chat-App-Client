@@ -32,9 +32,9 @@ const clearErrorMessage = dispatch => () => {
   dispatch({ type: "clear_error_message" });
 };
 
-const signup = dispatch => async ({ username, password }) => {
+const signup = dispatch => async ({ username, password, avatar }) => {
   try {
-    const response = await chatApi.post("/signup", { username, password });
+    const response = await chatApi.post("/signup", { username, password, avatar });
     await AsyncStorage.setItem("token", response.data.token);
     dispatch({ type: "signin", payload: response.data.token });
     navigate("Account");
