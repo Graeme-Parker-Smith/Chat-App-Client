@@ -6,7 +6,6 @@ import Spacer from "./Spacer";
 const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
   const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState("");
 
   return (
     <>
@@ -29,23 +28,13 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <Spacer />
-      <View>
-        <Input
-          label="avatar"
-          value={avatar}
-          onChangeText={setSvatar}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      </View>
       {errorMessage ? (
         <Text style={styles.errorMessage}>{errorMessage}</Text>
       ) : null}
       <Spacer>
         <Button
           title={submitButtonText}
-          onPress={() => onSubmit({ username, password, avatar })}
+          onPress={() => onSubmit({ username, password })}
         />
       </Spacer>
     </>
