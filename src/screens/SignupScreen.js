@@ -9,10 +9,41 @@ import * as Permissions from "expo-permissions";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const SignupScreen = () => {
-  const [username, setusername] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
   const [avatar, setAvatar] = useState("");
+
+  const _pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setAvatar(result.uri);
+    }
+  };
+  const launchCamera = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    await Permissions.askAsync(Permissions.CAMERA);
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setAvatar(result.uri);
+    }
+  };
 
   return (
     <>
@@ -22,7 +53,7 @@ const SignupScreen = () => {
       <Input
         label="username"
         value={username}
-        onChangeText={setusername}
+        onChangeText={setUsername}
         autoCapitalize="none"
         autoCorrect={false}
       />
@@ -37,6 +68,22 @@ const SignupScreen = () => {
       />
       <Spacer />
       <View>
+        <MaterialIcons
+          name="photo-camera"
+          size={32}
+          color="#0af"
+          onPress={launchCamera}
+        />
+        <MaterialIcons
+          name="photo-library"
+          size={32}
+          color="#0af"
+          onPress={_pickImage}
+        />
+        <Text>Choose User Avatar to Display</Text>
+        <View>
+        <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+      </View>
         <Input
           label="avatar"
           value={avatar}
@@ -50,8 +97,8 @@ const SignupScreen = () => {
       ) : null}
       <Spacer>
         <Button
-          title={submitButtonText}
-          onPress={() => onSubmit({ username, password })}
+          title="Register User"
+          onPress={() => signup({ username, password, avatar })}
         />
       </Spacer>
     </>
@@ -76,6 +123,11 @@ const styles = StyleSheet.create({
     color: "red",
     marginLeft: 15,
     marginTop: 15
+  },
+  avatarStyle : {
+    height: 20,
+    width: 20,
+    borderRadius: 20
   }
 });
 
