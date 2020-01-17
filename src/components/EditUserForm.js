@@ -44,7 +44,25 @@ const EditUserForm = ({ currentUser }) => {
   return (
     <View>
       <Text>Edit User Info</Text>
-      <Spacer />
+      <Spacer>
+        <Input
+          label="Edit Username"
+          value={username}
+          onChangeText={setUsername}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+      </Spacer>
+      <Spacer>
+        <Input
+          secureTextEntry
+          label=" Edit Password"
+          value={password}
+          onChangeText={setPassword}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+      </Spacer>
       <View>
         <MaterialIcons
           name="photo-camera"
@@ -70,6 +88,16 @@ const EditUserForm = ({ currentUser }) => {
           )}
         </View>
       </View>
+      <Spacer>
+        <Button
+          title="Update User Info"
+          onPress={() => updateUser({ newUsername, newPassword, newAvatar })}
+        />
+        <Button
+          title="Cancel"
+          onPress={cancelEdit}
+        />
+      </Spacer>
     </View>
   );
 };
