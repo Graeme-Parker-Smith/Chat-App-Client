@@ -14,6 +14,7 @@ import { Button, Input } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
 import { NavigationEvents } from "react-navigation";
 import Spacer from "../components/Spacer";
+import EditUserForm from "../components/EditUserForm";
 import { ListItem } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ChannelContext } from "../context/ChannelContext";
@@ -74,6 +75,10 @@ const AccountScreen = ({ navigation }) => {
         <Button
           title="Edit User"
           onPress={() => console.log("open editUserForm")}
+        />
+        <EditUserForm
+          currentUser={state.currentUser}
+          style={{ zIndex: -1000 }}
         />
         <Input
           value={newChannelName}
