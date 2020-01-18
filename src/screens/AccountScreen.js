@@ -25,6 +25,7 @@ const AccountScreen = ({ navigation }) => {
   const { signout } = useContext(AuthContext);
   // const { avatar } = useContext(AuthContext).state;
   const { state, fetchChannels, createChannel } = useContext(ChannelContext);
+  const [showEditUserForm, setShowEditUserForm] = useState(false);
 
   if (!state.currentUser) {
     return (
@@ -72,13 +73,11 @@ const AccountScreen = ({ navigation }) => {
             />
           ) : null}
         </View>
-        <Button
-          title="Edit User"
-          onPress={() => console.log("open editUserForm")}
-        />
+        <Button title="Edit User" onPress={() => setShowEditUserForm(true)} />
         <EditUserForm
           currentUser={state.currentUser}
-          style={{ zIndex: -1000 }}
+          shouldShow={showEditUserForm}
+          setShowEditUserForm={setShowEditUserForm}
         />
         <Input
           value={newChannelName}

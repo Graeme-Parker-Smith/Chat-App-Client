@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
-import { Input, Button, Text } from "react-native";
+import { Input, Button, Text } from "react-native-elements";
 import Spacer from "./Spacer";
 import AvatarPicker from "./AvatarPicker";
 
-const EditUserForm = ({ currentUser }) => {
+const EditUserForm = ({ currentUser, shouldShow, setShowEditUserForm }) => {
   // create reusable avatar picker form for signupscreen and editUserForm
   const [newUsername, setNewUsername] = useState(currentUser.username);
   const [newPassword, setNewPassword] = useState("");
@@ -15,12 +15,14 @@ const EditUserForm = ({ currentUser }) => {
   };
 
   const cancelEdit = () => {
-    console.log("pressed cancel edit button");
+    setShowEditUserForm(false);
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Edit User Info</Text>
+    <View
+      style={[styles.container, { display: shouldShow ? "block" : "none" }]}
+    >
+      <Text style={{ color: "white" }}>Edit User Info</Text>
       <Spacer>
         <Input
           label="Edit Username"
@@ -54,8 +56,9 @@ const EditUserForm = ({ currentUser }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#000"
+    height: 500,
+    width: 500,
+    backgroundColor: "white",
   }
 });
 
