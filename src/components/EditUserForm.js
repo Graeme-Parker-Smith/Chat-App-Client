@@ -5,7 +5,6 @@ import Spacer from "./Spacer";
 import AvatarPicker from "./AvatarPicker";
 
 const EditUserForm = ({ currentUser, shouldShow, setShowEditUserForm }) => {
-  // create reusable avatar picker form for signupscreen and editUserForm
   const [newUsername, setNewUsername] = useState(currentUser.username);
   const [newPassword, setNewPassword] = useState("");
   const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
