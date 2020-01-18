@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Dimensions } from "react-native";
 import { Input, Button, Text } from "react-native-elements";
 import Spacer from "./Spacer";
 import AvatarPicker from "./AvatarPicker";
@@ -58,7 +58,7 @@ const EditUserForm = ({ currentUser, shouldShow, setShowEditUserForm }) => {
 const styles = StyleSheet.create({
   container: {
     height: 500,
-    width: 500,
+    width: Dimensions.get("window").width,
     backgroundColor: "#000"
   }
 });

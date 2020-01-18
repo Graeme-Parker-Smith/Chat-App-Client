@@ -39,23 +39,25 @@ const AvatarPicker = ({ avatar, setAvatar }) => {
   };
   return (
     <View>
-      <MaterialIcons
-        name="photo-camera"
-        size={32}
-        color="#0af"
-        onPress={launchCamera}
-      />
-      <MaterialIcons
-        name="photo-library"
-        size={32}
-        color="#0af"
-        onPress={_pickImage}
-      />
-      <Text>Choose User Avatar to Display</Text>
-      <View>
-        {avatar ? (
-          <Image source={{ uri: avatar }} style={styles.avatarStyle} />
-        ) : null}
+      <Text style={{ color: "white", textAlign: 'center' }}>Choose User Avatar to Display</Text>
+      <View style={styles.imagePickerStyle}>
+        <MaterialIcons
+          name="photo-camera"
+          size={100}
+          color="#0af"
+          onPress={launchCamera}
+        />
+        <MaterialIcons
+          name="photo-library"
+          size={100}
+          color="#0af"
+          onPress={_pickImage}
+        />
+        <View>
+          {avatar ? (
+            <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+          ) : null}
+        </View>
       </View>
     </View>
   );
@@ -65,6 +67,11 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 50
+  },
+  imagePickerStyle: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around"
   }
 });
 
