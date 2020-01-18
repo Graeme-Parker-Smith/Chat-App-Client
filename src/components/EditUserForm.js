@@ -29,6 +29,7 @@ const EditUserForm = ({ currentUser, shouldShow, setShowEditUserForm }) => {
           onChangeText={setNewUsername}
           autoCapitalize="none"
           autoCorrect={false}
+          inputStyle={{ color: "white" }}
         />
       </Spacer>
       <Spacer>
@@ -39,6 +40,7 @@ const EditUserForm = ({ currentUser, shouldShow, setShowEditUserForm }) => {
           onChangeText={setNewPassword}
           autoCapitalize="none"
           autoCorrect={false}
+          inputStyle={{ color: "white" }}
         />
       </Spacer>
       <AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} />
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
   container: {
     height: 500,
     width: 500,
-    backgroundColor: "white",
+    backgroundColor: "#000"
   }
 });
 
