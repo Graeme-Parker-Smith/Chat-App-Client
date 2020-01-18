@@ -89,14 +89,6 @@ const AccountScreen = ({ navigation }) => {
             setNewChannelName("");
           }}
         />
-        {/* <View>
-          <Image
-            source={{
-              uri: `file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540anonymous%252Fgraeme-chat-app-9aad46b5-69ea-42a1-925c-9f5b2d70d3a8/ImagePicker/1F6EEADC-08C5-469D-8091-AAD54703B9BF.gif`
-            }}
-            style={{ height: 200, width: 200 }}
-          />
-        </View> */}
         <View>
           <ScrollView style={{ height: 450 }}>
             <FlatList
