@@ -46,13 +46,7 @@ const AccountScreen = ({ navigation }) => {
   console.log("currentUser", state.currentUser);
   return (
     <>
-      <SafeAreaView
-        forceInset={{ top: "always" }}
-        style={{
-          backgroundColor: "#000",
-          height: Dimensions.get("window").height
-        }}
-      >
+      <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
         <Text
           style={{
             fontSize: 24,
@@ -94,7 +88,7 @@ const AccountScreen = ({ navigation }) => {
           }}
         />
         <View>
-          <ScrollView style={{ height: 450 }}>
+          {/* <ScrollView style={{ height: 450 }}> */}
             <FlatList
               style={{ marginTop: 20 }}
               data={state.channels}
@@ -119,7 +113,7 @@ const AccountScreen = ({ navigation }) => {
                 );
               }}
             />
-          </ScrollView>
+          {/* </ScrollView> */}
         </View>
         <Spacer>
           <Button title="Sign Out" onPress={signout} />
@@ -145,9 +139,13 @@ const styles = StyleSheet.create({
     color: "white"
   },
   avatarStyle: {
-    height: 100,
-    width: 100,
+    height: 50,
+    width: 50,
     borderRadius: 50
+  },
+  container: {
+    height: Dimensions.get("window").height,
+    backgroundColor: "#000"
   }
 });
 

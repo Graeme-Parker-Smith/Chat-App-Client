@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Dimensions } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
 import Spacer from "../components/Spacer";
-import { NavigationEvents } from "react-navigation";
+// import { NavigationEvents } from "react-navigation";
+import { SafeAreaView } from "react-navigation";
 import { Context as AuthContext } from "../context/AuthContext";
 import AuthForm from "../components/AuthForm";
 import NavLink from "../components/NavLink";
@@ -15,9 +16,11 @@ const SignupScreen = () => {
   const [avatar, setAvatar] = useState("");
 
   return (
-    <>
+    <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
       <Spacer>
-        <Text h3>Sign Up</Text>
+        <Text style={{ color: "white" }} h3>
+          Sign Up
+        </Text>
       </Spacer>
       <Input
         label="username"
@@ -46,7 +49,11 @@ const SignupScreen = () => {
           onPress={() => signup({ username, password, avatar })}
         />
       </Spacer>
-    </>
+      <NavLink
+        routeName="Signin"
+        text="Go back to Sign In"
+      />
+    </SafeAreaView>
   );
 };
 
@@ -58,10 +65,9 @@ SignupScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    marginBottom: 200,
-    backgroundColor: "#0AF"
+    height: Dimensions.get("window").height,
+    backgroundColor: "#000",
+    color: "white"
   },
   errorMessage: {
     fontSize: 16,
