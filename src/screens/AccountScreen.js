@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -26,8 +26,9 @@ const AccountScreen = ({ navigation }) => {
   // const { avatar } = useContext(AuthContext).state;
   const { state, fetchChannels, createChannel } = useContext(ChannelContext);
   const [showEditUserForm, setShowEditUserForm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  if (!state.currentUser) {
+  if (!state.currentUser || isLoading) {
     return (
       <View
         style={{
@@ -43,7 +44,6 @@ const AccountScreen = ({ navigation }) => {
     );
   }
 
-  console.log("currentUser", state.currentUser);
   return (
     <>
       <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
@@ -71,6 +71,7 @@ const AccountScreen = ({ navigation }) => {
         <EditUserForm
           shouldShow={showEditUserForm}
           setShowEditUserForm={setShowEditUserForm}
+          setIsLoading={setIsLoading}
         />
         <Input
           value={newChannelName}
@@ -88,30 +89,30 @@ const AccountScreen = ({ navigation }) => {
         />
         <View>
           {/* <ScrollView style={{ height: 450 }}> */}
-            <FlatList
-              style={{ marginTop: 20 }}
-              data={state.channels}
-              keyExtractor={item => item.name}
-              renderItem={({ item }) => {
-                return (
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("Room", {
-                        roomName: item.name,
-                        username: state.currentUser.username
-                      })
-                    }
-                  >
-                    <ListItem
-                      containerStyle={styles.channel}
-                      chevron
-                      title={item.name}
-                      titleStyle={styles.title}
-                    />
-                  </TouchableOpacity>
-                );
-              }}
-            />
+          <FlatList
+            style={{ marginTop: 20 }}
+            data={state.channels}
+            keyExtractor={item => item.name}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("Room", {
+                      roomName: item.name,
+                      username: state.currentUser.username
+                    })
+                  }
+                >
+                  <ListItem
+                    containerStyle={styles.channel}
+                    chevron
+                    title={item.name}
+                    titleStyle={styles.title}
+                  />
+                </TouchableOpacity>
+              );
+            }}
+          />
           {/* </ScrollView> */}
         </View>
         <Spacer>

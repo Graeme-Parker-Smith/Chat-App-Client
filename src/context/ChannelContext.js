@@ -29,8 +29,8 @@ const updateUser = dispatch => async ({
     newPassword,
     newAvatar
   });
-  console.log("response.data", response.data);
-  dispatch({ type: "update_user", payload: response.data });
+  console.log("response.data", response.data.userData);
+  dispatch({ type: "update_user", payload: response.data.userData });
 };
 
 const fetchChannels = dispatch => async () => {

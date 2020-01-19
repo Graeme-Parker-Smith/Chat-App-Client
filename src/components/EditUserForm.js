@@ -2,14 +2,17 @@ import React, { useState, useContext } from "react";
 import { View, StyleSheet, Image, Dimensions } from "react-native";
 import { Input, Button, Text } from "react-native-elements";
 import { Context as ChannelContext } from "../context/ChannelContext";
+import { Context as AuthContext } from "../context/AuthContext";
 import Spacer from "./Spacer";
 import AvatarPicker from "./AvatarPicker";
 
-const EditUserForm = ({ shouldShow, setShowEditUserForm }) => {
+const EditUserForm = ({ shouldShow, setShowEditUserForm, setIsLoading }) => {
   const {
     state: { currentUser },
-    updateUser
+    updateUser,
+    fetchChannels
   } = useContext(ChannelContext);
+  const { tryLocalSignin } = useContext(AuthContext);
   const [newUsername, setNewUsername] = useState(currentUser.username);
   const [newPassword, setNewPassword] = useState("");
   const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
@@ -17,6 +20,19 @@ const EditUserForm = ({ shouldShow, setShowEditUserForm }) => {
   // const updateUser = () => {
   //   console.log("pressed update user button");
   // };
+
+  const updateThenReset = async () => {
+    setIsLoading(true);
+    await updateUser({
+      username: currentUser.username,
+      newUsername,
+      newPassword,
+      newAvatar
+    });
+    setShowEditUserForm(false);
+    await fetchChannels();
+    setIsLoading(false);
+  };
 
   const cancelEdit = () => {
     setShowEditUserForm(false);
@@ -50,17 +66,7 @@ const EditUserForm = ({ shouldShow, setShowEditUserForm }) => {
       </Spacer>
       <AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} />
       <Spacer>
-        <Button
-          title="Update User Info"
-          onPress={() =>
-            updateUser({
-              username: currentUser.username,
-              newUsername,
-              newPassword,
-              newAvatar
-            })
-          }
-        />
+        <Button title="Update User Info" onPress={() => updateThenReset()} />
         <Button title="Cancel" onPress={cancelEdit} />
       </Spacer>
     </View>
