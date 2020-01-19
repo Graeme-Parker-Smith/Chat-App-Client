@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image, Dimensions } from "react-native";
 import { Input, Button, Text } from "react-native-elements";
+import { Context as ChannelContext } from "../context/ChannelContext";
 import Spacer from "./Spacer";
 import AvatarPicker from "./AvatarPicker";
 
-const EditUserForm = ({ currentUser, shouldShow, setShowEditUserForm }) => {
+const EditUserForm = ({ shouldShow, setShowEditUserForm }) => {
+  const {
+    state: { currentUser },
+    updateUser
+  } = useContext(ChannelContext);
   const [newUsername, setNewUsername] = useState(currentUser.username);
   const [newPassword, setNewPassword] = useState("");
   const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
 
-  const updateUser = () => {
-    console.log("pressed update user button");
-  };
+  // const updateUser = () => {
+  //   console.log("pressed update user button");
+  // };
 
   const cancelEdit = () => {
     setShowEditUserForm(false);
@@ -47,7 +52,14 @@ const EditUserForm = ({ currentUser, shouldShow, setShowEditUserForm }) => {
       <Spacer>
         <Button
           title="Update User Info"
-          onPress={() => updateUser({ newUsername, newPassword, newAvatar })}
+          onPress={() =>
+            updateUser({
+              username: currentUser.username,
+              newUsername,
+              newPassword,
+              newAvatar
+            })
+          }
         />
         <Button title="Cancel" onPress={cancelEdit} />
       </Spacer>

@@ -15,6 +15,22 @@ const channelReducer = (state, action) => {
   }
 };
 
+const updateUser = dispatch => async ({
+  username,
+  newUsername,
+  newPassword,
+  newAvatar
+}) => {
+  const response = await chatApi.post("/updateuser", {
+    username,
+    newUsername,
+    newPassword,
+    newAvatar
+  });
+
+  dispatch({ type: "update_user", payload: response.data });
+};
+
 const fetchChannels = dispatch => async () => {
   const response = await chatApi.get("/channels");
   // console.log("fetchChannels response.data", response.data);
@@ -31,6 +47,6 @@ const createChannel = dispatch => async ({ name, creator }) => {
 
 export const { Provider, Context } = createDataContext(
   channelReducer,
-  { fetchChannels, createChannel },
+  { fetchChannels, createChannel, updateUser },
   { currentUser: null, channels: [] }
 );

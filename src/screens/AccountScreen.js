@@ -69,7 +69,6 @@ const AccountScreen = ({ navigation }) => {
         </View>
         <Button title="Edit User" onPress={() => setShowEditUserForm(true)} />
         <EditUserForm
-          currentUser={state.currentUser}
           shouldShow={showEditUserForm}
           setShowEditUserForm={setShowEditUserForm}
         />
