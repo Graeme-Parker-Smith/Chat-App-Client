@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, StyleSheet, Image, Dimensions } from "react-native";
 import { Input, Button, Text } from "react-native-elements";
 import { Context as ChannelContext } from "../context/ChannelContext";

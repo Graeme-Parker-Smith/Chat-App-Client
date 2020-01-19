@@ -8,6 +8,8 @@ const channelReducer = (state, action) => {
         currentUser: action.payload.currentUser,
         channels: action.payload.channels
       };
+    case "update_user":
+      return { ...state, currentUser: action.payload };
     case "create_channel":
       return { ...state, channels: [...state.channels, action.payload] };
     default:
@@ -27,7 +29,7 @@ const updateUser = dispatch => async ({
     newPassword,
     newAvatar
   });
-
+  console.log("response.data", response.data);
   dispatch({ type: "update_user", payload: response.data });
 };
 
