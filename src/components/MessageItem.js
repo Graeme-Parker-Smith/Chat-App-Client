@@ -16,7 +16,7 @@ const MessageItem = ({
   avatar,
   isImage,
   isVideo,
-  setVideoState
+  // setVideoState
 }) => {
   const [vidRef, setVidRef] = useState("");
   // calculate how long ago msg was sent and create title content for msg

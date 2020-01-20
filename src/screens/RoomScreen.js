@@ -50,10 +50,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const roomName = navigation.getParam("roomName");
   const [loading, setLoading] = useState(false);
   const [keyboardShowing, setKeyboardShowing] = useState(false);
-  const [videoState, setVideoState] = useState({
-    videoIsPlaying: false,
-    videoUri: ""
-  });
+  // const [videoState, setVideoState] = useState({
+  //   videoIsPlaying: false,
+  //   videoUri: ""
+  // });
   const [content, setContent] = useState("");
   // const [scrollPosition, setScrollPosition] = useState(0);
   // const [endScrollPosition, setEndScrollPosition] = useState(0);
@@ -329,7 +329,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
         isImage={item.isImage ? true : false}
         isVideo={item.isVideo ? true : false}
         index={index}
-        setVideoState={setVideoState}
+        // setVideoState={setVideoState}
       />
     );
   };
@@ -354,33 +354,33 @@ const RoomScreen = ({ navigation, isFocused }) => {
     scrollToBottom();
   };
 
-  if (videoState.videoIsPlaying) {
-    return (
-      // <View
-      //   style={{
-      //     height: Dimensions.get("window").height,
-      //     width: Dimensions.get("window").width
-      //   }}
-      // >
-        <Video
-        source={{ uri: videoState.videoUri }}
-        rate={1.0}
-        volume={1.0}
-        isMuted={false}
-        resizeMode="cover"
-        shouldPlay
-        isLooping
-        natural
-        useNativeControls={true}
-        style={{
-          height: Dimensions.get("window").height - 100,
-          width: Dimensions.get("window").width
-        }}
-        // style={{ height: 200, width: 200 }}
-      />
-      // </View>
-    );
-  }
+  // if (videoState.videoIsPlaying) {
+  //   return (
+  //     // <View
+  //     //   style={{
+  //     //     height: Dimensions.get("window").height,
+  //     //     width: Dimensions.get("window").width
+  //     //   }}
+  //     // >
+  //       <Video
+  //       source={{ uri: videoState.videoUri }}
+  //       rate={1.0}
+  //       volume={1.0}
+  //       isMuted={false}
+  //       resizeMode="cover"
+  //       shouldPlay
+  //       isLooping
+  //       natural
+  //       useNativeControls={true}
+  //       style={{
+  //         height: Dimensions.get("window").height - 100,
+  //         width: Dimensions.get("window").width
+  //       }}
+  //       // style={{ height: 200, width: 200 }}
+  //     />
+  //     // </View>
+  //   );
+  // }
 
   return (
     <SafeAreaView style={styles.body}>
