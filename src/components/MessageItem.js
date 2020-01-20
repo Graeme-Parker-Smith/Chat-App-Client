@@ -46,7 +46,7 @@ const MessageItem = ({
       <MaterialIcons
         name="replay"
         size={30}
-        color="#0af"
+        color="#c2c5cc"
         style={{
           height: 200,
           width: 200,
