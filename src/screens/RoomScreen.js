@@ -373,7 +373,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
         natural
         useNativeControls={true}
         style={{
-          height: Dimensions.get("window").height,
+          height: Dimensions.get("window").height - 100,
           width: Dimensions.get("window").width
         }}
         // style={{ height: 200, width: 200 }}

@@ -1,9 +1,9 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { StyleSheet, Image, View, Dimensions } from "react-native";
 import { ListItem } from "react-native-elements";
 import Spacer from "./Spacer";
 import timeConverter from "../helpers/timeConverter";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { Video } from "expo-av";
 import VideoPlayer from "expo-video-player";
 
@@ -18,6 +18,7 @@ const MessageItem = ({
   isVideo,
   setVideoState
 }) => {
+  const [vidRef, setVidRef] = useState("");
   // calculate how long ago msg was sent and create title content for msg
   let howLongAgo;
   if (time) {
@@ -40,47 +41,80 @@ const MessageItem = ({
     avatarImage = DefaultAvatar;
   }
 
+  const PlayIcon = () => {
+    return (
+      <MaterialIcons
+        name="replay"
+        size={30}
+        color="#0af"
+        style={{
+          height: 200,
+          width: 200,
+          position: "absolute",
+          top: 170,
+          left: 170,
+          // opacity: 0.5
+        }}
+        onPress={() => {
+          if (vidRef) {
+            vidRef.replayAsync();
+          }
+        }}
+      />
+    );
+  };
+
+  const _handleVideoRef = component => {
+    let playbackObject = component;
+    setVidRef(playbackObject);
+    // console.log("playbackObject", playbackObject);
+  };
+
   // check whether subtitle prop should render content as Text, Image, or Video
   let renderedContent;
   if (isVideo) {
     renderedContent = (
-      <View style={{ height: 200, width: 200 }}>
-        <FontAwesome
-          name="play-circle"
-          size={30}
-          color="#0af"
-          iconStyle={{
-            height: 200,
-            width: 200,
-            position: "absolute",
-            top: 100,
-            right: 100,
-            opacity: 0.5
-          }}
-          onPress={() =>
-            setVideoState({ videoIsPlaying: true, videoUri: content })
-          }
-        >
-          {/* <Video
-            source={{ uri: content }}
-            rate={1.0}
-            volume={1.0}
-            isMuted={false}
-            resizeMode="cover"
-            // shouldPlay
-            // isLooping
-            natural
-          /> */}
-        </FontAwesome>
+      // <View style={{ height: 200, width: 200 }}>
+      //   <FontAwesome
+      //     name="play-circle"
+      //     size={30}
+      //     color="#0af"
+      //     iconStyle={{
+      //       height: 200,
+      //       width: 200,
+      //       position: "absolute",
+      //       top: 100,
+      //       right: 100,
+      //       opacity: 0.5
+      //     }}
+      //     onPress={() =>
+      //       setVideoState({ videoIsPlaying: true, videoUri: content })
+      //     }
+      //   >
+      <View style={{position: 'relative'}}>
+        <Video
+          ref={_handleVideoRef}
+          source={{ uri: content }}
+          rate={1.0}
+          volume={1.0}
+          isMuted={false}
+          resizeMode="cover"
+          // shouldPlay
+          // isLooping
+          natural
+          useNativeControls={true}
+          style={{ height: 200, width: 200, position: 'relative' }}
+        />
+        <PlayIcon />
       </View>
+      // </View>
       // <VideoPlayer
       //   videoProps={{
       //     shouldPlay: true,
       //     resizeMode: Video.RESIZE_MODE_CONTAIN,
       //     source: { uri: content },
-      //     fullscreen
+      //     fullscreenEnterIcon={playIcon}
       //   }}
-      //   inFullscreen={true}
       // />
     );
   } else if (isImage) {
