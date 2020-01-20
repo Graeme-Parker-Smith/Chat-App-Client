@@ -3,12 +3,21 @@ import { StyleSheet, Image, View, Dimensions } from "react-native";
 import { ListItem } from "react-native-elements";
 import Spacer from "./Spacer";
 import timeConverter from "../helpers/timeConverter";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { Video } from "expo-av";
+import VideoPlayer from "expo-video-player";
 
 const DefaultAvatar = () => <Entypo name="user" size={20} color="#0af" />;
 
-const MessageItem = ({ content, username, time, avatar, isImage, isVideo }) => {
+const MessageItem = ({
+  content,
+  username,
+  time,
+  avatar,
+  isImage,
+  isVideo,
+  setVideoState
+}) => {
   // calculate how long ago msg was sent and create title content for msg
   let howLongAgo;
   if (time) {
@@ -35,16 +44,44 @@ const MessageItem = ({ content, username, time, avatar, isImage, isVideo }) => {
   let renderedContent;
   if (isVideo) {
     renderedContent = (
-      <Video
-        source={{ uri: content }}
-        rate={1.0}
-        volume={1.0}
-        isMuted={false}
-        resizeMode="cover"
-        shouldPlay
-        isLooping
-        style={{ height: 200, width: 200 }}
-      />
+      <View style={{ height: 200, width: 200 }}>
+        <FontAwesome
+          name="play-circle"
+          size={30}
+          color="#0af"
+          iconStyle={{
+            height: 200,
+            width: 200,
+            position: "absolute",
+            top: 100,
+            right: 100,
+            opacity: 0.5
+          }}
+          onPress={() =>
+            setVideoState({ videoIsPlaying: true, videoUri: content })
+          }
+        >
+          {/* <Video
+            source={{ uri: content }}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode="cover"
+            // shouldPlay
+            // isLooping
+            natural
+          /> */}
+        </FontAwesome>
+      </View>
+      // <VideoPlayer
+      //   videoProps={{
+      //     shouldPlay: true,
+      //     resizeMode: Video.RESIZE_MODE_CONTAIN,
+      //     source: { uri: content },
+      //     fullscreen
+      //   }}
+      //   inFullscreen={true}
+      // />
     );
   } else if (isImage) {
     renderedContent = (
@@ -90,7 +127,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18
   },
-  avatarStyle : {
+  avatarStyle: {
     height: 45,
     width: 45,
     borderRadius: 20

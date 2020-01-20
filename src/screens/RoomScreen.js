@@ -34,6 +34,7 @@ import KeyboardShift from "../components/KeyBoardShift";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Video } from "expo-av";
 
 // let _layoutsMap = [];
 let itemHeights = [];
@@ -49,6 +50,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const roomName = navigation.getParam("roomName");
   const [loading, setLoading] = useState(false);
   const [keyboardShowing, setKeyboardShowing] = useState(false);
+  const [videoState, setVideoState] = useState({
+    videoIsPlaying: false,
+    videoUri: ""
+  });
   const [content, setContent] = useState("");
   // const [scrollPosition, setScrollPosition] = useState(0);
   // const [endScrollPosition, setEndScrollPosition] = useState(0);
@@ -324,6 +329,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
         isImage={item.isImage ? true : false}
         isVideo={item.isVideo ? true : false}
         index={index}
+        setVideoState={setVideoState}
       />
     );
   };
@@ -348,102 +354,130 @@ const RoomScreen = ({ navigation, isFocused }) => {
     scrollToBottom();
   };
 
+  if (videoState.videoIsPlaying) {
+    return (
+      // <View
+      //   style={{
+      //     height: Dimensions.get("window").height,
+      //     width: Dimensions.get("window").width
+      //   }}
+      // >
+        <Video
+        source={{ uri: videoState.videoUri }}
+        rate={1.0}
+        volume={1.0}
+        isMuted={false}
+        resizeMode="cover"
+        shouldPlay
+        isLooping
+        natural
+        useNativeControls={true}
+        style={{
+          height: Dimensions.get("window").height,
+          width: Dimensions.get("window").width
+        }}
+        // style={{ height: 200, width: 200 }}
+      />
+      // </View>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.body}>
       <NavigationEvents onWillFocus={handleOnFocus} />
       {/* <KeyboardShift messages={state}> */}
-        <View style={{ marginTop: 10, backgroundColor: "#000" }}>
-          <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
-            User: {username}
-          </Text>
-          <Text style={{ marginLeft: 20, fontSize: 20, color: "#fff" }}>
-            @{roomName} ({users.length} users online): {userList}
-          </Text>
-          {!isCloseToBottom(scrollValues) ? (
-            <Button
-              buttonStyle={{ height: 40, backgroundColor: "#0af" }}
-              title="Jump to Bottom"
-              titleStyle={{ color: "black" }}
-              onPress={scrollToBottom}
-            />
-          ) : (
-            <View style={{ backgroundColor: "black", height: 40 }} />
-          )}
-          <View>
-            <FlatList
+      <View style={{ marginTop: 10, backgroundColor: "#000" }}>
+        <Text style={{ marginLeft: 20, fontSize: 40, color: "#fff" }}>
+          User: {username}
+        </Text>
+        <Text style={{ marginLeft: 20, fontSize: 20, color: "#fff" }}>
+          @{roomName} ({users.length} users online): {userList}
+        </Text>
+        {!isCloseToBottom(scrollValues) ? (
+          <Button
+            buttonStyle={{ height: 40, backgroundColor: "#0af" }}
+            title="Jump to Bottom"
+            titleStyle={{ color: "black" }}
+            onPress={scrollToBottom}
+          />
+        ) : (
+          <View style={{ backgroundColor: "black", height: 40 }} />
+        )}
+        <View>
+          <FlatList
+            style={{
+              backgroundColor: "black",
+              // height: Platform.OS === "ios" ? 470 : 447,
+              height: keyboardShowing ? 270 : 470,
+              flexGrow: 0
+            }}
+            bounces={false}
+            indicatorStyle="white"
+            ref={scrollViewRef}
+            onContentSizeChange={handleAutoScroll}
+            onScroll={handleScroll}
+            scrollEventThrottle={16}
+            overScrollMode="auto"
+            data={state}
+            keyExtractor={keyExtractor}
+            renderItem={({ item, index }) => renderItemOutside(item, index)}
+            getItemLayout={(data, index) => {
+              let height = 46;
+              if (data[index].isImage || data[index].isVideo) {
+                height = 224.33325;
+              } else if (data[index].content.length > 32) {
+                height = 67.33337;
+              }
+              itemHeights[index] = height;
+              return {
+                length: height,
+                offset: height * index,
+                index
+              };
+            }}
+            removeClippedSubviews={true}
+          />
+        </View>
+        <Input
+          value={content}
+          onChangeText={setContent}
+          placeholder="Type Your message here"
+          inputStyle={{ color: "#fff" }}
+          placeholderTextColor="#fff"
+          leftIcon={
+            <View
               style={{
-                backgroundColor: "black",
-                // height: Platform.OS === "ios" ? 470 : 447,
-                height: keyboardShowing ? 270 : 470,
-                flexGrow: 0
+                width: 75,
+                flexDirection: "row",
+                justifyContent: "space-around",
+                marginLeft: 0
               }}
-              bounces={false}
-              indicatorStyle="white"
-              ref={scrollViewRef}
-              onContentSizeChange={handleAutoScroll}
-              onScroll={handleScroll}
-              scrollEventThrottle={16}
-              overScrollMode="auto"
-              data={state}
-              keyExtractor={keyExtractor}
-              renderItem={({ item, index }) => renderItemOutside(item, index)}
-              getItemLayout={(data, index) => {
-                let height = 46;
-                if (data[index].isImage || data[index].isVideo) {
-                  height = 224.33325;
-                } else if (data[index].content.length > 32) {
-                  height = 67.33337;
-                }
-                itemHeights[index] = height;
-                return {
-                  length: height,
-                  offset: height * index,
-                  index
-                };
-              }}
-              removeClippedSubviews={true}
-            />
-          </View>
-          <Input
-            value={content}
-            onChangeText={setContent}
-            placeholder="Type Your message here"
-            inputStyle={{ color: "#fff" }}
-            placeholderTextColor="#fff"
-            leftIcon={
-              <View
-                style={{
-                  width: 75,
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  marginLeft: 0
-                }}
-              >
-                <MaterialIcons
-                  name="photo-camera"
-                  size={32}
-                  color="#0af"
-                  onPress={launchCamera}
-                />
-                <MaterialIcons
-                  name="photo-library"
-                  size={32}
-                  color="#0af"
-                  onPress={_pickImage}
-                />
-              </View>
-            }
-            rightIcon={
+            >
               <MaterialIcons
-                name="send"
+                name="photo-camera"
                 size={32}
                 color="#0af"
-                onPress={sendNewMessage}
+                onPress={launchCamera}
               />
-            }
-          />
-          {/* <Button title="Send Message" onPress={sendNewMessage} /> */}
-        </View>
+              <MaterialIcons
+                name="photo-library"
+                size={32}
+                color="#0af"
+                onPress={_pickImage}
+              />
+            </View>
+          }
+          rightIcon={
+            <MaterialIcons
+              name="send"
+              size={32}
+              color="#0af"
+              onPress={sendNewMessage}
+            />
+          }
+        />
+        {/* <Button title="Send Message" onPress={sendNewMessage} /> */}
+      </View>
       {/* </KeyboardShift> */}
     </SafeAreaView>
   );
