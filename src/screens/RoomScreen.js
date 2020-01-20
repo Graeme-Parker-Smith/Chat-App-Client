@@ -189,7 +189,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       quality: undefined
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.cancelled) {
       let imageToSend;
@@ -223,7 +223,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       quality: undefined
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.cancelled) {
       let imageToSend;
@@ -261,7 +261,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
         console.log("scroll bs");
       }
     } else {
-      console.log("scrollToBottom failed.");
+      return;
     }
   };
   const handleScroll = async e => {
@@ -290,7 +290,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       });
       setTimeout(() => {
         setLoading(false);
-        console.log("LOADING IS DONE");
+        // console.log("LOADING IS DONE");
       }, 100);
     }
   };

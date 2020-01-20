@@ -55,7 +55,7 @@ const signup = dispatch => async ({ username, password, avatar }) => {
     dispatch({ type: "signin", payload: response.data.token });
     navigate("Account");
   } catch (err) {
-    console.log(err);
+    console.error(err);
     dispatch({
       type: "add_error",
       payload: "Something went wrong with sign up"
@@ -68,11 +68,11 @@ const signin = dispatch => async ({ username, password }) => {
   try {
     const response = await chatApi.post("/signin", { username, password });
     await AsyncStorage.setItem("token", response.data.token);
-    console.log("signin response.data", response.data);
+    // console.log("signin response.data", response.data);
     dispatch({ type: "signin", payload: response.data });
     navigate("Account");
   } catch (err) {
-    console.log(err);
+    console.error(err);
     dispatch({
       type: "add_error",
       payload: "Something went wrong with sign up"

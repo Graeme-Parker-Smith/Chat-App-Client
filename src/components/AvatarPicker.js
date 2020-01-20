@@ -15,7 +15,7 @@ const AvatarPicker = ({ avatar, setAvatar }) => {
       quality: 1
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.cancelled) {
       setAvatar(result.uri);
@@ -31,7 +31,7 @@ const AvatarPicker = ({ avatar, setAvatar }) => {
       quality: 1
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.cancelled) {
       setAvatar(result.uri);

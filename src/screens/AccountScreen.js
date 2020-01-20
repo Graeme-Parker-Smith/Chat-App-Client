@@ -23,7 +23,6 @@ import { FontAwesome } from "@expo/vector-icons";
 const AccountScreen = ({ navigation }) => {
   const [newChannelName, setNewChannelName] = useState("");
   const { signout } = useContext(AuthContext);
-  // const { avatar } = useContext(AuthContext).state;
   const { state, fetchChannels, createChannel } = useContext(ChannelContext);
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -88,7 +87,6 @@ const AccountScreen = ({ navigation }) => {
           }}
         />
         <View>
-          {/* <ScrollView style={{ height: 450 }}> */}
           <FlatList
             style={{ marginTop: 20, height: 350 }}
             data={state.channels}
@@ -113,7 +111,6 @@ const AccountScreen = ({ navigation }) => {
               );
             }}
           />
-          {/* </ScrollView> */}
         </View>
         <Spacer>
           <Button title="Sign Out" onPress={signout} />
@@ -121,13 +118,11 @@ const AccountScreen = ({ navigation }) => {
       </SafeAreaView>
     </>
   );
-
-  return <></>;
 };
 
-AccountScreen.navigationOptions = {
-  tabBarIcon: <FontAwesome name="gear" size={20} />
-};
+// AccountScreen.navigationOptions = {
+//   tabBarIcon: <FontAwesome name="gear" size={20} />
+// };
 
 const styles = StyleSheet.create({
   channel: {

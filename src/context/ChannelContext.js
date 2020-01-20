@@ -29,7 +29,7 @@ const updateUser = dispatch => async ({
     newPassword,
     newAvatar
   });
-  console.log("response.data", response.data.userData);
+  // console.log("response.data", response.data.userData);
   dispatch({ type: "update_user", payload: response.data.userData });
 };
 
@@ -40,7 +40,7 @@ const fetchChannels = dispatch => async () => {
 };
 const createChannel = dispatch => async ({ name, creator }) => {
   await chatApi.post("/channels", { name, creator });
-  console.log("Channel saved!");
+  // console.log("Channel saved!");
   dispatch({
     type: "create_channel",
     payload: { name, creator, members: [creator], messages: [] }

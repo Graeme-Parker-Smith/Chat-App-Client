@@ -17,10 +17,6 @@ const EditUserForm = ({ shouldShow, setShowEditUserForm, setIsLoading }) => {
   const [newPassword, setNewPassword] = useState("");
   const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
 
-  // const updateUser = () => {
-  //   console.log("pressed update user button");
-  // };
-
   const updateThenReset = async () => {
     setIsLoading(true);
     await updateUser({
