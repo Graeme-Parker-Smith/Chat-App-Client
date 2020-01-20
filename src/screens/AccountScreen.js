@@ -90,7 +90,7 @@ const AccountScreen = ({ navigation }) => {
         <View>
           {/* <ScrollView style={{ height: 450 }}> */}
           <FlatList
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 20, height: 350 }}
             data={state.channels}
             keyExtractor={item => item.name}
             renderItem={({ item }) => {
