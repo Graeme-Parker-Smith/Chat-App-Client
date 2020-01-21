@@ -28,6 +28,7 @@ const SignupScreen = () => {
         onChangeText={setUsername}
         autoCapitalize="none"
         autoCorrect={false}
+        inputStyle={{color: 'white'}}
       />
       <Spacer />
       <Input
@@ -37,6 +38,7 @@ const SignupScreen = () => {
         onChangeText={setPassword}
         autoCapitalize="none"
         autoCorrect={false}
+        inputStyle={{color: 'white'}}
       />
       <Spacer />
       <AvatarPicker avatar={avatar} setAvatar={setAvatar} />
