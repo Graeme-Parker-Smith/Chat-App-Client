@@ -28,6 +28,7 @@ const AccountScreen = ({ navigation }) => {
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  signout();
 
   const handleEditUserClick = () => {
     setShowEditUserForm(true);
