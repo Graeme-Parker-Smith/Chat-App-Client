@@ -8,6 +8,8 @@ const channelReducer = (state, action) => {
         currentUser: action.payload.currentUser,
         channels: action.payload.channels
       };
+    case "update_channel":
+      return state;
     case "update_user":
       return { ...state, currentUser: action.payload };
     case "create_channel":
@@ -29,8 +31,16 @@ const updateUser = dispatch => async ({
     newPassword,
     newAvatar
   });
-  // console.log("response.data", response.data.userData);
   dispatch({ type: "update_user", payload: response.data.userData });
+};
+
+const updateChannel = dispatch => async ({ username, name, avatar }) => {
+  const response = await chatApi.post("/updatechannel", {
+    username,
+    name,
+    avatar
+  });
+  dispatch({ type: "update_channel", payload: response.data });
 };
 
 const fetchChannels = dispatch => async () => {
@@ -49,6 +59,6 @@ const createChannel = dispatch => async ({ name, creator, avatar }) => {
 
 export const { Provider, Context } = createDataContext(
   channelReducer,
-  { fetchChannels, createChannel, updateUser },
+  { fetchChannels, createChannel, updateUser, updateChannel },
   { currentUser: null, channels: [] }
 );

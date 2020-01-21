@@ -17,6 +17,7 @@ import Spacer from "../components/Spacer";
 import LoadingIndicator from "../components/LoadingIndicator";
 import CreateChannelForm from "../components/CreateChannelForm";
 import EditUserForm from "../components/EditUserForm";
+import EditChannelForm from "../components/EditChannelForm";
 import { ListItem } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ChannelContext } from "../context/ChannelContext";
@@ -27,15 +28,23 @@ const AccountScreen = ({ navigation }) => {
   const { state, fetchChannels } = useContext(ChannelContext);
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
+  const [showEditChannelForm, setShowEditChannelForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleEditUserClick = () => {
     setShowEditUserForm(true);
     setShowCreateChannelForm(false);
+    setShowEditChannelForm(false);
   };
   const handleCreateChannelClick = () => {
     setShowCreateChannelForm(true);
     setShowEditUserForm(false);
+    setShowEditChannelForm(false);
+  };
+  const handleEditChannelClick = () => {
+    setShowEditChannelForm(true);
+    setShowEditUserForm(false);
+    setShowCreateChannelForm(false);
   };
 
   if (!state.currentUser || isLoading) {
@@ -85,6 +94,12 @@ const AccountScreen = ({ navigation }) => {
           {showCreateChannelForm ? (
             <CreateChannelForm showForm={setShowCreateChannelForm} />
           ) : null}
+          {showEditChannelForm ? (
+            <EditChannelForm
+              showForm={setShowEditChannelForm}
+              setIsLoading={setIsLoading}
+            />
+          ) : null}
         </View>
         <View>
           <FlatList
@@ -100,6 +115,7 @@ const AccountScreen = ({ navigation }) => {
                       username: state.currentUser.username
                     })
                   }
+                  onLongPress={handleEditChannelClick}
                 >
                   {/* {item.avatar ? (
                     <Image
