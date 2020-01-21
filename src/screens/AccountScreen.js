@@ -101,17 +101,27 @@ const AccountScreen = ({ navigation }) => {
                     })
                   }
                 >
-                  {item.avatar ? (
+                  {/* {item.avatar ? (
                     <Image
                       source={{ uri: item.avatar }}
                       style={styles.avatarStyle}
                     />
-                  ) : null}
+                  ) : null} */}
                   <ListItem
                     containerStyle={styles.channel}
                     chevron
                     title={item.name}
                     titleStyle={styles.title}
+                    leftAvatar={
+                      item.avatar ? (
+                        <View>
+                          <Image
+                            source={{ uri: item.avatar }}
+                            style={styles.avatarStyle}
+                          />
+                        </View>
+                      ) : null
+                    }
                   />
                 </TouchableOpacity>
               );
@@ -128,7 +138,8 @@ const AccountScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   channel: {
-    backgroundColor: "rgba(228,60,63,1.0)",
+    height: 60,
+    backgroundColor: "#808080",
     margin: 5,
     borderRadius: 10
   },
@@ -138,7 +149,7 @@ const styles = StyleSheet.create({
   avatarStyle: {
     height: 50,
     width: 50,
-    borderRadius: 50
+    borderRadius: 25
   },
   container: {
     height: Dimensions.get("window").height,
