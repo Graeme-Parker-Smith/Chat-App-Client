@@ -58,6 +58,13 @@ const AccountScreen = ({ navigation }) => {
             onPress={() => setShowEditUserForm(true)}
             style={{ alignSelf: "center", marginLeft: 10 }}
           />
+          <FontAwesome
+            name="plus-circle"
+            color="#0af"
+            size={32}
+            style={{ alignSelf: "center", marginLeft: 10 }}
+            onPress={() => setShowCreateChannelForm(true)}
+          />
         </View>
         <View>
           {showEditUserForm ? (
@@ -66,14 +73,7 @@ const AccountScreen = ({ navigation }) => {
               setIsLoading={setIsLoading}
             />
           ) : null}
-          {showCreateChannelForm ? (
-            <CreateChannelForm />
-          ) : (
-            <Button
-              title="Create Channel"
-              onPress={() => setShowCreateChannelForm(true)}
-            />
-          )}
+          {showCreateChannelForm ? <CreateChannelForm /> : null}
         </View>
         <View>
           <FlatList
