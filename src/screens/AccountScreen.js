@@ -41,7 +41,7 @@ const AccountScreen = ({ navigation }) => {
     setShowEditUserForm(false);
     setShowEditChannelForm(false);
   };
-  const handleEditChannelClick = () => {
+  const handleEditChannelClick = roomName => {
     setShowEditChannelForm(true);
     setShowEditUserForm(false);
     setShowCreateChannelForm(false);
