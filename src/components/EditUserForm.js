@@ -6,7 +6,7 @@ import { Context as AuthContext } from "../context/AuthContext";
 import Spacer from "./Spacer";
 import AvatarPicker from "./AvatarPicker";
 
-const EditUserForm = ({ setShowEditUserForm, setIsLoading }) => {
+const EditUserForm = ({ showForm, setIsLoading }) => {
   const {
     state: { currentUser },
     updateUser,
@@ -17,7 +17,7 @@ const EditUserForm = ({ setShowEditUserForm, setIsLoading }) => {
   const [newPassword, setNewPassword] = useState("");
   const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
 
-  const updateThenReset = async () => {
+  const handleSubmit = async () => {
     setIsLoading(true);
     await updateUser({
       username: currentUser.username,
@@ -25,19 +25,17 @@ const EditUserForm = ({ setShowEditUserForm, setIsLoading }) => {
       newPassword,
       newAvatar
     });
-    setShowEditUserForm(false);
+    showForm(false);
     await fetchChannels();
     setIsLoading(false);
   };
 
-  const cancelEdit = () => {
-    setShowEditUserForm(false);
+  const cancelForm = () => {
+    showForm(false);
   };
 
   return (
-    <View
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <Text style={{ color: "white" }}>Edit User Info</Text>
       <Spacer>
         <Input
@@ -61,10 +59,19 @@ const EditUserForm = ({ setShowEditUserForm, setIsLoading }) => {
         />
       </Spacer>
       <AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} />
-      <Spacer>
-        <Button title="Update User Info" onPress={() => updateThenReset()} />
-        <Button title="Cancel" onPress={cancelEdit} />
-      </Spacer>
+      <Spacer />
+      <View style={styles.buttonRow}>
+        <Button
+          buttonStyle={styles.button}
+          title="Update User Info"
+          onPress={handleSubmit}
+        />
+        <Button
+          buttonStyle={styles.button}
+          title="Cancel"
+          onPress={cancelForm}
+        />
+      </View>
     </View>
   );
 };
@@ -74,6 +81,13 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
     backgroundColor: "#000"
+  },
+  button: {
+    padding: 10
+  },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-around"
   }
 });
 

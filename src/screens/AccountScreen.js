@@ -29,6 +29,15 @@ const AccountScreen = ({ navigation }) => {
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleEditUserClick = () => {
+    setShowEditUserForm(true);
+    setShowCreateChannelForm(false);
+  };
+  const handleCreateChannelClick = () => {
+    setShowCreateChannelForm(true);
+    setShowEditUserForm(false);
+  };
+
   if (!state.currentUser || isLoading) {
     return (
       <View>
@@ -55,7 +64,7 @@ const AccountScreen = ({ navigation }) => {
             name="edit"
             color="#0af"
             size={32}
-            onPress={() => setShowEditUserForm(true)}
+            onPress={handleEditUserClick}
             style={{ alignSelf: "center", marginLeft: 10 }}
           />
           <FontAwesome
@@ -63,17 +72,19 @@ const AccountScreen = ({ navigation }) => {
             color="#0af"
             size={32}
             style={{ alignSelf: "center", marginLeft: 10 }}
-            onPress={() => setShowCreateChannelForm(true)}
+            onPress={handleCreateChannelClick}
           />
         </View>
         <View>
           {showEditUserForm ? (
             <EditUserForm
-              setShowEditUserForm={setShowEditUserForm}
+              showForm={setShowEditUserForm}
               setIsLoading={setIsLoading}
             />
           ) : null}
-          {showCreateChannelForm ? <CreateChannelForm /> : null}
+          {showCreateChannelForm ? (
+            <CreateChannelForm showForm={setShowCreateChannelForm} />
+          ) : null}
         </View>
         <View>
           <FlatList
