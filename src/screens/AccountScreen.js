@@ -28,7 +28,6 @@ const AccountScreen = ({ navigation }) => {
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  signout();
 
   const handleEditUserClick = () => {
     setShowEditUserForm(true);
@@ -102,6 +101,12 @@ const AccountScreen = ({ navigation }) => {
                     })
                   }
                 >
+                  {item.avatar ? (
+                    <Image
+                      source={{ uri: item.avatar }}
+                      style={styles.avatarStyle}
+                    />
+                  ) : null}
                   <ListItem
                     containerStyle={styles.channel}
                     chevron

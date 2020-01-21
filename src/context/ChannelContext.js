@@ -38,12 +38,12 @@ const fetchChannels = dispatch => async () => {
   // console.log("fetchChannels response.data", response.data);
   dispatch({ type: "fetch_channels", payload: response.data });
 };
-const createChannel = dispatch => async ({ name, creator }) => {
-  await chatApi.post("/channels", { name, creator });
+const createChannel = dispatch => async ({ name, creator, avatar }) => {
+  await chatApi.post("/channels", { name, creator, avatar });
   // console.log("Channel saved!");
   dispatch({
     type: "create_channel",
-    payload: { name, creator, members: [creator], messages: [] }
+    payload: { name, creator, members: [creator], messages: [], avatar }
   });
 };
 

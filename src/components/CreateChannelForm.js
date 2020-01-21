@@ -3,17 +3,19 @@ import { View, StyleSheet, Text, Dimensions } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
 import { Context as ChannelContext } from "../context/ChannelContext";
+import AvatarPicker from "../components/AvatarPicker";
 
 const CreateChannelForm = ({ showForm }) => {
   const [newChannelName, setNewChannelName] = useState("");
   const { state, createChannel } = useContext(ChannelContext);
+  const [avatar, setAvatar] = useState("");
 
   const cancelForm = () => {
     showForm(false);
   };
 
   const handleSubmit = () => {
-    createChannel({ name: newChannelName, creator: state.currentUser });
+    createChannel({ name: newChannelName, creator: state.currentUser, avatar });
     setNewChannelName("");
     showForm(false);
   };
@@ -27,6 +29,7 @@ const CreateChannelForm = ({ showForm }) => {
         inputStyle={{ color: "#fff" }}
         placeholderTextColor="#fff"
       />
+      <AvatarPicker avatar={avatar} setAvatar={setAvatar} />
       <View style={styles.buttonRow}>
         <Button
           buttonStyle={styles.button}
