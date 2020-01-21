@@ -15,17 +15,18 @@ import { SafeAreaView } from "react-navigation";
 import { NavigationEvents } from "react-navigation";
 import Spacer from "../components/Spacer";
 import LoadingIndicator from "../components/LoadingIndicator";
+import CreateChannelForm from "../components/CreateChannelForm";
 import EditUserForm from "../components/EditUserForm";
 import { ListItem } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ChannelContext } from "../context/ChannelContext";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Entypo } from "@expo/vector-icons";
 
 const AccountScreen = ({ navigation }) => {
-  const [newChannelName, setNewChannelName] = useState("");
   const { signout } = useContext(AuthContext);
-  const { state, fetchChannels, createChannel } = useContext(ChannelContext);
+  const { state, fetchChannels } = useContext(ChannelContext);
   const [showEditUserForm, setShowEditUserForm] = useState(false);
+  const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   if (!state.currentUser || isLoading) {
@@ -40,46 +41,40 @@ const AccountScreen = ({ navigation }) => {
   return (
     <>
       <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
-        <Text
-          style={{
-            fontSize: 24,
-            textAlign: "center",
-            borderBottomWidth: 1,
-            borderBottomColor: "#d3d3d3",
-            marginBottom: 3,
-            color: "white"
-          }}
-        >
-          User: {state.currentUser.username}
-        </Text>
+        <View style={styles.userDisplay}>
+          <View>
+            {state.currentUser ? (
+              <Image
+                source={{ uri: state.currentUser.avatar }}
+                style={styles.avatarStyle}
+              />
+            ) : null}
+          </View>
+          <Text style={styles.userTitle}>{state.currentUser.username}</Text>
+          <Entypo
+            name="edit"
+            color="#0af"
+            size={32}
+            onPress={() => setShowEditUserForm(true)}
+            style={{ alignSelf: "center", marginLeft: 10 }}
+          />
+        </View>
         <View>
-          {state.currentUser ? (
-            <Image
-              source={{ uri: state.currentUser.avatar }}
-              style={styles.avatarStyle}
+          {showEditUserForm ? (
+            <EditUserForm
+              setShowEditUserForm={setShowEditUserForm}
+              setIsLoading={setIsLoading}
             />
           ) : null}
+          {showCreateChannelForm ? (
+            <CreateChannelForm />
+          ) : (
+            <Button
+              title="Create Channel"
+              onPress={() => setShowCreateChannelForm(true)}
+            />
+          )}
         </View>
-        <Button title="Edit User" onPress={() => setShowEditUserForm(true)} />
-        <EditUserForm
-          shouldShow={showEditUserForm}
-          setShowEditUserForm={setShowEditUserForm}
-          setIsLoading={setIsLoading}
-        />
-        <Input
-          value={newChannelName}
-          onChangeText={setNewChannelName}
-          placeholder="Name your new channel"
-          inputStyle={{ color: "#fff" }}
-          placeholderTextColor="#fff"
-        />
-        <Button
-          title="Create New Channel"
-          onPress={() => {
-            createChannel({ name: newChannelName, creator: state.currentUser });
-            setNewChannelName("");
-          }}
-        />
         <View>
           <FlatList
             style={{ marginTop: 20, height: 350 }}
@@ -131,6 +126,21 @@ const styles = StyleSheet.create({
   container: {
     height: Dimensions.get("window").height,
     backgroundColor: "#000"
+  },
+  userDisplay: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    borderBottomWidth: 1,
+    borderBottomColor: "#d3d3d3",
+    paddingBottom: 10
+  },
+  userTitle: {
+    fontSize: 32,
+    textAlign: "center",
+    marginLeft: 10,
+    marginBottom: 3,
+    alignSelf: "center",
+    color: "white"
   }
 });
 

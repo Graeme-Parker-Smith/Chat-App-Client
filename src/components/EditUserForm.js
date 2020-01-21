@@ -6,7 +6,7 @@ import { Context as AuthContext } from "../context/AuthContext";
 import Spacer from "./Spacer";
 import AvatarPicker from "./AvatarPicker";
 
-const EditUserForm = ({ shouldShow, setShowEditUserForm, setIsLoading }) => {
+const EditUserForm = ({ setShowEditUserForm, setIsLoading }) => {
   const {
     state: { currentUser },
     updateUser,
@@ -36,7 +36,7 @@ const EditUserForm = ({ shouldShow, setShowEditUserForm, setIsLoading }) => {
 
   return (
     <View
-      style={[styles.container, { display: shouldShow ? "block" : "none" }]}
+      style={styles.container}
     >
       <Text style={{ color: "white" }}>Edit User Info</Text>
       <Spacer>
@@ -71,7 +71,7 @@ const EditUserForm = ({ shouldShow, setShowEditUserForm, setIsLoading }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 500,
+    height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
     backgroundColor: "#000"
   }
