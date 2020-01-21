@@ -14,6 +14,7 @@ import { Button, Input } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
 import { NavigationEvents } from "react-navigation";
 import Spacer from "../components/Spacer";
+import LoadingIndicator from "../components/LoadingIndicator";
 import EditUserForm from "../components/EditUserForm";
 import { ListItem } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
@@ -29,16 +30,9 @@ const AccountScreen = ({ navigation }) => {
 
   if (!state.currentUser || isLoading) {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "black",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
+      <View>
         <NavigationEvents onWillFocus={fetchChannels} />
-        <ActivityIndicator size="large" color="#0af" />
+        <LoadingIndicator />
       </View>
     );
   }
@@ -119,10 +113,6 @@ const AccountScreen = ({ navigation }) => {
     </>
   );
 };
-
-// AccountScreen.navigationOptions = {
-//   tabBarIcon: <FontAwesome name="gear" size={20} />
-// };
 
 const styles = StyleSheet.create({
   channel: {

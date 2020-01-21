@@ -354,34 +354,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
     scrollToBottom();
   };
 
-  // if (videoState.videoIsPlaying) {
-  //   return (
-  //     // <View
-  //     //   style={{
-  //     //     height: Dimensions.get("window").height,
-  //     //     width: Dimensions.get("window").width
-  //     //   }}
-  //     // >
-  //       <Video
-  //       source={{ uri: videoState.videoUri }}
-  //       rate={1.0}
-  //       volume={1.0}
-  //       isMuted={false}
-  //       resizeMode="cover"
-  //       shouldPlay
-  //       isLooping
-  //       natural
-  //       useNativeControls={true}
-  //       style={{
-  //         height: Dimensions.get("window").height - 100,
-  //         width: Dimensions.get("window").width
-  //       }}
-  //       // style={{ height: 200, width: 200 }}
-  //     />
-  //     // </View>
-  //   );
-  // }
-
   return (
     <SafeAreaView style={styles.body}>
       <NavigationEvents onWillFocus={handleOnFocus} />
