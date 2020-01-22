@@ -34,11 +34,12 @@ const updateUser = dispatch => async ({
   dispatch({ type: "update_user", payload: response.data.userData });
 };
 
-const updateChannel = dispatch => async ({ username, name, avatar }) => {
+const updateChannel = dispatch => async ({ username, prevName, newName, newAvatar }) => {
   const response = await chatApi.post("/updatechannel", {
     username,
-    newName: name,
-    newAvatar: avatar
+    prevName,
+    newName,
+    newAvatar
   });
   dispatch({ type: "update_channel", payload: response.data });
 };

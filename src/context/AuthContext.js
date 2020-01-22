@@ -55,7 +55,7 @@ const signup = dispatch => async ({ username, password, avatar }) => {
     dispatch({ type: "signin", payload: response.data.token });
     navigate("Account");
   } catch (err) {
-    console.error(err);
+    console.log(err);
     dispatch({
       type: "add_error",
       payload: "Something went wrong with sign up"
@@ -72,7 +72,7 @@ const signin = dispatch => async ({ username, password }) => {
     dispatch({ type: "signin", payload: response.data });
     navigate("Account");
   } catch (err) {
-    console.error(err);
+    console.log(err);
     dispatch({
       type: "add_error",
       payload: "Something went wrong with sign up"

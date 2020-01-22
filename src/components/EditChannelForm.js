@@ -15,21 +15,32 @@ const EditChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }) => {
   const { tryLocalSignin } = useContext(AuthContext);
   const [newName, setNewName] = useState(thisName);
   const [newAvatar, setNewAvatar] = useState(thisAvatar);
+  console.log(thisName);
+  console.log(thisAvatar);
 
   const handleSubmit = async () => {
     setIsLoading(true);
     await updateChannel({
       username: currentUser.username,
-      name: newName,
-      avatar: newAvatar
+      prevName: thisName,
+      newName,
+      newAvatar
     });
-    showForm(false);
+    showForm({
+      showForm: false,
+      roomName: "",
+      avatar: ""
+    });
     await fetchChannels();
     setIsLoading(false);
   };
 
   const cancelForm = () => {
-    showForm(false);
+    showForm({
+      showForm: false,
+      roomName: "",
+      avatar: ""
+    });
   };
 
   return (

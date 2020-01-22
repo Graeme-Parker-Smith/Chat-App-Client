@@ -28,21 +28,37 @@ const AccountScreen = ({ navigation }) => {
   const { state, fetchChannels } = useContext(ChannelContext);
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
-  const [showEditChannelForm, setShowEditChannelForm] = useState(false);
+  const [showEditChannelForm, setShowEditChannelForm] = useState({
+    showForm: false,
+    roomName: "",
+    avatar: ""
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const handleEditUserClick = () => {
     setShowEditUserForm(true);
     setShowCreateChannelForm(false);
-    setShowEditChannelForm(false);
+    setShowEditChannelForm({
+      showForm: false,
+      roomName: "",
+      avatar: ""
+    });
   };
   const handleCreateChannelClick = () => {
     setShowCreateChannelForm(true);
     setShowEditUserForm(false);
-    setShowEditChannelForm(false);
+    setShowEditChannelForm({
+      showForm: false,
+      roomName: "",
+      avatar: ""
+    });
   };
-  const handleEditChannelClick = roomName => {
-    setShowEditChannelForm(true);
+  const handleEditChannelClick = item => {
+    setShowEditChannelForm({
+      showForm: true,
+      roomName: item.name,
+      avatar: item.avatar
+    });
     setShowEditUserForm(false);
     setShowCreateChannelForm(false);
   };
@@ -94,10 +110,12 @@ const AccountScreen = ({ navigation }) => {
           {showCreateChannelForm ? (
             <CreateChannelForm showForm={setShowCreateChannelForm} />
           ) : null}
-          {showEditChannelForm ? (
+          {showEditChannelForm.showForm ? (
             <EditChannelForm
               showForm={setShowEditChannelForm}
               setIsLoading={setIsLoading}
+              thisName={showEditChannelForm.roomName}
+              thisAvatar={showEditChannelForm.avatar}
             />
           ) : null}
         </View>
@@ -115,7 +133,7 @@ const AccountScreen = ({ navigation }) => {
                       username: state.currentUser.username
                     })
                   }
-                  onLongPress={handleEditChannelClick}
+                  onLongPress={() => handleEditChannelClick(item)}
                 >
                   {/* {item.avatar ? (
                     <Image
