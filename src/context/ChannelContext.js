@@ -4,10 +4,7 @@ import chatApi from "../api/requester";
 const channelReducer = (state, action) => {
   switch (action.type) {
     case "fetch_channels":
-      return {
-        currentUser: action.payload.currentUser,
-        channels: action.payload.channels
-      };
+      return action.payload;
     case "add_friend":
       return { ...state, currentUser: action.payload.currentUser };
     case "update_channel":
@@ -32,6 +29,11 @@ const addFriend = dispatch => async ({ username, friendName }) => {
     friendName
   });
   dispatch({ type: "add_friend", payload: response.data });
+};
+
+const invite = dispatch => async ({ invitee, roomName }) => {
+  const response = await chatApi.post("/invite", { invitee, roomName });
+  dispatch({ type: "update_channel", payload: response.data });
 };
 
 const updateUser = dispatch => async ({
@@ -69,6 +71,7 @@ const fetchChannels = dispatch => async () => {
   // console.log("fetchChannels response.data", response.data);
   dispatch({ type: "fetch_channels", payload: response.data });
 };
+
 const createChannel = dispatch => async ({ name, creator, avatar }) => {
   await chatApi.post("/channels", { name, creator, avatar });
   // console.log("Channel saved!");
@@ -95,7 +98,8 @@ export const { Provider, Context } = createDataContext(
     createPrivateChannel,
     updateUser,
     updateChannel,
-    addFriend
+    addFriend,
+    invite
   },
   { currentUser: null, channels: [], privateChannels: [] }
 );

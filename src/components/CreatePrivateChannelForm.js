@@ -17,7 +17,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
   const handleSubmit = () => {
     createPrivateChannel({
       name: newChannelName,
-      creator: state.currentUser,
+      creator: state.currentUser.username,
       avatar
     });
     setNewChannelName("");

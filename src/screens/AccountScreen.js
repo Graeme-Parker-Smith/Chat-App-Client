@@ -19,6 +19,7 @@ import CreateChannelForm from "../components/CreateChannelForm";
 import CreatePrivateChannelForm from "../components/CreatePrivateChannelForm";
 import EditUserForm from "../components/EditUserForm";
 import EditChannelForm from "../components/EditChannelForm";
+import EditPrivateChannelForm from "../components/EditPrivateChannelForm";
 import { ListItem } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ChannelContext } from "../context/ChannelContext";
@@ -38,9 +39,14 @@ const AccountScreen = ({ navigation }) => {
     roomName: "",
     avatar: ""
   });
+  const [showEditPrivateChannelForm, setShowEditPrivateChannelForm] = useState({
+    showForm: false,
+    roomName: "",
+    avatar: ""
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [userSearch, setUserSearch] = useState("");
-  console.log("show private channel form", showCreatePrivateChannelForm);
+  // console.log("currentUser", state.currentUser);
 
   const handleEditUserClick = () => {
     setShowEditUserForm(true);
@@ -74,6 +80,16 @@ const AccountScreen = ({ navigation }) => {
   };
   const handleEditChannelClick = item => {
     setShowEditChannelForm({
+      showForm: true,
+      roomName: item.name,
+      avatar: item.avatar
+    });
+    setShowEditUserForm(false);
+    setShowCreateChannelForm(false);
+    setShowCreatePrivateChannelForm(false);
+  };
+  const handleEditPrivateChannelClick = item => {
+    setShowEditPrivateChannelForm({
       showForm: true,
       roomName: item.name,
       avatar: item.avatar
@@ -150,6 +166,14 @@ const AccountScreen = ({ navigation }) => {
               thisAvatar={showEditChannelForm.avatar}
             />
           ) : null}
+          {showEditPrivateChannelForm.showForm ? (
+            <EditPrivateChannelForm
+              showForm={setShowEditPrivateChannelForm}
+              setIsLoading={setIsLoading}
+              thisName={showEditPrivateChannelForm.roomName}
+              thisAvatar={showEditPrivateChannelForm.avatar}
+            />
+          ) : null}
         </View>
         <View>
           <Input
@@ -174,7 +198,7 @@ const AccountScreen = ({ navigation }) => {
         </View>
         <View>
           <FlatList
-            style={{ marginTop: 20, height: 350 }}
+            style={{ marginTop: 20, height: 175 }}
             data={state.channels}
             keyExtractor={item => item.name}
             renderItem={({ item }) => {
@@ -188,14 +212,45 @@ const AccountScreen = ({ navigation }) => {
                   }
                   onLongPress={() => handleEditChannelClick(item)}
                 >
-                  {/* {item.avatar ? (
-                    <Image
-                      source={{ uri: item.avatar }}
-                      style={styles.avatarStyle}
-                    />
-                  ) : null} */}
                   <ListItem
                     containerStyle={styles.channel}
+                    chevron
+                    title={item.name}
+                    titleStyle={styles.title}
+                    leftAvatar={
+                      item.avatar ? (
+                        <View>
+                          <Image
+                            source={{ uri: item.avatar }}
+                            style={styles.avatarStyle}
+                          />
+                        </View>
+                      ) : null
+                    }
+                  />
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
+        <View>
+          <FlatList
+            style={{ marginTop: 20, height: 175 }}
+            data={state.privateChannels}
+            keyExtractor={item => item.name}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("Room", {
+                      roomName: item.name,
+                      username: state.currentUser.username
+                    })
+                  }
+                  onLongPress={() => handleEditPrivateChannelClick(item)}
+                >
+                  <ListItem
+                    containerStyle={styles.privateChannel}
                     chevron
                     title={item.name}
                     titleStyle={styles.title}
@@ -227,6 +282,12 @@ const styles = StyleSheet.create({
   channel: {
     height: 60,
     backgroundColor: "#808080",
+    margin: 5,
+    borderRadius: 10
+  },
+  privateChannel: {
+    height: 60,
+    backgroundColor: "#301934",
     margin: 5,
     borderRadius: 10
   },

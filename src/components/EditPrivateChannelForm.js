@@ -6,15 +6,17 @@ import { Context as AuthContext } from "../context/AuthContext";
 import Spacer from "./Spacer";
 import AvatarPicker from "./AvatarPicker";
 
-const EditChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }) => {
+const EditPrivateChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }) => {
   const {
     state: { currentUser },
     updateChannel,
-    fetchChannels
+    fetchChannels,
+    invite
   } = useContext(ChannelContext);
   const { tryLocalSignin } = useContext(AuthContext);
   const [newName, setNewName] = useState(thisName);
   const [newAvatar, setNewAvatar] = useState(thisAvatar);
+  const [userSearch, setUserSearch] = useState("");
   console.log(thisName);
   console.log(thisAvatar);
 
@@ -43,9 +45,21 @@ const EditChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }) => {
     });
   };
 
+  const handleInvite = async () => {
+    setIsLoading(true);
+    await invite({ invitee: userSearch, roomName: thisName });
+    showForm({
+      showForm: false,
+      roomName: "",
+      avatar: ""
+    });
+    await fetchChannels();
+    setIsLoading(false);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={{ color: "white" }}>Edit Channel Info</Text>
+      <Text style={{ color: "white" }}>Edit Private Channel Info</Text>
       <Spacer>
         <Input
           label="Edit Channel Name"
@@ -75,6 +89,19 @@ const EditChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }) => {
           onPress={cancelForm}
         />
       </View>
+      <View>
+        <Input
+          label="Invite Users"
+          value={userSearch}
+          onChangeText={setUserSearch}
+          autoCapitalize="none"
+          autoCorrect={false}
+          inputStyle={{ color: "white" }}
+          returnKeyType="send"
+          selectTextOnFocus={true}
+        />
+        <Button onPress={handleInvite} />
+      </View>
     </View>
   );
 };
@@ -83,7 +110,7 @@ const styles = StyleSheet.create({
   container: {
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
-    backgroundColor: "#000"
+    backgroundColor: "#301934"
   },
   button: {
     padding: 10
@@ -94,4 +121,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default EditChannelForm;
+export default EditPrivateChannelForm;
