@@ -28,6 +28,7 @@ const CreateChannelForm = ({ showForm }) => {
         inputContainerStyle={{ marginBottom: 20 }}
         inputStyle={{ color: "#fff" }}
         placeholderTextColor="#fff"
+        autoFocus={true}
       />
       <AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={"Channel"} />
       <View style={styles.buttonRow}>

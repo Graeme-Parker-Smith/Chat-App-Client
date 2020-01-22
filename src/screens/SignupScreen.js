@@ -26,9 +26,10 @@ const SignupScreen = () => {
         label="username"
         value={username}
         onChangeText={setUsername}
+        autoFocus={true}
         autoCapitalize="none"
         autoCorrect={false}
-        inputStyle={{color: 'white'}}
+        inputStyle={{ color: "white" }}
       />
       <Spacer />
       <Input
@@ -38,7 +39,7 @@ const SignupScreen = () => {
         onChangeText={setPassword}
         autoCapitalize="none"
         autoCorrect={false}
-        inputStyle={{color: 'white'}}
+        inputStyle={{ color: "white" }}
       />
       <Spacer />
       <AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={"User"} />
@@ -51,10 +52,7 @@ const SignupScreen = () => {
           onPress={() => signup({ username, password, avatar })}
         />
       </Spacer>
-      <NavLink
-        routeName="Signin"
-        text="Go back to Sign In"
-      />
+      <NavLink routeName="Signin" text="Go back to Sign In" />
     </SafeAreaView>
   );
 };

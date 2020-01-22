@@ -51,6 +51,7 @@ const EditChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }) => {
           label="Edit Channel Name"
           value={newName}
           onChangeText={setNewName}
+          autoFocus={true}
           autoCapitalize="none"
           autoCorrect={false}
           inputStyle={{ color: "white" }}

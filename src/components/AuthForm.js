@@ -15,6 +15,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
       <Input
         label="username"
         value={username}
+        autoFocus={true}
         onChangeText={setusername}
         autoCapitalize="none"
         autoCorrect={false}

@@ -42,6 +42,7 @@ const EditUserForm = ({ showForm, setIsLoading }) => {
           label="Edit Username"
           value={newUsername}
           onChangeText={setNewUsername}
+          autoFocus={true}
           autoCapitalize="none"
           autoCorrect={false}
           inputStyle={{ color: "white" }}
