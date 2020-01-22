@@ -142,6 +142,27 @@ const AccountScreen = ({ navigation }) => {
           />
         </View>
         <View>
+          <Input
+            label="Create Private Channel"
+            value={userSearch}
+            onChangeText={setUserSearch}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputStyle={{ color: "white" }}
+            returnKeyType="send"
+            selectTextOnFocus={true}
+          />
+          <Button
+            title="Add Friend"
+            onPress={() =>
+              addFriend({
+                username: state.currentUser.username,
+                friendName: userSearch
+              })
+            }
+          />
+        </View>
+        <View>
           <FlatList
             style={{ marginTop: 20, height: 350 }}
             data={state.channels}
