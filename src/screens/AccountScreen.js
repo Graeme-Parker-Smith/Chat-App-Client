@@ -25,7 +25,7 @@ import { FontAwesome, Entypo } from "@expo/vector-icons";
 
 const AccountScreen = ({ navigation }) => {
   const { signout } = useContext(AuthContext);
-  const { state, fetchChannels } = useContext(ChannelContext);
+  const { state, fetchChannels, addFriend } = useContext(ChannelContext);
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
   const [showEditChannelForm, setShowEditChannelForm] = useState({
@@ -133,7 +133,12 @@ const AccountScreen = ({ navigation }) => {
           />
           <Button
             title="Add Friend"
-            onPress={() => alert(`Added ${userSearch} as a friend!`)}
+            onPress={() =>
+              addFriend({
+                username: state.currentUser.username,
+                friendName: userSearch
+              })
+            }
           />
         </View>
         <View>
