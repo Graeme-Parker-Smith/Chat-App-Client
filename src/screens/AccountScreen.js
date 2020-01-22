@@ -16,6 +16,7 @@ import { NavigationEvents } from "react-navigation";
 import Spacer from "../components/Spacer";
 import LoadingIndicator from "../components/LoadingIndicator";
 import CreateChannelForm from "../components/CreateChannelForm";
+import CreatePrivateChannelForm from "../components/CreatePrivateChannelForm";
 import EditUserForm from "../components/EditUserForm";
 import EditChannelForm from "../components/EditChannelForm";
 import { ListItem } from "react-native-elements";
@@ -28,6 +29,10 @@ const AccountScreen = ({ navigation }) => {
   const { state, fetchChannels, addFriend } = useContext(ChannelContext);
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
+  const [
+    showCreatePrivateChannelForm,
+    setShowCreatePrivateChannelForm
+  ] = useState(false);
   const [showEditChannelForm, setShowEditChannelForm] = useState({
     showForm: false,
     roomName: "",
@@ -35,10 +40,12 @@ const AccountScreen = ({ navigation }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [userSearch, setUserSearch] = useState("");
+  console.log("show private channel form", showCreatePrivateChannelForm);
 
   const handleEditUserClick = () => {
     setShowEditUserForm(true);
     setShowCreateChannelForm(false);
+    setShowCreatePrivateChannelForm(false);
     setShowEditChannelForm({
       showForm: false,
       roomName: "",
@@ -47,6 +54,17 @@ const AccountScreen = ({ navigation }) => {
   };
   const handleCreateChannelClick = () => {
     setShowCreateChannelForm(true);
+    setShowCreatePrivateChannelForm(false);
+    setShowEditUserForm(false);
+    setShowEditChannelForm({
+      showForm: false,
+      roomName: "",
+      avatar: ""
+    });
+  };
+  const handleCreatePrivateChannelClick = () => {
+    setShowCreatePrivateChannelForm(true);
+    setShowCreateChannelForm(false);
     setShowEditUserForm(false);
     setShowEditChannelForm({
       showForm: false,
@@ -62,6 +80,7 @@ const AccountScreen = ({ navigation }) => {
     });
     setShowEditUserForm(false);
     setShowCreateChannelForm(false);
+    setShowCreatePrivateChannelForm(false);
   };
 
   if (!state.currentUser || isLoading) {
@@ -100,6 +119,13 @@ const AccountScreen = ({ navigation }) => {
             style={{ alignSelf: "center", marginLeft: 10 }}
             onPress={handleCreateChannelClick}
           />
+          <FontAwesome
+            name="plus-circle"
+            color="#301934"
+            size={32}
+            style={{ alignSelf: "center", marginLeft: 10 }}
+            onPress={handleCreatePrivateChannelClick}
+          />
         </View>
         <View>
           {showEditUserForm ? (
@@ -110,6 +136,11 @@ const AccountScreen = ({ navigation }) => {
           ) : null}
           {showCreateChannelForm ? (
             <CreateChannelForm showForm={setShowCreateChannelForm} />
+          ) : null}
+          {showCreatePrivateChannelForm ? (
+            <CreatePrivateChannelForm
+              showForm={setShowCreatePrivateChannelForm}
+            />
           ) : null}
           {showEditChannelForm.showForm ? (
             <EditChannelForm
@@ -123,27 +154,6 @@ const AccountScreen = ({ navigation }) => {
         <View>
           <Input
             label="Search Users"
-            value={userSearch}
-            onChangeText={setUserSearch}
-            autoCapitalize="none"
-            autoCorrect={false}
-            inputStyle={{ color: "white" }}
-            returnKeyType="send"
-            selectTextOnFocus={true}
-          />
-          <Button
-            title="Add Friend"
-            onPress={() =>
-              addFriend({
-                username: state.currentUser.username,
-                friendName: userSearch
-              })
-            }
-          />
-        </View>
-        <View>
-          <Input
-            label="Create Private Channel"
             value={userSearch}
             onChangeText={setUserSearch}
             autoCapitalize="none"

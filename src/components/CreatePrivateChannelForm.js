@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-navigation";
 import { Context as ChannelContext } from "../context/ChannelContext";
 import AvatarPicker from "../components/AvatarPicker";
 
-const CreateChannelForm = ({ showForm }) => {
+const CreatePrivateChannelForm = ({ showForm }) => {
   const [newChannelName, setNewChannelName] = useState("");
   const { state, createPrivateChannel } = useContext(ChannelContext);
   const [avatar, setAvatar] = useState("");
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CreateChannelForm;
+export default CreatePrivateChannelForm;
