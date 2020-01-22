@@ -6,7 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const AvatarPicker = ({ avatar, setAvatar, whichForm }) => {
+const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword }) => {
   const _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -19,6 +19,7 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm }) => {
 
     if (!result.cancelled) {
       setAvatar(result.uri);
+      // if (_toPassword) _toPassword();
     }
   };
   const launchCamera = async () => {
@@ -35,11 +36,14 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm }) => {
 
     if (!result.cancelled) {
       setAvatar(result.uri);
+      // if (_toPassword) _toPassword();
     }
   };
   return (
     <View>
-      <Text style={{ color: "white", textAlign: 'center' }}>Set {whichForm} Avatar</Text>
+      <Text style={{ color: "white", textAlign: "center" }}>
+        Set {whichForm} Avatar
+      </Text>
       <View style={styles.imagePickerStyle}>
         <MaterialIcons
           name="photo-camera"

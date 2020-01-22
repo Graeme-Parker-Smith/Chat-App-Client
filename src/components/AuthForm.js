@@ -6,6 +6,9 @@ import Spacer from "./Spacer";
 const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
   const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
+  const _next = () => {
+    _passwordInput && _passwordInput.focus();
+  };
 
   return (
     <>
@@ -19,15 +22,24 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
         onChangeText={setusername}
         autoCapitalize="none"
         autoCorrect={false}
+        returnKeyType="next"
+        selectTextOnFocus={true}
+        ref={ref => (_usernameInput = ref)}
+        onSubmitEditing={_next}
+        textContentType="none"
       />
       <Spacer />
       <Input
-        secureTextEntry
         label="Password"
         value={password}
+        textContentType="none"
         onChangeText={setPassword}
         autoCapitalize="none"
         autoCorrect={false}
+        returnKeyType="send"
+        selectTextOnFocus={true}
+        ref={ref => (_passwordInput = ref)}
+        onSubmitEditing={() => onSubmit({ username, password })}
       />
       {errorMessage ? (
         <Text style={styles.errorMessage}>{errorMessage}</Text>

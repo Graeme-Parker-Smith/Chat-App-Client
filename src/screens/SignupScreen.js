@@ -15,6 +15,18 @@ const SignupScreen = () => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
   const [avatar, setAvatar] = useState("");
 
+  const _next = () => {
+    _passwordInput && _passwordInput.focus();
+  }
+
+  // const _toPassword = () => {
+  //   _passwordInput && _passwordInput.focus();
+  // }
+
+  // const _submit = () => {
+
+  // }
+
   return (
     <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
       <Spacer>
@@ -30,6 +42,10 @@ const SignupScreen = () => {
         autoCapitalize="none"
         autoCorrect={false}
         inputStyle={{ color: "white" }}
+        returnKeyType="next"
+        selectTextOnFocus={true}
+        ref={ref => _usernameInput = ref}
+        onSubmitEditing={_next}
       />
       <Spacer />
       <Input
@@ -40,6 +56,9 @@ const SignupScreen = () => {
         autoCapitalize="none"
         autoCorrect={false}
         inputStyle={{ color: "white" }}
+        returnKeyType="next"
+        selectTextOnFocus={true}
+        ref={ref => _passwordInput = ref}
       />
       <Spacer />
       <AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={"User"} />
