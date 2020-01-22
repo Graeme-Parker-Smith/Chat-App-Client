@@ -34,6 +34,7 @@ const AccountScreen = ({ navigation }) => {
     avatar: ""
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [userSearch, setUserSearch] = useState("");
 
   const handleEditUserClick = () => {
     setShowEditUserForm(true);
@@ -118,6 +119,22 @@ const AccountScreen = ({ navigation }) => {
               thisAvatar={showEditChannelForm.avatar}
             />
           ) : null}
+        </View>
+        <View>
+          <Input
+            label="Search Users"
+            value={userSearch}
+            onChangeText={setUserSearch}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputStyle={{ color: "white" }}
+            returnKeyType="send"
+            selectTextOnFocus={true}
+          />
+          <Button
+            title="Add Friend"
+            onPress={() => alert(`Added ${userSearch} as a friend!`)}
+          />
         </View>
         <View>
           <FlatList

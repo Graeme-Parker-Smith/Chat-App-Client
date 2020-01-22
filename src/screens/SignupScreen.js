@@ -49,7 +49,7 @@ const SignupScreen = () => {
       />
       <Spacer />
       <Input
-        secureTextEntry
+        
         label="Password"
         value={password}
         onChangeText={setPassword}
