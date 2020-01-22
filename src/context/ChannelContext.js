@@ -16,6 +16,11 @@ const channelReducer = (state, action) => {
       return { ...state, currentUser: action.payload };
     case "create_channel":
       return { ...state, channels: [...state.channels, action.payload] };
+    case "create_private_channel":
+      return {
+        ...state,
+        privateChannels: [...state.privateChannels, action.payload]
+      };
     default:
       return state;
   }
@@ -69,12 +74,28 @@ const createChannel = dispatch => async ({ name, creator, avatar }) => {
   // console.log("Channel saved!");
   dispatch({
     type: "create_channel",
+    payload: { name, creator, messages: [], avatar }
+  });
+};
+
+const createPrivateChannel = dispatch => async ({ name, creator, avatar }) => {
+  await chatApi.post("/privatechannels", { name, creator, avatar });
+  // console.log("Channel saved!");
+  dispatch({
+    type: "create_private_channel",
     payload: { name, creator, members: [creator], messages: [], avatar }
   });
 };
 
 export const { Provider, Context } = createDataContext(
   channelReducer,
-  { fetchChannels, createChannel, updateUser, updateChannel, addFriend },
-  { currentUser: null, channels: [] }
+  {
+    fetchChannels,
+    createChannel,
+    createPrivateChannel,
+    updateUser,
+    updateChannel,
+    addFriend
+  },
+  { currentUser: null, channels: [], privateChannels: [] }
 );
