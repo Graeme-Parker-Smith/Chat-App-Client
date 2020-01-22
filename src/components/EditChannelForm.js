@@ -56,7 +56,7 @@ const EditChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }) => {
           inputStyle={{ color: "white" }}
         />
       </Spacer>
-      <AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} />
+      <AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={"Channel"} />
       <Spacer />
       <View style={styles.buttonRow}>
         <Button

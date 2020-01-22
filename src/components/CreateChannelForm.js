@@ -29,7 +29,7 @@ const CreateChannelForm = ({ showForm }) => {
         inputStyle={{ color: "#fff" }}
         placeholderTextColor="#fff"
       />
-      <AvatarPicker avatar={avatar} setAvatar={setAvatar} />
+      <AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={"Channel"} />
       <View style={styles.buttonRow}>
         <Button
           buttonStyle={styles.button}

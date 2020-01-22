@@ -41,7 +41,7 @@ const SignupScreen = () => {
         inputStyle={{color: 'white'}}
       />
       <Spacer />
-      <AvatarPicker avatar={avatar} setAvatar={setAvatar} />
+      <AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={"User"} />
       {state.errorMessage ? (
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
       ) : null}

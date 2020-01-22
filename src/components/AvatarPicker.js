@@ -6,7 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const AvatarPicker = ({ avatar, setAvatar }) => {
+const AvatarPicker = ({ avatar, setAvatar, whichForm }) => {
   const _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -39,7 +39,7 @@ const AvatarPicker = ({ avatar, setAvatar }) => {
   };
   return (
     <View>
-      <Text style={{ color: "white", textAlign: 'center' }}>Choose User Avatar to Display</Text>
+      <Text style={{ color: "white", textAlign: 'center' }}>Set {whichForm} Avatar</Text>
       <View style={styles.imagePickerStyle}>
         <MaterialIcons
           name="photo-camera"

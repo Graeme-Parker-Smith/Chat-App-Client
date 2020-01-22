@@ -58,7 +58,7 @@ const EditUserForm = ({ showForm, setIsLoading }) => {
           inputStyle={{ color: "white" }}
         />
       </Spacer>
-      <AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} />
+      <AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={"User"} />
       <Spacer />
       <View style={styles.buttonRow}>
         <Button
