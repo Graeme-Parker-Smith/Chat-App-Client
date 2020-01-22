@@ -46,6 +46,7 @@ const AccountScreen = ({ navigation }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [userSearch, setUserSearch] = useState("");
+  const [channelSearch, setChannelSearch] = useState("");
   // console.log("currentUser", state.currentUser);
 
   const handleEditUserClick = () => {
@@ -108,6 +109,8 @@ const AccountScreen = ({ navigation }) => {
     );
   }
 
+  console.log("friends", state.currentUser.friends);
+
   return (
     <>
       <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
@@ -144,6 +147,17 @@ const AccountScreen = ({ navigation }) => {
           />
         </View>
         <View>
+          <Input
+            label="Channel Search"
+            value={channelSearch}
+            onChangeText={setChannelSearch}
+            autoFocus={true}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputStyle={{ color: "white" }}
+          />
+        </View>
+        <View>
           {showEditUserForm ? (
             <EditUserForm
               showForm={setShowEditUserForm}
@@ -175,6 +189,9 @@ const AccountScreen = ({ navigation }) => {
             />
           ) : null}
         </View>
+        {state.currentUser.friends.map(friend => (
+          <Button title={friend.username} key={friend.username}></Button>
+        ))}
         <View>
           <Input
             label="Search Users"
@@ -202,34 +219,36 @@ const AccountScreen = ({ navigation }) => {
             data={state.channels}
             keyExtractor={item => item.name}
             renderItem={({ item }) => {
-              return (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("Room", {
-                      roomName: item.name,
-                      username: state.currentUser.username
-                    })
-                  }
-                  onLongPress={() => handleEditChannelClick(item)}
-                >
-                  <ListItem
-                    containerStyle={styles.channel}
-                    chevron
-                    title={item.name}
-                    titleStyle={styles.title}
-                    leftAvatar={
-                      item.avatar ? (
-                        <View>
-                          <Image
-                            source={{ uri: item.avatar }}
-                            style={styles.avatarStyle}
-                          />
-                        </View>
-                      ) : null
+              if (item.name.includes(channelSearch)) {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("Room", {
+                        roomName: item.name,
+                        username: state.currentUser.username
+                      })
                     }
-                  />
-                </TouchableOpacity>
-              );
+                    onLongPress={() => handleEditChannelClick(item)}
+                  >
+                    <ListItem
+                      containerStyle={styles.channel}
+                      chevron
+                      title={item.name}
+                      titleStyle={styles.title}
+                      leftAvatar={
+                        item.avatar ? (
+                          <View>
+                            <Image
+                              source={{ uri: item.avatar }}
+                              style={styles.avatarStyle}
+                            />
+                          </View>
+                        ) : null
+                      }
+                    />
+                  </TouchableOpacity>
+                );
+              }
             }}
           />
         </View>
