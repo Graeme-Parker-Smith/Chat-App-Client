@@ -35,9 +35,9 @@ const fetchEarlierMessages = dispatch => async (state, roomName) => {
   }
 };
 
-const fetchMessages = dispatch => async roomName => {
+const fetchMessages = dispatch => async (roomName, roomType) => {
   const response = await chatApi.get("/messages", {
-    params: { roomName: roomName }
+    params: { roomName,  roomType}
   });
   dispatch({ type: "fetch_messages", payload: response.data });
 };

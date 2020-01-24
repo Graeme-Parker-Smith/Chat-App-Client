@@ -48,6 +48,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   } = useContext(ChannelContext);
   const { username, avatar } = currentUser;
   const roomName = navigation.getParam("roomName");
+  const roomType = navigation.getParam("roomType");
   const [loading, setLoading] = useState(false);
   const [keyboardShowing, setKeyboardShowing] = useState(false);
   // const [videoState, setVideoState] = useState({
@@ -348,7 +349,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const handleOnFocus = async () => {
     await clearMessages();
     // console.log("FETCHING MESSAGES!!!!!!!!!");
-    await fetchMessages(roomName);
+    await fetchMessages(roomName, roomType);
     scrollToBottom();
   };
 

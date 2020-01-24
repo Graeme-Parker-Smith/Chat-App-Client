@@ -225,7 +225,8 @@ const AccountScreen = ({ navigation }) => {
                     onPress={() =>
                       navigation.navigate("Room", {
                         roomName: item.name,
-                        username: state.currentUser.username
+                        username: state.currentUser.username,
+                        roomType: "public"
                       })
                     }
                     onLongPress={() => handleEditChannelClick(item)}
@@ -263,7 +264,8 @@ const AccountScreen = ({ navigation }) => {
                   onPress={() =>
                     navigation.navigate("Room", {
                       roomName: item.name,
-                      username: state.currentUser.username
+                      username: state.currentUser.username,
+                      roomType: "private"
                     })
                   }
                   onLongPress={() => handleEditPrivateChannelClick(item)}
