@@ -22,10 +22,10 @@ const clearMessages = dispatch => () => {
   dispatch({ type: "clear_messages" });
 };
 
-const fetchEarlierMessages = dispatch => async (state, roomName) => {
+const fetchEarlierMessages = dispatch => async (state, roomName, roomType) => {
   if (state.length > 18) {
     const response = await chatApi.get("/messages", {
-      params: { roomName: roomName, stateLength: state.length }
+      params: { stateLength: state.length, roomName, roomType  }
     });
     // console.log(
     //   "response.data.messages.length is: ",

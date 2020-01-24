@@ -284,7 +284,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       state.length > 18
     ) {
       setLoading(true);
-      await fetchEarlierMessages(state, roomName);
+      await fetchEarlierMessages(state, roomName, roomType);
       // May need to change this to scrollToOffset
       scrollViewRef.current.scrollToIndex({
         index: 11,
