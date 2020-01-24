@@ -170,7 +170,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
       roomName,
       time,
       isImage: false,
-      isVideo: false
+      isVideo: false,
+      roomType
     };
     socket.emit("sendMessage", messageToSend);
     setContent("");
