@@ -67,6 +67,7 @@ const addQuickMessage = dispatch => ({
   creator,
   avatar,
   content,
+  time,
   roomName,
   isImage,
   isVideo
@@ -76,7 +77,7 @@ const addQuickMessage = dispatch => ({
     avatar,
     content,
     roomName,
-    time: "",
+    time,
     isImage,
     isVideo,
     _id: uuid()

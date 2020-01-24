@@ -117,11 +117,12 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // ============================================================
 
   useEffect(() => {
-    socket.on("message", ({ user, avatar, text, isImage, isVideo }) => {
+    socket.on("message", ({ user, avatar, text, time, isImage, isVideo }) => {
       const newMessage = {
         creator: user,
         avatar,
         content: text,
+        time,
         isImage,
         isVideo,
         roomName
@@ -160,11 +161,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // ============================================================
 
   const sendNewMessage = () => {
+    const date = new Date();
+    const time = date.toLocaleString();
     const messageToSend = {
       creator: username,
       avatar,
       content,
       roomName,
+      time,
       isImage: false,
       isVideo: false
     };
@@ -196,12 +200,15 @@ const RoomScreen = ({ navigation, isFocused }) => {
     // console.log(result);
 
     if (!result.cancelled) {
+      const date = new Date();
+      const time = date.toLocaleString();
       let imageToSend;
       if (result.type === "video") {
         imageToSend = {
           creator: username,
           content: result.uri,
           roomName,
+          time,
           isImage: false,
           isVideo: true
         };
@@ -210,6 +217,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
           creator: username,
           content: result.uri,
           roomName,
+          time,
           isImage: true,
           isVideo: false
         };
