@@ -137,8 +137,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
     return () => {
       socket.emit("disconnect");
       socket.off();
-
-      // clearMessages();
     };
   }, [state, users]);
 
