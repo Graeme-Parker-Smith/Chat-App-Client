@@ -7,7 +7,7 @@ const messageReducer = (state, action) => {
     case "fetch_messages":
       return action.payload.messages;
     case "add_message":
-      return [...action.payload];
+      return [...state, action.payload];
     case "add_quick_message":
       return [...state, action.payload];
     case "clear_messages":
@@ -42,8 +42,7 @@ const fetchMessages = dispatch => async (roomName, roomType) => {
   dispatch({ type: "fetch_messages", payload: response.data });
 };
 const addMessage = dispatch => async (
-  { creator, avatar, content, roomName, isImage, isVideo },
-  state
+  { creator, avatar, content, roomName, isImage, isVideo }
 ) => {
   const date = new Date();
   const time = date.toLocaleString();
@@ -60,9 +59,10 @@ const addMessage = dispatch => async (
   const response = await chatApi.post("/messages", { ...message });
   dispatch({
     type: "add_message",
-    payload: [...state, response.data]
+    payload: response.data
   });
 };
+
 const addQuickMessage = dispatch => ({
   creator,
   avatar,
