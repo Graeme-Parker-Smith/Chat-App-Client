@@ -57,7 +57,6 @@ const addMessage = dispatch => async (
     isVideo,
     _id: uuid()
   };
-  // const newState = state.filter(msg => msg.creator !== "Admin");
   const response = await chatApi.post("/messages", { ...message });
   dispatch({
     type: "add_message",
