@@ -76,8 +76,8 @@ const navigator = createSwitchNavigator({
 // enter ipconfig on terminal and use IPv4 Address instead!
 // in my case it is: 192.168.1.233
 
-// const ENDPOINT = "https://graeme-chat-app.herokuapp.com";
-const ENDPOINT = "http://192.168.1.233:3000";
+const ENDPOINT = "https://graeme-chat-app.herokuapp.com";
+// const ENDPOINT = "http://192.168.1.233:3000";
 const socket = io(ENDPOINT);
 
 const App = createAppContainer(navigator);
