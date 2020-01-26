@@ -49,6 +49,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const { username, avatar } = currentUser;
   const roomName = navigation.getParam("roomName");
   const roomType = navigation.getParam("roomType");
+  const room_id = navigation.getParam("room_id");
   const [loading, setLoading] = useState(false);
   const [keyboardShowing, setKeyboardShowing] = useState(false);
   // const [videoState, setVideoState] = useState({
