@@ -264,6 +264,7 @@ const AccountScreen = ({ navigation }) => {
                   onPress={() =>
                     navigation.navigate("Room", {
                       roomName: item.name,
+                      room_id: item._id,
                       username: state.currentUser.username,
                       roomType: "private"
                     })
