@@ -226,6 +226,7 @@ const AccountScreen = ({ navigation }) => {
                       navigation.navigate("Room", {
                         roomName: item.name,
                         username: state.currentUser.username,
+                        room_id: item._id,
                         roomType: "public"
                       })
                     }
