@@ -52,6 +52,7 @@ const AccountScreen = ({ navigation }) => {
   const [channelSearch, setChannelSearch] = useState("");
 
   useEffect(() => {
+    console.log("mounting!");
     registerForNotifications();
   }, []);
   // if (state.channels) {
