@@ -130,7 +130,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
         roomName
       };
       addQuickMessage(newMessage);
-      // if (user === username) addMessage(newMessage);
       handleAutoScroll();
     });
 
