@@ -50,6 +50,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const roomName = navigation.getParam("roomName");
   const roomType = navigation.getParam("roomType");
   const room_id = navigation.getParam("room_id");
+  // console.log("room_id is: ", room_id);
   const [loading, setLoading] = useState(false);
   const [keyboardShowing, setKeyboardShowing] = useState(false);
   // const [videoState, setVideoState] = useState({
@@ -87,7 +88,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   // ============================================================
 
   useEffect(() => {
-    socket.emit("join", { name: username, room: roomName }, error => {
+    socket.emit("join", { name: username, room: room_id }, error => {
       if (error) {
         if (error === "Username is taken") {
           navigation.replace("Account");
@@ -135,6 +136,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
     socket.on("roomData", ({ users }) => {
       const userNames = users.map(u => u.name);
+      console.log("usernames", userNames);
       setUsers(userNames);
     });
     return () => {
@@ -213,7 +215,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
           roomName,
           time,
           isImage: false,
-          isVideo: true
+          isVideo: true,
+          roomType,
+          room_id
         };
       } else {
         imageToSend = {
@@ -222,7 +226,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
           roomName,
           time,
           isImage: true,
-          isVideo: false
+          isVideo: false,
+          roomType,
+          room_id
         };
       }
       socket.emit("sendMessage", imageToSend);
@@ -241,22 +247,30 @@ const RoomScreen = ({ navigation, isFocused }) => {
     // console.log(result);
 
     if (!result.cancelled) {
+      const date = new Date();
+      const time = date.toLocaleString();
       let imageToSend;
       if (result.type === "video") {
         imageToSend = {
           creator: username,
           content: result.uri,
           roomName,
+          time,
           isImage: false,
-          isVideo: true
+          isVideo: true,
+          roomType,
+          room_id
         };
       } else {
         imageToSend = {
           creator: username,
           content: result.uri,
           roomName,
+          time,
           isImage: true,
-          isVideo: false
+          isVideo: false,
+          roomType,
+          room_id
         };
       }
       socket.emit("sendMessage", imageToSend);

@@ -6,7 +6,11 @@ const channelReducer = (state, action) => {
     case "fetch_channels":
       return action.payload;
     case "add_friend":
-      return { ...state, currentUser: action.payload.currentUser };
+      return {
+        ...state,
+        currentUser: action.payload.currentUser,
+        PMs: action.payload.PMs
+      };
     case "update_channel":
       return state;
     case "update_user":
@@ -71,6 +75,7 @@ const updateChannel = dispatch => async ({
 const fetchChannels = dispatch => async () => {
   try {
     const response = await chatApi.get("/channels");
+    // const nojson = JSON.parse(response.data);
     // console.log("response.data is: ", response.data);
     await dispatch({ type: "fetch_channels", payload: response.data });
     return { error: null };

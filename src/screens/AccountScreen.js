@@ -49,6 +49,11 @@ const AccountScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userSearch, setUserSearch] = useState("");
   const [channelSearch, setChannelSearch] = useState("");
+  // if (state.channels) {
+  //   first = JSON.parse(state.channels[0]);
+  // }
+  // console.log(first);
+  // console.log("state.PMs is: ", state.channels[0]);
   // const friends = state.currentUser.friends;
   // console.log("currentUser", state.currentUser);
 
@@ -280,9 +285,12 @@ const AccountScreen = ({ navigation }) => {
                   onPress={() =>
                     navigation.navigate("Room", {
                       roomName: item.username,
-                      room_id: state.PMs.filter(pm => pm.members.includes(item.username))._id,
+                      // room_id: state.PMs.filter(pm =>
+                      //   pm.members.includes(item.username)
+                      // )._id,
+                      room_id: [item.username, state.currentUser.username],
                       username: state.currentUser.username,
-                      roomType: "PM"
+                      roomType: "pm"
                     })
                   }
                   onLongPress={() => handleEditPrivateChannelClick(item)}
@@ -290,7 +298,7 @@ const AccountScreen = ({ navigation }) => {
                   <ListItem
                     containerStyle={styles.privateChannel}
                     chevron
-                    title={item.name}
+                    title={item.username}
                     titleStyle={styles.title}
                     leftAvatar={
                       item.avatar ? (
