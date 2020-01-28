@@ -72,7 +72,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
     addMessage,
     addQuickMessage,
     fetchEarlierMessages,
-    clearMessages
+    clearMessages,
+    sendNotification
   } = useContext(MessageContext);
 
   const _keyboardDidShow = () => {
@@ -177,6 +178,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
       room_id
     };
     socket.emit("sendMessage", messageToSend);
+    if (roomType === "pm") {
+      sendNotification({ sender: username, messageBody: content });
+    }
     setContent("");
   };
 

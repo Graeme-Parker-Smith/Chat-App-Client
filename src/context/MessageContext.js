@@ -1,6 +1,7 @@
 import createDataContext from "./createDataContext";
 import chatApi from "../api/requester";
 import uuid from "uuid/v4";
+import axios from "axios";
 
 const messageReducer = (state, action) => {
   switch (action.type) {
@@ -22,10 +23,15 @@ const clearMessages = dispatch => () => {
   dispatch({ type: "clear_messages" });
 };
 
-const fetchEarlierMessages = dispatch => async (state, roomName, roomType, room_id) => {
+const fetchEarlierMessages = dispatch => async (
+  state,
+  roomName,
+  roomType,
+  room_id
+) => {
   if (state.length > 18) {
     const response = await chatApi.get("/messages", {
-      params: { stateLength: state.length, roomName, roomType, room_id  }
+      params: { stateLength: state.length, roomName, roomType, room_id }
     });
     // console.log(
     //   "response.data.messages.length is: ",
@@ -37,13 +43,18 @@ const fetchEarlierMessages = dispatch => async (state, roomName, roomType, room_
 
 const fetchMessages = dispatch => async (roomName, roomType, room_id) => {
   const response = await chatApi.get("/messages", {
-    params: { roomName,  roomType, room_id}
+    params: { roomName, roomType, room_id }
   });
   dispatch({ type: "fetch_messages", payload: response.data });
 };
-const addMessage = dispatch => async (
-  { creator, avatar, content, roomName, isImage, isVideo }
-) => {
+const addMessage = dispatch => async ({
+  creator,
+  avatar,
+  content,
+  roomName,
+  isImage,
+  isVideo
+}) => {
   const date = new Date();
   const time = date.toLocaleString();
   const message = {
@@ -88,6 +99,20 @@ const addQuickMessage = dispatch => ({
   });
 };
 
+const sendNotification = dispatch => async ({
+  sender,
+  messageBody,
+  receiver
+}) => {
+  const response = await axios.post("https://exp.host/--/api/v2/push/send", {
+    to: "ExponentPushToken[eXdfDdFTimvrWjyia-qsZL]",
+    sound: "default",
+    title: sender,
+    body: messageBody
+  });
+  console.log(response);
+};
+
 export const { Provider, Context } = createDataContext(
   messageReducer,
   {
@@ -95,7 +120,8 @@ export const { Provider, Context } = createDataContext(
     addMessage,
     addQuickMessage,
     fetchEarlierMessages,
-    clearMessages
+    clearMessages,
+    sendNotification
   },
   []
 );

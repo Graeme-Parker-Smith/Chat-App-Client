@@ -24,6 +24,7 @@ import { ListItem } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ChannelContext } from "../context/ChannelContext";
 import { FontAwesome, Entypo } from "@expo/vector-icons";
+import registerForNotifications from "../services/push_notifications";
 
 const AccountScreen = ({ navigation }) => {
   const { signout } = useContext(AuthContext);
@@ -49,6 +50,10 @@ const AccountScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userSearch, setUserSearch] = useState("");
   const [channelSearch, setChannelSearch] = useState("");
+
+  useEffect(() => {
+    registerForNotifications();
+  }, []);
   // if (state.channels) {
   //   first = JSON.parse(state.channels[0]);
   // }
