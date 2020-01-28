@@ -22,10 +22,10 @@ const clearMessages = dispatch => () => {
   dispatch({ type: "clear_messages" });
 };
 
-const fetchEarlierMessages = dispatch => async (state, roomName, roomType) => {
+const fetchEarlierMessages = dispatch => async (state, roomName, roomType, room_id) => {
   if (state.length > 18) {
     const response = await chatApi.get("/messages", {
-      params: { stateLength: state.length, roomName, roomType  }
+      params: { stateLength: state.length, roomName, roomType, room_id  }
     });
     // console.log(
     //   "response.data.messages.length is: ",
@@ -35,9 +35,9 @@ const fetchEarlierMessages = dispatch => async (state, roomName, roomType) => {
   }
 };
 
-const fetchMessages = dispatch => async (roomName, roomType) => {
+const fetchMessages = dispatch => async (roomName, roomType, room_id) => {
   const response = await chatApi.get("/messages", {
-    params: { roomName,  roomType}
+    params: { roomName,  roomType, room_id}
   });
   dispatch({ type: "fetch_messages", payload: response.data });
 };

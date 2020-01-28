@@ -50,7 +50,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const roomName = navigation.getParam("roomName");
   const roomType = navigation.getParam("roomType");
   const room_id = navigation.getParam("room_id");
-  console.log("room_id", room_id);
   const [loading, setLoading] = useState(false);
   const [keyboardShowing, setKeyboardShowing] = useState(false);
   // const [videoState, setVideoState] = useState({
@@ -296,7 +295,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
       state.length > 18
     ) {
       setLoading(true);
-      await fetchEarlierMessages(state, roomName, roomType);
+      await fetchEarlierMessages(state, roomName, roomType, room_id);
       // May need to change this to scrollToOffset
       scrollViewRef.current.scrollToIndex({
         index: 11,
@@ -361,7 +360,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
   const handleOnFocus = async () => {
     await clearMessages();
     // console.log("FETCHING MESSAGES!!!!!!!!!");
-    await fetchMessages(roomName, roomType);
+    await fetchMessages(roomName, roomType, room_id);
     scrollToBottom();
   };
 
