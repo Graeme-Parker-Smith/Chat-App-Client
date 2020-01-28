@@ -115,5 +115,5 @@ export const { Provider, Context } = createDataContext(
     invite,
     clearState
   },
-  { currentUser: null, channels: [], privateChannels: [] }
+  { currentUser: null, channels: [], privateChannels: [], PMs: [] }
 );

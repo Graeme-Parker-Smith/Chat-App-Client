@@ -272,6 +272,45 @@ const AccountScreen = ({ navigation }) => {
         <View>
           <FlatList
             style={{ marginTop: 20, height: 175 }}
+            data={state.currentUser.friends}
+            keyExtractor={item => item.username}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("Room", {
+                      roomName: item.username,
+                      room_id: state.PMs.filter(pm => pm.members.includes(item.username))._id,
+                      username: state.currentUser.username,
+                      roomType: "PM"
+                    })
+                  }
+                  onLongPress={() => handleEditPrivateChannelClick(item)}
+                >
+                  <ListItem
+                    containerStyle={styles.privateChannel}
+                    chevron
+                    title={item.name}
+                    titleStyle={styles.title}
+                    leftAvatar={
+                      item.avatar ? (
+                        <View>
+                          <Image
+                            source={{ uri: item.avatar }}
+                            style={styles.avatarStyle}
+                          />
+                        </View>
+                      ) : null
+                    }
+                  />
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
+        <View>
+          <FlatList
+            style={{ marginTop: 20, height: 175 }}
             data={state.privateChannels}
             keyExtractor={item => item.name}
             renderItem={({ item }) => {
