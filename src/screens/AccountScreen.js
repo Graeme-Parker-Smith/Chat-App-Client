@@ -27,7 +27,9 @@ import { FontAwesome, Entypo } from "@expo/vector-icons";
 
 const AccountScreen = ({ navigation }) => {
   const { signout } = useContext(AuthContext);
-  const { state, fetchChannels, addFriend } = useContext(ChannelContext);
+  const { state, fetchChannels, addFriend, clearState } = useContext(
+    ChannelContext
+  );
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
   const [
@@ -106,6 +108,11 @@ const AccountScreen = ({ navigation }) => {
     if (error === "user could not be found") {
       signout();
     }
+  };
+
+  const handleSignout = () => {
+    signout();
+    clearState();
   };
 
   if (!state.currentUser || isLoading) {
@@ -302,7 +309,7 @@ const AccountScreen = ({ navigation }) => {
           />
         </View>
         <Spacer>
-          <Button title="Sign Out" onPress={signout} />
+          <Button title="Sign Out" onPress={handleSignout} />
         </Spacer>
       </SafeAreaView>
     </>

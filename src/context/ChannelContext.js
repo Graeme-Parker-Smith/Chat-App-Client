@@ -18,6 +18,8 @@ const channelReducer = (state, action) => {
         ...state,
         privateChannels: [...state.privateChannels, action.payload]
       };
+    case "clear_state":
+      return { currentUser: null, channels: [], privateChannels: [] };
     default:
       return state;
   }
@@ -97,6 +99,10 @@ const createPrivateChannel = dispatch => async ({ name, creator, avatar }) => {
   });
 };
 
+const clearState = dispatch => () => {
+  dispatch({ type: "clear_state" });
+};
+
 export const { Provider, Context } = createDataContext(
   channelReducer,
   {
@@ -106,7 +112,8 @@ export const { Provider, Context } = createDataContext(
     updateUser,
     updateChannel,
     addFriend,
-    invite
+    invite,
+    clearState
   },
   { currentUser: null, channels: [], privateChannels: [] }
 );
