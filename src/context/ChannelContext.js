@@ -67,9 +67,16 @@ const updateChannel = dispatch => async ({
 };
 
 const fetchChannels = dispatch => async () => {
-  const response = await chatApi.get("/channels");
-  // console.log("fetchChannels response.data", response.data);
-  dispatch({ type: "fetch_channels", payload: response.data });
+  try {
+    const response = await chatApi.get("/channels");
+    // console.log("response.data is: ", response.data);
+    await dispatch({ type: "fetch_channels", payload: response.data });
+    return { error: null };
+  } catch (err) {
+    if (err.response.data.error === "user could not be found") {
+      return { error: err.response.data.error };
+    }
+  }
 };
 
 const createChannel = dispatch => async ({ name, creator, avatar }) => {

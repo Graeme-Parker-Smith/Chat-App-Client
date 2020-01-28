@@ -47,6 +47,7 @@ const AccountScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userSearch, setUserSearch] = useState("");
   const [channelSearch, setChannelSearch] = useState("");
+  // const friends = state.currentUser.friends;
   // console.log("currentUser", state.currentUser);
 
   const handleEditUserClick = () => {
@@ -100,16 +101,21 @@ const AccountScreen = ({ navigation }) => {
     setShowCreatePrivateChannelForm(false);
   };
 
+  const tryFetchChannels = async () => {
+    const { error } = await fetchChannels();
+    if (error === "user could not be found") {
+      signout();
+    }
+  };
+
   if (!state.currentUser || isLoading) {
     return (
       <View>
-        <NavigationEvents onWillFocus={fetchChannels} />
+        <NavigationEvents onWillFocus={tryFetchChannels} />
         <LoadingIndicator />
       </View>
     );
   }
-
-  console.log("friends", state.currentUser.friends);
 
   return (
     <>
@@ -151,7 +157,7 @@ const AccountScreen = ({ navigation }) => {
             label="Channel Search"
             value={channelSearch}
             onChangeText={setChannelSearch}
-            autoFocus={true}
+            autoFocus={false}
             autoCapitalize="none"
             autoCorrect={false}
             inputStyle={{ color: "white" }}
@@ -189,9 +195,11 @@ const AccountScreen = ({ navigation }) => {
             />
           ) : null}
         </View>
-        {state.currentUser.friends.map(friend => (
-          <Button title={friend.username} key={friend.username}></Button>
-        ))}
+        {state.currentUser.friends
+          ? state.currentUser.friends.map(friend => (
+              <Button title={friend.username} key={friend.username}></Button>
+            ))
+          : null}
         <View>
           <Input
             label="Search Users"
