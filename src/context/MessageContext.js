@@ -104,12 +104,13 @@ const sendNotification = dispatch => async ({
   messageBody,
   receiver
 }) => {
-  const response = await axios.post("https://exp.host/--/api/v2/push/send", {
-    to: "ExponentPushToken[eXdfDdFTimvrWjyia-qsZL]",
-    sound: "default",
-    title: sender,
-    body: messageBody
-  });
+  const response = await chatApi.post("/sendnotification", {sender, messageBody, receiver})
+  // const response = await axios.post("https://exp.host/--/api/v2/push/send", {
+  //   to: "ExponentPushToken[eXdfDdFTimvrWjyia-qsZL]",
+  //   sound: "default",
+  //   title: sender,
+  //   body: messageBody
+  // });
   console.log(response);
 };
 

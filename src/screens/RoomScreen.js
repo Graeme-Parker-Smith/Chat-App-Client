@@ -179,7 +179,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
     };
     socket.emit("sendMessage", messageToSend);
     if (roomType === "pm") {
-      sendNotification({ sender: username, messageBody: content });
+      const receiver = room_id.filter(name => name !== username)[0];
+      console.log("receiver is: ", receiver)
+      sendNotification({ sender: username, messageBody: content, receiver });
     }
     setContent("");
   };

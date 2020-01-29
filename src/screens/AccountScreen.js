@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import {
   View,
   Image,
@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
-  ActivityIndicator
+  ActivityIndicator,
+  AppState
 } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
@@ -50,11 +51,21 @@ const AccountScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userSearch, setUserSearch] = useState("");
   const [channelSearch, setChannelSearch] = useState("");
+  const hasMountedRef = useRef(false);
+  const firstRef = useRef(true);
 
   useEffect(() => {
-    console.log("mounting!");
-    registerForNotifications();
-  }, []);
+    console.log("hasMountedRef.current", hasMountedRef.current);
+    if (hasMountedRef.current && firstRef.current) {
+      console.log("component has mounted. Get push token.");
+      console.log(state.currentUser);
+      registerForNotifications({user: state.currentUser});
+      firstRef.current = false;
+    } else if (firstRef.current) {
+      hasMountedRef.current = true;
+    }
+  }, [state]);
+
   // if (state.channels) {
   //   first = JSON.parse(state.channels[0]);
   // }
