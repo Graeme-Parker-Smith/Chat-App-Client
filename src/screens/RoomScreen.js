@@ -42,8 +42,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const room_id = navigation.getParam('room_id');
 	// console.log("room_id is: ", room_id);
 	const [loading, setLoading] = useState(false);
-  const [keyboardShowing, setKeyboardShowing] = useState(false);
-  // console.log(RNFetchBlob)
+	const [keyboardShowing, setKeyboardShowing] = useState(false);
+	// console.log(RNFetchBlob)
 	// const [videoState, setVideoState] = useState({
 	//   videoIsPlaying: false,
 	//   videoUri: ""
@@ -242,8 +242,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			const time = date.toLocaleString();
 			let bin = `data:image/jpg;base64,${result.base64}`;
 			// console.log('image in binary: ', bin.slice(0, 100));
-      // console.log('rnfetchblob', RNFetchBlob.wrap(bin));
-      
+			// console.log('rnfetchblob', RNFetchBlob.wrap(bin));
+			console.log(`data:image/jpg;base64,${result.base64}`);
 			let imageToSend;
 			if (result.type === 'video') {
 				imageToSend = {
