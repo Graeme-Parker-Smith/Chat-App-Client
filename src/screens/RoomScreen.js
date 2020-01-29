@@ -238,6 +238,17 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		// console.log(result);
 
 		if (!result.cancelled) {
+			// let localUri = result.uri;
+			// // "file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fgraeme-chat-app/ImagePicker/B9A71996-353E-4638-8148-B1AB2C653138.jpg"
+			// let filename = localUri.split('/').pop();
+      // // "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
+      
+      // // infer the type of the image
+      // let match = /\.(\w+)$/.exec(filename);
+      // // [".jpg", "jpg"]
+      // let type = match ? `image/${match[1]}` : `image`;
+      // // if match truthy, type = "image/jpg" else type = "image"
+
 			const date = new Date();
 			const time = date.toLocaleString();
 			let bin = `data:image/jpg;base64,${result.base64}`;
