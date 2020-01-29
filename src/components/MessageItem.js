@@ -106,15 +106,7 @@ const MessageItem = ({
 				/>
 				<PlayIcon />
 			</View>
-			// </View>
-			// <VideoPlayer
-			//   videoProps={{
-			//     shouldPlay: true,
-			//     resizeMode: Video.RESIZE_MODE_CONTAIN,
-			//     source: { uri: content },
-			//     fullscreenEnterIcon={playIcon}
-			//   }}
-			// />
+			
 		);
 	} else if (isImage) {
 		// function _arrayBufferToBase64(buffer) {
