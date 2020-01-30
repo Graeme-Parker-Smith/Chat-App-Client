@@ -238,16 +238,26 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		// console.log(result);
 
 		if (!result.cancelled) {
-			// let localUri = result.uri;
-			// // "file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fgraeme-chat-app/ImagePicker/B9A71996-353E-4638-8148-B1AB2C653138.jpg"
-			// let filename = localUri.split('/').pop();
-      // // "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
-      
-      // // infer the type of the image
-      // let match = /\.(\w+)$/.exec(filename);
-      // // [".jpg", "jpg"]
-      // let type = match ? `image/${match[1]}` : `image`;
-      // // if match truthy, type = "image/jpg" else type = "image"
+			let localUri = result.uri;
+			// "file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fgraeme-chat-app/ImagePicker/B9A71996-353E-4638-8148-B1AB2C653138.jpg"
+			let filename = localUri.split('/').pop();
+			// "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
+
+			// infer the type of the image
+			let match = /\.(\w+)$/.exec(filename);
+			// [".jpg", "jpg"]
+			let type = match ? `image/${match[1]}` : `image`;
+			// if match truthy, type = "image/jpg" else type = "image"
+			let formData = new FormData();
+			formData.append('photo', { uri: localUri, name: filename, type });
+
+			return await fetch('http://d69eab38.ngrok.io/messages', {
+				method: 'POST',
+				body: formData,
+				headers: {
+					'content-type': 'multipart/formdata',
+				},
+			});
 
 			const date = new Date();
 			const time = date.toLocaleString();
