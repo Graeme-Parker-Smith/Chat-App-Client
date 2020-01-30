@@ -66,11 +66,7 @@ const AccountScreen = ({ navigation }) => {
     }
   }, [state]);
 
-  // if (state.channels) {
-  //   first = JSON.parse(state.channels[0]);
-  // }
-  // console.log(first);
-  // 
+  
 
   const handleEditUserClick = () => {
     setShowEditUserForm(true);
