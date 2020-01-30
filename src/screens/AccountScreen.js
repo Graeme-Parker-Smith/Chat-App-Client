@@ -70,9 +70,7 @@ const AccountScreen = ({ navigation }) => {
   //   first = JSON.parse(state.channels[0]);
   // }
   // console.log(first);
-  // console.log("state.PMs is: ", state.channels[0]);
-  // const friends = state.currentUser.friends;
-  // console.log("currentUser", state.currentUser);
+  // 
 
   const handleEditUserClick = () => {
     setShowEditUserForm(true);
