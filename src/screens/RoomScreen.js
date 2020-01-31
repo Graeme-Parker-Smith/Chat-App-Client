@@ -251,17 +251,17 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			let formData = new FormData();
 			formData.append('photo', { uri: localUri, name: filename, type });
 
-			return await fetch('http://d69eab38.ngrok.io/messages', {
-				method: 'POST',
-				body: formData,
-				headers: {
-					'content-type': 'multipart/formdata',
-				},
-			});
+			// return await fetch('http://d69eab38.ngrok.io/messages', {
+			// 	method: 'POST',
+			// 	body: formData,
+			// 	headers: {
+			// 		'content-type': 'multipart/formdata',
+			// 	},
+			// });
 
 			const date = new Date();
 			const time = date.toLocaleString();
-			let bin = `data:image/jpg;base64,${result.base64}`;
+			// let bin = `data:image/jpg;base64,${result.base64}`;
 			// console.log('image in binary: ', bin.slice(0, 100));
 			// console.log('rnfetchblob', RNFetchBlob.wrap(bin));
 			console.log(`data:image/jpg;base64,${result.base64}`);
@@ -280,7 +280,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			} else {
 				imageToSend = {
 					creator: username,
-					content: result.uri,
+					content: `data:image/jpg;base64,${result.base64}`,
 					roomName,
 					time,
 					isImage: true,
