@@ -68,7 +68,7 @@ const SignupScreen = () => {
       <Spacer>
         <Button
           title="Register User"
-          onPress={() => signup({ username, password, avatar })}
+          onPress={() => signup({ username, password, avatar: avatar.base64Uri })}
         />
       </Spacer>
       <NavLink routeName="Signin" text="Go back to Sign In" />

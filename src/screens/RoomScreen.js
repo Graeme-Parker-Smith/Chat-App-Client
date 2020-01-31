@@ -80,7 +80,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 
 	useEffect(() => {
-		socket.emit('join', { name: username, room: room_id }, error => {
+		let roomIdentifier;
+		if (roomType === "pm") {
+			let arr = room_id.sort();
+			roomIdentifier = arr[0] + arr[1];
+		} else {
+			roomIdentifier = room_id;
+		}
+		socket.emit('join', { name: username, room: roomIdentifier }, error => {
 			if (error) {
 				if (error === 'Username is taken') {
 					navigation.replace('Account');
@@ -151,6 +158,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const sendNewMessage = () => {
 		const date = new Date();
 		const time = date.toLocaleString();
+		let roomIdentifier;
+		if (roomType === "pm") {
+			let arr = room_id.sort();
+			roomIdentifier = arr[0] + arr[1];
+		} else {
+			roomIdentifier = room_id;
+		}
 		const messageToSend = {
 			creator: username,
 			avatar,
@@ -160,7 +174,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			isImage: false,
 			isVideo: false,
 			roomType,
-			room_id,
+			room_id: roomIdentifier,
 		};
 		socket.emit('sendMessage', messageToSend);
 		if (roomType === 'pm') {
@@ -190,6 +204,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			allowsEditing: false,
 			aspect: [4, 3],
 			quality: undefined,
+			base64: true,
 		});
 
 		// console.log(result);
@@ -201,7 +216,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			if (result.type === 'video') {
 				imageToSend = {
 					creator: username,
-					content: result.uri,
+					content: `data:image/jpg;base64,${result.base64}`,
 					roomName,
 					time,
 					isImage: false,
@@ -212,7 +227,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			} else {
 				imageToSend = {
 					creator: username,
-					content: result.uri,
+					content: `data:image/jpg;base64,${result.base64}`,
 					roomName,
 					time,
 					isImage: true,

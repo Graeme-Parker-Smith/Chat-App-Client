@@ -42,8 +42,10 @@ const AccountScreen = ({ navigation }) => {
 		console.log('hasMountedRef.current', hasMountedRef.current);
 		if (hasMountedRef.current && firstRef.current) {
 			console.log('component has mounted. Get push token.');
-			console.log(state.currentUser);
-			registerForNotifications({ user: state.currentUser });
+			(async () => {
+				const response = await registerForNotifications({ user: state.currentUser });
+				if (response === 'no userData received') handleSignout();
+			})();
 			firstRef.current = false;
 		} else if (firstRef.current) {
 			hasMountedRef.current = true;

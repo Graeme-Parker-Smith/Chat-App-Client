@@ -12,13 +12,14 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1
+      quality: 1,
+      base64: true
     });
 
     // console.log(result);
 
     if (!result.cancelled) {
-      setAvatar(result.uri);
+      setAvatar({localUri: result.uri, base64Uri: `data:image/jpg;base64,${result.base64}`});
       // if (_toPassword) _toPassword();
     }
   };
@@ -29,13 +30,14 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1
+      quality: 1,
+      base64: true
     });
 
     // console.log(result);
 
     if (!result.cancelled) {
-      setAvatar(result.uri);
+      setAvatar({localUri: result.uri, base64Uri: `data:image/jpg;base64,${result.base64}`});
       // if (_toPassword) _toPassword();
     }
   };
@@ -59,7 +61,7 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword }) => {
         />
         <View>
           {avatar ? (
-            <Image source={{ uri: avatar }} style={styles.avatarStyle} />
+            <Image source={{ uri: avatar.localUri }} style={styles.avatarStyle} />
           ) : null}
         </View>
       </View>

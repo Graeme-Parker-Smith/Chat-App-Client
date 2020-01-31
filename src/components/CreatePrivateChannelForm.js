@@ -18,7 +18,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
     createPrivateChannel({
       name: newChannelName,
       creator: state.currentUser.username,
-      avatar
+      avatar: avatar.base64Uri
     });
     setNewChannelName("");
     showForm(false);

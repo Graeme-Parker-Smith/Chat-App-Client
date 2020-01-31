@@ -15,7 +15,7 @@ const CreateChannelForm = ({ showForm }) => {
   };
 
   const handleSubmit = () => {
-    createChannel({ name: newChannelName, creator: state.currentUser.username, avatar });
+    createChannel({ name: newChannelName, creator: state.currentUser.username, avatar: avatar.base64Uri });
     setNewChannelName("");
     showForm(false);
   };
