@@ -124,13 +124,13 @@ const MessageItem = ({
 		// console.log('imageSrc', imageSrc);
 		// let imageSrc = `data:image/jpg;base64,${imageString}`
 		// let imageSrc = content.data.toString('base64');
-		let imageSrc = "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
+		// let imageSrc = "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
 		// let imageSrc = String.fromCharCode.apply(null, new Uint16Array(content.data));
-		console.log('imageSrc', imageSrc);
+		// console.log('imageSrc', imageSrc);
 		// console.log(content);
 		renderedContent = (
 			<View>
-				<Image source={{ uri: imageSrc }} style={{ height: 200, width: 200 }} />
+				<Image source={{ uri: content }} style={{ height: 200, width: 200 }} />
 			</View>
 		);
 	} else {
