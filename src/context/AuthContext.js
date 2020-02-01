@@ -46,7 +46,7 @@ const clearErrorMessage = dispatch => () => {
 
 const signup = dispatch => async ({ username, password, avatar }) => {
 	let localUri = avatar;
-	('file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fgraeme-chat-app/ImagePicker/B9A71996-353E-4638-8148-B1AB2C653138.jpg');
+	// ('file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fgraeme-chat-app/ImagePicker/B9A71996-353E-4638-8148-B1AB2C653138.jpg');
 	let filename = localUri.split('/').pop();
 	// "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
 
@@ -59,6 +59,7 @@ const signup = dispatch => async ({ username, password, avatar }) => {
 	formData.append('username', username);
 	formData.append('password', password);
 	formData.append('photo', { uri: localUri, name: filename, type });
+	console.log('formData: ', formData);
 	try {
 		// const response = await chatApi.post("/signup", {
 		//   username,
