@@ -266,13 +266,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			let formData = new FormData();
 			formData.append('photo', { uri: localUri, name: filename, type });
 
-			// return await fetch('http://d69eab38.ngrok.io/messages', {
-			// 	method: 'POST',
-			// 	body: formData,
-			// 	headers: {
-			// 		'content-type': 'multipart/formdata',
-			// 	},
-			// });
 
 			const date = new Date();
 			const time = date.toLocaleString();
