@@ -132,6 +132,8 @@ const AccountScreen = ({ navigation }) => {
 						{state.currentUser ? (
 							<Image source={{ uri: state.currentUser.avatar }} style={styles.avatarStyle} />
 						) : null}
+						{/* <Image source={{ uri: "http://f536606a.ngrok.io/uploads/824128849df5344f3615904d6a4fabef" }} style={styles.avatarStyle} /> */}
+						{/* <Image source={{ uri: "C:\code\1.sockTest\server\uploads\2e431bbb0a0f416789e8c16f33262b9c" }} style={styles.avatarStyle} /> */}
 					</View>
 					<Text style={styles.userTitle}>{state.currentUser.username}</Text>
 					<Entypo
