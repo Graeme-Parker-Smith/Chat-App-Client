@@ -45,30 +45,53 @@ const clearErrorMessage = dispatch => () => {
 };
 
 const signup = dispatch => async ({ username, password, avatar }) => {
-	let localUri = avatar;
-	// ('file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fgraeme-chat-app/ImagePicker/B9A71996-353E-4638-8148-B1AB2C653138.jpg');
-	let filename = localUri.split('/').pop();
-	// "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
-
-	// infer the type of the image
-	let match = /\.(\w+)$/.exec(filename);
-	// [".jpg", "jpg"]
-	let type = match ? `image/${match[1]}` : `image`;
-	// if match truthy, type = "image/jpg" else type = "image"
-	let formData = new FormData();
-	formData.append('username', username);
-	formData.append('password', password);
-	formData.append('photo', { uri: localUri, name: filename, type });
-	console.log('formData: ', formData);
 	try {
-		// const response = await chatApi.post("/signup", {
-		//   username,
-		//   password,
-		//   avatar
-		// });
-		const response = await chatApi.post('/signup', formData, {
-			headers: { 'content-type': 'multipart/form-data' },
-		});
+		let response;
+		if (avatar) {
+			// let localUri = avatar;
+			// // ('file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fgraeme-chat-app/ImagePicker/B9A71996-353E-4638-8148-B1AB2C653138.jpg');
+			// let filename = localUri.split('/').pop();
+			// // "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
+
+			// // infer the type of the image
+			// let match = /\.(\w+)$/.exec(filename);
+			// // [".jpg", "jpg"]
+			// let type = match ? `image/${match[1]}` : `image`;
+			// // if match truthy, type = "image/jpg" else type = "image"
+			// let formData = new FormData();
+			// formData.append('username', username);
+			// formData.append('password', password);
+			// formData.append('photo', { uri: localUri, name: filename, type });
+			// console.log('formData: ', formData);
+			// response = await chatApi.post('/signup', formData, {
+			// 	headers: { 'content-type': 'multipart/form-data' },
+			// });
+
+			let apiUrl = 'https://api.cloudinary.com/v1_1/jaded/image/upload';
+			let data = {
+				file: avatar,
+				upload_preset: 'auymih3b',
+			};
+			fetch(apiUrl, {
+				body: JSON.stringify(data),
+				headers: {
+					'content-type': 'application/json',
+				},
+				method: 'POST',
+			})
+				.then(async r => {
+					let data = await r.json();
+					console.log(data.secure_url);
+					return data.secure_url;
+				})
+				.catch(err => console.log(err));
+		} else {
+			response = await chatApi.post('/signup', {
+				username,
+				password,
+				avatar,
+			});
+		}
 		await AsyncStorage.setItem('token', response.data.token);
 		dispatch({ type: 'signin', payload: response.data.token });
 		navigate('Account');

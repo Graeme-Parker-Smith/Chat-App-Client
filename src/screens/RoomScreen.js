@@ -270,6 +270,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			const date = new Date();
 			const time = date.toLocaleString();
 			// let bin = `data:image/jpg;base64,${result.base64}`;
+			// let apiUrl = 'https://api.cloudinary.com/v1_1/jaded/image/upload';
 			// console.log('image in binary: ', bin.slice(0, 100));
 			// console.log('rnfetchblob', RNFetchBlob.wrap(bin));
 			// console.log(`data:image/jpg;base64,${result.base64}`);

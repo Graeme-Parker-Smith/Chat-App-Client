@@ -15,6 +15,8 @@ import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import registerForNotifications from '../services/push_notifications';
+import chatApi from '../api/requester';
+import b64 from 'base64-arraybuffer';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
@@ -35,6 +37,7 @@ const AccountScreen = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [userSearch, setUserSearch] = useState('');
 	const [channelSearch, setChannelSearch] = useState('');
+	const [userAvatar, setUserAvatar] = useState('');
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
 
@@ -43,8 +46,15 @@ const AccountScreen = ({ navigation }) => {
 		if (hasMountedRef.current && firstRef.current) {
 			console.log('component has mounted. Get push token.');
 			(async () => {
-				const response = await registerForNotifications({ user: state.currentUser });
+				await registerForNotifications({ user: state.currentUser });
 				if (response === 'no userData received') handleSignout();
+				// const response = await chatApi.get('/images', { params: { avatarId: state.currentUser.avatar } });
+				// // base64 conversion takes 0.59 seconds
+				// console.log(response);
+				// const base64Flag = 'data:image/jpeg;base64,';
+				// const imageStr = b64.encode(response.data);
+				// setUserAvatar(base64Flag + imageStr);
+				// console.log(b64.encode(response.data.Imgs[0].img.data.data));
 			})();
 			firstRef.current = false;
 		} else if (firstRef.current) {
@@ -129,10 +139,8 @@ const AccountScreen = ({ navigation }) => {
 			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 				<View style={styles.userDisplay}>
 					<View>
-						{state.currentUser ? (
-							<Image source={{ uri: state.currentUser.avatar }} style={styles.avatarStyle} />
-						) : null}
-						{/* <Image source={{ uri: "http://f536606a.ngrok.io/uploads/824128849df5344f3615904d6a4fabef" }} style={styles.avatarStyle} /> */}
+						{/* {userAvatar ? <Image source={{ uri: userAvatar }} style={styles.avatarStyle} /> : null} */}
+						<Image source={{ uri: "https://res.cloudinary.com/jaded/image/upload/v1580793537/h6jmsszoaqkhnpkiqkmi.jpg" }} style={styles.avatarStyle} />
 						{/* <Image source={{ uri: "C:\code\1.sockTest\server\uploads\2e431bbb0a0f416789e8c16f33262b9c" }} style={styles.avatarStyle} /> */}
 					</View>
 					<Text style={styles.userTitle}>{state.currentUser.username}</Text>

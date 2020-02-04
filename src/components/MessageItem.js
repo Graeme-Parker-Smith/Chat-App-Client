@@ -119,8 +119,8 @@ const MessageItem = ({
 		// 	return btoa(binary);
 		// }
 		// let imageSrc = base64.encode(content.data);
-		let imageString =
-			'ZmlsZTovLy92YXIvbW9iaWxlL0NvbnRhaW5lcnMvRGF0YS9BcHBsaWNhdGlvbi8xNEU4OEYxNy04ODYwLTQ2RjYtQkIwQi04OTJDMzQ5MTM2RTkvTGlicmFyeS9DYWNoZXMvRXhwb25lbnRFeHBlcmllbmNlRGF0YS8lMjU0MGdyYWVtZXNtaXRoJTI1MkZncmFlbWUtY2hhdC1hcHAvSW1hZ2VQaWNrZXIvQjdCQkZCREEtQjUyMC00OTJGLTlFREItMUU1NURDNTRCNkRDLmpwZw==';
+		// let imageString =
+		// 	'ZmlsZTovLy92YXIvbW9iaWxlL0NvbnRhaW5lcnMvRGF0YS9BcHBsaWNhdGlvbi8xNEU4OEYxNy04ODYwLTQ2RjYtQkIwQi04OTJDMzQ5MTM2RTkvTGlicmFyeS9DYWNoZXMvRXhwb25lbnRFeHBlcmllbmNlRGF0YS8lMjU0MGdyYWVtZXNtaXRoJTI1MkZncmFlbWUtY2hhdC1hcHAvSW1hZ2VQaWNrZXIvQjdCQkZCREEtQjUyMC00OTJGLTlFREItMUU1NURDNTRCNkRDLmpwZw==';
 		// console.log('imageSrc', imageSrc);
 		// let imageSrc = `data:image/jpg;base64,${imageString}`
 		// let imageSrc = content.data.toString('base64');
