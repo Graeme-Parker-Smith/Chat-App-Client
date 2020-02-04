@@ -2,6 +2,7 @@ import { AsyncStorage } from 'react-native';
 import createDataContext from './createDataContext';
 import chatApi from '../api/requester';
 import { navigate } from '../navigationRef';
+import imgUpload from '../helpers/imgUpload';
 
 const authReducer = (state, action) => {
 	switch (action.type) {
@@ -67,40 +68,21 @@ const signup = dispatch => async ({ username, password, avatar }) => {
 			// 	headers: { 'content-type': 'multipart/form-data' },
 			// });
 
-			let apiUrl = 'https://api.cloudinary.com/v1_1/jaded/image/upload';
-			let data = {
-				file: avatar,
-				upload_preset: 'auymih3b',
-			};
-			fetch(apiUrl, {
-				body: JSON.stringify(data),
-				headers: {
-					'content-type': 'application/json',
-				},
-				method: 'POST',
-			})
-				.then(async r => {
-					let data = await r.json();
-					console.log(data.secure_url);
-					response = await chatApi.post('/signup', {
-						username,
-						password,
-						avatar: data.secure_url,
-					});
-					await AsyncStorage.setItem('token', response.data.token);
-					dispatch({ type: 'signin', payload: response.data.token });
-					navigate('Account');
-				})
-				.catch(err => console.log(err));
+			const cloudUrl = await imgUpload(avatar);
+			response = await chatApi.post('/signup', {
+				username,
+				password,
+				avatar: cloudUrl,
+			});
 		} else {
 			response = await chatApi.post('/signup', {
 				username,
 				password,
 			});
-			await AsyncStorage.setItem('token', response.data.token);
-			dispatch({ type: 'signin', payload: response.data.token });
-			navigate('Account');
 		}
+		await AsyncStorage.setItem('token', response.data.token);
+		dispatch({ type: 'signin', payload: response.data.token });
+		navigate('Account');
 	} catch (err) {
 		console.log(err);
 		dispatch({
