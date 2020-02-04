@@ -107,6 +107,7 @@ const signin = dispatch => async ({ username, password }) => {
 			payload: 'Something went wrong with sign up',
 		});
 	}
+	return 'error';
 };
 
 const signout = dispatch => async () => {
