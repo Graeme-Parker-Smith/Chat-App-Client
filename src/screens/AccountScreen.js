@@ -46,8 +46,8 @@ const AccountScreen = ({ navigation }) => {
 		if (hasMountedRef.current && firstRef.current) {
 			console.log('component has mounted. Get push token.');
 			(async () => {
-				await registerForNotifications({ user: state.currentUser });
-				if (response === 'no userData received') handleSignout();
+				let r = await registerForNotifications({ user: state.currentUser });
+				if (r === 'no userData received') handleSignout();
 				// const response = await chatApi.get('/images', { params: { avatarId: state.currentUser.avatar } });
 				// // base64 conversion takes 0.59 seconds
 				// console.log(response);
@@ -139,8 +139,8 @@ const AccountScreen = ({ navigation }) => {
 			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 				<View style={styles.userDisplay}>
 					<View>
-						{/* {userAvatar ? <Image source={{ uri: userAvatar }} style={styles.avatarStyle} /> : null} */}
-						<Image source={{ uri: "https://res.cloudinary.com/jaded/image/upload/v1580793537/h6jmsszoaqkhnpkiqkmi.jpg" }} style={styles.avatarStyle} />
+						{state.currentUser.avatar ? <Image source={{ uri: state.currentUser.avatar }} style={styles.avatarStyle} /> : <Entypo name="user" size={50} color="#0af" />}
+						{/* <Image source={{ uri:  }} style={styles.avatarStyle} /> */}
 						{/* <Image source={{ uri: "C:\code\1.sockTest\server\uploads\2e431bbb0a0f416789e8c16f33262b9c" }} style={styles.avatarStyle} /> */}
 					</View>
 					<Text style={styles.userTitle}>{state.currentUser.username}</Text>

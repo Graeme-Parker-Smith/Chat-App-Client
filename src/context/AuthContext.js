@@ -82,19 +82,25 @@ const signup = dispatch => async ({ username, password, avatar }) => {
 				.then(async r => {
 					let data = await r.json();
 					console.log(data.secure_url);
-					return data.secure_url;
+					response = await chatApi.post('/signup', {
+						username,
+						password,
+						avatar: data.secure_url,
+					});
+					await AsyncStorage.setItem('token', response.data.token);
+					dispatch({ type: 'signin', payload: response.data.token });
+					navigate('Account');
 				})
 				.catch(err => console.log(err));
 		} else {
 			response = await chatApi.post('/signup', {
 				username,
 				password,
-				avatar,
 			});
+			await AsyncStorage.setItem('token', response.data.token);
+			dispatch({ type: 'signin', payload: response.data.token });
+			navigate('Account');
 		}
-		await AsyncStorage.setItem('token', response.data.token);
-		dispatch({ type: 'signin', payload: response.data.token });
-		navigate('Account');
 	} catch (err) {
 		console.log(err);
 		dispatch({
