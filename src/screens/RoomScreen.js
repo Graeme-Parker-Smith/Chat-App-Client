@@ -220,6 +220,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				imageToSend = {
 					creator: username,
 					content: cloudUrl,
+					avatar,
 					roomName,
 					time,
 					isImage: false,
@@ -233,6 +234,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				imageToSend = {
 					creator: username,
 					content: cloudUrl,
+					avatar,
 					roomName,
 					time,
 					isImage: true,
@@ -280,6 +282,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				imageToSend = {
 					creator: username,
 					content: cloudUrl,
+					avatar,
 					roomName,
 					time,
 					isImage: false,
@@ -293,6 +296,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				imageToSend = {
 					creator: username,
 					content: cloudUrl,
+					avatar,
 					roomName,
 					time,
 					isImage: true,
