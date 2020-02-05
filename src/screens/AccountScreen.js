@@ -37,7 +37,6 @@ const AccountScreen = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [userSearch, setUserSearch] = useState('');
 	const [channelSearch, setChannelSearch] = useState('');
-	const [userAvatar, setUserAvatar] = useState('');
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
 
