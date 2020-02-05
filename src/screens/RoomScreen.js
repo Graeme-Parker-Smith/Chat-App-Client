@@ -215,9 +215,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			const time = date.toLocaleString();
 			let imageToSend;
 			if (result.type === 'video') {
+				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`, true);
 				imageToSend = {
 					creator: username,
-					content: `data:image/jpg;base64,${result.base64}`,
+					content: cloudUrl,
 					roomName,
 					time,
 					isImage: false,
@@ -226,9 +227,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					room_id,
 				};
 			} else {
+				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`);
+				console.log('cloudUrl', cloudUrl);
 				imageToSend = {
 					creator: username,
-					content: `data:image/jpg;base64,${result.base64}`,
+					content: cloudUrl,
 					roomName,
 					time,
 					isImage: true,
@@ -254,27 +257,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		// console.log(result);
 
 		if (!result.cancelled) {
-			let localUri = result.uri;
-			// "file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fgraeme-chat-app/ImagePicker/B9A71996-353E-4638-8148-B1AB2C653138.jpg"
-			let filename = localUri.split('/').pop();
-			// "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
-
-			// infer the type of the image
-			let match = /\.(\w+)$/.exec(filename);
-			// [".jpg", "jpg"]
-			let type = match ? `image/${match[1]}` : `image`;
-			// if match truthy, type = "image/jpg" else type = "image"
-			let formData = new FormData();
-			formData.append('photo', { uri: localUri, name: filename, type });
-
 			const date = new Date();
 			const time = date.toLocaleString();
-
-			// let bin = `data:image/jpg;base64,${result.base64}`;
-			// let apiUrl = 'https://api.cloudinary.com/v1_1/jaded/image/upload';
-			// console.log('image in binary: ', bin.slice(0, 100));
-			// console.log('rnfetchblob', RNFetchBlob.wrap(bin));
-			// console.log(`data:image/jpg;base64,${result.base64}`);
 			let imageToSend;
 			if (result.type === 'video') {
 				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`, true);
