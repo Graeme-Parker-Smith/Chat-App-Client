@@ -31,6 +31,7 @@ const MessageItem = ({
 	// If user avatar, display that in left icon, else use default avatar
 	let avatarImage;
 	if (avatar) {
+		console.log("avatar", avatar)
 		avatarImage = (
 			<View>
 				<Image source={{ uri: avatar }} style={styles.avatarStyle} />
@@ -136,7 +137,6 @@ const MessageItem = ({
 		renderedContent = content;
 	}
 
-	console.log('content', content);
 	return (
 		<ListItem
 			containerStyle={
