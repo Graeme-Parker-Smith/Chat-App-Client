@@ -106,7 +106,6 @@ const MessageItem = ({
 				/>
 				<PlayIcon />
 			</View>
-			
 		);
 	} else if (isImage) {
 		// function _arrayBufferToBase64(buffer) {
@@ -137,6 +136,7 @@ const MessageItem = ({
 		renderedContent = content;
 	}
 
+	console.log('content', content);
 	return (
 		<ListItem
 			containerStyle={

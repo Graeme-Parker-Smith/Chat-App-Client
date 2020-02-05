@@ -24,7 +24,7 @@ export default async function imgUpload(imgString, isVideo = false) {
 			const response = await chatApi.post('/video', formData, {
 				headers: { 'content-type': 'multipart/form-data' },
 			});
-			return;
+			return response.data.secure_url;
 
 			let apiUrl = `https://api.cloudinary.com/v1_1/jaded/${fileType}/upload`;
 

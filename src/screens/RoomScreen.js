@@ -276,6 +276,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				// let vData = await toBase64(result);
 				// console.log('vData', vData.length);
 				const cloudUrl = await imgUpload(result.uri, true);
+				console.log('cloudUrl', cloudUrl);
 				imageToSend = {
 					creator: username,
 					content: cloudUrl,
