@@ -26,6 +26,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import imgUpload from '../helpers/imgUpload';
+import base64 from 'react-native-base64';
 
 // let _layoutsMap = [];
 let itemHeights = [];
@@ -257,11 +258,24 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		// console.log(result);
 
 		if (!result.cancelled) {
+			console.log('result type: ', result.type);
+
 			const date = new Date();
 			const time = date.toLocaleString();
 			let imageToSend;
 			if (result.type === 'video') {
-				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`, true);
+				// console.log('result', result);
+				// const toBase64 = file =>
+				// 	new Promise((resolve, reject) => {
+				// 		const reader = new FileReader();
+				// 		reader.readAsDataURL(file);
+				// 		reader.onload = () => resolve(reader.result);
+				// 		reader.onerror = error => reject(error);
+				// 	});
+
+				// let vData = await toBase64(result);
+				// console.log('vData', vData.length);
+				const cloudUrl = await imgUpload(result.uri, true);
 				imageToSend = {
 					creator: username,
 					content: cloudUrl,
