@@ -25,6 +25,7 @@ import * as Permissions from 'expo-permissions';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
+import imgUpload from '../helpers/imgUpload';
 
 // let _layoutsMap = [];
 let itemHeights = [];
@@ -81,7 +82,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
 	useEffect(() => {
 		let roomIdentifier;
-		if (roomType === "pm") {
+		if (roomType === 'pm') {
 			let arr = room_id.sort();
 			roomIdentifier = arr[0] + arr[1];
 		} else {
@@ -159,7 +160,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		const date = new Date();
 		const time = date.toLocaleString();
 		let roomIdentifier;
-		if (roomType === "pm") {
+		if (roomType === 'pm') {
 			let arr = room_id.sort();
 			roomIdentifier = arr[0] + arr[1];
 		} else {
@@ -266,9 +267,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			let formData = new FormData();
 			formData.append('photo', { uri: localUri, name: filename, type });
 
-
 			const date = new Date();
 			const time = date.toLocaleString();
+
 			// let bin = `data:image/jpg;base64,${result.base64}`;
 			// let apiUrl = 'https://api.cloudinary.com/v1_1/jaded/image/upload';
 			// console.log('image in binary: ', bin.slice(0, 100));
@@ -276,9 +277,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			// console.log(`data:image/jpg;base64,${result.base64}`);
 			let imageToSend;
 			if (result.type === 'video') {
+				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`, true);
 				imageToSend = {
 					creator: username,
-					content: `data:image/jpg;base64,${result.base64}`,
+					content: cloudUrl,
 					roomName,
 					time,
 					isImage: false,
@@ -287,9 +289,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					room_id,
 				};
 			} else {
+				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`);
+				console.log('cloudUrl', cloudUrl);
 				imageToSend = {
 					creator: username,
-					content: `data:image/jpg;base64,${result.base64}`,
+					content: cloudUrl,
 					roomName,
 					time,
 					isImage: true,
@@ -306,10 +310,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	//                SCROLL FUNCTIONS
 	// ============================================================
 	const scrollToBottom = () => {
-		if (scrollViewRef.current.scrollToEnd && state.length > 10) {
+		const offset = itemHeights.reduce((a, b) => a + b, 0);
+		if (scrollViewRef.current.scrollToEnd && offset > 470) {
 			try {
 				// const offset = getOffsetByIndex(state.length - 1);
-				const offset = itemHeights.reduce((a, b) => a + b, 0);
 				scrollViewRef.current.scrollToOffset({ offset, animated: false });
 			} catch {
 				console.log('scroll bs');

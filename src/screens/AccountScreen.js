@@ -228,7 +228,7 @@ const AccountScreen = ({ navigation }) => {
 						}
 					/>
 				</View>
-				{/* <View>
+				<View>
 					<FlatList
 						style={{ marginTop: 20, height: 175 }}
 						data={state.channels}
@@ -269,7 +269,7 @@ const AccountScreen = ({ navigation }) => {
 						}}
 					/>
 				</View>
-				<View>
+				{/* <View>
 					<FlatList
 						style={{ marginTop: 20, height: 175 }}
 						data={state.currentUser.friends}

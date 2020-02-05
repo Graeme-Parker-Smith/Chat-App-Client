@@ -1,5 +1,6 @@
 import createDataContext from "./createDataContext";
 import chatApi from "../api/requester";
+import imgUpload from '../helpers/imgUpload';
 
 const channelReducer = (state, action) => {
   switch (action.type) {
@@ -87,7 +88,8 @@ const fetchChannels = dispatch => async () => {
 };
 
 const createChannel = dispatch => async ({ name, creator, avatar }) => {
-  await chatApi.post("/channels", { name, creator, avatar });
+  const cloudUrl = await imgUpload(avatar);
+  await chatApi.post("/channels", { name, creator, avatar: cloudUrl });
   // console.log("Channel saved!");
   dispatch({
     type: "create_channel",

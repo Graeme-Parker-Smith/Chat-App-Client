@@ -1,6 +1,9 @@
-export default async function imgUpload(imgString, isVideo) {
+export default async function imgUpload(imgString, isVideo = false) {
 	try {
-		let apiUrl = 'https://api.cloudinary.com/v1_1/jaded/image/upload';
+		let fileType = 'image';
+		if (isVideo) fileType = 'video';
+		let apiUrl = `https://api.cloudinary.com/v1_1/jaded/${fileType}/upload`;
+		console.log('apiUrl', apiUrl);
 		let b = {
 			file: imgString,
 			upload_preset: 'auymih3b',
