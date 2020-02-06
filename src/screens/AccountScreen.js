@@ -15,6 +15,7 @@ import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import registerForNotifications from '../services/push_notifications';
+import ChannelList from '../components/ChannelList';
 import chatApi from '../api/requester';
 import b64 from 'base64-arraybuffer';
 
@@ -138,7 +139,11 @@ const AccountScreen = ({ navigation }) => {
 			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 				<View style={styles.userDisplay}>
 					<View>
-						{state.currentUser.avatar ? <Image source={{ uri: state.currentUser.avatar }} style={styles.avatarStyle} /> : <Entypo name="user" size={50} color="#0af" />}
+						{state.currentUser.avatar ? (
+							<Image source={{ uri: state.currentUser.avatar }} style={styles.avatarStyle} />
+						) : (
+							<Entypo name="user" size={50} color="#0af" />
+						)}
 						{/* <Image source={{ uri:  }} style={styles.avatarStyle} /> */}
 						{/* <Image source={{ uri: "C:\code\1.sockTest\server\uploads\2e431bbb0a0f416789e8c16f33262b9c" }} style={styles.avatarStyle} /> */}
 					</View>
@@ -227,7 +232,15 @@ const AccountScreen = ({ navigation }) => {
 						}
 					/>
 				</View>
-				<View>
+				<ChannelList
+					listData={state.channels}
+					channelType="public"
+					navigation={navigation}
+					currentUser={state.currentUser}
+					handleEditChannel={handleEditChannelClick}
+					channelSearch={channelSearch}
+				/>
+				{/* <View>
 					<FlatList
 						style={{ marginTop: 20, height: 175 }}
 						data={state.channels}
@@ -267,8 +280,8 @@ const AccountScreen = ({ navigation }) => {
 							}
 						}}
 					/>
-				</View>
-				{/* <View>
+				</View> */}
+				<View>
 					<FlatList
 						style={{ marginTop: 20, height: 175 }}
 						data={state.currentUser.friends}
@@ -342,7 +355,7 @@ const AccountScreen = ({ navigation }) => {
 							);
 						}}
 					/>
-				</View> */}
+				</View>
 				<Spacer>
 					<Button title="Sign Out" onPress={handleSignout} />
 				</Spacer>
