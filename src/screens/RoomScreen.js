@@ -45,6 +45,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// console.log("room_id is: ", room_id);
 	const [loading, setLoading] = useState(false);
 	const [keyboardShowing, setKeyboardShowing] = useState(false);
+	const [keyboardHeight, setKeyboardHeight] = useState(0);
 	// console.log(RNFetchBlob)
 	// const [videoState, setVideoState] = useState({
 	//   videoIsPlaying: false,
@@ -69,12 +70,15 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		sendNotification,
 	} = useContext(MessageContext);
 
-	const _keyboardDidShow = () => {
+	const _keyboardDidShow = e => {
+		console.log('height', e.endCoordinates.height);
 		setKeyboardShowing(true);
+		setKeyboardHeight(e.endCoordinates.height);
 	};
 
 	const _keyboardDidHide = () => {
 		setKeyboardShowing(false);
+		setKeyboardHeight(0);
 	};
 
 	// ============================================================
@@ -430,7 +434,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						style={{
 							backgroundColor: 'black',
 							// height: Platform.OS === "ios" ? 470 : 447,
-							height: keyboardShowing ? 270 : 470,
+							// height: keyboardShowing ? 270 : 470,
+							height: Dimensions.get('window').height * 0.75 - keyboardHeight,
 							flexGrow: 0,
 						}}
 						bounces={false}
@@ -480,7 +485,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							<MaterialIcons name="photo-library" size={32} color="#0af" onPress={_pickImage} />
 						</View>
 					}
-					rightIcon={<MaterialIcons name="send" size={32} color={content ? "#0af" : '#808080'} onPress={sendNewMessage} />}
+					rightIcon={
+						<MaterialIcons
+							name="send"
+							size={32}
+							color={content ? '#0af' : '#808080'}
+							onPress={sendNewMessage}
+						/>
+					}
 				/>
 				{/* <Button title="Send Message" onPress={sendNewMessage} /> */}
 			</View>
