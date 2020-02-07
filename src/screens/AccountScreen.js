@@ -47,7 +47,7 @@ const AccountScreen = ({ navigation }) => {
 		if (hasMountedRef.current && firstRef.current) {
 			console.log('component has mounted. Get push token.');
 			(async () => {
-				setMergeP( [...state.privateChannels, ...state.currentUser.friends] );
+				setMergeP([...state.privateChannels, ...state.currentUser.friends]);
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') handleSignout();
 				// const response = await chatApi.get('/images', { params: { avatarId: state.currentUser.avatar } });
@@ -120,8 +120,6 @@ const AccountScreen = ({ navigation }) => {
 		if (error === 'user could not be found') {
 			signout();
 		}
-			
-	
 	};
 
 	const handleSignout = () => {
@@ -236,23 +234,25 @@ const AccountScreen = ({ navigation }) => {
 						}
 					/>
 				</View>
-				<ChannelList
-					listData={state.channels}
-					channelType="public"
-					navigation={navigation}
-					currentUser={state.currentUser}
-					handleEditChannel={handleEditChannelClick}
-					channelSearch={channelSearch}
-				/>
-				<ChannelList
-					listData={mergeP}
-					channelType="private"
-					navigation={navigation}
-					currentUser={state.currentUser}
-					handleEditChannel={handleEditPrivateChannelClick}
-					channelSearch={channelSearch}
-				/>
-				
+				<View style={styles.channelDivider}>
+					<ChannelList
+						listData={state.channels}
+						channelType="public"
+						navigation={navigation}
+						currentUser={state.currentUser}
+						handleEditChannel={handleEditChannelClick}
+						channelSearch={channelSearch}
+					/>
+					<ChannelList
+						listData={mergeP}
+						channelType="private"
+						navigation={navigation}
+						currentUser={state.currentUser}
+						handleEditChannel={handleEditPrivateChannelClick}
+						channelSearch={channelSearch}
+					/>
+				</View>
+
 				{/* <View>
 					<FlatList
 						style={{ marginTop: 20, height: 175 }}
@@ -392,6 +392,10 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color: 'white',
+	},
+	channelDivider: {
+		flexDirection: 'row',
+		justifyContent: 'center'
 	},
 	avatarStyle: {
 		height: 50,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Input, Button, ListItem } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 
@@ -12,7 +12,7 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 	return (
 		<View>
 			<FlatList
-				style={{ marginTop: 20, height: 175 }}
+				style={{ marginTop: 20, height: 275, width: Dimensions.get('window').width * 0.5, }}
 				data={listData}
 				keyExtractor={item => (item.name ? item.name : item.username)}
 				renderItem={({ item }) => {
