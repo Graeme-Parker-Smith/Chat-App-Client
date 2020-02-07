@@ -12,7 +12,7 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 			<FlatList
 				style={{ marginTop: 20, height: 275, width: Dimensions.get('window').width * 0.5 }}
 				data={listData}
-				keyExtractor={item => item.name ? item.name : item.username}
+				keyExtractor={item => item._id}
 				renderItem={({ item }) => {
 					if (
 						(item.name && item.name.includes(channelSearch)) ||
