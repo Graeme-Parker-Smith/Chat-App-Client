@@ -252,13 +252,7 @@ const AccountScreen = ({ navigation }) => {
 					handleEditChannel={handleEditPrivateChannelClick}
 					channelSearch={channelSearch}
 				/>
-				<ChannelList
-					listData={state.currentUser.friends}
-					channelType="pm"
-					navigation={navigation}
-					currentUser={state.currentUser}
-					channelSearch={channelSearch}
-				/>
+				
 				{/* <View>
 					<FlatList
 						style={{ marginTop: 20, height: 175 }}
@@ -300,7 +294,7 @@ const AccountScreen = ({ navigation }) => {
 						}}
 					/>
 				</View> */}
-				<View>
+				{/* <View>
 					<FlatList
 						style={{ marginTop: 20, height: 175 }}
 						data={state.currentUser.friends}
@@ -374,7 +368,7 @@ const AccountScreen = ({ navigation }) => {
 							);
 						}}
 					/>
-				</View>
+				</View> */}
 				<Spacer>
 					<Button title="Sign Out" onPress={handleSignout} />
 				</Spacer>
