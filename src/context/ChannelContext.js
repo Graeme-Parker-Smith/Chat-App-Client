@@ -83,11 +83,11 @@ const fetchChannels = dispatch => async () => {
 
 const createChannel = dispatch => async ({ name, creator, avatar }) => {
 	const cloudUrl = await imgUpload(avatar);
-	await chatApi.post('/channels', { name, creator, avatar: cloudUrl });
+	const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl });
 	// console.log("Channel saved!");
 	dispatch({
 		type: 'create_channel',
-		payload: { name, creator, messages: [], avatar },
+		payload: response.data,
 	});
 };
 

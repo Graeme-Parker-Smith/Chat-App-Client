@@ -244,7 +244,7 @@ const AccountScreen = ({ navigation }) => {
 						channelSearch={channelSearch}
 					/>
 					<ChannelList
-						listData={mergeP}
+						listData={[...state.privateChannels, ...state.currentUser.friends]}
 						channelType="private"
 						navigation={navigation}
 						currentUser={state.currentUser}

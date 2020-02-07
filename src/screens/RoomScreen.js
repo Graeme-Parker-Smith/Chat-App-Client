@@ -43,6 +43,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const roomName = navigation.getParam('roomName');
 	const roomType = navigation.getParam('roomType');
 	const room_id = navigation.getParam('room_id');
+	console.log("id", room_id)
 	// console.log("room_id is: ", room_id);
 	const [loading, setLoading] = useState(false);
 	const [keyboardShowing, setKeyboardShowing] = useState(false);
@@ -177,6 +178,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		} else {
 			roomIdentifier = room_id;
 		}
+		console.log('roomId', roomIdentifier);
 		const messageToSend = {
 			creator: username,
 			avatar,
@@ -421,10 +423,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			<NavigationEvents onWillFocus={handleOnFocus} />
 			{/* <KeyboardShift messages={state}> */}
 			<View style={{ marginTop: 0, backgroundColor: '#000' }}>
-				<View style={{ flexDirection: 'row', }}>
+				<View style={{ flexDirection: 'row' }}>
 					<Button
-					containerStyle={{alignSelf: 'center'}}
-					buttonStyle={{padding: 0, margin: 0}}
+						containerStyle={{ alignSelf: 'center' }}
+						buttonStyle={{ padding: 0, margin: 0 }}
 						title="Back To Channels"
 						onPress={() => {
 							back('Account');
@@ -438,7 +440,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				</View>
 				{!isCloseToBottom(scrollValues) ? (
 					<Button
-						containerStyle={{ height: 30, position: 'absolute', top: 35, zIndex: 1000, width: Dimensions.get('window').width }}
+						containerStyle={{
+							height: 30,
+							position: 'absolute',
+							top: 35,
+							zIndex: 1000,
+							width: Dimensions.get('window').width,
+						}}
 						buttonStyle={{ height: 30, backgroundColor: '#0af', opacity: 0.5 }}
 						title="Jump to Bottom"
 						titleStyle={{ color: 'black', fontSize: 12, textAlign: 'center' }}
