@@ -43,8 +43,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const roomName = navigation.getParam('roomName');
 	const roomType = navigation.getParam('roomType');
 	const room_id = navigation.getParam('room_id');
-	console.log("id", room_id)
-	// console.log("room_id is: ", room_id);
+
 	const [loading, setLoading] = useState(false);
 	const [keyboardShowing, setKeyboardShowing] = useState(false);
 	const [keyboardHeight, setKeyboardHeight] = useState(0);
@@ -73,7 +72,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	} = useContext(MessageContext);
 
 	const _keyboardDidShow = e => {
-		console.log('height', e.endCoordinates.height);
 		setKeyboardShowing(true);
 		setKeyboardHeight(e.endCoordinates.height);
 	};
@@ -178,7 +176,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		} else {
 			roomIdentifier = room_id;
 		}
-		console.log('roomId', roomIdentifier);
 		const messageToSend = {
 			creator: username,
 			avatar,
@@ -242,7 +239,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				};
 			} else {
 				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`);
-				console.log('cloudUrl', cloudUrl);
 				imageToSend = {
 					creator: username,
 					content: cloudUrl,
@@ -272,7 +268,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		// console.log(result);
 
 		if (!result.cancelled) {
-			console.log('result type: ', result.type);
 
 			const date = new Date();
 			const time = date.toLocaleString();
@@ -290,7 +285,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				// let vData = await toBase64(result);
 				// console.log('vData', vData.length);
 				const cloudUrl = await imgUpload(result.uri, true);
-				console.log('cloudUrl', cloudUrl);
 				imageToSend = {
 					creator: username,
 					content: cloudUrl,
@@ -304,7 +298,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				};
 			} else {
 				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`);
-				console.log('cloudUrl', cloudUrl);
 				imageToSend = {
 					creator: username,
 					content: cloudUrl,
