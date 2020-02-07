@@ -412,7 +412,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			<NavigationEvents onWillFocus={handleOnFocus} />
 			{/* <KeyboardShift messages={state}> */}
 			<View style={{ marginTop: 10, backgroundColor: '#000' }}>
-				<Text style={{ marginLeft: 20, fontSize: 40, color: '#fff' }}>User: {username}</Text>
 				<Text style={{ marginLeft: 20, fontSize: 20, color: '#fff' }}>
 					@{roomName} ({users.length} users online): {userList}
 				</Text>
