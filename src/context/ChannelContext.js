@@ -92,11 +92,11 @@ const createChannel = dispatch => async ({ name, creator, avatar }) => {
 };
 
 const createPrivateChannel = dispatch => async ({ name, creator, avatar }) => {
-	await chatApi.post('/privatechannels', { name, creator, avatar });
+	const response = await chatApi.post('/privatechannels', { name, creator, avatar });
 	// console.log("Channel saved!");
 	dispatch({
 		type: 'create_private_channel',
-		payload: { name, creator, members: [creator], messages: [], avatar },
+		payload: response.data,
 	});
 };
 
