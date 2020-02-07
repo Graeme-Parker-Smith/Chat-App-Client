@@ -47,16 +47,17 @@ const navigator = createSwitchNavigator({
         Room: {
           screen: RoomScreen,
           navigationOptions: {
-            headerLeft: (
-              <Button
-                title="Back To Channels"
-                onPress={() => {
-                  back("Account");
-                }}
-                type="clear"
-                titleStyle={{ color: "rgba(0,122,255,1)" }}
-              />
-            )
+            headerShown: false
+            // headerLeft: (
+            //   <Button
+            //     title="Back To Channels"
+            //     onPress={() => {
+            //       back("Account");
+            //     }}
+            //     type="clear"
+            //     titleStyle={{ color: "rgba(0,122,255,1)" }}
+            //   />
+            // )
           }
         }
       },

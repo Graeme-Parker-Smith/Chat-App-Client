@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Button, Input, ListItem } from 'react-native-elements';
 import { NavigationEvents, withNavigationFocus, SafeAreaView } from 'react-navigation';
+import { back } from '../navigationRef';
 import Spacer from '../components/Spacer';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
@@ -86,6 +87,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 
 	useEffect(() => {
+		navigation.setParams({
+			backgroundColor: 'white',
+			headerRight: <Button title="Back To Channels" type="clear" titleStyle={{ color: 'rgba(0,122,255,1)' }} />,
+		});
 		let roomIdentifier;
 		if (roomType === 'pm') {
 			let arr = room_id.sort();
@@ -415,19 +420,32 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		<SafeAreaView style={styles.body}>
 			<NavigationEvents onWillFocus={handleOnFocus} />
 			{/* <KeyboardShift messages={state}> */}
-			<View style={{ marginTop: 10, backgroundColor: '#000' }}>
-				<Text style={{ marginLeft: 20, fontSize: 20, color: '#fff' }}>
-					@{roomName} ({users.length} users online): {userList}
-				</Text>
+			<View style={{ marginTop: 0, backgroundColor: '#000' }}>
+				<View style={{ flexDirection: 'row', }}>
+					<Button
+					containerStyle={{alignSelf: 'center'}}
+					buttonStyle={{padding: 0, margin: 0}}
+						title="Back To Channels"
+						onPress={() => {
+							back('Account');
+						}}
+						type="clear"
+						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 12 }}
+					/>
+					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
+						@{roomName} ({users.length} users online): {userList}
+					</Text>
+				</View>
 				{!isCloseToBottom(scrollValues) ? (
 					<Button
-						buttonStyle={{ height: 40, backgroundColor: '#0af' }}
+						containerStyle={{ height: 30, position: 'absolute', top: 35, zIndex: 1000, width: Dimensions.get('window').width }}
+						buttonStyle={{ height: 30, backgroundColor: '#0af', opacity: 0.5 }}
 						title="Jump to Bottom"
-						titleStyle={{ color: 'black' }}
+						titleStyle={{ color: 'black', fontSize: 12, textAlign: 'center' }}
 						onPress={scrollToBottom}
 					/>
 				) : (
-					<View style={{ backgroundColor: 'black', height: 40 }} />
+					<View style={{ backgroundColor: 'black', height: 0 }} />
 				)}
 				<View>
 					<FlatList
@@ -435,7 +453,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							backgroundColor: 'black',
 							// height: Platform.OS === "ios" ? 470 : 447,
 							// height: keyboardShowing ? 270 : 470,
-							height: Dimensions.get('window').height * 0.75 - keyboardHeight,
+							height: Dimensions.get('window').height * 0.89 - keyboardHeight,
 							flexGrow: 0,
 						}}
 						bounces={false}
@@ -500,6 +518,18 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		</SafeAreaView>
 	);
 };
+
+RoomScreen.navigationOptions = ({ navigation }) => ({
+	title: 'roomScreen',
+	titleStyle: { color: '#0af' },
+	headerRight: (
+		// <Text style={{ marginLeft: 20, fontSize: 20, color: '#fff' }}>
+		// 	{/* @{roomName} ({users.length} users online): {userList} */}
+		// 	Hello
+		// </Text>
+		<Button title="Back To Channels" type="clear" titleStyle={{ color: 'rgba(0,122,255,1)' }} />
+	),
+});
 
 const styles = StyleSheet.create({
 	body: {
