@@ -40,12 +40,14 @@ const AccountScreen = ({ navigation }) => {
 	const [channelSearch, setChannelSearch] = useState('');
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
+	const [mergeP, setMergeP] = useState({});
 
 	useEffect(() => {
 		console.log('hasMountedRef.current', hasMountedRef.current);
 		if (hasMountedRef.current && firstRef.current) {
 			console.log('component has mounted. Get push token.');
 			(async () => {
+				setMergeP( [...state.privateChannels, ...state.currentUser.friends] );
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') handleSignout();
 				// const response = await chatApi.get('/images', { params: { avatarId: state.currentUser.avatar } });
@@ -118,6 +120,8 @@ const AccountScreen = ({ navigation }) => {
 		if (error === 'user could not be found') {
 			signout();
 		}
+			
+	
 	};
 
 	const handleSignout = () => {
@@ -206,11 +210,11 @@ const AccountScreen = ({ navigation }) => {
 						/>
 					) : null}
 				</View>
-				{state.currentUser.friends
+				{/* {state.currentUser.friends
 					? state.currentUser.friends.map(friend => (
 							<Button title={friend.username} key={friend.username}></Button>
 					  ))
-					: null}
+					: null} */}
 				<View>
 					<Input
 						label="Search Users"
@@ -238,6 +242,21 @@ const AccountScreen = ({ navigation }) => {
 					navigation={navigation}
 					currentUser={state.currentUser}
 					handleEditChannel={handleEditChannelClick}
+					channelSearch={channelSearch}
+				/>
+				<ChannelList
+					listData={mergeP}
+					channelType="private"
+					navigation={navigation}
+					currentUser={state.currentUser}
+					handleEditChannel={handleEditPrivateChannelClick}
+					channelSearch={channelSearch}
+				/>
+				<ChannelList
+					listData={state.currentUser.friends}
+					channelType="pm"
+					navigation={navigation}
+					currentUser={state.currentUser}
 					channelSearch={channelSearch}
 				/>
 				{/* <View>
