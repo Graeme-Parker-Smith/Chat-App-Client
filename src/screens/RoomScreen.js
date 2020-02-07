@@ -461,6 +461,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					/>
 				</View>
 				<Input
+					autoFocus
 					value={content}
 					onChangeText={setContent}
 					placeholder="Type Your message here"
