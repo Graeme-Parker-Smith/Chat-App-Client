@@ -158,6 +158,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 
 	const sendNewMessage = () => {
+		if (!content) return;
 		const date = new Date();
 		const time = date.toLocaleString();
 		let roomIdentifier;
@@ -480,7 +481,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							<MaterialIcons name="photo-library" size={32} color="#0af" onPress={_pickImage} />
 						</View>
 					}
-					rightIcon={<MaterialIcons name="send" size={32} color="#0af" onPress={sendNewMessage} />}
+					rightIcon={<MaterialIcons name="send" size={32} color={content ? "#0af" : '#808080'} onPress={sendNewMessage} />}
 				/>
 				{/* <Button title="Send Message" onPress={sendNewMessage} /> */}
 			</View>
