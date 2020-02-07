@@ -47,11 +47,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const [loading, setLoading] = useState(false);
 	const [keyboardShowing, setKeyboardShowing] = useState(false);
 	const [keyboardHeight, setKeyboardHeight] = useState(0);
-	// console.log(RNFetchBlob)
-	// const [videoState, setVideoState] = useState({
-	//   videoIsPlaying: false,
-	//   videoUri: ""
-	// });
 	const [content, setContent] = useState('');
 	// const [scrollPosition, setScrollPosition] = useState(0);
 	// const [endScrollPosition, setEndScrollPosition] = useState(0);
