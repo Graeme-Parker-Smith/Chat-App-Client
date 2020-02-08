@@ -59,11 +59,12 @@ const updateUser = dispatch => async ({ username, newUsername, newPassword, newA
 };
 
 const updateChannel = dispatch => async ({ username, prevName, newName, newAvatar }) => {
+	const cloudUrl = await imgUpload(newAvatar);
 	const response = await chatApi.post('/updatechannel', {
 		username,
 		prevName,
 		newName,
-		newAvatar,
+		newAvatar: cloudUrl,
 	});
 	dispatch({ type: 'update_channel', payload: response.data });
 };
