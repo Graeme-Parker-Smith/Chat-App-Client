@@ -10,14 +10,11 @@ import CreatePrivateChannelForm from '../components/CreatePrivateChannelForm';
 import EditUserForm from '../components/EditUserForm';
 import EditChannelForm from '../components/EditChannelForm';
 import EditPrivateChannelForm from '../components/EditPrivateChannelForm';
-import { ListItem } from 'react-native-elements';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import registerForNotifications from '../services/push_notifications';
 import ChannelList from '../components/ChannelList';
-import chatApi from '../api/requester';
-import b64 from 'base64-arraybuffer';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
@@ -40,14 +37,12 @@ const AccountScreen = ({ navigation }) => {
 	const [channelSearch, setChannelSearch] = useState('');
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
-	const [mergeP, setMergeP] = useState({});
 
 	useEffect(() => {
 		console.log('hasMountedRef.current', hasMountedRef.current);
 		if (hasMountedRef.current && firstRef.current) {
 			console.log('component has mounted. Get push token.');
 			(async () => {
-				setMergeP([...state.privateChannels, ...state.currentUser.friends]);
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') handleSignout();
 			})();
