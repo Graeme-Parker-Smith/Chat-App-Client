@@ -146,8 +146,6 @@ const AccountScreen = ({ navigation }) => {
 						) : (
 							<Entypo name="user" size={50} color="#0af" />
 						)}
-						{/* <Image source={{ uri:  }} style={styles.avatarStyle} /> */}
-						{/* <Image source={{ uri: "C:\code\1.sockTest\server\uploads\2e431bbb0a0f416789e8c16f33262b9c" }} style={styles.avatarStyle} /> */}
 					</View>
 					<Text style={styles.userTitle}>{state.currentUser.username}</Text>
 					<Entypo
