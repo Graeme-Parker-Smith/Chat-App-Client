@@ -26,7 +26,8 @@ const EditPrivateChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }
       username: currentUser.username,
       prevName: thisName,
       newName,
-      newAvatar
+      newAvatar,
+      private: true
     });
     showForm({
       showForm: false,
