@@ -23,7 +23,7 @@ const EditUserForm = ({ showForm, setIsLoading }) => {
       username: currentUser.username,
       newUsername,
       newPassword,
-      newAvatar
+      newAvatar: newAvatar.base64Uri
     });
     showForm(false);
     await fetchChannels();

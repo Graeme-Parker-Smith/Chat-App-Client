@@ -48,11 +48,12 @@ const invite = dispatch => async ({ invitee, roomName }) => {
 };
 
 const updateUser = dispatch => async ({ username, newUsername, newPassword, newAvatar }) => {
+	const cloudUrl = await imgUpload(newAvatar);
 	const response = await chatApi.post('/updateuser', {
 		username,
 		newUsername,
 		newPassword,
-		newAvatar,
+		newAvatar: cloudUrl,
 	});
 	dispatch({ type: 'update_user', payload: response.data.userData });
 };
