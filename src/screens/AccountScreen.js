@@ -208,11 +208,7 @@ const AccountScreen = ({ navigation }) => {
 						/>
 					) : null}
 				</View>
-				{/* {state.currentUser.friends
-					? state.currentUser.friends.map(friend => (
-							<Button title={friend.username} key={friend.username}></Button>
-					  ))
-					: null} */}
+				
 				<View>
 					<Input
 						label="Search Users"
