@@ -50,13 +50,6 @@ const AccountScreen = ({ navigation }) => {
 				setMergeP([...state.privateChannels, ...state.currentUser.friends]);
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') handleSignout();
-				// const response = await chatApi.get('/images', { params: { avatarId: state.currentUser.avatar } });
-				// // base64 conversion takes 0.59 seconds
-				// console.log(response);
-				// const base64Flag = 'data:image/jpeg;base64,';
-				// const imageStr = b64.encode(response.data);
-				// setUserAvatar(base64Flag + imageStr);
-				// console.log(b64.encode(response.data.Imgs[0].img.data.data));
 			})();
 			firstRef.current = false;
 		} else if (firstRef.current) {
