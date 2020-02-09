@@ -9,6 +9,7 @@ import CreatePrivateChannelForm from '../components/CreatePrivateChannelForm';
 import EditUserForm from '../components/EditUserForm';
 import EditChannelForm from '../components/EditChannelForm';
 import EditPrivateChannelForm from '../components/EditPrivateChannelForm';
+import FormHandler from '../components/FormHandler';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
@@ -130,6 +131,10 @@ const AccountScreen = ({ navigation }) => {
 				<LoadingIndicator />
 			</View>
 		);
+	}
+
+	if (formState) {
+		return <FormHandler formState={formState} setFormState={setFormState} setIsLoading={setIsLoading} />;
 	}
 
 	return (
