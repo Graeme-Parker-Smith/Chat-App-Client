@@ -55,61 +55,18 @@ const AccountScreen = ({ navigation }) => {
 
 	const handleEditUserClick = () => {
 		setFormState({ show: 'edit_user' });
-
-		// setShowEditUserForm(true);
-		// setShowCreateChannelForm(false);
-		// setShowCreatePrivateChannelForm(false);
-		// setShowEditChannelForm({
-		// 	showForm: false,
-		// 	roomName: '',
-		// 	avatar: '',
-		// });
 	};
 	const handleCreateChannelClick = () => {
 		setFormState({ show: 'create_channel' });
-
-		// setShowCreateChannelForm(true);
-		// setShowCreatePrivateChannelForm(false);
-		// setShowEditUserForm(false);
-		// setShowEditChannelForm({
-		// 	showForm: false,
-		// 	roomName: '',
-		// 	avatar: '',
-		// });
 	};
 	const handleCreatePrivateChannelClick = () => {
 		setFormState({ show: 'create_private' });
-		// setShowCreatePrivateChannelForm(true);
-		// setShowCreateChannelForm(false);
-		// setShowEditUserForm(false);
-		// setShowEditChannelForm({
-		// 	showForm: false,
-		// 	roomName: '',
-		// 	avatar: '',
-		// });
 	};
 	const handleEditChannelClick = item => {
 		setFormState({ show: 'edit_channel', roomName: item.name, avatar: item.avatar });
-		// setShowEditChannelForm({
-		// 	showForm: true,
-		// 	roomName: item.name,
-		// 	avatar: item.avatar,
-		// });
-		// setShowEditUserForm(false);
-		// setShowCreateChannelForm(false);
-		// setShowCreatePrivateChannelForm(false);
 	};
 	const handleEditPrivateChannelClick = item => {
 		setFormState({ show: 'edit_private', roomName: item.name, avatar: item.avatar });
-
-		// setShowEditPrivateChannelForm({
-		// 	showForm: true,
-		// 	roomName: item.name,
-		// 	avatar: item.avatar,
-		// });
-		// setShowEditUserForm(false);
-		// setShowCreateChannelForm(false);
-		// setShowCreatePrivateChannelForm(false);
 	};
 
 	const tryFetchChannels = async () => {
@@ -182,32 +139,6 @@ const AccountScreen = ({ navigation }) => {
 						inputStyle={{ color: 'white' }}
 					/>
 				</View>
-				<View>
-					{showEditUserForm ? (
-						<EditUserForm showForm={setShowEditUserForm} setIsLoading={setIsLoading} />
-					) : null}
-					{showCreateChannelForm ? <CreateChannelForm showForm={setShowCreateChannelForm} /> : null}
-					{showCreatePrivateChannelForm ? (
-						<CreatePrivateChannelForm showForm={setShowCreatePrivateChannelForm} />
-					) : null}
-					{showEditChannelForm.showForm ? (
-						<EditChannelForm
-							showForm={setShowEditChannelForm}
-							setIsLoading={setIsLoading}
-							thisName={showEditChannelForm.roomName}
-							thisAvatar={showEditChannelForm.avatar}
-						/>
-					) : null}
-					{showEditPrivateChannelForm.showForm ? (
-						<EditPrivateChannelForm
-							showForm={setShowEditPrivateChannelForm}
-							setIsLoading={setIsLoading}
-							thisName={showEditPrivateChannelForm.roomName}
-							thisAvatar={showEditPrivateChannelForm.avatar}
-						/>
-					) : null}
-				</View>
-
 				<View>
 					<Input
 						label="Search Users"
