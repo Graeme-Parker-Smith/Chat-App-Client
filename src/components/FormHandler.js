@@ -11,18 +11,32 @@ import EditUserForm from '../components/EditUserForm';
 import EditChannelForm from '../components/EditChannelForm';
 import EditPrivateChannelForm from '../components/EditPrivateChannelForm';
 
-const FormHandler = ({ formState, setFormState }) => {
-	switch (formState) {
+const FormHandler = ({ formState, setFormState, setIsLoading }) => {
+	switch (formState.show) {
 		case 'create_channel':
-			return <CreateChannelForm showForm={setFormState} />;
+			return <CreateChannelForm showForm={setFormState} setIsLoading={setIsLoading} />;
 		case 'create_private':
-			return <CreatePrivateChannelForm showForm={setFormState} />;
+			return <CreatePrivateChannelForm showForm={setFormState} setIsLoading={setIsLoading} />;
 		case 'edit_user':
-			return <EditUserForm showForm={setFormState} />;
+			return <EditUserForm showForm={setFormState} setIsLoading={setIsLoading} />;
 		case 'edit_channel':
-			return <EditChannelForm showForm={setFormState} />;
+			return (
+				<EditChannelForm
+					showForm={setFormState}
+					setIsLoading={setIsLoading}
+					thisName={formState.roomName}
+					thisAvatar={formState.avatar}
+				/>
+			);
 		case 'edit_private':
-			return <EditPrivateChannelForm showForm={setFormState} />;
+			return (
+				<EditPrivateChannelForm
+					showForm={setFormState}
+					setIsLoading={setIsLoading}
+					thisName={formState.roomName}
+					thisAvatar={formState.avatar}
+				/>
+			);
 		default:
 			return setFormState('');
 	}

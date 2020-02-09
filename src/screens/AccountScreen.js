@@ -18,9 +18,7 @@ import ChannelList from '../components/ChannelList';
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
 	const { state, fetchChannels, addFriend, clearState } = useContext(ChannelContext);
-	const [formState, setFormState] = useState({
-
-	})
+	const [formState, setFormState] = useState('');
 	const [showEditUserForm, setShowEditUserForm] = useState(false);
 	const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
 	const [showCreatePrivateChannelForm, setShowCreatePrivateChannelForm] = useState(false);
@@ -55,54 +53,62 @@ const AccountScreen = ({ navigation }) => {
 	}, [state]);
 
 	const handleEditUserClick = () => {
-		setShowEditUserForm(true);
-		setShowCreateChannelForm(false);
-		setShowCreatePrivateChannelForm(false);
-		setShowEditChannelForm({
-			showForm: false,
-			roomName: '',
-			avatar: '',
-		});
+		setFormState({ show: 'edit_user' });
+
+		// setShowEditUserForm(true);
+		// setShowCreateChannelForm(false);
+		// setShowCreatePrivateChannelForm(false);
+		// setShowEditChannelForm({
+		// 	showForm: false,
+		// 	roomName: '',
+		// 	avatar: '',
+		// });
 	};
 	const handleCreateChannelClick = () => {
-		setShowCreateChannelForm(true);
-		setShowCreatePrivateChannelForm(false);
-		setShowEditUserForm(false);
-		setShowEditChannelForm({
-			showForm: false,
-			roomName: '',
-			avatar: '',
-		});
+		setFormState({ show: 'create_channel' });
+
+		// setShowCreateChannelForm(true);
+		// setShowCreatePrivateChannelForm(false);
+		// setShowEditUserForm(false);
+		// setShowEditChannelForm({
+		// 	showForm: false,
+		// 	roomName: '',
+		// 	avatar: '',
+		// });
 	};
 	const handleCreatePrivateChannelClick = () => {
-		setShowCreatePrivateChannelForm(true);
-		setShowCreateChannelForm(false);
-		setShowEditUserForm(false);
-		setShowEditChannelForm({
-			showForm: false,
-			roomName: '',
-			avatar: '',
-		});
+		setFormState({ show: 'create_private' });
+		// setShowCreatePrivateChannelForm(true);
+		// setShowCreateChannelForm(false);
+		// setShowEditUserForm(false);
+		// setShowEditChannelForm({
+		// 	showForm: false,
+		// 	roomName: '',
+		// 	avatar: '',
+		// });
 	};
 	const handleEditChannelClick = item => {
-		setShowEditChannelForm({
-			showForm: true,
-			roomName: item.name,
-			avatar: item.avatar,
-		});
-		setShowEditUserForm(false);
-		setShowCreateChannelForm(false);
-		setShowCreatePrivateChannelForm(false);
+		setFormState({ show: 'edit_channel', roomName: item.name, avatar: item.avatar });
+		// setShowEditChannelForm({
+		// 	showForm: true,
+		// 	roomName: item.name,
+		// 	avatar: item.avatar,
+		// });
+		// setShowEditUserForm(false);
+		// setShowCreateChannelForm(false);
+		// setShowCreatePrivateChannelForm(false);
 	};
 	const handleEditPrivateChannelClick = item => {
-		setShowEditPrivateChannelForm({
-			showForm: true,
-			roomName: item.name,
-			avatar: item.avatar,
-		});
-		setShowEditUserForm(false);
-		setShowCreateChannelForm(false);
-		setShowCreatePrivateChannelForm(false);
+		setFormState({ show: 'edit_private', roomName: item.name, avatar: item.avatar });
+
+		// setShowEditPrivateChannelForm({
+		// 	showForm: true,
+		// 	roomName: item.name,
+		// 	avatar: item.avatar,
+		// });
+		// setShowEditUserForm(false);
+		// setShowCreateChannelForm(false);
+		// setShowCreatePrivateChannelForm(false);
 	};
 
 	const tryFetchChannels = async () => {
@@ -196,7 +202,7 @@ const AccountScreen = ({ navigation }) => {
 						/>
 					) : null}
 				</View>
-				
+
 				<View>
 					<Input
 						label="Search Users"
@@ -262,7 +268,7 @@ const styles = StyleSheet.create({
 	},
 	channelDivider: {
 		flexDirection: 'row',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	avatarStyle: {
 		height: 50,
