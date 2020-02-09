@@ -1,8 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity, Dimensions, AppState } from 'react-native';
 import { Button, Input } from 'react-native-elements';
-import { SafeAreaView } from 'react-navigation';
-import { NavigationEvents } from 'react-navigation';
+import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
 import LoadingIndicator from '../components/LoadingIndicator';
 import CreateChannelForm from '../components/CreateChannelForm';
@@ -20,7 +19,7 @@ const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
 	const { state, fetchChannels, addFriend, clearState } = useContext(ChannelContext);
 	const [formState, setFormState] = useState({
-		
+
 	})
 	const [showEditUserForm, setShowEditUserForm] = useState(false);
 	const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
