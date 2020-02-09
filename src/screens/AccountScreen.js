@@ -19,6 +19,9 @@ import ChannelList from '../components/ChannelList';
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
 	const { state, fetchChannels, addFriend, clearState } = useContext(ChannelContext);
+	const [formState, setFormState] = useState({
+		
+	})
 	const [showEditUserForm, setShowEditUserForm] = useState(false);
 	const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
 	const [showCreatePrivateChannelForm, setShowCreatePrivateChannelForm] = useState(false);
