@@ -29,21 +29,13 @@ const EditPrivateChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }
       newAvatar,
       private: true
     });
-    showForm({
-      showForm: false,
-      roomName: "",
-      avatar: ""
-    });
+    showForm('');
     await fetchChannels();
     setIsLoading(false);
   };
 
   const cancelForm = () => {
-    showForm({
-      showForm: false,
-      roomName: "",
-      avatar: ""
-    });
+    showForm('');
   };
 
   const handleInvite = async () => {

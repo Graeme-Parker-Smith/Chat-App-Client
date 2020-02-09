@@ -26,21 +26,13 @@ const EditChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }) => {
 			newName,
 			newAvatar: newAvatar.base64Uri,
 		});
-		showForm({
-			showForm: false,
-			roomName: '',
-			avatar: '',
-		});
+		showForm('');
 		await fetchChannels();
 		setIsLoading(false);
 	};
 
 	const cancelForm = () => {
-		showForm({
-			showForm: false,
-			roomName: '',
-			avatar: '',
-		});
+		showForm('');
 	};
 
 	return (

@@ -58,14 +58,14 @@ const updateUser = dispatch => async ({ username, newUsername, newPassword, newA
 	dispatch({ type: 'update_user', payload: response.data.userData });
 };
 
-const updateChannel = dispatch => async ({ username, prevName, newName, newAvatar, private = false }) => {
+const updateChannel = dispatch => async ({ username, prevName, newName, newAvatar, isPrivate = false }) => {
 	const cloudUrl = await imgUpload(newAvatar);
 	const response = await chatApi.post('/updatechannel', {
 		username,
 		prevName,
 		newName,
 		newAvatar: cloudUrl,
-		private
+		isPrivate
 	});
 	dispatch({ type: 'update_channel', payload: response.data });
 };
