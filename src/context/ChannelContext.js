@@ -29,13 +29,15 @@ const channelReducer = (state, action) => {
 	}
 };
 
-const addFriend = dispatch => async ({ username, friendName, shouldRemove = false }) => {
+const addFriend = dispatch => async ({ username, friendName, shouldRemove = false, shouldBlock = false }) => {
 	try {
 		const response = await chatApi.post('/addfriend', {
 			username,
 			friendName,
-			shouldRemove
+			shouldRemove,
+			shouldBlock
 		});
+		console.log(response.data);
 		dispatch({ type: 'add_friend', payload: response.data });
 	} catch (err) {
 		console.log(err);

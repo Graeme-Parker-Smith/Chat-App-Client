@@ -69,9 +69,20 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 					})
 				}
 			/>
+			<Button
+				title="Block User"
+				onPress={() =>
+					addFriend({
+						username: user.username,
+            friendName: userSearch,
+            shouldRemove: true,
+            shouldBlock: true
+					})
+				}
+			/>
 			<FlatList
 				userSearch={userSearch}
-				data={user.friends}
+				data={state.currentUser.friends}
 				keyExtractor={item => item.username}
 				renderItem={({ item }) => {
 					console.log('userSearch', userSearch);
