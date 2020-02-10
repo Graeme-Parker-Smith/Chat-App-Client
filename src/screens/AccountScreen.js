@@ -57,19 +57,6 @@ const AccountScreen = ({ navigation }) => {
 		setFormState({ show: action, roomName: item.name, avatar: item.avatar });
 	};
 
-	const handleCreateChannelClick = () => {
-		setFormState({ show: 'create_channel' });
-	};
-	const handleCreatePrivateChannelClick = () => {
-		setFormState({ show: 'create_private' });
-	};
-	const handleEditChannelClick = item => {
-		setFormState({ show: 'edit_channel', roomName: item.name, avatar: item.avatar });
-	};
-	const handleEditPrivateChannelClick = item => {
-		setFormState({ show: 'edit_private', roomName: item.name, avatar: item.avatar });
-	};
-
 	const tryFetchChannels = async () => {
 		const { error } = await fetchChannels();
 		if (error === 'user could not be found') {
