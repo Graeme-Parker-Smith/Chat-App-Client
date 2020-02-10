@@ -22,9 +22,7 @@ const AccountScreen = ({ navigation }) => {
 	const firstRef = useRef(true);
 
 	useEffect(() => {
-		console.log('hasMountedRef.current', hasMountedRef.current);
 		if (hasMountedRef.current && firstRef.current) {
-			console.log('component has mounted. Get push token.');
 			(async () => {
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') handleSignout();
