@@ -2,14 +2,15 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity, Dimensions, AppState } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
-import Spacer from '../components/Spacer';
-import LoadingIndicator from '../components/LoadingIndicator';
-import FormHandler from '../components/FormHandler';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import registerForNotifications from '../services/push_notifications';
+import Spacer from '../components/Spacer';
+import LoadingIndicator from '../components/LoadingIndicator';
+import FormHandler from '../components/FormHandler';
 import ChannelList from '../components/ChannelList';
+import UserPanel from '../components/UserPanel';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
@@ -33,7 +34,7 @@ const AccountScreen = ({ navigation }) => {
 		}
 	}, [state]);
 
-	const handleClick = (action, item) => {
+	const handleClick = (action, item = { name: '', avatar: '' }) => {
 		setFormState({ show: action, roomName: item.name, avatar: item.avatar });
 	};
 
@@ -66,19 +67,13 @@ const AccountScreen = ({ navigation }) => {
 		<>
 			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 				<View style={styles.userDisplay}>
-					<View>
-						{state.currentUser.avatar ? (
-							<Image source={{ uri: state.currentUser.avatar }} style={styles.avatarStyle} />
-						) : (
-							<Entypo name="user" size={50} color="#0af" />
-						)}
-					</View>
+					<UserPanel user={state.currentUser} showPanel={handleClick} />
 					<Text style={styles.userTitle}>{state.currentUser.username}</Text>
 					<Entypo
 						name="edit"
 						color="#0af"
 						size={32}
-						onPress={() => handleClick("edit_user")}
+						onPress={() => handleClick('edit_user')}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
 					/>
 					<FontAwesome
@@ -86,14 +81,14 @@ const AccountScreen = ({ navigation }) => {
 						color="#0af"
 						size={32}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
-						onPress={() => handleClick("create_channel")}
+						onPress={() => handleClick('create_public')}
 					/>
 					<FontAwesome
 						name="plus-circle"
 						color="#301934"
 						size={32}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
-						onPress={() => handleClick("create_private")}
+						onPress={() => handleClick('create_private')}
 					/>
 				</View>
 				<View>

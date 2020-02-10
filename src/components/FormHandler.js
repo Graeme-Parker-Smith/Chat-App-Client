@@ -31,8 +31,10 @@ const FormHandler = ({ formState, setFormState, setIsLoading }) => {
 					thisAvatar={formState.avatar}
 				/>
 			);
-		default:
-			return setFormState('');
+		default: {
+			setFormState('');
+			return null;
+		}
 	}
 };
 
