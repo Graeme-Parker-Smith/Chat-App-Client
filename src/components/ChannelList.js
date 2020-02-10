@@ -28,7 +28,7 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 										roomType: item.username ? 'pm' : channelType,
 									})
 								}
-								onLongPress={() => handleEditChannel(item)}
+								onLongPress={item.name ? () => handleEditChannel(`edit_${channelType}`, item) : null}
 							>
 								<ListItem
 									containerStyle={styles.channel(item.username ? '#036' : color)}

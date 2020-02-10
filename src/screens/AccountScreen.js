@@ -53,9 +53,10 @@ const AccountScreen = ({ navigation }) => {
 		}
 	}, [state]);
 
-	const handleEditUserClick = () => {
-		setFormState({ show: 'edit_user' });
+	const handleClick = (action, item) => {
+		setFormState({ show: action, roomName: item.name, avatar: item.avatar });
 	};
+
 	const handleCreateChannelClick = () => {
 		setFormState({ show: 'create_channel' });
 	};
@@ -110,7 +111,7 @@ const AccountScreen = ({ navigation }) => {
 						name="edit"
 						color="#0af"
 						size={32}
-						onPress={handleEditUserClick}
+						onPress={() => handleClick("edit_user")}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
 					/>
 					<FontAwesome
@@ -118,14 +119,14 @@ const AccountScreen = ({ navigation }) => {
 						color="#0af"
 						size={32}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
-						onPress={handleCreateChannelClick}
+						onPress={() => handleClick("create_channel")}
 					/>
 					<FontAwesome
 						name="plus-circle"
 						color="#301934"
 						size={32}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
-						onPress={handleCreatePrivateChannelClick}
+						onPress={() => handleClick("create_private")}
 					/>
 				</View>
 				<View>
@@ -166,7 +167,7 @@ const AccountScreen = ({ navigation }) => {
 						channelType="public"
 						navigation={navigation}
 						currentUser={state.currentUser}
-						handleEditChannel={handleEditChannelClick}
+						handleEditChannel={handleClick}
 						channelSearch={channelSearch}
 					/>
 					<ChannelList
@@ -174,7 +175,7 @@ const AccountScreen = ({ navigation }) => {
 						channelType="private"
 						navigation={navigation}
 						currentUser={state.currentUser}
-						handleEditChannel={handleEditPrivateChannelClick}
+						handleEditChannel={handleClick}
 						channelSearch={channelSearch}
 					/>
 				</View>
