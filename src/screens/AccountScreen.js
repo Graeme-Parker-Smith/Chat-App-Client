@@ -4,11 +4,6 @@ import { Button, Input } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
 import LoadingIndicator from '../components/LoadingIndicator';
-import CreateChannelForm from '../components/CreateChannelForm';
-import CreatePrivateChannelForm from '../components/CreatePrivateChannelForm';
-import EditUserForm from '../components/EditUserForm';
-import EditChannelForm from '../components/EditChannelForm';
-import EditPrivateChannelForm from '../components/EditPrivateChannelForm';
 import FormHandler from '../components/FormHandler';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
@@ -20,19 +15,6 @@ const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
 	const { state, fetchChannels, addFriend, clearState } = useContext(ChannelContext);
 	const [formState, setFormState] = useState('');
-	const [showEditUserForm, setShowEditUserForm] = useState(false);
-	const [showCreateChannelForm, setShowCreateChannelForm] = useState(false);
-	const [showCreatePrivateChannelForm, setShowCreatePrivateChannelForm] = useState(false);
-	const [showEditChannelForm, setShowEditChannelForm] = useState({
-		showForm: false,
-		roomName: '',
-		avatar: '',
-	});
-	const [showEditPrivateChannelForm, setShowEditPrivateChannelForm] = useState({
-		showForm: false,
-		roomName: '',
-		avatar: '',
-	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [userSearch, setUserSearch] = useState('');
 	const [channelSearch, setChannelSearch] = useState('');
