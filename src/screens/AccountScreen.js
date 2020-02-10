@@ -17,7 +17,7 @@ const AccountScreen = ({ navigation }) => {
 	const { state, fetchChannels, addFriend, clearState } = useContext(ChannelContext);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [userSearch, setUserSearch] = useState('');
+	// const [userSearch, setUserSearch] = useState('');
 	const [channelSearch, setChannelSearch] = useState('');
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
@@ -35,7 +35,7 @@ const AccountScreen = ({ navigation }) => {
 	}, [state]);
 
 	const handleClick = (action, item = { name: '', avatar: '' }) => {
-		setFormState({ show: action, roomName: item.name, avatar: item.avatar });
+		setFormState({ show: action, item });
 	};
 
 	const tryFetchChannels = async () => {
@@ -102,7 +102,7 @@ const AccountScreen = ({ navigation }) => {
 						inputStyle={{ color: 'white' }}
 					/>
 				</View>
-				<View>
+				{/* <View>
 					<Input
 						label="Search Users"
 						value={userSearch}
@@ -122,7 +122,7 @@ const AccountScreen = ({ navigation }) => {
 							})
 						}
 					/>
-				</View>
+				</View> */}
 				<View style={styles.channelDivider}>
 					<ChannelList
 						listData={state.channels}
@@ -168,11 +168,6 @@ const styles = StyleSheet.create({
 	channelDivider: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-	},
-	avatarStyle: {
-		height: 50,
-		width: 50,
-		borderRadius: 25,
 	},
 	container: {
 		height: Dimensions.get('window').height,

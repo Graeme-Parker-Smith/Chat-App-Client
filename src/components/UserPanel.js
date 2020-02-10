@@ -8,8 +8,9 @@ import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 
 const UserPanel = ({ user, showPanel }) => {
-	const handleClick = () => {
-		showPanel("edit_user")
+  const handleClick = () => {
+    console.log('userpanel user', user);
+		showPanel('user_dash', user);
 	};
 
 	if (user.avatar) {

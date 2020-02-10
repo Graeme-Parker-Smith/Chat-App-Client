@@ -4,6 +4,7 @@ import CreatePrivateChannelForm from '../components/CreatePrivateChannelForm';
 import EditUserForm from '../components/EditUserForm';
 import EditChannelForm from '../components/EditChannelForm';
 import EditPrivateChannelForm from '../components/EditPrivateChannelForm';
+import UserDash from '../components/UserDash';
 
 const FormHandler = ({ formState, setFormState, setIsLoading }) => {
 	switch (formState.show) {
@@ -13,13 +14,15 @@ const FormHandler = ({ formState, setFormState, setIsLoading }) => {
 			return <CreatePrivateChannelForm showForm={setFormState} setIsLoading={setIsLoading} />;
 		case 'edit_user':
 			return <EditUserForm showForm={setFormState} setIsLoading={setIsLoading} />;
+		case 'user_dash':
+			return <UserDash user={formState.item} showForm={setFormState} setIsLoading={setIsLoading} />;
 		case 'edit_public':
 			return (
 				<EditChannelForm
 					showForm={setFormState}
 					setIsLoading={setIsLoading}
-					thisName={formState.roomName}
-					thisAvatar={formState.avatar}
+					thisName={formState.item.name}
+					thisAvatar={formState.item.avatar}
 				/>
 			);
 		case 'edit_private':
@@ -27,8 +30,8 @@ const FormHandler = ({ formState, setFormState, setIsLoading }) => {
 				<EditPrivateChannelForm
 					showForm={setFormState}
 					setIsLoading={setIsLoading}
-					thisName={formState.roomName}
-					thisAvatar={formState.avatar}
+					thisName={formState.item.name}
+					thisAvatar={formState.item.avatar}
 				/>
 			);
 		default: {

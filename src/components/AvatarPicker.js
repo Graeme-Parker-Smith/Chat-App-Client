@@ -61,7 +61,7 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword }) => {
         />
         <View>
           {avatar ? (
-            <Image source={{ uri: avatar.localUri }} style={styles.avatarStyle} />
+            <Image source={{ uri: avatar.localUri || avatar }} style={styles.avatarStyle} />
           ) : null}
         </View>
       </View>
