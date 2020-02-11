@@ -1,35 +1,20 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, ListItem } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
+import UserAvatar from './UserAvatar';
 import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 
 const UserSearchItem = ({ user, showPanel }) => {
 	const handleClick = () => {
-		console.log('UserSearchItem user', user);
 		showPanel('user_dash', user);
 	};
+	// console.log('UserSearchItem user', user);
 
-	if (user.avatar) {
-		return (
-			<TouchableOpacity onPress={handleClick}>
-				<View>
-					<Image source={{ uri: user.avatar }} style={styles.avatarStyle} />
-				</View>
-			</TouchableOpacity>
-		);
-	} else {
-		return (
-			<TouchableOpacity onPress={handleClick}>
-				<View>
-					<Entypo name="user" size={20} color="#0af" />
-				</View>
-			</TouchableOpacity>
-		);
-	}
+	return <ListItem leftAvatar={<UserAvatar avatar={user.avatar} handleClick={showPanel} />} />;
 };
 
 const styles = StyleSheet.create({
