@@ -53,7 +53,6 @@ const MessageItem = ({
 					position: 'absolute',
 					top: 170,
 					left: 170,
-					// opacity: 0.5
 				}}
 				onPress={() => {
 					if (vidRef) {
@@ -67,30 +66,12 @@ const MessageItem = ({
 	const _handleVideoRef = component => {
 		let playbackObject = component;
 		setVidRef(playbackObject);
-		// console.log("playbackObject", playbackObject);
 	};
 
 	// check whether subtitle prop should render content as Text, Image, or Video
 	let renderedContent;
 	if (isVideo) {
 		renderedContent = (
-			// <View style={{ height: 200, width: 200 }}>
-			//   <FontAwesome
-			//     name="play-circle"
-			//     size={30}
-			//     color="#0af"
-			//     iconStyle={{
-			//       height: 200,
-			//       width: 200,
-			//       position: "absolute",
-			//       top: 100,
-			//       right: 100,
-			//       opacity: 0.5
-			//     }}
-			//     onPress={() =>
-			//       setVideoState({ videoIsPlaying: true, videoUri: content })
-			//     }
-			//   >
 			<View style={{ position: 'relative' }}>
 				<Video
 					ref={_handleVideoRef}
@@ -99,8 +80,6 @@ const MessageItem = ({
 					volume={1.0}
 					isMuted={false}
 					resizeMode="cover"
-					// shouldPlay
-					// isLooping
 					natural
 					useNativeControls={true}
 					style={{ height: 200, width: 200, position: 'relative' }}
