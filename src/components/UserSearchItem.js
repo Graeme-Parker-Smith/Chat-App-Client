@@ -14,7 +14,7 @@ const UserSearchItem = ({ user, showPanel }) => {
 	};
 	// console.log('UserSearchItem user', user);
 
-	return <ListItem leftAvatar={<UserAvatar avatar={user.avatar} handleClick={showPanel} />} />;
+	return <ListItem title={user.username} leftAvatar={<UserAvatar avatar={user.avatar} handleClick={showPanel} />} />;
 };
 
 const styles = StyleSheet.create({
