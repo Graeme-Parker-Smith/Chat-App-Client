@@ -17,7 +17,7 @@ import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 
 const UserPanel = ({ user, showForm, setIsLoading }) => {
-	const { addFriend, removeFriend, state } = useContext(ChannelContext);
+	const { addFriend, unblock, state } = useContext(ChannelContext);
 	const [userSearch, setUserSearch] = useState('');
 
 	const handleClick = () => {
@@ -77,6 +77,15 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
             friendName: userSearch,
             shouldRemove: true,
             shouldBlock: true
+					})
+				}
+			/>
+			<Button
+				title="Unblock User"
+				onPress={() =>
+					unblock({
+						username: user.username,
+            friendName: userSearch
 					})
 				}
 			/>

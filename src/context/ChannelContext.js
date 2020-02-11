@@ -44,9 +44,9 @@ const addFriend = dispatch => async ({ username, friendName, shouldRemove = fals
 	}
 };
 
-const removeFriend = dispatch => async ({ username, friendName }) => {
+const unblock = dispatch => async ({ username, friendName }) => {
 	try {
-		const response = await chatApi.post('/removefriend', {
+		const response = await chatApi.post('/unblock', {
 			username,
 			friendName,
 		});
@@ -130,7 +130,7 @@ export const { Provider, Context } = createDataContext(
 		updateUser,
 		updateChannel,
 		addFriend,
-		removeFriend,
+		unblock,
 		invite,
 		clearState,
 	},
