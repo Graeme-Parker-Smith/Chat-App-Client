@@ -1,12 +1,9 @@
 import React, { memo, useState } from 'react';
 import { StyleSheet, Image, View, Dimensions } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import Spacer from './Spacer';
 import timeConverter from '../helpers/timeConverter';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
-import VideoPlayer from 'expo-video-player';
-import base64 from 'react-native-base64';
 
 const DefaultAvatar = () => <Entypo name="user" size={20} color="#0af" />;
 
