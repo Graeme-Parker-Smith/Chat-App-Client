@@ -15,6 +15,7 @@ import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
+import UserSearchItem from './UserSearchItem';
 
 const UserPanel = ({ user, showForm, setIsLoading }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
@@ -64,8 +65,8 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 				onPress={() =>
 					addFriend({
 						username: user.username,
-            friendName: userSearch,
-            shouldRemove: true
+						friendName: userSearch,
+						shouldRemove: true,
 					})
 				}
 			/>
@@ -74,9 +75,9 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 				onPress={() =>
 					addFriend({
 						username: user.username,
-            friendName: userSearch,
-            shouldRemove: true,
-            shouldBlock: true
+						friendName: userSearch,
+						shouldRemove: true,
+						shouldBlock: true,
 					})
 				}
 			/>
@@ -85,7 +86,7 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 				onPress={() =>
 					unblock({
 						username: user.username,
-            friendName: userSearch
+						friendName: userSearch,
 					})
 				}
 			/>
@@ -97,12 +98,7 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 					console.log('userSearch', userSearch);
 					console.log('item.username', item.username);
 					if (item.username.includes(userSearch)) {
-						return (
-							<View>
-								<Image source={{ uri: item.avatar }} style={styles.avatarStyle} />
-								<Text>{item.username}</Text>
-							</View>
-						);
+						return <UserSearchItem />;
 					}
 				}}
 			/>
