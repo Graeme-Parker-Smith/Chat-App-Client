@@ -109,25 +109,6 @@ const MessageItem = ({
 			</View>
 		);
 	} else if (isImage) {
-		// function _arrayBufferToBase64(buffer) {
-		// 	var binary = '';
-		// 	var bytes = new Uint8Array(buffer);
-		// 	var len = bytes.byteLength;
-		// 	for (var i = 0; i < len; i++) {
-		// 		binary += String.fromCharCode(bytes[i]);
-		// 	}
-		// 	return btoa(binary);
-		// }
-		// let imageSrc = base64.encode(content.data);
-		// let imageString =
-		// 	'ZmlsZTovLy92YXIvbW9iaWxlL0NvbnRhaW5lcnMvRGF0YS9BcHBsaWNhdGlvbi8xNEU4OEYxNy04ODYwLTQ2RjYtQkIwQi04OTJDMzQ5MTM2RTkvTGlicmFyeS9DYWNoZXMvRXhwb25lbnRFeHBlcmllbmNlRGF0YS8lMjU0MGdyYWVtZXNtaXRoJTI1MkZncmFlbWUtY2hhdC1hcHAvSW1hZ2VQaWNrZXIvQjdCQkZCREEtQjUyMC00OTJGLTlFREItMUU1NURDNTRCNkRDLmpwZw==';
-		// console.log('imageSrc', imageSrc);
-		// let imageSrc = `data:image/jpg;base64,${imageString}`
-		// let imageSrc = content.data.toString('base64');
-		// let imageSrc = "B9A71996-353E-4638-8148-B1AB2C653138.jpg"
-		// let imageSrc = String.fromCharCode.apply(null, new Uint16Array(content.data));
-		// console.log('imageSrc', imageSrc);
-		// console.log(content);
 		renderedContent = (
 			<View>
 				<Image source={{ uri: content }} style={{ height: 200, width: 200 }} />
