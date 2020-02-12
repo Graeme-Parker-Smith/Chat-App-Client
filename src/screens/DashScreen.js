@@ -12,6 +12,7 @@ import {
 import { Input, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { Context as ChannelContext } from '../context/ChannelContext';
+import SocketContext from '../context/SocketContext';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
@@ -21,6 +22,7 @@ import WhiteText from './WhiteText';
 
 const DashScreen = ({ user, showForm, setIsLoading }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
+	const socket = useContext(SocketContext);
 	const [userSearch, setUserSearch] = useState('');
 
 	const handleClick = () => {
@@ -29,6 +31,13 @@ const DashScreen = ({ user, showForm, setIsLoading }) => {
 
 	const cancelForm = () => {
 		showForm(false);
+	};
+
+	const handleChangeText = e => {
+		setUserSearch(e.target);
+		console.log('UserSearch being emitted', userSearch);
+		socket.emit('searchuser', userSearch);
+		console.log('socket emitting search');
 	};
 
 	return (
@@ -46,7 +55,7 @@ const DashScreen = ({ user, showForm, setIsLoading }) => {
 			<Input
 				label="Search Users"
 				value={userSearch}
-				onChangeText={setUserSearch}
+				onChangeText={handleChangeText}
 				autoCapitalize="none"
 				autoCorrect={false}
 				inputStyle={{ color: 'white' }}
