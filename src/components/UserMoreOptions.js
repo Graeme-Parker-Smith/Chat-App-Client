@@ -4,9 +4,12 @@ import { Button } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
-const UserMoreOptions = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const { addFriend, unblock, state } = useContext(ChannelContext);
+const UserMoreOptions = ({ friend }) => {
+	const [modalVisible, setModalVisible] = useState(false);
+	const { addFriend, unblock, state } = useContext(ChannelContext);
+
+	const isFriend = state.currentUser.friends.some(f => f._id === friend._id);
+	const isBlocked = state.currentUser.blocked.some(b => b._id === friend._id);
 
 	return (
 		<View style={{ marginTop: 0 }}>
@@ -41,7 +44,8 @@ const UserMoreOptions = () => {
 									top: -15,
 									right: -15,
 									backgroundColor: 'black',
-									borderRadius: 20,
+                  borderRadius: 20,
+                  zIndex: 2
 								}}
 							>
 								<TouchableHighlight
@@ -58,46 +62,52 @@ const UserMoreOptions = () => {
 								</TouchableHighlight>
 							</View>
 
-              <Button
-				title="Add Friend"
-				onPress={() =>
-					addFriend({
-						username: user.username,
-						friendName: userSearch,
-					})
-				}
-			/>
-			<Button
-				title="Remove Friend"
-				onPress={() =>
-					addFriend({
-						username: user.username,
-						friendName: userSearch,
-						shouldRemove: true,
-					})
-				}
-			/>
-			<Button
-				title="Block User"
-				onPress={() =>
-					addFriend({
-						username: user.username,
-						friendName: userSearch,
-						shouldRemove: true,
-						shouldBlock: true,
-					})
-				}
-			/>
-			<Button
-				title="Unblock User"
-				onPress={() =>
-					unblock({
-						username: user.username,
-						friendName: userSearch,
-					})
-				}
-			/>
-							
+							{isFriend ? (
+								<Button
+									title="Remove Friend"
+									onPress={() =>
+										addFriend({
+											username: user.username,
+											friendName: userSearch,
+											shouldRemove: true,
+										})
+									}
+								/>
+							) : (
+								<Button
+									title="Add Friend"
+									onPress={() =>
+										addFriend({
+											username: user.username,
+											friendName: userSearch,
+										})
+									}
+								/>
+							)}
+
+							{isBlocked ? (
+								<Button
+									title="Unblock"
+									onPress={() =>
+										unblock({
+											username: user.username,
+											friendName: userSearch,
+										})
+									}
+								/>
+							) : (
+								<Button
+									title="Block"
+									onPress={() =>
+										addFriend({
+											username: user.username,
+											friendName: userSearch,
+											shouldRemove: true,
+											shouldBlock: true,
+										})
+									}
+								/>
+							)}
 						</View>
 					</TouchableOpacity>
 				</TouchableHighlight>

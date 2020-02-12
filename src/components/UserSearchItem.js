@@ -22,7 +22,7 @@ const UserSearchItem = ({ friend, showPanel, currentUser }) => {
 			title={friend.username}
 			leftAvatar={<UserAvatar avatar={friend.avatar} handleClick={showPanel} />}
 			rightIcon={<UserInteractButton friendName={friend.username} status='add' />}
-			rightElement={<UserMoreOptions />}
+			rightElement={<UserMoreOptions friend={friend} />}
 		/>
 	);
 };
