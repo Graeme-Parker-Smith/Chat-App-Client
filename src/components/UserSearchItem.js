@@ -8,6 +8,7 @@ import UserAvatar from './UserAvatar';
 import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import UserInteractButton from './UserInteractButton';
+import UserMoreOptions from './UserMoreOptions';
 
 const UserSearchItem = ({ friend, showPanel, currentUser }) => {
 	const handleClick = () => {
@@ -21,7 +22,7 @@ const UserSearchItem = ({ friend, showPanel, currentUser }) => {
 			title={friend.username}
 			leftAvatar={<UserAvatar avatar={friend.avatar} handleClick={showPanel} />}
 			rightIcon={<UserInteractButton friendName={friend.username} status='add' />}
-			rightElement={<Entypo name='dots-three-vertical' size={20} color='black' onPress={() => console.log("clicked!")} />}
+			rightElement={<UserMoreOptions />}
 		/>
 	);
 };
