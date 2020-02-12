@@ -19,7 +19,7 @@ import UserAvatar from './UserAvatar';
 import UserSearchItem from './UserSearchItem';
 import WhiteText from './WhiteText';
 
-const UserDash = ({ user, showForm, setIsLoading }) => {
+const FriendsScreen = ({ user, showForm, setIsLoading }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
 	const [userSearch, setUserSearch] = useState('');
 
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default UserDash;
+export default FriendsScreen;
