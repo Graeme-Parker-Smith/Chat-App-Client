@@ -100,7 +100,7 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 					console.log('userSearch', userSearch);
 					console.log('item.username', item.username);
 					if (item.username.includes(userSearch)) {
-						return <UserSearchItem user={item} />;
+						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
 					}
 				}}
 			/>

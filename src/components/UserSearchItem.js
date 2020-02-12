@@ -6,19 +6,22 @@ import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
 import UserAvatar from './UserAvatar';
 import LoadingIndicator from './LoadingIndicator';
-import { Entypo, MaterialIcons } from '@expo/vector-icons';
+import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
+import UserInteractButton from './UserInteractButton';
 
-const UserSearchItem = ({ user, showPanel }) => {
+const UserSearchItem = ({ friend, showPanel, currentUser }) => {
 	const handleClick = () => {
-		showPanel('user_dash', user);
+		showPanel('user_dash', friend);
 	};
 	// console.log('UserSearchItem user', user);
 
 	return (
 		<ListItem
 			containerStyle={styles.container}
-			title={user.username}
-			leftAvatar={<UserAvatar avatar={user.avatar} handleClick={showPanel} />}
+			title={friend.username}
+			leftAvatar={<UserAvatar avatar={friend.avatar} handleClick={showPanel} />}
+			rightIcon={<UserInteractButton friendName={friend.username} status='add' />}
+			rightElement={<Entypo name='dots-three-vertical' size={20} color='black' onPress={() => console.log("clicked!")} />}
 		/>
 	);
 };
