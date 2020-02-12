@@ -34,7 +34,6 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 	return (
 		<View style={styles.container}>
 			<UserAvatar avatar={user.avatar} handleClick={handleClick} />
-			<Image source={{ uri: user.avatar }} style={styles.avatarStyle} />
 			<WhiteText>{user.username}</WhiteText>
 			<Entypo
 				name="edit"
