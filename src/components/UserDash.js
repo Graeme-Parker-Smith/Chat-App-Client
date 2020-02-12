@@ -53,7 +53,7 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 				returnKeyType="send"
 				selectTextOnFocus={true}
 			/>
-			<Button
+			{/* <Button
 				title="Add Friend"
 				onPress={() =>
 					addFriend({
@@ -91,7 +91,7 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 						friendName: userSearch,
 					})
 				}
-			/>
+			/> */}
 			<FlatList
 				userSearch={userSearch}
 				data={state.currentUser.friends}
