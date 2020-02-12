@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
 import { Context as ChannelContext } from '../context/ChannelContext';
-import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
+import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
 const UserMoreOptions = () => {
 	const [modalVisible, setModalVisible] = useState(false);
@@ -17,19 +17,56 @@ const UserMoreOptions = () => {
 					Alert.alert('Modal has been closed.');
 				}}
 			>
-				<View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }}>
-					<View style={{ width: 100, height: 100, backgroundColor: '#fff' }}>
-						<Text>Hello World!</Text>
+				<TouchableHighlight
+					style={{
+						flex: 1,
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+						backgroundColor: '#00000080',
+					}}
+					onPress={() => setModalVisible(!modalVisible)}
+				>
+					<TouchableOpacity
+            activeOpacity={1}
+						onPress={() => console.log('Pressed inside modal!')}
+						style={{ width: 100, height: 100, backgroundColor: '#fff' }}
+					>
+						<View>
+							<View
+								style={{
+									position: 'absolute',
+									top: -15,
+									right: -15,
+									backgroundColor: 'black',
+									borderRadius: 20,
+								}}
+							>
+								<TouchableHighlight
+									onPress={() => {
+										setModalVisible(!modalVisible);
+									}}
+								>
+									<MaterialIcons
+										name="cancel"
+										size={30}
+										color="red"
+										onPress={() => setModalVisible(!modalVisible)}
+									/>
+								</TouchableHighlight>
+							</View>
+							<Text>Hello World!</Text>
 
-						<TouchableHighlight
-							onPress={() => {
-								setModalVisible(!modalVisible);
-							}}
-						>
-							<Text>Hide Modal</Text>
-						</TouchableHighlight>
-					</View>
-				</View>
+							<TouchableHighlight
+								onPress={() => {
+									setModalVisible(!modalVisible);
+								}}
+							>
+								<Text>Hide Modal</Text>
+							</TouchableHighlight>
+						</View>
+					</TouchableOpacity>
+				</TouchableHighlight>
 			</Modal>
 
 			<TouchableOpacity onPress={() => setModalVisible(true)}>
