@@ -59,15 +59,15 @@ const AccountScreen = ({ navigation }) => {
 		);
 	}
 
+	console.log('formState', formState);
 	if (formState) {
 		return <FormHandler formState={formState} setFormState={setFormState} setIsLoading={setIsLoading} />;
 	}
-
 	return (
 		<>
 			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 				<View style={styles.userDisplay}>
-					<UserPanel user={state.currentUser} showPanel={handleClick} />
+					<UserPanel user={state.currentUser} handleClick={handleClick} />
 					<Text style={styles.userTitle}>{state.currentUser.username}</Text>
 					<Entypo
 						name="edit"

@@ -14,14 +14,24 @@ const UserSearchItem = ({ user, showPanel }) => {
 	};
 	// console.log('UserSearchItem user', user);
 
-	return <ListItem title={user.username} leftAvatar={<UserAvatar avatar={user.avatar} handleClick={showPanel} />} />;
+	return (
+		<ListItem
+			containerStyle={styles.container}
+			title={user.username}
+			leftAvatar={<UserAvatar avatar={user.avatar} handleClick={showPanel} />}
+		/>
+	);
 };
 
 const styles = StyleSheet.create({
-	avatarStyle: {
-		height: 50,
-		width: 50,
-		borderRadius: 25,
+	container: {
+		// width: Dimensions.get('window').width * 0.8,
+		marginLeft: 10,
+		marginRight: 10,
+		backgroundColor: '#adaba3',
+		borderWidth: 1,
+		borderColor: '#808080',
+		borderRadius: 10,
 	},
 });
 

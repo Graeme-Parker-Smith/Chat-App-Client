@@ -7,15 +7,15 @@ import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 
-const UserPanel = ({ user, showPanel }) => {
-  const handleClick = () => {
+const UserPanel = ({ user, handleClick }) => {
+  const onPress = () => {
     console.log('userpanel user', user);
-		showPanel('user_dash', user);
+		handleClick('user_dash', user);
 	};
 
 	if (user.avatar) {
 		return (
-			<TouchableOpacity onPress={handleClick}>
+			<TouchableOpacity onPress={onPress}>
 				<View>
 					<Image source={{ uri: user.avatar }} style={styles.avatarStyle} />
 				</View>

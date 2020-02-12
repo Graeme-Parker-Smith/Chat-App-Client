@@ -15,14 +15,16 @@ import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
+import UserAvatar from './UserAvatar';
 import UserSearchItem from './UserSearchItem';
+import WhiteText from './WhiteText';
 
 const UserPanel = ({ user, showForm, setIsLoading }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
 	const [userSearch, setUserSearch] = useState('');
 
 	const handleClick = () => {
-		showForm('edit_user');
+		showForm({ show: 'edit_user' });
 	};
 
 	const cancelForm = () => {
@@ -30,9 +32,10 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 	};
 
 	return (
-		<View>
+		<View style={styles.container}>
+			<UserAvatar avatar={user.avatar} handleClick={handleClick} />
 			<Image source={{ uri: user.avatar }} style={styles.avatarStyle} />
-			<Text>{user.username}</Text>
+			<WhiteText>{user.username}</WhiteText>
 			<Entypo
 				name="edit"
 				color="#0af"
@@ -40,14 +43,14 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 				onPress={handleClick}
 				style={{ alignSelf: 'center', marginLeft: 10 }}
 			/>
-			<Text>My Friends</Text>
+			<WhiteText>My Friends</WhiteText>
 			<Input
 				label="Search Users"
 				value={userSearch}
 				onChangeText={setUserSearch}
 				autoCapitalize="none"
 				autoCorrect={false}
-				inputStyle={{ color: 'black' }}
+				inputStyle={{ color: 'white' }}
 				returnKeyType="send"
 				selectTextOnFocus={true}
 			/>
@@ -98,7 +101,7 @@ const UserPanel = ({ user, showForm, setIsLoading }) => {
 					console.log('userSearch', userSearch);
 					console.log('item.username', item.username);
 					if (item.username.includes(userSearch)) {
-						return <UserSearchItem />;
+						return <UserSearchItem user={item} />;
 					}
 				}}
 			/>
@@ -112,6 +115,10 @@ const styles = StyleSheet.create({
 		height: 50,
 		width: 50,
 		borderRadius: 25,
+	},
+	container: {
+		backgroundColor: '#000',
+		flex: 1,
 	},
 });
 
