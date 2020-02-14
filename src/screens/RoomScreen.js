@@ -263,7 +263,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		// console.log(result);
 
 		if (!result.cancelled) {
-
 			const date = new Date();
 			const time = date.toLocaleString();
 			let imageToSend;
@@ -414,6 +413,12 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
 						@{roomName} ({users.length} users online): {userList}
 					</Text>
+					<Ionicons
+						name="md-person-add"
+						size={20}
+						color="#0af"
+						onPress={() => console.log('pressed invite user button!')}
+					/>
 				</View>
 				{!isCloseToBottom(scrollValues) ? (
 					<Button
