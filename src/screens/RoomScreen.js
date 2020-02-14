@@ -413,12 +413,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
 						@{roomName} ({users.length} users online): {userList}
 					</Text>
-					<Ionicons
-						name="md-person-add"
-						size={20}
-						color="#0af"
-						onPress={() => console.log('pressed invite user button!')}
-					/>
+					{roomType === 'private' ? (
+						<MaterialIcons
+							name="person-add"
+							size={20}
+							color="#0af"
+							onPress={() => console.log('pressed invite user button!')}
+						/>
+					) : null}
 				</View>
 				{!isCloseToBottom(scrollValues) ? (
 					<Button
