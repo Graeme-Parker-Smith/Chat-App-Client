@@ -268,17 +268,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			const time = date.toLocaleString();
 			let imageToSend;
 			if (result.type === 'video') {
-				// console.log('result', result);
-				// const toBase64 = file =>
-				// 	new Promise((resolve, reject) => {
-				// 		const reader = new FileReader();
-				// 		reader.readAsDataURL(file);
-				// 		reader.onload = () => resolve(reader.result);
-				// 		reader.onerror = error => reject(error);
-				// 	});
-
-				// let vData = await toBase64(result);
-				// console.log('vData', vData.length);
 				const cloudUrl = await imgUpload(result.uri, true);
 				imageToSend = {
 					creator: username,
