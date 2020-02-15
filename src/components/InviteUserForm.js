@@ -8,9 +8,6 @@ const InviteUserForm = ({ friend }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const { addFriend, unblock, state } = useContext(ChannelContext);
 
-	const isFriend = state.currentUser.friends.some(f => f._id === friend._id);
-	const isBlocked = state.currentUser.blocked.some(b => b._id === friend._id);
-
 	return (
 		<View style={{ marginTop: 0 }}>
 			<Modal
