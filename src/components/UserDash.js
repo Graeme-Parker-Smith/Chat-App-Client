@@ -53,45 +53,6 @@ const UserDash = ({ user, showForm, setIsLoading }) => {
 				returnKeyType="send"
 				selectTextOnFocus={true}
 			/>
-			{/* <Button
-				title="Add Friend"
-				onPress={() =>
-					addFriend({
-						username: user.username,
-						friendName: userSearch,
-					})
-				}
-			/>
-			<Button
-				title="Remove Friend"
-				onPress={() =>
-					addFriend({
-						username: user.username,
-						friendName: userSearch,
-						shouldRemove: true,
-					})
-				}
-			/>
-			<Button
-				title="Block User"
-				onPress={() =>
-					addFriend({
-						username: user.username,
-						friendName: userSearch,
-						shouldRemove: true,
-						shouldBlock: true,
-					})
-				}
-			/>
-			<Button
-				title="Unblock User"
-				onPress={() =>
-					unblock({
-						username: user.username,
-						friendName: userSearch,
-					})
-				}
-			/> */}
 			<FlatList
 				userSearch={userSearch}
 				data={state.currentUser.friends}
