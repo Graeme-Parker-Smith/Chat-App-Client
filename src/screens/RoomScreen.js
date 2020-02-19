@@ -389,7 +389,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 	const handleOnFocus = async () => {
 		await clearMessages();
-		// console.log("FETCHING MESSAGES!!!!!!!!!");
 		await fetchMessages(roomName, roomType, room_id);
 		scrollToBottom();
 	};
