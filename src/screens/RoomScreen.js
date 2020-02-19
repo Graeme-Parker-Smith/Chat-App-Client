@@ -369,7 +369,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				isImage={item.isImage ? true : false}
 				isVideo={item.isVideo ? true : false}
 				index={index}
-				// setVideoState={setVideoState}
 			/>
 		);
 	};
