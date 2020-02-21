@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
-import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const InviteUserForm = ({ friend }) => {
 	const [modalVisible, setModalVisible] = useState(false);
