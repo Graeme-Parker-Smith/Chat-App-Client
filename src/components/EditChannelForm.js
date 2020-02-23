@@ -15,8 +15,8 @@ const EditChannelForm = ({ showForm, setIsLoading, thisName, thisAvatar }) => {
 	const { tryLocalSignin } = useContext(AuthContext);
 	const [newName, setNewName] = useState(thisName);
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
-	console.log(thisName);
-	console.log(thisAvatar);
+	// console.log(thisName);
+	// console.log(thisAvatar);
 
 	const handleSubmit = async () => {
 		setIsLoading(true);
