@@ -7,6 +7,7 @@ import SignupScreen from "./src/screens/SignupScreen";
 import AccountScreen from "./src/screens/AccountScreen";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import RoomScreen from "./src/screens/RoomScreen";
+import DashScreen from "./src/screens/DashScreen";
 import { setNavigator, navigate, back } from "./src/navigationRef";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as ChannelProvider } from "./src/context/ChannelContext";
@@ -36,6 +37,7 @@ const navigator = createSwitchNavigator({
         Account: {
           screen: AccountScreen,
           navigationOptions: {
+            headerShown: false,
             title: "Account",
             headerTitleStyle: {
               color: 'white',
@@ -70,7 +72,8 @@ const navigator = createSwitchNavigator({
         }
       }
     )
-  }
+  },
+  Dash: DashScreen
 });
 
 // socket.io connection does not work when using localhost:3000 as ENDPOINT!

@@ -14,11 +14,10 @@ import { SafeAreaView } from 'react-navigation';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import SocketContext from '../context/SocketContext';
 import AvatarPicker from '../components/AvatarPicker';
-import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
-import UserAvatar from './UserAvatar';
-import UserSearchItem from './UserSearchItem';
-import WhiteText from './WhiteText';
+import UserAvatar from '../components/UserAvatar';
+import UserSearchItem from '../components/UserSearchItem';
+import WhiteText from '../components/WhiteText';
 
 const DashScreen = ({ user, showForm, setIsLoading }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
