@@ -19,17 +19,18 @@ import UserAvatar from '../components/UserAvatar';
 import UserSearchItem from '../components/UserSearchItem';
 import WhiteText from '../components/WhiteText';
 
-const DashScreen = ({ user, showForm, setIsLoading }) => {
+const DashScreen = ({ navigation }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
 	const socket = useContext(SocketContext);
 	const [userSearch, setUserSearch] = useState('');
 
 	const handleClick = () => {
-		showForm({ show: 'edit_user' });
+		// showForm({ show: 'edit_user' });
+		
 	};
 
 	const cancelForm = () => {
-		showForm(false);
+		// showForm(false);
 	};
 
 	const handleChangeText = e => {
@@ -41,8 +42,8 @@ const DashScreen = ({ user, showForm, setIsLoading }) => {
 
 	return (
 		<View style={styles.container}>
-			<UserAvatar avatar={user.avatar} handleClick={handleClick} />
-			<WhiteText>{user.username}</WhiteText>
+			<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
+			<WhiteText>{state.currentUser.username}</WhiteText>
 			<Entypo
 				name="edit"
 				color="#0af"

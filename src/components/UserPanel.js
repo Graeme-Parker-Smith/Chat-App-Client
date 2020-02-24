@@ -6,11 +6,13 @@ import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
+import { navigate } from '../navigationRef';
 
 const UserPanel = ({ user, handleClick }) => {
-  const onPress = () => {
-    console.log('userpanel user', user);
+	const onPress = () => {
+		// console.log('userpanel user', user);
 		handleClick('user_dash', user);
+		navigate("Dash")
 	};
 
 	if (user.avatar) {
