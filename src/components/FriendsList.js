@@ -45,7 +45,6 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 					}
 				}}
 			/>
-			<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
 		</View>
 	);
 };

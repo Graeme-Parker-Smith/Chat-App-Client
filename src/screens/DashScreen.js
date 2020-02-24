@@ -17,6 +17,7 @@ import AvatarPicker from '../components/AvatarPicker';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import UserAvatar from '../components/UserAvatar';
 import UserSearchItem from '../components/UserSearchItem';
+import FriendsList from '../components/FriendsList';
 import WhiteText from '../components/WhiteText';
 
 const DashScreen = ({ navigation }) => {
