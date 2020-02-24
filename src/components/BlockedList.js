@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 import {
 	View,
 	StyleSheet,
-	FlatList,
+  FlatList,
+  Dimensions
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
@@ -51,7 +52,8 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		backgroundColor: '#000',
-		flex: 1,
+    flex: 1,
+    width: Dimensions.get('window').width
 	},
 });
 
