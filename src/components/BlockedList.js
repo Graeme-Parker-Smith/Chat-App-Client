@@ -21,7 +21,7 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 				<WhiteText>You're not blocking anyone! That's chill.</WhiteText>
 			) : null}
 			<Input
-				label="Search Friends"
+				label="Search Blocked Users"
 				value={userSearch}
 				onChangeText={setUserSearch}
 				autoCapitalize="none"
