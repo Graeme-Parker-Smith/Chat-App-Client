@@ -27,13 +27,13 @@ const DashScreen = ({ navigation }) => {
 	const socket = useContext(SocketContext);
 	const [userSearch, setUserSearch] = useState('');
 
-
 	const handleClick = () => {
 		// showForm({ show: 'edit_user' });
 	};
 
 	const cancelForm = () => {
 		// showForm(false);
+		navigation.navigate('channelFlow');
 	};
 
 	const handleChangeText = e => {
@@ -43,19 +43,25 @@ const DashScreen = ({ navigation }) => {
 		console.log('socket emitting search');
 	};
 
-	const dashMenus = [{ name: 'friends', comp: <FriendsList user={state.currentUser} /> }, { name: 'pending', comp: <PendingList user={state.currentUser} /> }, { name: 'blocked', comp: <BlockedList user={state.currentUser} /> }];
+	const dashMenus = [
+		{ name: 'friends', comp: <FriendsList user={state.currentUser} /> },
+		{ name: 'pending', comp: <PendingList user={state.currentUser} /> },
+		{ name: 'blocked', comp: <BlockedList user={state.currentUser} /> },
+	];
 
 	return (
 		<View style={styles.container}>
-			<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
-			<WhiteText>{state.currentUser.username}</WhiteText>
-			<Entypo
-				name="edit"
-				color="#0af"
-				size={32}
-				onPress={handleClick}
-				style={{ alignSelf: 'center', marginLeft: 10 }}
-			/>
+			<View style={styles.userBox}>
+				<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
+				<WhiteText>{state.currentUser.username}</WhiteText>
+				<Entypo
+					name="edit"
+					color="#0af"
+					size={32}
+					onPress={handleClick}
+					style={{ alignSelf: 'center', marginLeft: 10 }}
+				/>
+			</View>
 			<FlatList
 				data={dashMenus}
 				horizontal
@@ -75,6 +81,10 @@ const styles = StyleSheet.create({
 		height: 50,
 		width: 50,
 		borderRadius: 25,
+	},
+	userBox: {
+		marginTop: 40,
+		alignSelf: 'center',
 	},
 	container: {
 		backgroundColor: '#000',
