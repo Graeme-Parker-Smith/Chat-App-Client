@@ -22,8 +22,6 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 
 	return (
 		<View style={styles.container}>
-			<UserAvatar avatar={user.avatar} handleClick={handleClick} />
-			<WhiteText>{user.username}</WhiteText>
 			<WhiteText>My Friends</WhiteText>
 			<Input
 				label="Search Friends"

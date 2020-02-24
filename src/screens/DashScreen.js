@@ -26,7 +26,6 @@ const DashScreen = ({ navigation }) => {
 
 	const handleClick = () => {
 		// showForm({ show: 'edit_user' });
-		
 	};
 
 	const cancelForm = () => {
@@ -40,6 +39,8 @@ const DashScreen = ({ navigation }) => {
 		console.log('socket emitting search');
 	};
 
+	const dashMenus = [{ name: 'friends', comp: <FriendsList user={state.currentUser} /> }];
+
 	return (
 		<View style={styles.container}>
 			<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
@@ -51,28 +52,13 @@ const DashScreen = ({ navigation }) => {
 				onPress={handleClick}
 				style={{ alignSelf: 'center', marginLeft: 10 }}
 			/>
-			<WhiteText>My Friends</WhiteText>
-			<Input
-				label="Search Users"
-				value={userSearch}
-				onChangeText={handleChangeText}
-				autoCapitalize="none"
-				autoCorrect={false}
-				inputStyle={{ color: 'white' }}
-				returnKeyType="send"
-				selectTextOnFocus={true}
-			/>
-		
 			<FlatList
-				userSearch={userSearch}
-				data={state.currentUser.friends}
-				keyExtractor={item => item.username}
+				data={dashMenus}
+				horizontal
+				pagingEnabled={true}
+				keyExtractor={item => item.name}
 				renderItem={({ item }) => {
-					console.log('userSearch', userSearch);
-					console.log('item.username', item.username);
-					if (item.username.includes(userSearch)) {
-						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
-					}
+					return item.comp;
 				}}
 			/>
 			<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
