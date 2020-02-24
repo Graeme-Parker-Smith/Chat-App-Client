@@ -32,8 +32,8 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 			/>
 			<FlatList
 				userSearch={userSearch}
-				data={state.currentUser.pending}
-				keyExtractor={item => item.username}
+				data={state.currentUser.requestsReceived}
+				keyExtractor={item => item}
 				renderItem={({ item }) => {
 					if (item.username.includes(userSearch)) {
 						return <UserSearchItem currentUser={state.currentUser} friend={item} />;

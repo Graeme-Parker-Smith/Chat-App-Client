@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
 	View,
 	StyleSheet,
@@ -26,6 +26,7 @@ const DashScreen = ({ navigation }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
 	const socket = useContext(SocketContext);
 	const [userSearch, setUserSearch] = useState('');
+
 
 	const handleClick = () => {
 		// showForm({ show: 'edit_user' });
