@@ -30,7 +30,7 @@ const UserInteractButton = ({ status, friendName }) => {
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity onPress={handleClick}>
+			<TouchableOpacity disabled={activated} onPress={handleClick}>
 				<View style={{ flexDirection: 'row', padding: 10 }}>
 					<Icon status={status} />
           <Spacer margin={10} />

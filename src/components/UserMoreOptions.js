@@ -67,8 +67,8 @@ const UserMoreOptions = ({ friend }) => {
 									title="Remove Friend"
 									onPress={() =>
 										addFriend({
-											username: user.username,
-											friendName: userSearch,
+											username: state.currentUser.username,
+											friendName: friend.username,
 											shouldRemove: true,
 										})
 									}
@@ -78,8 +78,8 @@ const UserMoreOptions = ({ friend }) => {
 									title="Add Friend"
 									onPress={() =>
 										addFriend({
-											username: user.username,
-											friendName: userSearch,
+											username: state.currentUser.username,
+											friendName: friend.username,
 										})
 									}
 								/>
@@ -90,8 +90,8 @@ const UserMoreOptions = ({ friend }) => {
 									title="Unblock"
 									onPress={() =>
 										unblock({
-											username: user.username,
-											friendName: userSearch,
+											username: state.currentUser.username,
+											friendName: friend.username,
 										})
 									}
 								/>
@@ -100,8 +100,8 @@ const UserMoreOptions = ({ friend }) => {
 									title="Block"
 									onPress={() =>
 										addFriend({
-											username: user.username,
-											friendName: userSearch,
+											username: state.currentUser.username,
+											friendName: friend.username,
 											shouldRemove: true,
 											shouldBlock: true,
 										})
