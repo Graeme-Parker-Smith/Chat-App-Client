@@ -38,8 +38,6 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 				data={state.currentUser.friends}
 				keyExtractor={item => item.username}
 				renderItem={({ item }) => {
-					console.log('userSearch', userSearch);
-					console.log('item.username', item.username);
 					if (item.username.includes(userSearch)) {
 						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
 					}
