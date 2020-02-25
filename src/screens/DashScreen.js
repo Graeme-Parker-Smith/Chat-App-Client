@@ -73,6 +73,8 @@ const DashScreen = ({ navigation }) => {
 			<View style={styles.userBox}>
 				<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
 				<WhiteText>{state.currentUser.username}</WhiteText>
+				<WhiteText>Account created on {state.currentUser.createdAt}</WhiteText>
+				<WhiteText>Messages Sent: {state.currentUser.msgsSent}</WhiteText>
 				<Entypo
 					name="edit"
 					color="#0af"

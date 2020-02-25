@@ -35,7 +35,7 @@ const UserMoreOptions = ({ friend }) => {
 					<TouchableOpacity
 						activeOpacity={1}
 						onPress={() => console.log('Pressed inside modal!')}
-						style={{ width: 100, height: 100, backgroundColor: '#fff' }}
+						style={{ width: 150, height: 110, backgroundColor: '#808080', paddingTop: 5, paddingBottom: 5 }}
 					>
 						<View>
 							<View
@@ -44,8 +44,8 @@ const UserMoreOptions = ({ friend }) => {
 									top: -15,
 									right: -15,
 									backgroundColor: 'black',
-                  borderRadius: 20,
-                  zIndex: 2
+									borderRadius: 20,
+									zIndex: 2,
 								}}
 							>
 								<TouchableHighlight
@@ -64,6 +64,7 @@ const UserMoreOptions = ({ friend }) => {
 
 							{isFriend ? (
 								<Button
+									containerStyle={styles.modalButton}
 									title="Remove Friend"
 									onPress={() =>
 										addFriend({
@@ -75,6 +76,7 @@ const UserMoreOptions = ({ friend }) => {
 								/>
 							) : (
 								<Button
+									containerStyle={styles.modalButton}
 									title="Add Friend"
 									onPress={() =>
 										addFriend({
@@ -87,6 +89,7 @@ const UserMoreOptions = ({ friend }) => {
 
 							{isBlocked ? (
 								<Button
+									containerStyle={styles.modalButton}
 									title="Unblock"
 									onPress={() =>
 										unblock({
@@ -97,6 +100,7 @@ const UserMoreOptions = ({ friend }) => {
 								/>
 							) : (
 								<Button
+									containerStyle={styles.modalButton}
 									title="Block"
 									onPress={() =>
 										addFriend({
@@ -119,5 +123,13 @@ const UserMoreOptions = ({ friend }) => {
 		</View>
 	);
 };
+
+const styles = {
+	modalButton: {
+		margin: 10,
+		marginTop: 5,
+		marginBottom: 5
+	}
+}
 
 export default UserMoreOptions;

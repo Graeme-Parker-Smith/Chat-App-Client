@@ -25,9 +25,9 @@ const UserPanel = ({ user, handleClick }) => {
 		);
 	} else {
 		return (
-			<TouchableOpacity onPress={handleClick}>
+			<TouchableOpacity onPress={onPress}>
 				<View>
-					<Entypo name="user" size={20} color="#0af" />
+					<Entypo name="user" size={40} color="#0af" />
 				</View>
 			</TouchableOpacity>
 		);
