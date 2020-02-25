@@ -35,7 +35,7 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 
 	return (
 		<View style={styles.container}>
-			<WhiteText>My Friends</WhiteText>
+			<WhiteText>Search</WhiteText>
 			<Input
 				label="Search Users"
 				value={userSearch}
@@ -45,6 +45,7 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 				inputStyle={{ color: 'white' }}
 				returnKeyType="send"
 				selectTextOnFocus={true}
+				onSubmitEditing={doSearch}
 				rightIcon={
 					<MaterialIcons name="send" size={32} color={userSearch ? '#0af' : '#808080'} onPress={doSearch} />
 				}
