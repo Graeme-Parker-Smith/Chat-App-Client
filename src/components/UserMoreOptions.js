@@ -19,7 +19,7 @@ const UserMoreOptions = ({ friend }) => {
 				transparent={true}
 				visible={modalVisible}
 				onRequestClose={() => {
-					Alert.alert('Modal has been closed.');
+					console.log('Modal has been closed.');
 				}}
 			>
 				<TouchableHighlight
