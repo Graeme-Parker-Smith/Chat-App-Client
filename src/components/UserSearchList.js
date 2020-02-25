@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
 	View,
 	StyleSheet,
@@ -23,14 +23,22 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 	const [userSearch, setUserSearch] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
 
-	// useEffect(() => {
-	socket.on('usersearch', ({ results }) => {
-		setSearchResults(results);
-	});
-	// }, []);
+	useEffect(() => {
+		socket.on('usersearch', ({ results }) => {
+			setSearchResults(results);
+		});
+	}, [state, userSearch, searchResults]);
+
+	useEffect(() => {
+		if (userSearch.length > 0) {
+			socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
+		}
+	}, [state]);
 
 	const doSearch = () => {
-		socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
+		if (userSearch.length > 0) {
+			socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
+		}
 	};
 
 	return (
