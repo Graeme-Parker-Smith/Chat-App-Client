@@ -14,14 +14,15 @@ const UserSearchItem = ({ friend, showPanel, currentUser }) => {
 	const handleClick = () => {
 		showPanel('user_dash', friend);
 	};
-	// console.log('UserSearchItem user', user);
+	let status;
+	currentUser.friends.some(f => f.username === friend.username) ? (status = 'added') : (status = 'add');
 
 	return (
 		<ListItem
 			containerStyle={styles.container}
 			title={friend.username}
 			leftAvatar={<UserAvatar avatar={friend.avatar} handleClick={showPanel} />}
-			rightIcon={<UserInteractButton friendName={friend.username} status='add' />}
+			rightIcon={<UserInteractButton friendName={friend.username} status={status} />}
 			rightElement={<UserMoreOptions friend={friend} />}
 		/>
 	);
