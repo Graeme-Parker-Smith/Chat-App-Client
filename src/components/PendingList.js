@@ -17,7 +17,7 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 	return (
 		<View style={styles.container}>
 			<WhiteText>Pending Friend Requests</WhiteText>
-			{state.currentUser.pending.length < 1 ? (
+			{state.currentUser.requestsReceived.length < 1 ? (
 				<WhiteText>You have no pending friend requests. So sad.</WhiteText>
 			) : null}
 			<Input
@@ -33,7 +33,7 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 			<FlatList
 				userSearch={userSearch}
 				data={state.currentUser.requestsReceived}
-				keyExtractor={item => item}
+				keyExtractor={item => item.username}
 				renderItem={({ item }) => {
 					if (item.username.includes(userSearch)) {
 						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
