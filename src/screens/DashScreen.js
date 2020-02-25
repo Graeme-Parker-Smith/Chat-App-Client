@@ -18,6 +18,7 @@ import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import UserAvatar from '../components/UserAvatar';
 import UserSearchItem from '../components/UserSearchItem';
 import FriendsList from '../components/FriendsList';
+import UserSearchList from '../components/UserSearchList';
 import PendingList from '../components/PendingList';
 import BlockedList from '../components/BlockedList';
 import WhiteText from '../components/WhiteText';
@@ -44,6 +45,7 @@ const DashScreen = ({ navigation }) => {
 	};
 
 	const dashMenus = [
+		{ name: 'search', comp: <UserSearchList user={state.currentUser} /> },
 		{ name: 'friends', comp: <FriendsList user={state.currentUser} /> },
 		{ name: 'pending', comp: <PendingList user={state.currentUser} /> },
 		{ name: 'blocked', comp: <BlockedList user={state.currentUser} /> },

@@ -11,20 +11,33 @@ import {
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
+import SocketContext from '../context/SocketContext';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import UserAvatar from './UserAvatar';
 import UserSearchItem from './UserSearchItem';
 import WhiteText from './WhiteText';
 
-const FriendsList = ({ user, showForm, setIsLoading }) => {
+const UserSearchList = ({ user, showForm, setIsLoading }) => {
+	const socket = useContext(SocketContext);
 	const { addFriend, unblock, state } = useContext(ChannelContext);
 	const [userSearch, setUserSearch] = useState('');
+	const [searchResults, setSearchResults] = useState([]);
+
+	// useEffect(() => {
+	socket.on('usersearch', ({ results }) => {
+		setSearchResults(results);
+	});
+	// }, []);
+
+	const doSearch = () => {
+		socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
+	};
 
 	return (
 		<View style={styles.container}>
 			<WhiteText>My Friends</WhiteText>
 			<Input
-				label="Search Friends"
+				label="Search Users"
 				value={userSearch}
 				onChangeText={setUserSearch}
 				autoCapitalize="none"
@@ -32,17 +45,17 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 				inputStyle={{ color: 'white' }}
 				returnKeyType="send"
 				selectTextOnFocus={true}
+				rightIcon={
+					<MaterialIcons name="send" size={32} color={userSearch ? '#0af' : '#808080'} onPress={doSearch} />
+				}
 			/>
 			<FlatList
-				userSearch={userSearch}
-				data={state.currentUser.friends}
+				data={searchResults}
 				keyExtractor={item => item.username}
 				renderItem={({ item }) => {
-					console.log('userSearch', userSearch);
-					console.log('item.username', item.username);
-					if (item.username.includes(userSearch)) {
-						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
-					}
+					// if (item.username.includes(userSearch)) {
+					return <UserSearchItem currentUser={state.currentUser} friend={item} />;
+					// }
 				}}
 			/>
 		</View>
@@ -57,10 +70,9 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		backgroundColor: '#000',
-    flex: 1,
-    width: Dimensions.get('window').width
-
+		flex: 1,
+		width: Dimensions.get('window').width,
 	},
 });
 
-export default FriendsList;
+export default UserSearchList;
