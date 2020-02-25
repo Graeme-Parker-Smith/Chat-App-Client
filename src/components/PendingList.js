@@ -18,7 +18,7 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 		<View style={styles.container}>
 			<WhiteText>Pending Friend Requests</WhiteText>
 			{state.currentUser.requestsReceived.length < 1 ? (
-				<WhiteText>You have no pending friend requests. So sad.</WhiteText>
+				<WhiteText>You have no pending friend requests. Bummer.</WhiteText>
 			) : null}
 			<Input
 				label="Search Pending Requests"
