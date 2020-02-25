@@ -400,13 +400,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				<View style={{ flexDirection: 'row' }}>
 					<Button
 						containerStyle={{ alignSelf: 'center' }}
-						buttonStyle={{ padding: 0, margin: 0 }}
+						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25  }}
 						title="Back To Channels"
 						onPress={() => {
 							back('Account');
 						}}
 						type="clear"
-						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 12 }}
+						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/>
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
 						@{roomName} ({users.length} users online): {userList}
@@ -425,7 +425,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						containerStyle={{
 							height: 30,
 							position: 'absolute',
-							top: 35,
+							top: Platform.OS === 'ios' ? 40 : 60,
 							zIndex: 1000,
 							width: Dimensions.get('window').width,
 						}}
@@ -443,7 +443,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							backgroundColor: 'black',
 							// height: Platform.OS === "ios" ? 470 : 447,
 							// height: keyboardShowing ? 270 : 470,
-							height: Dimensions.get('window').height * 0.89 - keyboardHeight,
+							height: Dimensions.get('window').height * 0.85 - keyboardHeight,
 							flexGrow: 0,
 						}}
 						bounces={false}

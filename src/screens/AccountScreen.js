@@ -39,6 +39,7 @@ const AccountScreen = ({ navigation }) => {
 	};
 
 	const tryFetchChannels = async () => {
+		console.log('tryFetchChannels');
 		const { error } = await fetchChannels();
 		if (error === 'user could not be found') {
 			signout();
@@ -65,6 +66,7 @@ const AccountScreen = ({ navigation }) => {
 	}
 	return (
 		<>
+			<NavigationEvents onWillFocus={tryFetchChannels} />
 			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 				<View style={styles.userDisplay}>
 					<UserPanel user={state.currentUser} handleClick={handleClick} />

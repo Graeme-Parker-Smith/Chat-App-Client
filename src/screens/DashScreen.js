@@ -64,6 +64,11 @@ const DashScreen = ({ navigation }) => {
 					style={{ alignSelf: 'center', marginLeft: 10 }}
 				/>
 			</View>
+			<View style={styles.menuContainer}>
+				{dashMenus.map((menu, index) => (
+					<Button key={index} title={menu.name} type="outline" containerStyle={styles.menu} />
+				))}
+			</View>
 			<FlatList
 				data={dashMenus}
 				horizontal
@@ -91,6 +96,12 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#000',
 		flex: 1,
+	},
+	menuContainer: {
+		flexDirection: 'row',
+	},
+	menu: {
+		flexGrow: 1,
 	},
 });
 
