@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {
 	View,
 	StyleSheet,
@@ -24,9 +24,11 @@ import BlockedList from '../components/BlockedList';
 import WhiteText from '../components/WhiteText';
 
 const DashScreen = ({ navigation }) => {
+	const listRef = useRef();
 	const { addFriend, unblock, state } = useContext(ChannelContext);
 	const socket = useContext(SocketContext);
 	const [userSearch, setUserSearch] = useState('');
+	const [menuIndex, setMenuIndex] = useState(0);
 
 	const handleClick = () => {
 		// showForm({ show: 'edit_user' });
@@ -44,12 +46,27 @@ const DashScreen = ({ navigation }) => {
 		console.log('socket emitting search');
 	};
 
+	const handleMenuClick = index => {
+		setMenuIndex(index);
+		listRef.current.scrollToIndex({ animated: true, index: index });
+	};
+
 	const dashMenus = [
 		{ name: 'search', comp: <UserSearchList user={state.currentUser} /> },
 		{ name: 'friends', comp: <FriendsList user={state.currentUser} /> },
 		{ name: 'pending', comp: <PendingList user={state.currentUser} /> },
 		{ name: 'blocked', comp: <BlockedList user={state.currentUser} /> },
 	];
+
+	function onScrollEnd(e) {
+		let contentOffset = e.nativeEvent.contentOffset;
+		let viewSize = e.nativeEvent.layoutMeasurement;
+
+		// Divide the horizontal offset by the width of the view to see which page is visible
+		let pageNum = Math.round(contentOffset.x / viewSize.width);
+		// console.log('scrolled to page ', pageNum);
+		setMenuIndex(pageNum);
+	}
 
 	return (
 		<View style={styles.container}>
@@ -66,10 +83,18 @@ const DashScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.menuContainer}>
 				{dashMenus.map((menu, index) => (
-					<Button key={index} title={menu.name} type="outline" containerStyle={styles.menu} />
+					<Button
+						key={index}
+						title={menu.name}
+						type={menuIndex === index ? 'solid' : 'outline'}
+						containerStyle={styles.menu}
+						onPress={() => handleMenuClick(index)}
+					/>
 				))}
 			</View>
 			<FlatList
+				ref={listRef}
+				onMomentumScrollEnd={onScrollEnd}
 				data={dashMenus}
 				horizontal
 				pagingEnabled={true}
@@ -78,7 +103,7 @@ const DashScreen = ({ navigation }) => {
 					return item.comp;
 				}}
 			/>
-			<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
+			<Button buttonStyle={styles.button} raised title="Cancel" onPress={cancelForm} />
 		</View>
 	);
 };
