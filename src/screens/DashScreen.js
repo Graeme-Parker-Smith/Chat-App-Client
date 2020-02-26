@@ -8,6 +8,7 @@ import {
 	TouchableOpacity,
 	TouchableHighlight,
 	FlatList,
+	Platform,
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
@@ -22,6 +23,7 @@ import UserSearchList from '../components/UserSearchList';
 import PendingList from '../components/PendingList';
 import BlockedList from '../components/BlockedList';
 import WhiteText from '../components/WhiteText';
+import { back } from '../navigationRef';
 
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
@@ -70,11 +72,26 @@ const DashScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.userBox}>
-				<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
-				<WhiteText>{state.currentUser.username}</WhiteText>
-				<WhiteText>Account created on {state.currentUser.createdAt}</WhiteText>
-				<WhiteText>Messages Sent: {state.currentUser.msgsSent}</WhiteText>
+			<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+				<Button
+					containerStyle={{ alignSelf: 'center' }}
+					buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
+					icon={
+						<TouchableOpacity onPress={cancelForm}>
+							<Entypo name="back" color="#0af" size={50} />
+						</TouchableOpacity>
+					}
+					type="outline"
+					titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
+				/>
+				<View style={{ marginTop: 10 }}>
+					<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
+				</View>
+				<View style={styles.userBox}>
+					<WhiteText>{state.currentUser.username}</WhiteText>
+					<WhiteText>Account created on {state.currentUser.createdAt}</WhiteText>
+					<WhiteText>Messages Sent: {state.currentUser.msgsSent}</WhiteText>
+				</View>
 			</View>
 			<View style={styles.menuContainer}>
 				{dashMenus.map((menu, index) => (
@@ -98,7 +115,7 @@ const DashScreen = ({ navigation }) => {
 					return item.comp;
 				}}
 			/>
-			<Button buttonStyle={styles.button} raised title="Cancel" onPress={cancelForm} />
+			{/* <Button buttonStyle={styles.button} raised title="Cancel" onPress={cancelForm} /> */}
 		</View>
 	);
 };
