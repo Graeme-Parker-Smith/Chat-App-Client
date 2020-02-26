@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Input } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
@@ -74,12 +74,12 @@ const InviteMenu = ({ roomName }) => {
 									autoCapitalize="none"
 									autoCorrect={false}
 									inputStyle={{ color: 'white' }}
-									returnKeyType="submit"
+									returnKeyType="send"
 									selectTextOnFocus={true}
 									onSubmitEditing={handleSubmit}
 								/>
-								<TouchableHighlight onPress={handleSubmit}>
-									<Button title="Send Invite" />
+								<TouchableHighlight >
+									<Button title="Send Invite" onPress={handleSubmit} />
 								</TouchableHighlight>
 							</View>
 						</View>
