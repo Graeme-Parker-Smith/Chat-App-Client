@@ -28,6 +28,7 @@ import { Video } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import imgUpload from '../helpers/imgUpload';
 import base64 from 'react-native-base64';
+import InviteMenu from '../components/InviteMenu';
 
 // let _layoutsMap = [];
 let itemHeights = [];
@@ -400,7 +401,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				<View style={{ flexDirection: 'row' }}>
 					<Button
 						containerStyle={{ alignSelf: 'center' }}
-						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25  }}
+						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
 						title="Back To Channels"
 						onPress={() => {
 							back('Account');
@@ -408,17 +409,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						type="clear"
 						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/>
+					{roomType === 'private' ? <InviteMenu roomName={roomName} /> : null}
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
 						@{roomName} ({users.length} users online): {userList}
 					</Text>
-					{roomType === 'private' ? (
-						<MaterialIcons
-							name="person-add"
-							size={20}
-							color="#0af"
-							onPress={() => console.log('pressed invite user button!')}
-						/>
-					) : null}
 				</View>
 				{!isCloseToBottom(scrollValues) ? (
 					<Button
