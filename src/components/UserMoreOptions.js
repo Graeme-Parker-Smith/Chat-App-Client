@@ -9,6 +9,7 @@ const UserMoreOptions = ({ friend }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
 
 	const isFriend = state.currentUser.friends.some(f => f._id === friend._id);
+	const isPending = state.currentUser.pending.some(f => f._id === friend._id);
 	const isBlocked = state.currentUser.blocked.some(b => b._id === friend._id);
 
 	return (
@@ -62,10 +63,10 @@ const UserMoreOptions = ({ friend }) => {
 								</TouchableHighlight>
 							</View>
 
-							{isFriend ? (
+							{isFriend || isPending ? (
 								<Button
 									containerStyle={styles.modalButton}
-									title="Remove Friend"
+									title={isFriend ? 'Remove Friend' : 'Cancel Request'}
 									onPress={() =>
 										addFriend({
 											username: state.currentUser.username,
@@ -128,8 +129,8 @@ const styles = {
 	modalButton: {
 		margin: 10,
 		marginTop: 5,
-		marginBottom: 5
-	}
-}
+		marginBottom: 5,
+	},
+};
 
 export default UserMoreOptions;
