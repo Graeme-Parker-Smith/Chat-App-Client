@@ -15,7 +15,9 @@ const UserSearchItem = ({ friend, showPanel, currentUser }) => {
 		showPanel('user_dash', friend);
 	};
 	let status;
-	currentUser.friends.some(f => f.username === friend.username) ? (status = 'added') : (status = 'add');
+	if (currentUser.friends.some(f => f._id === friend._id)) status = 'added';
+	else if (currentUser.pending.some(f => f._id === friend._id)) status = 'pending';
+	else status = 'add';
 
 	return (
 		<ListItem
