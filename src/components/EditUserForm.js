@@ -5,8 +5,9 @@ import { Context as ChannelContext } from '../context/ChannelContext';
 import { Context as AuthContext } from '../context/AuthContext';
 import Spacer from './Spacer';
 import AvatarPicker from './AvatarPicker';
+import LoadingIndicator from './LoadingIndicator';
 
-const EditUserForm = ({ showForm, setIsLoading }) => {
+const EditUserForm = ({ showForm }) => {
 	const {
 		state: { currentUser },
 		updateUser,
@@ -16,6 +17,7 @@ const EditUserForm = ({ showForm, setIsLoading }) => {
 	const [newUsername, setNewUsername] = useState(currentUser.username);
 	const [newPassword, setNewPassword] = useState('');
 	const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = async () => {
 		setIsLoading(true);
@@ -27,12 +29,13 @@ const EditUserForm = ({ showForm, setIsLoading }) => {
 		});
 		showForm(false);
 		await fetchChannels();
-		setIsLoading(false);
 	};
 
 	const cancelForm = () => {
-		showForm({ show: 'user_dash', item: currentUser });
+		showForm(false);
 	};
+
+	if (isLoading) return <LoadingIndicator />;
 
 	return (
 		<View style={styles.container}>
