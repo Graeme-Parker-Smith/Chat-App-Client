@@ -442,6 +442,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						}}
 						bounces={false}
 						indicatorStyle="white"
+						keyboardDismissMode="interactive"
+						keyboardShouldPersistTaps={'always'}
 						ref={scrollViewRef}
 						onContentSizeChange={handleAutoScroll}
 						onScroll={handleScroll}
@@ -471,6 +473,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					autoFocus
 					value={content}
 					onChangeText={setContent}
+					blurOnSubmit={false}
+					onSubmitEditing={sendNewMessage}
 					placeholder="Type Your message here"
 					inputStyle={{ color: '#fff' }}
 					placeholderTextColor="#fff"
