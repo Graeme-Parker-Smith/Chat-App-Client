@@ -75,13 +75,6 @@ const DashScreen = ({ navigation }) => {
 				<WhiteText>{state.currentUser.username}</WhiteText>
 				<WhiteText>Account created on {state.currentUser.createdAt}</WhiteText>
 				<WhiteText>Messages Sent: {state.currentUser.msgsSent}</WhiteText>
-				<Entypo
-					name="edit"
-					color="#0af"
-					size={32}
-					onPress={handleClick}
-					style={{ alignSelf: 'center', marginLeft: 10 }}
-				/>
 			</View>
 			<View style={styles.menuContainer}>
 				{dashMenus.map((menu, index) => (
