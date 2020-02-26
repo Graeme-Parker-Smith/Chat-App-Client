@@ -396,7 +396,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	return (
 		<SafeAreaView style={styles.body}>
 			<NavigationEvents onWillFocus={handleOnFocus} />
-			{/* <KeyboardShift messages={state}> */}
 			<View style={{ marginTop: 0, backgroundColor: '#000' }}>
 				<View style={{ flexDirection: 'row' }}>
 					<Button
@@ -500,24 +499,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						/>
 					}
 				/>
-				{/* <Button title="Send Message" onPress={sendNewMessage} /> */}
 			</View>
-			{/* </KeyboardShift> */}
 		</SafeAreaView>
 	);
 };
-
-RoomScreen.navigationOptions = ({ navigation }) => ({
-	title: 'roomScreen',
-	titleStyle: { color: '#0af' },
-	headerRight: (
-		// <Text style={{ marginLeft: 20, fontSize: 20, color: '#fff' }}>
-		// 	{/* @{roomName} ({users.length} users online): {userList} */}
-		// 	Hello
-		// </Text>
-		<Button title="Back To Channels" type="clear" titleStyle={{ color: 'rgba(0,122,255,1)' }} />
-	),
-});
 
 const styles = StyleSheet.create({
 	body: {
