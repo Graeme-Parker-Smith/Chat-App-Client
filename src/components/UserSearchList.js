@@ -41,6 +41,11 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 		}
 	};
 
+	// Warning: Can't perform a React state update on an unmounted component.
+	//  This is a no-op, but it indicates a memory leak in your application. To fix, cancel
+	//  all subscriptions and asynchronous tasks in %s.%s, a useEffect cleanup function,
+	//   in UserSearchList (at DashScreen.js:55)
+
 	return (
 		<View style={styles.container}>
 			<WhiteText>Search</WhiteText>
