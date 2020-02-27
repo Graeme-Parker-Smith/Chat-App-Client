@@ -98,9 +98,9 @@ const fetchChannels = dispatch => async () => {
 	}
 };
 
-const createChannel = dispatch => async ({ name, creator, avatar }) => {
+const createChannel = dispatch => async ({ name, creator, avatar, shouldExpire }) => {
 	const cloudUrl = await imgUpload(avatar);
-	const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl });
+	const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, shouldExpire });
 	// console.log("Channel saved!");
 	dispatch({
 		type: 'create_channel',

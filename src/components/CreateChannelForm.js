@@ -20,7 +20,12 @@ const CreateChannelForm = ({ showForm }) => {
 
 	const handleSubmit = async () => {
 		setIsLoading(true);
-		await createChannel({ name: newChannelName, creator: state.currentUser.username, avatar: avatar.base64Uri });
+		await createChannel({
+			name: newChannelName,
+			creator: state.currentUser.username,
+			avatar: avatar.base64Uri,
+			shouldExpire: checked,
+		});
 		setNewChannelName('');
 		setIsLoading(false);
 		showForm(false);
