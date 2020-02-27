@@ -35,7 +35,7 @@ const addFriend = dispatch => async ({ username, friendName, shouldRemove = fals
 			username,
 			friendName,
 			shouldRemove,
-			shouldBlock
+			shouldBlock,
 		});
 		console.log(response.data);
 		dispatch({ type: 'add_friend', payload: response.data });
@@ -98,9 +98,9 @@ const fetchChannels = dispatch => async () => {
 	}
 };
 
-const createChannel = dispatch => async ({ name, creator, avatar, shouldExpire }) => {
+const createChannel = dispatch => async ({ name, creator, avatar, shouldExpire, msgExpiry }) => {
 	const cloudUrl = await imgUpload(avatar);
-	const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, shouldExpire });
+	const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, shouldExpire, msgExpiry });
 	// console.log("Channel saved!");
 	dispatch({
 		type: 'create_channel',
