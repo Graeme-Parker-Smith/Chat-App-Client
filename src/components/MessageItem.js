@@ -27,7 +27,6 @@ const MessageItem = ({
 
 	// If user avatar, display that in left icon, else use default avatar
 	let avatarImage;
-	console.log("avatar", avatar)
 	if (avatar) {
 		avatarImage = (
 			<View>
