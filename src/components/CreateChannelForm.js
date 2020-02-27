@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, CheckBox } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
@@ -11,6 +11,7 @@ const CreateChannelForm = ({ showForm }) => {
 	const { state, createChannel } = useContext(ChannelContext);
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [checked, setChecked] = useState(false);
 
 	const cancelForm = () => {
 		showForm(false);
@@ -28,6 +29,12 @@ const CreateChannelForm = ({ showForm }) => {
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
+			<CheckBox
+				center
+				title="Delete channel after 60 seconds"
+				checked={checked}
+				onPress={() => setChecked(!checked)}
+			/>
 			<Input
 				value={newChannelName}
 				onChangeText={setNewChannelName}
