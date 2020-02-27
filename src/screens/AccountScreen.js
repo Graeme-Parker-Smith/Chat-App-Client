@@ -17,7 +17,6 @@ const AccountScreen = ({ navigation }) => {
 	const { state, fetchChannels, addFriend, clearState } = useContext(ChannelContext);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	// const [userSearch, setUserSearch] = useState('');
 	const [channelSearch, setChannelSearch] = useState('');
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
