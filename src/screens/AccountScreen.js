@@ -60,7 +60,6 @@ const AccountScreen = ({ navigation }) => {
 		);
 	}
 
-	console.log('formState', formState);
 	if (formState) {
 		return <FormHandler formState={formState} setFormState={setFormState} setIsLoading={setIsLoading} />;
 	}

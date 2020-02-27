@@ -12,6 +12,7 @@ const CreateChannelForm = ({ showForm }) => {
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [checked, setChecked] = useState(false);
+	console.log('checked', checked);
 
 	const cancelForm = () => {
 		showForm(false);

@@ -4,7 +4,6 @@ import CreatePrivateChannelForm from '../components/CreatePrivateChannelForm';
 import EditUserForm from '../components/EditUserForm';
 import EditChannelForm from '../components/EditChannelForm';
 import EditPrivateChannelForm from '../components/EditPrivateChannelForm';
-import UserDash from '../components/UserDash';
 
 const FormHandler = ({ formState, setFormState, setIsLoading }) => {
 	switch (formState.show) {
