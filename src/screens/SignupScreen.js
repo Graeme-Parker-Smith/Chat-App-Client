@@ -21,13 +21,6 @@ const SignupScreen = () => {
 		_passwordInput && _passwordInput.focus();
 	};
 
-	// const _toPassword = () => {
-	//   _passwordInput && _passwordInput.focus();
-	// }
-
-	// const _submit = () => {
-
-	// }
 
 	const handleSignup = () => {
 		setIsLoading(true);
