@@ -14,8 +14,6 @@ const FormHandler = ({ formState, setFormState, setIsLoading }) => {
 			return <CreatePrivateChannelForm showForm={setFormState} setIsLoading={setIsLoading} />;
 		case 'edit_user':
 			return <EditUserForm showForm={setFormState} setIsLoading={setIsLoading} />;
-		case 'user_dash':
-			return <UserDash user={formState.item} showForm={setFormState} setIsLoading={setIsLoading} />;
 		case 'edit_public':
 			return (
 				<EditChannelForm
