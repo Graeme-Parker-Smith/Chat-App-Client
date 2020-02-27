@@ -12,7 +12,6 @@ const CreateChannelForm = ({ showForm }) => {
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [checked, setChecked] = useState(false);
-	const [mchecked, setmChecked] = useState(false);
 	console.log('checked', checked);
 
 	const cancelForm = () => {
@@ -26,7 +25,6 @@ const CreateChannelForm = ({ showForm }) => {
 			creator: state.currentUser.username,
 			avatar: avatar.base64Uri,
 			shouldExpire: checked,
-			msgExpiry: mchecked ? 60 : undefined,
 		});
 		setNewChannelName('');
 		setIsLoading(false);
@@ -42,12 +40,6 @@ const CreateChannelForm = ({ showForm }) => {
 				title="Delete channel after 60 seconds"
 				checked={checked}
 				onPress={() => setChecked(!checked)}
-			/>
-			<CheckBox
-				center
-				title="Delete msgs after 60 seconds"
-				checked={mchecked}
-				onPress={() => setmChecked(!mchecked)}
 			/>
 			<Input
 				value={newChannelName}
