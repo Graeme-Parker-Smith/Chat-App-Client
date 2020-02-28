@@ -4,14 +4,13 @@ import { Button, Input } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
-const EditMessageForm = ({ currentContent }) => {
-	const [modalVisible, setModalVisible] = useState(false);
+const EditMessageForm = ({ currentContent, editMessageVisible, setEditMessageVisible }) => {
 	const [content, setContent] = useState(currentContent);
 	const { addFriend, unblock, state, invite } = useContext(ChannelContext);
 
 	const handleSubmit = async () => {
 		// await invite({ invitee, roomName });
-		setModalVisible(false);
+		setEditMessageVisible(false);
 	};
 
 	return (
@@ -20,7 +19,7 @@ const EditMessageForm = ({ currentContent }) => {
 				style={{ width: 50, height: 50 }}
 				animationType="slide"
 				transparent={true}
-				visible={modalVisible}
+				visible={editMessageVisible}
 				onRequestClose={() => {
 					console.log('Modal has been closed.');
 				}}
@@ -33,7 +32,7 @@ const EditMessageForm = ({ currentContent }) => {
 						alignItems: 'center',
 						backgroundColor: '#00000080',
 					}}
-					onPress={() => setModalVisible(!modalVisible)}
+					onPress={() => setEditMessageVisible(!editMessageVisible)}
 				>
 					<TouchableOpacity
 						activeOpacity={1}
@@ -53,14 +52,14 @@ const EditMessageForm = ({ currentContent }) => {
 							>
 								<TouchableHighlight
 									onPress={() => {
-										setModalVisible(!modalVisible);
+										setEditMessageVisible(!editMessageVisible);
 									}}
 								>
 									<MaterialIcons
 										name="cancel"
 										size={30}
 										color="red"
-										onPress={() => setModalVisible(!modalVisible)}
+										onPress={() => setEditMessageVisible(!editMessageVisible)}
 									/>
 								</TouchableHighlight>
 							</View>
@@ -87,7 +86,7 @@ const EditMessageForm = ({ currentContent }) => {
 				</TouchableHighlight>
 			</Modal>
 
-			<TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => setModalVisible(true)}>
+			<TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => setEditMessageVisible(true)}>
 				<MaterialIcons name="person-add" size={40} color="#0af" />
 			</TouchableOpacity>
 		</View>
