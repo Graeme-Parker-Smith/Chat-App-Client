@@ -10,6 +10,7 @@ const EditMessageForm = ({ currentContent, editMessageVisible, setEditMessageVis
 
 	const handleSubmit = async () => {
 		// await invite({ invitee, roomName });
+		console.log('message edited');
 		setEditMessageVisible(false);
 	};
 

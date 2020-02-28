@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react';
 import { StyleSheet, Image, View, Dimensions } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import EditMessageForm from './EditMessageForm';
 import timeConverter from '../helpers/timeConverter';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
@@ -72,7 +73,9 @@ const MessageItem = ({
 		console.log('msg creator', username);
 		console.log('isOwner', isOwner);
 		console.log('itemId', itemId);
-		setEditMessageVisible(true);
+		if (isOwner) {
+			setEditMessageVisible(true);
+		}
 	};
 
 	// check whether subtitle prop should render content as Text, Image, or Video
