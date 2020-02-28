@@ -4,9 +4,9 @@ import { Button, Input } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
-const EditMessageForm = ({ roomName }) => {
+const EditMessageForm = ({ currentContent }) => {
 	const [modalVisible, setModalVisible] = useState(false);
-	const [content, setContent] = useState('');
+	const [content, setContent] = useState(currentContent);
 	const { addFriend, unblock, state, invite } = useContext(ChannelContext);
 
 	const handleSubmit = async () => {
