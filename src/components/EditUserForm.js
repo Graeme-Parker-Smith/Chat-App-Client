@@ -13,7 +13,7 @@ const EditUserForm = ({ showForm }) => {
 		updateUser,
 		fetchChannels,
 	} = useContext(ChannelContext);
-	const { tryLocalSignin } = useContext(AuthContext);
+	const { deleteUser } = useContext(AuthContext);
 	const [newUsername, setNewUsername] = useState(currentUser.username);
 	const [newPassword, setNewPassword] = useState('');
 	const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
@@ -33,6 +33,14 @@ const EditUserForm = ({ showForm }) => {
 
 	const cancelForm = () => {
 		showForm(false);
+	};
+
+	const handleDelete = async () => {
+		showForm('');
+		await deleteUser({
+			username: currentUser.username,
+			user_id: currentUser._id,
+		});
 	};
 
 	if (isLoading) return <LoadingIndicator />;
@@ -67,6 +75,7 @@ const EditUserForm = ({ showForm }) => {
 			<View style={styles.buttonRow}>
 				<Button buttonStyle={styles.button} title="Update User Info" onPress={handleSubmit} />
 				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
+				<Button buttonStyle={styles.deleteButton} title="Delete Account" onPress={handleDelete} />
 			</View>
 		</View>
 	);
@@ -80,6 +89,10 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		padding: 10,
+	},
+	deleteButton: {
+		padding: 10,
+		backgroundColor: 'red',
 	},
 	buttonRow: {
 		flexDirection: 'row',

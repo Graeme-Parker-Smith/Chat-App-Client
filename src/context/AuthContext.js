@@ -110,6 +110,13 @@ const signin = dispatch => async ({ username, password }) => {
 	return 'error';
 };
 
+const deleteUser = dispatch => async ({ username, user_id }) => {
+	await chatApi.delete('/user', { params: { username, user_id } });
+	await AsyncStorage.removeItem('token');
+	dispatch({ type: 'signout' });
+	navigate('Signup');
+};
+
 const signout = dispatch => async () => {
 	await AsyncStorage.removeItem('token');
 	dispatch({ type: 'signout' });
@@ -118,6 +125,6 @@ const signout = dispatch => async () => {
 
 export const { Provider, Context } = createDataContext(
 	authReducer,
-	{ signup, signin, signout, clearErrorMessage, tryLocalSignin },
+	{ signup, signin, signout, clearErrorMessage, tryLocalSignin, deleteUser },
 	{ token: null, errorMessage: '' }
 );
