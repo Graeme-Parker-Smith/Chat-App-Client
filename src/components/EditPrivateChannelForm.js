@@ -16,7 +16,6 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
     deleteChannel,
 		invite,
 	} = useContext(ChannelContext);
-	const { tryLocalSignin } = useContext(AuthContext);
 	const [newName, setNewName] = useState(thisName);
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
   const [userSearch, setUserSearch] = useState('');
