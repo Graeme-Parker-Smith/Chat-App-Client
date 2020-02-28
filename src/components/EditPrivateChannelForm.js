@@ -21,13 +21,9 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
   const [userSearch, setUserSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-	console.log(thisName);
-	console.log(thisAvatar);
 	const channelInfo = privateChannels.find(channel => channel.name === thisName);
 	const channel_id = channelInfo._id;
-	console.log('channel_id', channel_id);
 	const channelCreator = channelInfo.creator;
-	console.log('channelCreator', channelCreator);
 	const userCanEdit = currentUser.username === channelCreator;
 
 	const handleSubmit = async () => {
