@@ -23,7 +23,7 @@ const CreateChannelForm = ({ showForm }) => {
 			name: newChannelName,
 			creator: state.currentUser.username,
 			avatar: avatar.base64Uri,
-			lifespan: lifespan > 0 ? lifespan : undefined,
+			lifespan: lifespan > 0 ? parseInt(lifespan) : undefined,
 		});
 		setNewChannelName('');
 		setLifespan(0);
@@ -51,10 +51,11 @@ const CreateChannelForm = ({ showForm }) => {
 				autoFocus={true}
 			/>
 			<Input
-				value={lifespan}
+				value={String(lifespan)}
 				onChangeText={setLifespan}
 				keyboardType="numeric"
-				label="Set time before channel deletes itself in minutes (optional). If empty or set to 0, channel will not expire."
+				selectTextOnFocus={true}
+				label="Set time before channel deletes itself in minutes (minimum 1 minute). If empty or set to 0, channel will not expire."
 				placeholder="Number of minutes"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
@@ -62,7 +63,12 @@ const CreateChannelForm = ({ showForm }) => {
 			/>
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
 			<View style={styles.buttonRow}>
-				<Button buttonStyle={styles.button} title="Create New Channel" onPress={handleSubmit} />
+				<Button
+					buttonStyle={styles.button}
+					disabled={!newChannelName}
+					title="Create New Channel"
+					onPress={handleSubmit}
+				/>
 				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
 			</View>
 		</SafeAreaView>
