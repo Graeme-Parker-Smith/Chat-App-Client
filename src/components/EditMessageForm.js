@@ -6,11 +6,11 @@ import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons
 
 const EditMessageForm = ({ roomName }) => {
 	const [modalVisible, setModalVisible] = useState(false);
-	const [invitee, setInvitee] = useState('');
+	const [content, setContent] = useState('');
 	const { addFriend, unblock, state, invite } = useContext(ChannelContext);
 
 	const handleSubmit = async () => {
-		await invite({ invitee, roomName });
+		// await invite({ invitee, roomName });
 		setModalVisible(false);
 	};
 
@@ -67,9 +67,9 @@ const EditMessageForm = ({ roomName }) => {
 							{/* modal menu starts here */}
 							<View>
 								<Input
-									label="invitee"
-									value={invitee}
-									onChangeText={setInvitee}
+									label="Message Content"
+									value={content}
+									onChangeText={setContent}
 									autoFocus={true}
 									autoCapitalize="none"
 									autoCorrect={false}
@@ -79,7 +79,7 @@ const EditMessageForm = ({ roomName }) => {
 									onSubmitEditing={handleSubmit}
 								/>
 								<TouchableHighlight>
-									<Button title="Send Invite" onPress={handleSubmit} />
+									<Button title="Update Message" onPress={handleSubmit} />
 								</TouchableHighlight>
 							</View>
 						</View>
