@@ -101,16 +101,15 @@ const fetchChannels = dispatch => async () => {
 const createChannel = dispatch => async ({ name, creator, avatar, lifespan }) => {
 	const cloudUrl = await imgUpload(avatar);
 	const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, lifespan });
-	// console.log("Channel saved!");
 	dispatch({
 		type: 'create_channel',
 		payload: response.data,
 	});
 };
 
-const createPrivateChannel = dispatch => async ({ name, creator, avatar }) => {
-	const response = await chatApi.post('/privatechannels', { name, creator, avatar });
-	// console.log("Channel saved!");
+const createPrivateChannel = dispatch => async ({ name, creator, avatar, lifespan }) => {
+	const cloudUrl = await imgUpload(avatar);
+	const response = await chatApi.post('/privatechannels', { name, creator, avatar: cloudUrl, lifespan });
 	dispatch({
 		type: 'create_private_channel',
 		payload: response.data,

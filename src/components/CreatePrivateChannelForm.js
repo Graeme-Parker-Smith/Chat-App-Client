@@ -4,25 +4,35 @@ import { Input, Button } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
 import { Context as ChannelContext } from "../context/ChannelContext";
 import AvatarPicker from "../components/AvatarPicker";
+import LoadingIndicator from './LoadingIndicator';
 
 const CreatePrivateChannelForm = ({ showForm }) => {
   const [newChannelName, setNewChannelName] = useState("");
   const { state, createPrivateChannel } = useContext(ChannelContext);
   const [avatar, setAvatar] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+	const [lifespan, setLifespan] = useState(0);
 
   const cancelForm = () => {
     showForm(false);
   };
 
-  const handleSubmit = () => {
-    createPrivateChannel({
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    await createPrivateChannel({
       name: newChannelName,
       creator: state.currentUser.username,
-      avatar: avatar.base64Uri
+      avatar: avatar.base64Uri,
+      lifespan: lifespan > 0 ? parseInt(lifespan) : undefined,
     });
     setNewChannelName("");
+    setLifespan(0);
+		setIsLoading(false);
     showForm(false);
   };
+
+	if (isLoading) return <LoadingIndicator />;
+
   return (
     <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
       <Input
@@ -34,6 +44,17 @@ const CreatePrivateChannelForm = ({ showForm }) => {
         placeholderTextColor="#fff"
         autoFocus={true}
       />
+      <Input
+				value={String(lifespan)}
+				onChangeText={setLifespan}
+				keyboardType="numeric"
+				selectTextOnFocus={true}
+				label="Set time before channel deletes itself in minutes (minimum 1 minute). If empty or set to 0, channel will not expire."
+				placeholder="Number of minutes"
+				inputContainerStyle={{ marginBottom: 20 }}
+				inputStyle={{ color: '#fff' }}
+				placeholderTextColor="#fff"
+			/>
       <AvatarPicker
         avatar={avatar}
         setAvatar={setAvatar}
