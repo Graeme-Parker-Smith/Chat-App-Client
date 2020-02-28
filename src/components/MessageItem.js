@@ -19,6 +19,7 @@ const MessageItem = ({
 	// setVideoState
 }) => {
 	const [vidRef, setVidRef] = useState('');
+	const [editMessageVisible, setEditMessageVisible] = useState(false);
 	const isOwner = currentUserUsername === username;
 	// calculate how long ago msg was sent and create title content for msg
 	let howLongAgo;
@@ -71,6 +72,7 @@ const MessageItem = ({
 		console.log('msg creator', username);
 		console.log('isOwner', isOwner);
 		console.log('itemId', itemId);
+		setEditMessageVisible(true);
 	};
 
 	// check whether subtitle prop should render content as Text, Image, or Video
@@ -103,21 +105,32 @@ const MessageItem = ({
 	}
 
 	return (
-		<ListItem
-			containerStyle={
-				username === 'Admin' ? { ...styles.messageBody, backgroundColor: 'green' } : styles.messageBody(isImage)
-			}
-			title={deets}
-			titleStyle={styles.title}
-			subtitle={renderedContent}
-			subtitleStyle={styles.subtitle}
-			leftAvatar={avatarImage}
-			onLongPress={handleLongPress}
-			// onLayout={event => {
-			//   const layout = event.nativeEvent.layout;
-			//   addToLayoutsMap(layout, index);
-			// }}
-		></ListItem>
+		<>
+			{editMessageVisible ? (
+				<EditMessageForm
+					currentContent={content}
+					editMessageVisible={editMessageVisible}
+					setEditMessageVisible={setEditMessageVisible}
+				/>
+			) : null}
+			<ListItem
+				containerStyle={
+					username === 'Admin'
+						? { ...styles.messageBody, backgroundColor: 'green' }
+						: styles.messageBody(isImage)
+				}
+				title={deets}
+				titleStyle={styles.title}
+				subtitle={renderedContent}
+				subtitleStyle={styles.subtitle}
+				leftAvatar={avatarImage}
+				onLongPress={handleLongPress}
+				// onLayout={event => {
+				//   const layout = event.nativeEvent.layout;
+				//   addToLayoutsMap(layout, index);
+				// }}
+			></ListItem>
+		</>
 	);
 };
 
