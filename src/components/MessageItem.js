@@ -103,6 +103,7 @@ const MessageItem = ({
 			subtitle={renderedContent}
 			subtitleStyle={styles.subtitle}
 			leftAvatar={avatarImage}
+			onLongPress={() => console.log('long pressed msg item')}
 			// onLayout={event => {
 			//   const layout = event.nativeEvent.layout;
 			//   addToLayoutsMap(layout, index);
