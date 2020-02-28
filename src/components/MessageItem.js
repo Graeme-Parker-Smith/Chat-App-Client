@@ -8,6 +8,8 @@ import { Video } from 'expo-av';
 const DefaultAvatar = () => <Entypo name="user" size={20} color="#0af" />;
 
 const MessageItem = ({
+	currentUserUsername,
+	itemId,
 	content,
 	username,
 	time,
@@ -17,6 +19,7 @@ const MessageItem = ({
 	// setVideoState
 }) => {
 	const [vidRef, setVidRef] = useState('');
+	const isOwner = currentUserUsername === username;
 	// calculate how long ago msg was sent and create title content for msg
 	let howLongAgo;
 	if (time) {
@@ -64,6 +67,12 @@ const MessageItem = ({
 		setVidRef(playbackObject);
 	};
 
+	const handleLongPress = () => {
+		console.log('msg creator', username);
+		console.log('isOwner', isOwner);
+		console.log('itemId', itemId);
+	};
+
 	// check whether subtitle prop should render content as Text, Image, or Video
 	let renderedContent;
 	if (isVideo) {
@@ -103,7 +112,7 @@ const MessageItem = ({
 			subtitle={renderedContent}
 			subtitleStyle={styles.subtitle}
 			leftAvatar={avatarImage}
-			onLongPress={() => console.log('long pressed msg item')}
+			onLongPress={handleLongPress}
 			// onLayout={event => {
 			//   const layout = event.nativeEvent.layout;
 			//   addToLayoutsMap(layout, index);

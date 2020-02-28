@@ -363,6 +363,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const renderItemOutside = (item, index) => {
 		return (
 			<MessageItem
+				currentUserUsername={username}
+				itemId={item._id}
 				content={item.content}
 				username={item.creator}
 				time={item.time}
