@@ -70,7 +70,6 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 		if (!userCanEdit) {
 			return;
 		}
-		// setIsLoading(true);
     showForm('');
 		await deleteChannel({
 			username: currentUser.username,
@@ -79,7 +78,6 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
       isPrivate: true
 		});
 		await fetchChannels();
-		// setIsLoading(false);
   };
   
   if (isLoading) return <LoadingIndicator />;

@@ -21,12 +21,9 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const channelInfo = channels.find(channel => channel.name === thisName);
 	const channel_id = channelInfo._id;
-	console.log('channel_id', channel_id);
 	const channelCreator = channelInfo.creator;
-	console.log('channelCreator', channelCreator);
 	const userCanEdit = currentUser.username === channelCreator;
-	// console.log(thisName);
-	// console.log(thisAvatar);
+
 
 	const handleSubmit = async () => {
 		if (!userCanEdit) {
@@ -53,7 +50,6 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 		if (!userCanEdit) {
 			return;
 		}
-		// setIsLoading(true);
 		showForm('');
 		await deleteChannel({
 			username: currentUser.username,
@@ -61,7 +57,6 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 			channel_id: channel_id,
 		});
 		await fetchChannels();
-		// setIsLoading(false);
 	};
 
 	if (isLoading) return <LoadingIndicator />;
