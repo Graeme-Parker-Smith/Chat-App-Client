@@ -11,8 +11,7 @@ const CreateChannelForm = ({ showForm }) => {
 	const { state, createChannel } = useContext(ChannelContext);
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [checked, setChecked] = useState(false);
-	console.log('checked', checked);
+	const [lifespan, setLifespan] = useState(0);
 
 	const cancelForm = () => {
 		showForm(false);
@@ -24,9 +23,10 @@ const CreateChannelForm = ({ showForm }) => {
 			name: newChannelName,
 			creator: state.currentUser.username,
 			avatar: avatar.base64Uri,
-			shouldExpire: checked,
+			lifespan: lifespan > 0 ? lifespan : undefined,
 		});
 		setNewChannelName('');
+		setLifespan(0);
 		setIsLoading(false);
 		showForm(false);
 	};
@@ -35,12 +35,12 @@ const CreateChannelForm = ({ showForm }) => {
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-			<CheckBox
+			{/* <CheckBox
 				center
 				title="Delete channel after 60 seconds"
 				checked={checked}
 				onPress={() => setChecked(!checked)}
-			/>
+			/> */}
 			<Input
 				value={newChannelName}
 				onChangeText={setNewChannelName}
@@ -49,6 +49,16 @@ const CreateChannelForm = ({ showForm }) => {
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
 				autoFocus={true}
+			/>
+			<Input
+				value={lifespan}
+				onChangeText={setLifespan}
+				keyboardType="numeric"
+				label="Set time before channel deletes itself in minutes (optional). If empty or set to 0, channel will not expire."
+				placeholder="Number of minutes"
+				inputContainerStyle={{ marginBottom: 20 }}
+				inputStyle={{ color: '#fff' }}
+				placeholderTextColor="#fff"
 			/>
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
 			<View style={styles.buttonRow}>
