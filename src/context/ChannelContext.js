@@ -22,6 +22,8 @@ const channelReducer = (state, action) => {
 				...state,
 				privateChannels: [...state.privateChannels, action.payload],
 			};
+		case 'delete_channel':
+			return { ...state, channels: action.payload.channels, privateChannels: action.payload.privateChannels };
 		case 'clear_state':
 			return { currentUser: null, channels: [], privateChannels: [] };
 		default:
@@ -116,6 +118,15 @@ const createPrivateChannel = dispatch => async ({ name, creator, avatar, lifespa
 	});
 };
 
+const deleteChannel = dispatch => async ({ username, roomName, channel_id, isPrivate }) => {
+	console.log('channel_id in context', channel_id);
+	const response = await chatApi.delete('/channels', { params: { username, roomName, channel_id, isPrivate } });
+	dispatch({
+		type: 'delete_channel',
+		payload: response.data,
+	});
+};
+
 const clearState = dispatch => () => {
 	dispatch({ type: 'clear_state' });
 };
@@ -131,6 +142,7 @@ export const { Provider, Context } = createDataContext(
 		addFriend,
 		unblock,
 		invite,
+		deleteChannel,
 		clearState,
 	},
 	{ currentUser: null, channels: [], privateChannels: [], PMs: [] }
