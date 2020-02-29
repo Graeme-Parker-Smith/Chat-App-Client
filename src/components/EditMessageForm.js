@@ -1,13 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
 import { Button, Input } from 'react-native-elements';
-import { Context as ChannelContext } from '../context/ChannelContext';
+import { Context as MessageContext } from '../context/MessageContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
 const EditMessageForm = ({ currentContent, editMessageVisible, setEditMessageVisible }) => {
+	const {updateMessage} = useContext(MessageContext);
 	const [content, setContent] = useState(currentContent);
 
 	const handleSubmit = async () => {
+		await updateMessage({currentContent, newContent: content})
 		console.log('message edited');
 		setEditMessageVisible(false);
 	};
