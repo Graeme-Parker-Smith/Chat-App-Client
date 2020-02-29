@@ -6,10 +6,8 @@ import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons
 
 const EditMessageForm = ({ currentContent, editMessageVisible, setEditMessageVisible }) => {
 	const [content, setContent] = useState(currentContent);
-	const { addFriend, unblock, state, invite } = useContext(ChannelContext);
 
 	const handleSubmit = async () => {
-		// await invite({ invitee, roomName });
 		console.log('message edited');
 		setEditMessageVisible(false);
 	};
