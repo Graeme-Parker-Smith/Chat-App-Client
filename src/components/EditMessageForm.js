@@ -4,12 +4,13 @@ import { Button, Input } from 'react-native-elements';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
-const EditMessageForm = ({ isOwner, currentContent, editMessageVisible, setEditMessageVisible }) => {
+const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, setEditMessageVisible }) => {
 	const { updateMessage } = useContext(MessageContext);
 	const [content, setContent] = useState(currentContent);
 
 	const handleSubmit = async () => {
-		await updateMessage({ currentContent, newContent: content });
+		if (!isOwner) return;
+		await updateMessage({ currentContent, newContent: content, itemId });
 		console.log('message edited');
 		setEditMessageVisible(false);
 	};
