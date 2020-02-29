@@ -111,6 +111,7 @@ const MessageItem = ({
 		<>
 			{editMessageVisible ? (
 				<EditMessageForm
+					isOwner={isOwner}
 					currentContent={content}
 					editMessageVisible={editMessageVisible}
 					setEditMessageVisible={setEditMessageVisible}

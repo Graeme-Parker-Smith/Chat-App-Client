@@ -4,12 +4,12 @@ import { Button, Input } from 'react-native-elements';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
-const EditMessageForm = ({ currentContent, editMessageVisible, setEditMessageVisible }) => {
-	const {updateMessage} = useContext(MessageContext);
+const EditMessageForm = ({ isOwner, currentContent, editMessageVisible, setEditMessageVisible }) => {
+	const { updateMessage } = useContext(MessageContext);
 	const [content, setContent] = useState(currentContent);
 
 	const handleSubmit = async () => {
-		await updateMessage({currentContent, newContent: content})
+		await updateMessage({ currentContent, newContent: content });
 		console.log('message edited');
 		setEditMessageVisible(false);
 	};
@@ -67,6 +67,7 @@ const EditMessageForm = ({ currentContent, editMessageVisible, setEditMessageVis
 							{/* modal menu starts here */}
 							<View>
 								<Input
+									disabled={!isOwner}
 									label="Message Content"
 									value={content}
 									onChangeText={setContent}
@@ -79,7 +80,7 @@ const EditMessageForm = ({ currentContent, editMessageVisible, setEditMessageVis
 									onSubmitEditing={handleSubmit}
 								/>
 								<TouchableHighlight>
-									<Button title="Update Message" onPress={handleSubmit} />
+									<Button disabled={!isOwner} title="Update Message" onPress={handleSubmit} />
 								</TouchableHighlight>
 							</View>
 						</View>
