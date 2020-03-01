@@ -87,8 +87,6 @@ const updateMessage = dispatch => ({ currentContent, newContent, itemId }) => {
 
 const sendNotification = dispatch => async ({ sender, messageBody, receiver }) => {
 	const response = await chatApi.post('/sendnotification', { sender, messageBody, receiver });
-
-	console.log(response);
 };
 
 export const { Provider, Context } = createDataContext(
