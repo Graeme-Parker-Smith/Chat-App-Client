@@ -336,7 +336,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			});
 			setTimeout(() => {
 				setLoading(false);
-				// console.log("LOADING IS DONE");
 			}, 100);
 		}
 	};
