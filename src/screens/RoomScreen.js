@@ -261,8 +261,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			base64: true,
 		});
 
-		// console.log(result);
-
 		if (!result.cancelled) {
 			const date = new Date();
 			const time = date.toLocaleString();
