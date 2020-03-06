@@ -1,7 +1,6 @@
 import createDataContext from './createDataContext';
 import chatApi from '../api/requester';
 import uuid from 'uuid/v4';
-import axios from 'axios';
 
 const messageReducer = (state, action) => {
 	switch (action.type) {
