@@ -10,7 +10,6 @@ import { navigate } from '../navigationRef';
 
 const UserPanel = ({ user, handleClick }) => {
 	const onPress = () => {
-		// console.log('userpanel user', user);
 		handleClick('user_dash', user);
 		navigate("Dash")
 	};
