@@ -50,7 +50,7 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 					<TouchableOpacity
 						activeOpacity={1}
 						onPress={() => console.log('Pressed inside modal!')}
-						style={{ width: 150, height: 210, backgroundColor: '#fff', paddingTop: 5, paddingBottom: 5 }}
+						style={{ width: 150, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
 					>
 						<View>
 							<View
@@ -95,7 +95,12 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 									<Button disabled={!isOwner} title="Update Message" onPress={handleSubmit} />
 								</TouchableHighlight>
 								<TouchableHighlight>
-									<Button disabled={!isOwner} title="Delete Message" onPress={handleDelete} />
+									<Button
+										disabled={!isOwner}
+										buttonStyle={{ backgroundColor: 'red' }}
+										title="Delete Message"
+										onPress={handleDelete}
+									/>
 								</TouchableHighlight>
 							</View>
 						</View>
