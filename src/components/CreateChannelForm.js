@@ -24,7 +24,8 @@ const CreateChannelForm = ({ showForm }) => {
 			name: newChannelName,
 			creator: state.currentUser.username,
 			avatar: avatar.base64Uri,
-			lifespan: lifespan > 0 ? parseInt(lifespan) : undefined,
+			lifespan: lifespan > 0 ? parseInt(lifespan) : null,
+			msgLife: msgLife > 0 ? parseInt(msgLife) : null,
 		});
 		setNewChannelName('');
 		setLifespan(0);

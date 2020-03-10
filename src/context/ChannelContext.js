@@ -100,9 +100,9 @@ const fetchChannels = dispatch => async () => {
 	}
 };
 
-const createChannel = dispatch => async ({ name, creator, avatar, lifespan }) => {
+const createChannel = dispatch => async ({ name, creator, avatar, lifespan, msgLife }) => {
 	const cloudUrl = await imgUpload(avatar);
-	const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, lifespan });
+	const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, lifespan, msgLife });
 	dispatch({
 		type: 'create_channel',
 		payload: response.data,
