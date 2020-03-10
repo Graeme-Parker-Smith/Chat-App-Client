@@ -5,13 +5,21 @@ import { Context as MessageContext } from '../context/MessageContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
 const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, setEditMessageVisible, channelId }) => {
-	const { updateMessage, fetchMessages } = useContext(MessageContext);
+	const { updateMessage, deleteMessage, fetchMessages } = useContext(MessageContext);
 	const [content, setContent] = useState(currentContent);
 
 	const handleSubmit = async () => {
 		if (!isOwner) return;
 		await updateMessage({ currentContent, newContent: content, itemId });
 		console.log('message edited');
+		setEditMessageVisible(false);
+		await fetchMessages(undefined, undefined, channelId);
+	};
+
+	const handleDelete = async () => {
+		if (!isOwner) return;
+		await deleteMessage({ itemId });
+		console.log('message deleted!');
 		setEditMessageVisible(false);
 		await fetchMessages(undefined, undefined, channelId);
 	};
@@ -83,6 +91,9 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 								/>
 								<TouchableHighlight>
 									<Button disabled={!isOwner} title="Update Message" onPress={handleSubmit} />
+								</TouchableHighlight>
+								<TouchableHighlight>
+									<Button disabled={!isOwner} title="Delete Message" onPress={handleDelete} />
 								</TouchableHighlight>
 							</View>
 						</View>

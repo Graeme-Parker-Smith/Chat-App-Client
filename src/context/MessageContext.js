@@ -80,8 +80,13 @@ const addQuickMessage = dispatch => ({ creator, avatar, content, time, roomName,
 };
 
 const updateMessage = dispatch => async ({ currentContent, newContent, itemId }) => {
-	const response = await chatApi.put('/messages', { currentContent, newContent, itemId });
-	dispatch({ type: 'update_message', payload: response.data });
+	await chatApi.put('/messages', { currentContent, newContent, itemId });
+	dispatch();
+};
+
+const deleteMessage = dispatch => async ({ itemId }) => {
+	await chatApi.delete('/messages', { params: { itemId } });
+	dispatch();
 };
 
 const sendNotification = dispatch => async ({ sender, messageBody, receiver }) => {
@@ -95,6 +100,7 @@ export const { Provider, Context } = createDataContext(
 		addMessage,
 		addQuickMessage,
 		updateMessage,
+		deleteMessage,
 		fetchEarlierMessages,
 		clearMessages,
 		sendNotification,
