@@ -126,6 +126,7 @@ const AccountScreen = ({ navigation }) => {
 				<View style={styles.channelDivider}>
 					<ChannelList
 						listData={state.channels}
+						PMs={[]}
 						channelType="public"
 						navigation={navigation}
 						currentUser={state.currentUser}
@@ -134,6 +135,7 @@ const AccountScreen = ({ navigation }) => {
 					/>
 					<ChannelList
 						listData={[...state.privateChannels, ...state.currentUser.friends]}
+						PMs={state.PMs}
 						channelType="private"
 						navigation={navigation}
 						currentUser={state.currentUser}

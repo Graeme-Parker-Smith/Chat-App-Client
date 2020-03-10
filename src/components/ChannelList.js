@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions }
 import { Input, Button, ListItem } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 
-const ChannelList = ({ listData, channelType, navigation, currentUser, handleEditChannel, channelSearch }) => {
+const ChannelList = ({ listData, channelType, navigation, currentUser, handleEditChannel, channelSearch, PMs }) => {
 	let color = '#808080';
 	if (channelType === 'private') color = '#301934';
 	if (channelType === 'pm') color = '#036';
@@ -18,13 +18,21 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 						(item.name && item.name.includes(channelSearch)) ||
 						(item.username && item.username.includes(channelSearch))
 					) {
+						let Pm_id;
+						if (item.username) {
+
+						let thisPM = PMs.find(pm => pm.members.includes(item.username));
+						console.log("thisPM", thisPM);
+						Pm_id = thisPM._id;
+						}
 						return (
 							<TouchableOpacity
 								onPress={() =>
 									navigation.navigate('Room', {
 										roomName: item.name ? item.name : item.username,
 										username: currentUser.username,
-										room_id: item.name ? item._id : [item.username, currentUser.username],
+										// room_id: item.name ? item._id : [item.username, currentUser.username],
+										room_id: item.name ? item._id : Pm_id,
 										roomType: item.username ? 'pm' : channelType,
 									})
 								}
