@@ -44,6 +44,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const roomName = navigation.getParam('roomName');
 	const roomType = navigation.getParam('roomType');
 	const room_id = navigation.getParam('room_id');
+	const friend = navigation.getParam('friend');
 
 	const [loading, setLoading] = useState(false);
 	const [keyboardShowing, setKeyboardShowing] = useState(false);
@@ -86,14 +87,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			backgroundColor: 'white',
 			headerRight: <Button title="Back To Channels" type="clear" titleStyle={{ color: 'rgba(0,122,255,1)' }} />,
 		});
-		let roomIdentifier;
-		if (roomType === 'pm') {
-			let arr = room_id.sort();
-			roomIdentifier = arr[0] + arr[1];
-		} else {
-			roomIdentifier = room_id;
-		}
-		socket.emit('join', { name: username, room: roomIdentifier }, error => {
+		socket.emit('join', { name: username, room: room_id }, error => {
 			if (error) {
 				if (error === 'Username is taken') {
 					navigation.replace('Account');
@@ -165,13 +159,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		if (!content) return;
 		const date = new Date();
 		const time = date.toLocaleString();
-		let roomIdentifier;
-		if (roomType === 'pm') {
-			let arr = room_id.sort();
-			roomIdentifier = arr[0] + arr[1];
-		} else {
-			roomIdentifier = room_id;
-		}
 		const messageToSend = {
 			creator: username,
 			avatar,
@@ -181,16 +168,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			isImage: false,
 			isVideo: false,
 			roomType,
-			room_id: roomIdentifier,
+			room_id: room_id
 		};
 		socket.emit('sendMessage', messageToSend);
 		if (roomType === 'pm') {
-			const receiver = room_id.filter(name => name !== username)[0];
-			const receiverProfile = currentUser.friends.find(friend => friend.username === receiver);
-			console.log("receiverProfile", receiverProfile);
-			const rec_id = receiverProfile._id;
+			const friend_id = friend._id;
 			console.log('receiver is: ', receiver);
-			sendNotification({ sender: currentUser._id, messageBody: content, receiver: rec_id });
+			sendNotification({ sender: currentUser._id, messageBody: content, receiver: friend_id });
 		}
 		setContent('');
 	};
