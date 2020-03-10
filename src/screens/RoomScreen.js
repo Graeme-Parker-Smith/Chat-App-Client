@@ -186,8 +186,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		socket.emit('sendMessage', messageToSend);
 		if (roomType === 'pm') {
 			const receiver = room_id.filter(name => name !== username)[0];
+			const receiverProfile = currentUser.friends.find(friend => friend.username === receiver);
+			console.log("receiverProfile", receiverProfile);
+			const rec_id = receiverProfile._id;
 			console.log('receiver is: ', receiver);
-			sendNotification({ sender: username, messageBody: content, receiver });
+			sendNotification({ sender: currentUser._id, messageBody: content, receiver: rec_id });
 		}
 		setContent('');
 	};
