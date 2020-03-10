@@ -81,12 +81,12 @@ const addQuickMessage = dispatch => ({ creator, avatar, content, time, roomName,
 
 const updateMessage = dispatch => async ({ currentContent, newContent, itemId }) => {
 	await chatApi.put('/messages', { currentContent, newContent, itemId });
-	dispatch();
+	dispatch({ type: null, payload: null });
 };
 
 const deleteMessage = dispatch => async ({ itemId }) => {
 	await chatApi.delete('/messages', { params: { itemId } });
-	dispatch();
+	dispatch({ type: null, payload: null });
 };
 
 const sendNotification = dispatch => async ({ sender, messageBody, receiver }) => {

@@ -17,7 +17,9 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 	};
 
 	const handleDelete = async () => {
+		console.log('pressed Delete Button. isOwner?: ', isOwner);
 		if (!isOwner) return;
+		// console.log('itemId', itemId);
 		await deleteMessage({ itemId });
 		console.log('message deleted!');
 		setEditMessageVisible(false);
@@ -48,7 +50,7 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 					<TouchableOpacity
 						activeOpacity={1}
 						onPress={() => console.log('Pressed inside modal!')}
-						style={{ width: 150, height: 110, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
+						style={{ width: 150, height: 210, backgroundColor: '#fff', paddingTop: 5, paddingBottom: 5 }}
 					>
 						<View>
 							<View
