@@ -4,8 +4,8 @@ import { Button, Input } from 'react-native-elements';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
-const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, setEditMessageVisible }) => {
-	const { updateMessage } = useContext(MessageContext);
+const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, setEditMessageVisible, channelId }) => {
+	const { updateMessage, fetchMessages } = useContext(MessageContext);
 	const [content, setContent] = useState(currentContent);
 
 	const handleSubmit = async () => {
@@ -13,6 +13,7 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 		await updateMessage({ currentContent, newContent: content, itemId });
 		console.log('message edited');
 		setEditMessageVisible(false);
+		await fetchMessages(undefined, undefined, channelId);
 	};
 
 	return (
@@ -88,10 +89,6 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 					</TouchableOpacity>
 				</TouchableHighlight>
 			</Modal>
-
-			<TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => setEditMessageVisible(true)}>
-				<MaterialIcons name="person-add" size={40} color="#0af" />
-			</TouchableOpacity>
 		</View>
 	);
 };

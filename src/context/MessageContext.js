@@ -79,8 +79,8 @@ const addQuickMessage = dispatch => ({ creator, avatar, content, time, roomName,
 	});
 };
 
-const updateMessage = dispatch => ({ currentContent, newContent, itemId }) => {
-	const response = chatApi.put('/messages', { currentContent, newContent, itemId });
+const updateMessage = dispatch => async ({ currentContent, newContent, itemId }) => {
+	const response = await chatApi.put('/messages', { currentContent, newContent, itemId });
 	dispatch({ type: 'update_message', payload: response.data });
 };
 

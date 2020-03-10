@@ -17,6 +17,7 @@ const MessageItem = ({
 	avatar,
 	isImage,
 	isVideo,
+	channelId,
 	// setVideoState
 }) => {
 	const [vidRef, setVidRef] = useState('');
@@ -116,6 +117,7 @@ const MessageItem = ({
 					currentContent={content}
 					editMessageVisible={editMessageVisible}
 					setEditMessageVisible={setEditMessageVisible}
+					channelId={channelId}
 				/>
 			) : null}
 			<ListItem
