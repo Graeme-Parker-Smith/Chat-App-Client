@@ -31,7 +31,7 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 									navigation.navigate('Room', {
 										roomName: item.name ? item.name : item.username,
 										username: currentUser.username,
-										friend: item.name ? item : null,
+										friend: item.username ? item : null,
 										// room_id: item.name ? item._id : [item.username, currentUser.username],
 										room_id: item.name ? item._id : Pm_id,
 										roomType: item.username ? 'pm' : channelType,

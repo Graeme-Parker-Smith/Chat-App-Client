@@ -168,12 +168,12 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			isImage: false,
 			isVideo: false,
 			roomType,
-			room_id: room_id
+			room_id: room_id,
 		};
 		socket.emit('sendMessage', messageToSend);
 		if (roomType === 'pm') {
+			console.log('friend', friend);
 			const friend_id = friend._id;
-			console.log('receiver is: ', receiver);
 			sendNotification({ sender: currentUser._id, messageBody: content, receiver: friend_id });
 		}
 		setContent('');
