@@ -5,6 +5,7 @@ import EditMessageForm from './EditMessageForm';
 import timeConverter from '../helpers/timeConverter';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
+import CacheImage from './CacheImage';
 
 const DefaultAvatar = () => <Entypo name="user" size={20} color="#0af" />;
 
@@ -36,7 +37,7 @@ const MessageItem = ({
 	if (avatar) {
 		avatarImage = (
 			<View>
-				<Image source={{ uri: avatar }} style={styles.avatarStyle} />
+				<CacheImage uri={avatar} style={styles.avatarStyle} />
 			</View>
 		);
 	} else {
@@ -101,7 +102,7 @@ const MessageItem = ({
 	} else if (isImage) {
 		renderedContent = (
 			<View>
-				<Image source={{ uri: content }} style={{ height: 200, width: 200 }} />
+				<CacheImage uri={content} style={{ height: 200, width: 200 }} />
 			</View>
 		);
 	} else {

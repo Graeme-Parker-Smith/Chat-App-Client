@@ -7,18 +7,19 @@ import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import { navigate } from '../navigationRef';
+import CacheImage from './CacheImage';
 
 const UserPanel = ({ user, handleClick }) => {
 	const onPress = () => {
 		handleClick('user_dash', user);
-		navigate("Dash")
+		navigate('Dash');
 	};
 
 	if (user.avatar) {
 		return (
 			<TouchableOpacity onPress={onPress}>
 				<View>
-					<Image source={{ uri: user.avatar }} style={styles.avatarStyle} />
+					<CacheImage uri={user.avatar} style={styles.avatarStyle} />
 				</View>
 			</TouchableOpacity>
 		);

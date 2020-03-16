@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Input, Button, ListItem } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
+import CacheImage from './CacheImage';
 
 const ChannelList = ({ listData, channelType, navigation, currentUser, handleEditChannel, channelSearch, PMs }) => {
 	let color = '#808080';
@@ -20,10 +21,9 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 					) {
 						let Pm_id;
 						if (item.username) {
-
-						let thisPM = PMs.find(pm => pm.members.includes(item.username));
-						console.log("thisPM", thisPM);
-						Pm_id = thisPM._id;
+							let thisPM = PMs.find(pm => pm.members.includes(item.username));
+							console.log('thisPM', thisPM);
+							Pm_id = thisPM._id;
 						}
 						return (
 							<TouchableOpacity
@@ -47,7 +47,7 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 									leftAvatar={
 										item.avatar ? (
 											<View>
-												<Image source={{ uri: item.avatar }} style={styles.avatarStyle} />
+												<CacheImage uri={item.avatar} style={styles.avatarStyle} />
 											</View>
 										) : (
 											<Entypo name="users" size={40} color="#0af" />
