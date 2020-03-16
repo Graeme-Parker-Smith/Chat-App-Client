@@ -4,7 +4,7 @@ import { Button, Input } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
-import { FontAwesome, Entypo } from '@expo/vector-icons';
+import { FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import registerForNotifications from '../services/push_notifications';
 import Spacer from '../components/Spacer';
 import LoadingIndicator from '../components/LoadingIndicator';
@@ -18,6 +18,7 @@ const AccountScreen = ({ navigation }) => {
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
+	const [showLists, setShowLists] = useState({ public: true, private: false });
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
 
@@ -124,24 +125,40 @@ const AccountScreen = ({ navigation }) => {
 					/>
 				</View> */}
 				<View style={styles.channelDivider}>
-					<ChannelList
-						listData={state.channels}
-						PMs={[]}
-						channelType="public"
-						navigation={navigation}
-						currentUser={state.currentUser}
-						handleEditChannel={handleClick}
-						channelSearch={channelSearch}
-					/>
-					<ChannelList
-						listData={[...state.privateChannels, ...state.currentUser.friends]}
-						PMs={state.PMs}
-						channelType="private"
-						navigation={navigation}
-						currentUser={state.currentUser}
-						handleEditChannel={handleClick}
-						channelSearch={channelSearch}
-					/>
+					<View>
+						<MaterialCommunityIcons
+							name={showLists.public ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
+							size={32}
+							onPress={() => console.log('arrow icon pressed!')}
+						/>
+						<ChannelList
+							listData={state.channels}
+							PMs={[]}
+							channelType="public"
+							navigation={navigation}
+							currentUser={state.currentUser}
+							handleEditChannel={handleClick}
+							channelSearch={channelSearch}
+							showLists={showLists}
+						/>
+					</View>
+					<View>
+						<MaterialCommunityIcons
+							name={showLists.private ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
+							size={32}
+							onPress={() => console.log('arrow icon pressed!')}
+						/>
+						<ChannelList
+							listData={[...state.privateChannels, ...state.currentUser.friends]}
+							PMs={state.PMs}
+							channelType="private"
+							navigation={navigation}
+							currentUser={state.currentUser}
+							handleEditChannel={handleClick}
+							channelSearch={channelSearch}
+							showLists={showLists}
+						/>
+					</View>
 				</View>
 				<Spacer>
 					<Button title="Sign Out" onPress={handleSignout} />
