@@ -11,8 +11,8 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 	const { state, createPrivateChannel } = useContext(ChannelContext);
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [lifespan, setLifespan] = useState(0);
-	const [msgLife, setMsgLife] = useState(0);
+	const [lifespan, setLifespan] = useState('');
+	const [msgLife, setMsgLife] = useState('');
 
 	const cancelForm = () => {
 		showForm(false);
