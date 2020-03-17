@@ -1,5 +1,15 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity, Dimensions, AppState } from 'react-native';
+import {
+	View,
+	Image,
+	StyleSheet,
+	Text,
+	FlatList,
+	TouchableOpacity,
+	Dimensions,
+	AppState,
+	Animated,
+} from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
@@ -21,6 +31,13 @@ const AccountScreen = ({ navigation }) => {
 	const [showLists, setShowLists] = useState({ public: true, private: false });
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
+	let animVal = new Animated.Value(0);
+	let interpolateChannelList = animVal.interpolate({ inputRange: [0, 1], outputRange: ['100%', '90%'] });
+	const animatedTransition = Animated.spring(animVal, { toValue: 1 });
+
+	const clickAnimate = () => {
+		animatedTransition.start();
+	};
 
 	useEffect(() => {
 		if (hasMountedRef.current && firstRef.current) {
@@ -124,41 +141,43 @@ const AccountScreen = ({ navigation }) => {
 						}
 					/>
 				</View> */}
+				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+					<MaterialCommunityIcons
+						name={showLists.public ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
+						size={32}
+						color="#0af"
+						style={{ marginBottom: 0 }}
+						onPress={() => setShowLists({ ...showLists, public: !showLists.public })}
+					/>
+					<MaterialCommunityIcons
+						name={showLists.private ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
+						size={32}
+						color="#0af"
+						style={{ marginBottom: 0 }}
+						onPress={() => setShowLists({ ...showLists, private: !showLists.private })}
+					/>
+				</View>
 				<View style={styles.channelDivider}>
-					<View>
-						<MaterialCommunityIcons
-							name={showLists.public ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
-							size={32}
-							onPress={() => console.log('arrow icon pressed!')}
-						/>
-						<ChannelList
-							listData={state.channels}
-							PMs={[]}
-							channelType="public"
-							navigation={navigation}
-							currentUser={state.currentUser}
-							handleEditChannel={handleClick}
-							channelSearch={channelSearch}
-							showLists={showLists}
-						/>
-					</View>
-					<View>
-						<MaterialCommunityIcons
-							name={showLists.private ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
-							size={32}
-							onPress={() => console.log('arrow icon pressed!')}
-						/>
-						<ChannelList
-							listData={[...state.privateChannels, ...state.currentUser.friends]}
-							PMs={state.PMs}
-							channelType="private"
-							navigation={navigation}
-							currentUser={state.currentUser}
-							handleEditChannel={handleClick}
-							channelSearch={channelSearch}
-							showLists={showLists}
-						/>
-					</View>
+					<ChannelList
+						listData={state.channels}
+						PMs={[]}
+						channelType="public"
+						navigation={navigation}
+						currentUser={state.currentUser}
+						handleEditChannel={handleClick}
+						channelSearch={channelSearch}
+						showLists={showLists}
+					/>
+					<ChannelList
+						listData={[...state.privateChannels, ...state.currentUser.friends]}
+						PMs={state.PMs}
+						channelType="private"
+						navigation={navigation}
+						currentUser={state.currentUser}
+						handleEditChannel={handleClick}
+						channelSearch={channelSearch}
+						showLists={showLists}
+					/>
 				</View>
 				<Spacer>
 					<Button title="Sign Out" onPress={handleSignout} />

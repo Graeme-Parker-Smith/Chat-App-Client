@@ -4,14 +4,21 @@ import { Input, Button, ListItem } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import CacheImage from './CacheImage';
 
-const ChannelList = ({ listData, channelType, navigation, currentUser, handleEditChannel, channelSearch, PMs }) => {
+const ChannelList = ({ listData, channelType, navigation, currentUser, handleEditChannel, channelSearch, PMs, showLists }) => {
 	let color = '#808080';
 	if (channelType === 'private') color = '#301934';
 	if (channelType === 'pm') color = '#036';
+	let size = 0;
+	if (showLists.public && showLists.private) {
+		size = 0.5;
+	} else if (showLists[channelType]) {
+		size = 0.9;
+	} 
+	console.log("size", size)
 	return (
 		<View>
 			<FlatList
-				style={{ marginTop: 20, height: 275, width: Dimensions.get('window').width * 0.5 }}
+				style={{ marginTop: 0, height: 275, width: Dimensions.get('window').width * size }}
 				data={listData}
 				keyExtractor={item => item._id}
 				renderItem={({ item }) => {
