@@ -404,16 +404,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						type="outline"
 						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/>
-					{/* <Button
-						containerStyle={{ alignSelf: 'center' }}
-						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
-						title="Back To Channels"
-						onPress={() => {
-							back('Account');
-						}}
-						type="clear"
-						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
-					/> */}
 					{roomType === 'private' && isOwner ? <InviteMenu roomName={roomName} /> : null}
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
 						@{roomName} ({users.length} users online): {userList}
