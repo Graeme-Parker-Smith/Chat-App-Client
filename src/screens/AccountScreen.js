@@ -28,7 +28,7 @@ const AccountScreen = ({ navigation }) => {
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
-	const [showLists, setShowLists] = useState({ public: true, private: false });
+	const [showLists, setShowLists] = useState({ public: true, private: true });
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
 	let animVal = new Animated.Value(0);

@@ -23,7 +23,7 @@ import MessageItem from '../components/MessageItem';
 import KeyboardShift from '../components/KeyBoardShift';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { Video } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import imgUpload from '../helpers/imgUpload';
@@ -384,7 +384,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		<SafeAreaView style={styles.body}>
 			<NavigationEvents onWillFocus={handleOnFocus} />
 			<View style={{ marginTop: 0, backgroundColor: '#000' }}>
-				<View style={{ flexDirection: 'row' }}>
+				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 					<Button
 						containerStyle={{ alignSelf: 'center' }}
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}

@@ -2,15 +2,21 @@ import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
-import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
+import { Entypo, MaterialIcons, MaterialCommunityIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
 const InviteMenu = ({ roomName }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [invitee, setInvitee] = useState('');
+	const [removee, setRemovee] = useState('');
 	const { addFriend, unblock, state, invite } = useContext(ChannelContext);
 
 	const handleSubmit = async () => {
 		await invite({ invitee, roomName });
+		setModalVisible(false);
+	};
+
+	const handleKick = async () => {
+		await kick({ removee, roomName });
 		setModalVisible(false);
 	};
 
@@ -78,8 +84,23 @@ const InviteMenu = ({ roomName }) => {
 									selectTextOnFocus={true}
 									onSubmitEditing={handleSubmit}
 								/>
-								<TouchableHighlight >
-									<Button title="Send Invite" onPress={handleSubmit} />
+								<TouchableHighlight>
+									<Button disabled={!invitee} title="Send Invite" onPress={handleSubmit} />
+								</TouchableHighlight>
+								<Input
+									label="Kick User"
+									value={removee}
+									onChangeText={setRemovee}
+									autoFocus={true}
+									autoCapitalize="none"
+									autoCorrect={false}
+									inputStyle={{ color: 'white' }}
+									returnKeyType="send"
+									selectTextOnFocus={true}
+									onSubmitEditing={handleKick}
+								/>
+								<TouchableHighlight>
+									<Button disabled={!removee} title="Kick User" onPress={handleKick} />
 								</TouchableHighlight>
 							</View>
 						</View>
@@ -88,7 +109,7 @@ const InviteMenu = ({ roomName }) => {
 			</Modal>
 
 			<TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => setModalVisible(true)}>
-				<MaterialIcons name="person-add" size={40} color="#0af" />
+				<MaterialCommunityIcons name="account-star" size={40} color="#0af" />
 			</TouchableOpacity>
 		</View>
 	);
