@@ -398,7 +398,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
 						icon={
 							<TouchableOpacity onPress={() => back('Account')}>
-								<Entypo name="back" color="#0af" size={50} />
+								<Entypo name="back" color="#0af" size={32} />
 							</TouchableOpacity>
 						}
 						type="outline"
