@@ -64,7 +64,7 @@ const invite = dispatch => async ({ invitee, roomName }) => {
 };
 
 const kick = dispatch => async ({ removee, roomName }) => {
-	const response = await chatApi.put('/kick', { params: { removee, roomName } });
+	const response = await chatApi.put('/kick',  { removee, roomName });
 	dispatch({ type: 'update_channel', payload: response.data });
 };
 

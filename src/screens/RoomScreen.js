@@ -85,10 +85,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 
 	useEffect(() => {
-		navigation.setParams({
-			backgroundColor: 'white',
-			headerRight: <Button title="Back To Channels" type="clear" titleStyle={{ color: 'rgba(0,122,255,1)' }} />,
-		});
 		socket.emit('join', { name: username, room: room_id }, error => {
 			if (error) {
 				if (error === 'Username is taken') {
@@ -133,6 +129,16 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			console.log('usernames', userNames);
 			setUsers(userNames);
 		});
+		socket.on('kick', ({ roomName, removee }) => {
+			console.log('removee is: ', removee);
+			console.log('roomName is: ', roomName);
+			console.log('username is: ', username);
+			if (username === removee) {
+				console.log('user must go back!');
+				back('Account');
+			}
+		});
+
 		return () => {
 			socket.emit('disconnect');
 			socket.off();

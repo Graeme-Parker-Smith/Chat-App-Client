@@ -44,7 +44,7 @@ const InviteMenu = ({ roomName }) => {
 					<TouchableOpacity
 						activeOpacity={1}
 						onPress={() => console.log('Pressed inside modal!')}
-						style={{ width: 150, height: 110, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
+						style={{ width: 150, height: 200, backgroundColor: '#fff', paddingTop: 5, paddingBottom: 5 }}
 					>
 						<View>
 							<View
