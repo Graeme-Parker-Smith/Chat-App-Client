@@ -45,6 +45,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const roomType = navigation.getParam('roomType');
 	const room_id = navigation.getParam('room_id');
 	const friend = navigation.getParam('friend');
+	const roomCreator = navigation.getParam('roomCreator');
+	const isOwner = username === roomCreator;
 
 	const [loading, setLoading] = useState(false);
 	const [keyboardShowing, setKeyboardShowing] = useState(false);
@@ -406,7 +408,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						type="clear"
 						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/> */}
-					{roomType === 'private' ? <InviteMenu roomName={roomName} /> : null}
+					{roomType === 'private' && isOwner ? <InviteMenu roomName={roomName} /> : null}
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
 						@{roomName} ({users.length} users online): {userList}
 					</Text>

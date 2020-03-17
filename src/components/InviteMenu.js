@@ -8,7 +8,7 @@ const InviteMenu = ({ roomName }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [invitee, setInvitee] = useState('');
 	const [removee, setRemovee] = useState('');
-	const { addFriend, unblock, state, invite } = useContext(ChannelContext);
+	const { addFriend, unblock, state, invite, kick } = useContext(ChannelContext);
 
 	const handleSubmit = async () => {
 		await invite({ invitee, roomName });

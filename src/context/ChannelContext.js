@@ -63,6 +63,11 @@ const invite = dispatch => async ({ invitee, roomName }) => {
 	dispatch({ type: 'update_channel', payload: response.data });
 };
 
+const kick = dispatch => async ({ removee, roomName }) => {
+	const response = await chatApi.put('/kick', { params: { removee, roomName } });
+	dispatch({ type: 'update_channel', payload: response.data });
+};
+
 const updateUser = dispatch => async ({ username, newUsername, newPassword, newAvatar }) => {
 	const cloudUrl = await imgUpload(newAvatar);
 	const response = await chatApi.post('/updateuser', {
@@ -142,6 +147,7 @@ export const { Provider, Context } = createDataContext(
 		addFriend,
 		unblock,
 		invite,
+		kick,
 		deleteChannel,
 		clearState,
 	},
