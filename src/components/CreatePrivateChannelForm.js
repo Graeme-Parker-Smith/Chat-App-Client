@@ -52,7 +52,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				keyboardType="numeric"
 				selectTextOnFocus={true}
 				label="Set time before channel deletes itself in minutes (minimum 1 minute). If empty or set to 0, channel will not expire."
-				placeholder="Number of minutes"
+				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
@@ -63,7 +63,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				keyboardType="numeric"
 				selectTextOnFocus={true}
 				label="Set time before messages delete themselves in minutes (minimum 1 minute). If empty or set to 0, channel will not expire."
-				placeholder="Number of minutes"
+				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
