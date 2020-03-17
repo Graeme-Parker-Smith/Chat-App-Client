@@ -11,8 +11,8 @@ const CreateChannelForm = ({ showForm }) => {
 	const { state, createChannel } = useContext(ChannelContext);
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [lifespan, setLifespan] = useState(0);
-	const [msgLife, setMsgLife] = useState(0);
+	const [lifespan, setLifespan] = useState('');
+	const [msgLife, setMsgLife] = useState('');
 
 	const cancelForm = () => {
 		showForm(false);
@@ -57,8 +57,8 @@ const CreateChannelForm = ({ showForm }) => {
 				onChangeText={setLifespan}
 				keyboardType="numeric"
 				selectTextOnFocus={true}
-				label="Set time before channel deletes itself in minutes (minimum 1 minute). If empty or set to 0, channel will not expire."
-				placeholder="Number of minutes"
+				label="Set Channel Lifespan"
+				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
@@ -68,8 +68,8 @@ const CreateChannelForm = ({ showForm }) => {
 				onChangeText={setMsgLife}
 				keyboardType="numeric"
 				selectTextOnFocus={true}
-				label="Set time before messages delete themselves in minutes (minimum 1 minute). If empty or set to 0, channel will not expire."
-				placeholder="Number of minutes"
+				label="Set Message Lifespan"
+				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
