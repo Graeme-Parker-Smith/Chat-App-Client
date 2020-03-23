@@ -16,6 +16,7 @@ const SignupScreen = () => {
 	const { state, signup, clearErrorMessage } = useContext(AuthContext);
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [isFocused, setIsFocused] = useState('');
 
 	const _next = () => {
 		_passwordInput && _passwordInput.focus();
@@ -42,7 +43,8 @@ const SignupScreen = () => {
 				</Text>
 			</Spacer>
 			<Input
-				label="username"
+				label={isFocused === 'username' ? "username" : ""}
+				placeholder={isFocused === 'username' ? "" : 'username'}
 				value={username}
 				onChangeText={setUsername}
 				autoFocus={true}
@@ -54,7 +56,7 @@ const SignupScreen = () => {
 				selectTextOnFocus={true}
 				onSubmitEditing={_next}
 				ref={ref => (_usernameInput = ref)}
-				onFocus={e => console.log('onFocus event', e)}
+				onFocus={e => setIsFocused('username')}
 			/>
 			<Spacer />
 			<Input
@@ -68,7 +70,7 @@ const SignupScreen = () => {
 				returnKeyType="next"
 				selectTextOnFocus={true}
 				ref={ref => (_passwordInput = ref)}
-				onFocus={e => console.log('onFocus event', e)}
+				onFocus={e => setIsFocused('password')}
 			/>
 			<Spacer />
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} />
