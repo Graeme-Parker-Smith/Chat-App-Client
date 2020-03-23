@@ -21,7 +21,6 @@ const SignupScreen = () => {
 		_passwordInput && _passwordInput.focus();
 	};
 
-
 	const handleSignup = () => {
 		setIsLoading(true);
 		signup({ username, password, avatar: avatar.base64Uri });
@@ -38,7 +37,7 @@ const SignupScreen = () => {
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 			<Spacer>
-				<Text style={{ color: 'white' }} h3>
+				<Text style={{ color: 'white', alignSelf: 'center' }} h3>
 					Sign Up
 				</Text>
 			</Spacer>
@@ -53,8 +52,9 @@ const SignupScreen = () => {
 				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
-				ref={ref => (_usernameInput = ref)}
 				onSubmitEditing={_next}
+				ref={ref => (_usernameInput = ref)}
+				onFocus={e => console.log('onFocus event', e)}
 			/>
 			<Spacer />
 			<Input
@@ -68,6 +68,7 @@ const SignupScreen = () => {
 				returnKeyType="next"
 				selectTextOnFocus={true}
 				ref={ref => (_passwordInput = ref)}
+				onFocus={e => console.log('onFocus event', e)}
 			/>
 			<Spacer />
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} />
@@ -102,8 +103,8 @@ const styles = StyleSheet.create({
 		width: '75%',
 		borderWidth: 1,
 		borderColor: '#fff',
-		alignSelf: 'center'
-	}
+		alignSelf: 'center',
+	},
 });
 
 export default SignupScreen;
