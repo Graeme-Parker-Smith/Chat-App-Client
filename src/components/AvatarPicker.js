@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Input, Button, Text } from 'react-native';
 import Spacer from './Spacer';
+import WhiteText from './WhiteText';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
 const DefaultAvatar = () => <Entypo style={styles.avatarStyle} name="user" size={90} color="#0af" />;
 
-const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword }) => {
+const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword, displayName = '' }) => {
 	const _pickImage = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -45,17 +46,18 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword }) => {
 			<Text style={{ color: 'white', textAlign: 'center' }}>Set {whichForm} Avatar</Text>
 			<View style={styles.imagePickerStyle}>
 				<TouchableOpacity style={styles.obviousButton} onPress={launchCamera}>
-					<MaterialIcons style={{alignSelf: 'center'}} name="photo-camera" size={100} color="#0af" />
+					<MaterialIcons style={{ alignSelf: 'center' }} name="photo-camera" size={100} color="#0af" />
 				</TouchableOpacity>
-				<View>
+				<View style={{ alignItems: 'center' }}>
 					{avatar ? (
 						<Image source={{ uri: avatar.localUri || avatar }} style={styles.avatarStyle} />
 					) : (
 						<DefaultAvatar />
 					)}
+					<WhiteText>{displayName}</WhiteText>
 				</View>
 				<TouchableOpacity style={styles.obviousButton} onPress={_pickImage}>
-					<MaterialIcons style={{alignSelf: 'center'}} name="photo-library" size={100} color="#0af" />
+					<MaterialIcons style={{ alignSelf: 'center' }} name="photo-library" size={100} color="#0af" />
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -71,16 +73,16 @@ const styles = StyleSheet.create({
 	imagePickerStyle: {
 		display: 'flex',
 		flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+		justifyContent: 'space-around',
+		alignItems: 'center',
 	},
 	obviousButton: {
 		backgroundColor: '#303030',
 		height: 120,
 		width: 120,
-    borderRadius: 60,
-    alignContent: 'center',
-    justifyContent: 'center'
+		borderRadius: 60,
+		alignContent: 'center',
+		justifyContent: 'center',
 	},
 });
 
