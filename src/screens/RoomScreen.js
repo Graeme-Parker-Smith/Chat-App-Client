@@ -93,7 +93,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				}
 			}
 		});
-
 		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
 		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
 

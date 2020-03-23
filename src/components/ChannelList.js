@@ -14,7 +14,6 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 	} else if (showLists[channelType]) {
 		size = 0.9;
 	} 
-	console.log("size", size)
 	return (
 		<View>
 			<FlatList
@@ -29,7 +28,6 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 						let Pm_id;
 						if (item.username) {
 							let thisPM = PMs.find(pm => pm.members.includes(item.username));
-							console.log('thisPM', thisPM);
 							Pm_id = thisPM._id;
 						}
 						return (

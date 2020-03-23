@@ -27,12 +27,12 @@ const channelFlow = createStackNavigator({
 	Account: AccountScreen,
 	Room: RoomScreen,
 });
-YellowBox.ignoreWarnings
+YellowBox.ignoreWarnings;
 
 const navigator = createSwitchNavigator({
 	ResolveAuth: ResolveAuthScreen,
-	Signin: SigninScreen,
 	Signup: SignupScreen,
+	Signin: SigninScreen,
 	channelFlow: {
 		screen: createStackNavigator(
 			{
@@ -85,7 +85,6 @@ const navigator = createSwitchNavigator({
 // const ENDPOINT = "https://graeme-chat-app.herokuapp.com";
 const ENDPOINT = 'http://192.168.1.233:3000';
 const socket = io(ENDPOINT);
-
 const App = createAppContainer(navigator);
 export default () => {
 	return (

@@ -37,7 +37,7 @@ const tryLocalSignin = dispatch => async () => {
 		});
 		navigate('Account');
 	} else {
-		navigate('Signin');
+		navigate('Signup');
 	}
 };
 
