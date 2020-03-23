@@ -49,7 +49,8 @@ const SignupScreen = () => {
 				autoFocus={true}
 				autoCapitalize="none"
 				autoCorrect={false}
-				inputStyle={styles.input}
+				containerStyle={styles.input}
+				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
 				ref={ref => (_usernameInput = ref)}
@@ -62,7 +63,8 @@ const SignupScreen = () => {
 				onChangeText={setPassword}
 				autoCapitalize="none"
 				autoCorrect={false}
-				inputStyle={styles.input}
+				containerStyle={styles.input}
+				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
 				ref={ref => (_passwordInput = ref)}
@@ -97,10 +99,10 @@ const styles = StyleSheet.create({
 		marginTop: 15,
 	},
 	input: {
-		color: 'white',
 		width: '75%',
 		borderWidth: 1,
-		borderColor: '#fff'
+		borderColor: '#fff',
+		alignSelf: 'center'
 	}
 });
 
