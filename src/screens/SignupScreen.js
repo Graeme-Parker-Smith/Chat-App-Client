@@ -43,14 +43,14 @@ const SignupScreen = () => {
 				</Text>
 			</Spacer>
 			<Input
-				label={isFocused === 'username' ? "username" : ""}
+				// label={isFocused === 'username' ? "username" : ""}
 				placeholder={isFocused === 'username' ? "" : 'username'}
 				value={username}
 				onChangeText={setUsername}
 				autoFocus={true}
 				autoCapitalize="none"
 				autoCorrect={false}
-				containerStyle={styles.input}
+				containerStyle={[styles.input, {borderColor: isFocused === 'username' ? '#0af' : '#fff'}]}
 				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
@@ -60,12 +60,13 @@ const SignupScreen = () => {
 			/>
 			<Spacer />
 			<Input
-				label="Password"
+				// label="Password"
+				placeholder={isFocused === 'password' ? "" : 'password'}
 				value={password}
 				onChangeText={setPassword}
 				autoCapitalize="none"
 				autoCorrect={false}
-				containerStyle={styles.input}
+				containerStyle={[styles.input, {borderColor: isFocused === 'password' ? '#0af' : '#fff'}]}
 				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
@@ -104,7 +105,8 @@ const styles = StyleSheet.create({
 	input: {
 		width: '75%',
 		borderWidth: 1,
-		borderColor: '#fff',
+		borderRadius: 10,
+		// borderColor: '#fff',
 		alignSelf: 'center',
 	},
 });
