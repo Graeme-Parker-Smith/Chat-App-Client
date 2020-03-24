@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, StyleSheet, Image, Dimensions, Animated, LayoutAnimation, NativeModules } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 // import { NavigationEvents } from "react-navigation";
@@ -9,6 +9,79 @@ import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from '../components/LoadingIndicator';
+
+const { UIManager } = NativeModules;
+
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+
+const FadeInView = props => {
+	const [fadeAnim] = useState(new Animated.Value(0)); // Initial value for opacity: 0
+
+	useEffect(() => {
+		Animated.timing(fadeAnim, {
+			toValue: 1,
+			duration: 2000,
+		}).start();
+	}, []);
+
+	return (
+		<Animated.View // Special animatable View
+			style={{
+				...props.style,
+				opacity: fadeAnim, // Bind opacity to animated value
+			}}
+		>
+			{props.children}
+		</Animated.View>
+	);
+};
+
+const BouncyInput = ({
+	value,
+	onChangeText,
+	placeholder = '',
+	autoFocus = false,
+	autoCapitalize = 'none',
+	autoCorrect = false,
+	containerStyle = {},
+	inputStyle = { color: 'white' },
+	returnKeyType = 'next',
+	selectTextOnFocus = true,
+	onSubmitEditing = null,
+	ref = null,
+	onFocus = null,
+}) => {
+	const [bounceAnim] = useState(new Animated.Value(-25));
+
+	useEffect(() => {
+		Animated.timing(bounceAnim, {
+			toValue: 0,
+			duration: 500,
+		}).start();
+	}, []);
+
+	console.log('bounceAnim', bounceAnim);
+
+	return (
+		<Animated.View style={{ transform: [{ translateY: bounceAnim }] }}>
+			<Input
+				value={value}
+				onChangeText={onChangeText}
+				placeholder={placeholder}
+				autoFocus={autoFocus}
+				autoCapitalize={autoCapitalize}
+				autoCorrect={autoCorrect}
+				containerStyle={containerStyle}
+				inputStyle={inputStyle}
+				returnKeyType={returnKeyType}
+				selectTextOnFocus={selectTextOnFocus}
+				onSubmitEditing={onSubmitEditing}
+				ref={ref}
+				onFocus={onFocus}
+			/>
+		</Animated.View>
+	);
+};
 
 const SignupScreen = () => {
 	const [username, setUsername] = useState('');
@@ -38,36 +111,37 @@ const SignupScreen = () => {
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 			<Spacer>
-				<Text style={{ color: 'white', alignSelf: 'center', fontFamily: 'Snell Roundhand' }} h3>
-					Sign Up
-				</Text>
+				<FadeInView>
+					<Text style={{ color: 'white', alignSelf: 'center', fontFamily: 'Snell Roundhand' }} h3>
+						Sign Up
+					</Text>
+				</FadeInView>
 				{/* <Text style={{ color: 'white', alignSelf: 'center', fontFamily: 'Savoye LET' }} h3>
 					Sign Up
 				</Text> */}
 			</Spacer>
-			<Input
-				placeholder={isFocused === 'username' ? "" : 'username'}
+			<BouncyInput
+				placeholder={isFocused === 'username' ? '' : 'username'}
 				value={username}
 				onChangeText={setUsername}
 				autoFocus={true}
 				autoCapitalize="none"
 				autoCorrect={false}
-				containerStyle={[styles.input, {borderColor: isFocused === 'username' ? '#0af' : '#fff'}]}
+				containerStyle={[styles.input, { borderColor: isFocused === 'username' ? '#0af' : '#fff' }]}
 				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
 				onSubmitEditing={_next}
-				ref={ref => (_usernameInput = ref)}
 				onFocus={e => setIsFocused('username')}
 			/>
 			<Spacer />
 			<Input
-				placeholder={isFocused === 'password' ? "" : 'password'}
+				placeholder={isFocused === 'password' ? '' : 'password'}
 				value={password}
 				onChangeText={setPassword}
 				autoCapitalize="none"
 				autoCorrect={false}
-				containerStyle={[styles.input, {borderColor: isFocused === 'password' ? '#0af' : '#fff'}]}
+				containerStyle={[styles.input, { borderColor: isFocused === 'password' ? '#0af' : '#fff' }]}
 				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
@@ -78,7 +152,7 @@ const SignupScreen = () => {
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
 			{state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text> : null}
 			<Spacer />
-				<Button title="Register User" disabled={!username || !password} onPress={handleSignup} />
+			<Button title="Register User" disabled={!username || !password} onPress={handleSignup} />
 			<NavLink routeName="Signin" text="Go back to Sign In" />
 		</SafeAreaView>
 	);
