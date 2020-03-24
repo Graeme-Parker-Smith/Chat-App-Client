@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Dimensions, Animated, LayoutAnimation, NativeModules } from 'react-native';
+import { View, StyleSheet, Image, Dimensions, Animated } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 // import { NavigationEvents } from "react-navigation";
@@ -9,10 +9,6 @@ import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from '../components/LoadingIndicator';
-
-const { UIManager } = NativeModules;
-
-UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 
 const FadeInView = props => {
 	const [fadeAnim] = useState(new Animated.Value(0)); // Initial value for opacity: 0
