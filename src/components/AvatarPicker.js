@@ -33,12 +33,8 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword, displayName =
 			quality: 1,
 			base64: true,
 		});
-
-		// console.log(result);
-
 		if (!result.cancelled) {
 			setAvatar({ localUri: result.uri, base64Uri: `data:image/jpg;base64,${result.base64}` });
-			// if (_toPassword) _toPassword();
 		}
 	};
 	return (
