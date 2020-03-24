@@ -46,7 +46,6 @@ const SignupScreen = () => {
 				</Text> */}
 			</Spacer>
 			<Input
-				// label={isFocused === 'username' ? "username" : ""}
 				placeholder={isFocused === 'username' ? "" : 'username'}
 				value={username}
 				onChangeText={setUsername}
@@ -63,7 +62,6 @@ const SignupScreen = () => {
 			/>
 			<Spacer />
 			<Input
-				// label="Password"
 				placeholder={isFocused === 'password' ? "" : 'password'}
 				value={password}
 				onChangeText={setPassword}
@@ -109,7 +107,6 @@ const styles = StyleSheet.create({
 		width: '75%',
 		borderWidth: 1,
 		borderRadius: 10,
-		// borderColor: '#fff',
 		alignSelf: 'center',
 	},
 });
