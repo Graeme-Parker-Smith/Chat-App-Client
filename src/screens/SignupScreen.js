@@ -77,9 +77,8 @@ const SignupScreen = () => {
 			<Spacer />
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
 			{state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text> : null}
-			<Spacer>
+			<Spacer />
 				<Button title="Register User" disabled={!username || !password} onPress={handleSignup} />
-			</Spacer>
 			<NavLink routeName="Signin" text="Go back to Sign In" />
 		</SafeAreaView>
 	);
