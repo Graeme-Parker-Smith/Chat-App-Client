@@ -31,13 +31,6 @@ const AccountScreen = ({ navigation }) => {
 	const [showLists, setShowLists] = useState({ public: true, private: true });
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
-	let animVal = new Animated.Value(0);
-	let interpolateChannelList = animVal.interpolate({ inputRange: [0, 1], outputRange: ['100%', '90%'] });
-	const animatedTransition = Animated.spring(animVal, { toValue: 1 });
-
-	const clickAnimate = () => {
-		animatedTransition.start();
-	};
 
 	useEffect(() => {
 		if (hasMountedRef.current && firstRef.current) {
