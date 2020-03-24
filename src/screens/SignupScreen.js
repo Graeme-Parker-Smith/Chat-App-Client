@@ -38,9 +38,12 @@ const SignupScreen = () => {
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 			<Spacer>
-				<Text style={{ color: 'white', alignSelf: 'center' }} h3>
+				<Text style={{ color: 'white', alignSelf: 'center', fontFamily: 'Snell Roundhand' }} h3>
 					Sign Up
 				</Text>
+				{/* <Text style={{ color: 'white', alignSelf: 'center', fontFamily: 'Savoye LET' }} h3>
+					Sign Up
+				</Text> */}
 			</Spacer>
 			<Input
 				// label={isFocused === 'username' ? "username" : ""}
