@@ -48,10 +48,10 @@ const BouncyInput = ({
 	returnKeyType = 'next',
 	selectTextOnFocus = true,
 	onSubmitEditing = null,
-	ref = null,
+	refVal = null,
 	onFocus = null,
 }) => {
-	const [bounceAnim] = useState(new Animated.Value(-25));
+	const [bounceAnim] = useState(new Animated.Value(-50));
 
 	useEffect(() => {
 		Animated.timing(bounceAnim, {
@@ -76,7 +76,7 @@ const BouncyInput = ({
 				returnKeyType={returnKeyType}
 				selectTextOnFocus={selectTextOnFocus}
 				onSubmitEditing={onSubmitEditing}
-				ref={ref}
+				ref={ref => (refVal = ref)}
 				onFocus={onFocus}
 			/>
 		</Animated.View>
@@ -90,6 +90,7 @@ const SignupScreen = () => {
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [isFocused, setIsFocused] = useState('');
+	// let _passwordInput;
 
 	const _next = () => {
 		_passwordInput && _passwordInput.focus();
@@ -135,7 +136,7 @@ const SignupScreen = () => {
 				onFocus={e => setIsFocused('username')}
 			/>
 			<Spacer />
-			<Input
+			<BouncyInput
 				placeholder={isFocused === 'password' ? '' : 'password'}
 				value={password}
 				onChangeText={setPassword}
@@ -145,7 +146,7 @@ const SignupScreen = () => {
 				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
-				ref={ref => (_passwordInput = ref)}
+				// ref={ref => (_passwordInput = ref)}
 				onFocus={e => setIsFocused('password')}
 			/>
 			<Spacer />
