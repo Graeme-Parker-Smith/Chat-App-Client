@@ -113,27 +113,6 @@ const AccountScreen = ({ navigation }) => {
 						inputStyle={{ color: 'white' }}
 					/>
 				</View>
-				{/* <View>
-					<Input
-						label="Search Users"
-						value={userSearch}
-						onChangeText={setUserSearch}
-						autoCapitalize="none"
-						autoCorrect={false}
-						inputStyle={{ color: 'white' }}
-						returnKeyType="send"
-						selectTextOnFocus={true}
-					/>
-					<Button
-						title="Add Friend"
-						onPress={() =>
-							addFriend({
-								username: state.currentUser.username,
-								friendName: userSearch,
-							})
-						}
-					/>
-				</View> */}
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 					<MaterialCommunityIcons
 						name={showLists.public ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
