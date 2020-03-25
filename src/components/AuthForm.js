@@ -20,7 +20,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
 		<>
 			<Spacer>
 				<FadeInView>
-					<WhiteText h3>{headerText}</WhiteText>
+					<WhiteText>{headerText}</WhiteText>
 				</FadeInView>
 			</Spacer>
 			<BouncyInput

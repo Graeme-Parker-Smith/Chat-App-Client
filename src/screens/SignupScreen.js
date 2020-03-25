@@ -104,8 +104,6 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		width: '75%',
-		borderWidth: 1,
-		borderRadius: 10,
 		alignSelf: 'center',
 	},
 });
