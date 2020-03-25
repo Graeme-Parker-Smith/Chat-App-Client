@@ -1,11 +1,9 @@
-import React, { useContext, useState, useEffect, forwardRef, useRef } from 'react';
-import { View, StyleSheet, Image, Dimensions, Animated, Easing } from 'react-native';
-import { Text, Button, Input } from 'react-native-elements';
+import React, { useContext, useState, useEffect, useRef } from 'react';
+import { StyleSheet, Dimensions } from 'react-native';
+import { Text, Button } from 'react-native-elements';
 import Spacer from '../components/Spacer';
-// import { NavigationEvents } from "react-navigation";
 import { SafeAreaView } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
-import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from '../components/LoadingIndicator';
@@ -18,7 +16,6 @@ const SignupScreen = () => {
 	const { state, signup, clearErrorMessage } = useContext(AuthContext);
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	// const [isFocused, setIsFocused] = useState('');
 	const _passwordInput = useRef();
 
 	const _next = () => {
