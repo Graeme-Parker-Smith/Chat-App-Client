@@ -4,9 +4,10 @@ import { Text, Button, Input } from 'react-native-elements';
 import FadeInView from '../components/FadeInView';
 import BouncyInput from '../components/BouncyInput';
 import WhiteText from '../components/WhiteText';
+import AvatarPicker from '../components/AvatarPicker';
 import Spacer from './Spacer';
 
-const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
+const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, hasAvatarPicker }) => {
 	const [username, setusername] = useState('');
 	const [password, setPassword] = useState('');
 	const _usernameInput = useRef();
@@ -52,6 +53,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
 				ref={_passwordInput}
 				onSubmitEditing={() => onSubmit({ username, password })}
 			/>
+			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
 			{errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
 			<Spacer>
 				<Button title={submitButtonText} onPress={() => onSubmit({ username, password })} />
