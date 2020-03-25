@@ -7,7 +7,7 @@ import WhiteText from '../components/WhiteText';
 import AvatarPicker from '../components/AvatarPicker';
 import Spacer from './Spacer';
 
-const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, hasAvatarPicker }) => {
+const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, hasAvatarPicker = false }) => {
 	const [username, setusername] = useState('');
 	const [password, setPassword] = useState('');
 	const _usernameInput = useRef();
@@ -53,7 +53,9 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, hasAva
 				ref={_passwordInput}
 				onSubmitEditing={() => onSubmit({ username, password })}
 			/>
-			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
+			{hasAvatarPicker ? (
+				<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
+			) : null}
 			{errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
 			<Spacer>
 				<Button title={submitButtonText} onPress={() => onSubmit({ username, password })} />
