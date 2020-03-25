@@ -48,8 +48,6 @@ const BouncyInput = forwardRef(
 			setIsFocused(false);
 		};
 
-		console.log('introAnim', introAnim);
-
 		return (
 			<Animated.View style={{ transform: [{ translateY: introAnim }] }}>
 				<Input

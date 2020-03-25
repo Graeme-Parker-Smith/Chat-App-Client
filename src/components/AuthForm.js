@@ -13,7 +13,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
 	const _passwordInput = useRef();
 
 	const _next = () => {
-		_passwordInput && _passwordInput.focus();
+		_passwordInput && _passwordInput.current.focus();
 	};
 
 	return (
