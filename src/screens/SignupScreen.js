@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Dimensions, Animated } from 'react-native';
+import React, { useContext, useState, useEffect, forwardRef, useRef } from 'react';
+import { View, StyleSheet, Image, Dimensions, Animated, Easing } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 // import { NavigationEvents } from "react-navigation";
@@ -32,52 +32,56 @@ const FadeInView = props => {
 	);
 };
 
-const BouncyInput = ({
-	value,
-	onChangeText,
-	placeholder = '',
-	autoFocus = false,
-	autoCapitalize = 'none',
-	autoCorrect = false,
-	containerStyle = {},
-	inputStyle = { color: 'white' },
-	returnKeyType = 'next',
-	selectTextOnFocus = true,
-	onSubmitEditing = null,
-	refVal = null,
-	onFocus = null,
-}) => {
-	const [bounceAnim] = useState(new Animated.Value(-50));
+const BouncyInput = forwardRef(
+	(
+		{
+			value,
+			onChangeText,
+			placeholder = '',
+			autoFocus = false,
+			autoCapitalize = 'none',
+			autoCorrect = false,
+			containerStyle = {},
+			inputStyle = { color: 'white' },
+			returnKeyType = 'next',
+			selectTextOnFocus = true,
+			onSubmitEditing = null,
+			onFocus = null,
+		},
+		ref
+	) => {
+		const [bounceAnim] = useState(new Animated.Value(-50));
+		useEffect(() => {
+			Animated.timing(bounceAnim, {
+				toValue: 0,
+				easing: Easing.bounce,
+				duration: 500,
+			}).start();
+		}, []);
 
-	useEffect(() => {
-		Animated.timing(bounceAnim, {
-			toValue: 0,
-			duration: 500,
-		}).start();
-	}, []);
+		console.log('bounceAnim', bounceAnim);
 
-	console.log('bounceAnim', bounceAnim);
-
-	return (
-		<Animated.View style={{ transform: [{ translateY: bounceAnim }] }}>
-			<Input
-				value={value}
-				onChangeText={onChangeText}
-				placeholder={placeholder}
-				autoFocus={autoFocus}
-				autoCapitalize={autoCapitalize}
-				autoCorrect={autoCorrect}
-				containerStyle={containerStyle}
-				inputStyle={inputStyle}
-				returnKeyType={returnKeyType}
-				selectTextOnFocus={selectTextOnFocus}
-				onSubmitEditing={onSubmitEditing}
-				ref={ref => (refVal = ref)}
-				onFocus={onFocus}
-			/>
-		</Animated.View>
-	);
-};
+		return (
+			<Animated.View style={{ transform: [{ translateY: bounceAnim }] }}>
+				<Input
+					value={value}
+					onChangeText={onChangeText}
+					placeholder={placeholder}
+					autoFocus={autoFocus}
+					autoCapitalize={autoCapitalize}
+					autoCorrect={autoCorrect}
+					containerStyle={containerStyle}
+					inputStyle={inputStyle}
+					returnKeyType={returnKeyType}
+					selectTextOnFocus={selectTextOnFocus}
+					onSubmitEditing={onSubmitEditing}
+					ref={ref}
+					onFocus={onFocus}
+				/>
+			</Animated.View>
+		);
+	}
+);
 
 const SignupScreen = () => {
 	const [username, setUsername] = useState('');
@@ -86,10 +90,11 @@ const SignupScreen = () => {
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [isFocused, setIsFocused] = useState('');
-	// let _passwordInput;
+	const _passwordInput = useRef();
 
 	const _next = () => {
-		_passwordInput && _passwordInput.focus();
+		// use _passwordInput.current.focus instead of _passwordInput.focus
+		_passwordInput && _passwordInput.current.focus();
 	};
 
 	const handleSignup = () => {
@@ -143,6 +148,7 @@ const SignupScreen = () => {
 				returnKeyType="next"
 				selectTextOnFocus={true}
 				// ref={ref => (_passwordInput = ref)}
+				ref={_passwordInput}
 				onFocus={e => setIsFocused('password')}
 			/>
 			<Spacer />
