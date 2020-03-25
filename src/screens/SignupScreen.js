@@ -72,7 +72,6 @@ const SignupScreen = () => {
 				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
-				// ref={ref => (_passwordInput = ref)}
 				ref={_passwordInput}
 			/>
 			<Spacer />
