@@ -46,23 +46,42 @@ const BouncyInput = forwardRef(
 			returnKeyType = 'next',
 			selectTextOnFocus = true,
 			onSubmitEditing = null,
-			onFocus = null,
 		},
 		ref
 	) => {
-		const [bounceAnim] = useState(new Animated.Value(-50));
+		const [isFocused, setIsFocused] = useState(false);
+		const [introAnim] = useState(new Animated.Value(-50));
 		useEffect(() => {
-			Animated.timing(bounceAnim, {
+			Animated.timing(introAnim, {
 				toValue: 0,
 				easing: Easing.bounce,
 				duration: 500,
 			}).start();
 		}, []);
 
-		console.log('bounceAnim', bounceAnim);
+		// const [bounceAnim] = useState(new Animated.Value(0));
+		const handleOnFocus = () => {
+			Animated.sequence([
+				Animated.timing(introAnim, {
+					toValue: -10,
+					duration: 130,
+				}),
+				Animated.timing(introAnim, {
+					toValue: 0,
+					duration: 130,
+				}),
+			]).start();
+			setIsFocused(true);
+		};
+
+		const handleOnBlur = () => {
+			setIsFocused(false);
+		};
+
+		console.log('introAnim', introAnim);
 
 		return (
-			<Animated.View style={{ transform: [{ translateY: bounceAnim }] }}>
+			<Animated.View style={{ transform: [{ translateY: introAnim }] }}>
 				<Input
 					value={value}
 					onChangeText={onChangeText}
@@ -70,13 +89,14 @@ const BouncyInput = forwardRef(
 					autoFocus={autoFocus}
 					autoCapitalize={autoCapitalize}
 					autoCorrect={autoCorrect}
-					containerStyle={containerStyle}
+					containerStyle={{ ...containerStyle, borderColor: isFocused ? '#0af' : '#303030' }}
 					inputStyle={inputStyle}
 					returnKeyType={returnKeyType}
 					selectTextOnFocus={selectTextOnFocus}
 					onSubmitEditing={onSubmitEditing}
 					ref={ref}
-					onFocus={onFocus}
+					onFocus={handleOnFocus}
+					onBlur={handleOnBlur}
 				/>
 			</Animated.View>
 		);
@@ -89,7 +109,7 @@ const SignupScreen = () => {
 	const { state, signup, clearErrorMessage } = useContext(AuthContext);
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [isFocused, setIsFocused] = useState('');
+	// const [isFocused, setIsFocused] = useState('');
 	const _passwordInput = useRef();
 
 	const _next = () => {
@@ -123,33 +143,31 @@ const SignupScreen = () => {
 				</Text> */}
 			</Spacer>
 			<BouncyInput
-				placeholder={isFocused === 'username' ? '' : 'username'}
+				placeholder={'username'}
 				value={username}
 				onChangeText={setUsername}
 				autoFocus={true}
 				autoCapitalize="none"
 				autoCorrect={false}
-				containerStyle={[styles.input, { borderColor: isFocused === 'username' ? '#0af' : '#fff' }]}
+				containerStyle={styles.input}
 				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
 				onSubmitEditing={_next}
-				onFocus={e => setIsFocused('username')}
 			/>
 			<Spacer />
 			<BouncyInput
-				placeholder={isFocused === 'password' ? '' : 'password'}
+				placeholder={'password'}
 				value={password}
 				onChangeText={setPassword}
 				autoCapitalize="none"
 				autoCorrect={false}
-				containerStyle={[styles.input, { borderColor: isFocused === 'password' ? '#0af' : '#fff' }]}
+				containerStyle={styles.input}
 				inputStyle={{ color: 'white' }}
 				returnKeyType="next"
 				selectTextOnFocus={true}
 				// ref={ref => (_passwordInput = ref)}
 				ref={_passwordInput}
-				onFocus={e => setIsFocused('password')}
 			/>
 			<Spacer />
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
