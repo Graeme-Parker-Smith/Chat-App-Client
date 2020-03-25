@@ -32,10 +32,22 @@ SigninScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    marginBottom: 200
-  }
+		height: Dimensions.get('window').height,
+		backgroundColor: '#000',
+		color: 'white',
+	},
+	errorMessage: {
+		fontSize: 16,
+		color: 'red',
+		marginLeft: 15,
+		marginTop: 15,
+	},
+	input: {
+		width: '75%',
+		borderWidth: 1,
+		borderRadius: 10,
+		alignSelf: 'center',
+	},
 });
 
 export default SigninScreen;
