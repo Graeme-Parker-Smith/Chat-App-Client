@@ -3,13 +3,14 @@ import { StyleSheet } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import FadeInView from '../components/FadeInView';
 import BouncyInput from '../components/BouncyInput';
+import WhiteText from '../components/WhiteText';
 import Spacer from './Spacer';
 
 const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
 	const [username, setusername] = useState('');
-  const [password, setPassword] = useState('');
-  const _usernameInput = useRef();
-  const _passwordInput = useRef();
+	const [password, setPassword] = useState('');
+	const _usernameInput = useRef();
+	const _passwordInput = useRef();
 
 	const _next = () => {
 		_passwordInput && _passwordInput.focus();
@@ -19,7 +20,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
 		<>
 			<Spacer>
 				<FadeInView>
-					<Text h3>{headerText}</Text>
+					<WhiteText h3>{headerText}</WhiteText>
 				</FadeInView>
 			</Spacer>
 			<BouncyInput

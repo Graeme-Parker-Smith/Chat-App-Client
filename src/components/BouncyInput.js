@@ -59,7 +59,7 @@ const BouncyInput = forwardRef(
 					autoFocus={autoFocus}
 					autoCapitalize={autoCapitalize}
 					autoCorrect={autoCorrect}
-					containerStyle={{ ...containerStyle, borderColor: isFocused ? '#0af' : '#303030' }}
+					containerStyle={[{ ...containerStyle, borderColor: isFocused ? '#0af' : '#303030' }, styles.input]}
 					inputStyle={inputStyle}
 					returnKeyType={returnKeyType}
 					selectTextOnFocus={selectTextOnFocus}
@@ -72,5 +72,12 @@ const BouncyInput = forwardRef(
 		);
 	}
 );
+
+const styles = {
+	input: {
+		borderWidth: 1,
+		borderRadius: 10,
+	},
+};
 
 export default BouncyInput;
