@@ -18,9 +18,12 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
 
 	return (
 		<>
+			<Spacer />
 			<Spacer>
 				<FadeInView>
-					<WhiteText>{headerText}</WhiteText>
+					<WhiteText fontSize={20} style={{ alignSelf: 'center' }}>
+						{headerText}
+					</WhiteText>
 				</FadeInView>
 			</Spacer>
 			<BouncyInput
