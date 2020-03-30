@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, View } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { Text, Button } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import { SafeAreaView } from 'react-navigation';
@@ -89,6 +90,7 @@ const SignupScreen = () => {
 				errorMessage={state.errorMessage}
 				submitButtonText="Create User"
 				onSubmit={handleSignup}
+				isSignup={true}
 			/>
 			<NavLink routeName="Signin" text="Back to Sign In" />
 		</View>

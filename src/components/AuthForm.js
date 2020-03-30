@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions, SafeAreaView } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import FadeInView from '../components/FadeInView';
 import BouncyInput from '../components/BouncyInput';
@@ -8,7 +8,7 @@ import AvatarPicker from '../components/AvatarPicker';
 import Spacer from './Spacer';
 
 const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSignup = false }) => {
-	const [username, setusername] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -68,7 +68,8 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 			<Spacer>
 				<FadeInView>
 					<WhiteText
-						style={{ color: 'white', fontSize: 20, alignSelf: 'center', fontFamily: 'Snell Roundhand' }}
+						fontSize={40}
+						style={{ color: 'white', alignSelf: 'center', fontFamily: 'Snell Roundhand' }}
 						h3
 					>
 						{headerText}
@@ -119,9 +120,9 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 
 const styles = StyleSheet.create({
 	container: {
-		height: Dimensions.get('window').height,
-		backgroundColor: '#000',
-		color: 'white',
+		// height: Dimensions.get('window').height,
+		// backgroundColor: '#000',
+		// color: 'white',
 	},
 	errorMessage: {
 		fontSize: 16,
