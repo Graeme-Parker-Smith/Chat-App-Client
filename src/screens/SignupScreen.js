@@ -9,6 +9,7 @@ import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from '../components/LoadingIndicator';
 import FadeInView from '../components/FadeInView';
 import BouncyInput from '../components/BouncyInput';
+import AuthForm from '../components/AuthForm';
 
 const SignupScreen = () => {
 	// const [username, setUsername] = useState('');
