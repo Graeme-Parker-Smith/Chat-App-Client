@@ -118,11 +118,20 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 };
 
 const styles = StyleSheet.create({
+	container: {
+		height: Dimensions.get('window').height,
+		backgroundColor: '#000',
+		color: 'white',
+	},
 	errorMessage: {
 		fontSize: 16,
 		color: 'red',
 		marginLeft: 15,
 		marginTop: 15,
+	},
+	input: {
+		width: '75%',
+		alignSelf: 'center',
 	},
 });
 
