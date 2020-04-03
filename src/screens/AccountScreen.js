@@ -104,15 +104,6 @@ const AccountScreen = ({ navigation }) => {
 					/>
 				</View>
 				<View>
-					{/* <Input
-						label="Channel Search"
-						value={channelSearch}
-						onChangeText={setChannelSearch}
-						autoFocus={false}
-						autoCapitalize="none"
-						autoCorrect={false}
-						inputStyle={{ color: 'white' }}
-					/> */}
 					<AnimSearchBar
 						placeholder="Channel Search"
 						value={channelSearch}
