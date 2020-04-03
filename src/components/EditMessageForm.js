@@ -79,7 +79,7 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 							</View>
 							{/* modal menu starts here */}
 							<View>
-								<Input
+								<BouncyInput
 									disabled={!isOwner}
 									label="Message Content"
 									value={content}

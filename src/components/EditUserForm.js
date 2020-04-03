@@ -48,9 +48,8 @@ const EditUserForm = ({ showForm }) => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={{ color: 'white' }}>Edit User Info</Text>
 			<Spacer>
-				<Input
+				<BouncyInput
 					label="Edit Username"
 					value={newUsername}
 					onChangeText={setNewUsername}
@@ -61,7 +60,7 @@ const EditUserForm = ({ showForm }) => {
 				/>
 			</Spacer>
 			<Spacer>
-				<Input
+				<BouncyInput
 					secureTextEntry
 					label=" Edit Password"
 					value={newPassword}

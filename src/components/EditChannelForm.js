@@ -65,9 +65,8 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={{ color: 'white' }}>Edit Channel Info</Text>
 			<Spacer>
-				<Input
+				<BouncyInput
 					label="Edit Channel Name"
 					disabled={!userCanEdit}
 					value={newName}
