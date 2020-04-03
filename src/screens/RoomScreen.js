@@ -458,7 +458,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							height: Dimensions.get('window').height * 0.8 - keyboardHeight,
 							flexGrow: 0,
 						}}
-						bounces={false}
+						bounces={true}
 						indicatorStyle="white"
 						keyboardDismissMode="interactive"
 						keyboardShouldPersistTaps={'always'}
