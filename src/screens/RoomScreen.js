@@ -376,18 +376,18 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			// 	style={{ transform: [{ translateX: pan.x }, { translateY: pan.y }] }}
 			// 	{...panResponder.panHandlers}
 			// >
-				<MessageItem
-					currentUserUsername={username}
-					itemId={item._id}
-					content={item.content}
-					username={item.creator}
-					time={item.time}
-					avatar={item.avatar}
-					isImage={item.isImage ? true : false}
-					isVideo={item.isVideo ? true : false}
-					index={index}
-					channelId={item.channel}
-				/>
+			<MessageItem
+				currentUserUsername={username}
+				itemId={item._id}
+				content={item.content}
+				username={item.creator}
+				time={item.time}
+				avatar={item.avatar}
+				isImage={item.isImage ? true : false}
+				isVideo={item.isVideo ? true : false}
+				index={index}
+				channelId={item.channel}
+			/>
 			// </Animated.View>
 		);
 	};
@@ -489,10 +489,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				</View>
 				<Input
 					autoFocus
+					multiline={true}
 					value={content}
 					onChangeText={setContent}
 					blurOnSubmit={false}
-					onSubmitEditing={sendNewMessage}
+					// onSubmitEditing={sendNewMessage}
 					placeholder="Type Your message here"
 					inputStyle={{ color: '#fff' }}
 					placeholderTextColor="#fff"
