@@ -38,12 +38,6 @@ const CreateChannelForm = ({ showForm }) => {
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-			{/* <CheckBox
-				center
-				title="Delete channel after 60 seconds"
-				checked={checked}
-				onPress={() => setChecked(!checked)}
-			/> */}
 			<BouncyInput
 				value={newChannelName}
 				onChangeText={setNewChannelName}
