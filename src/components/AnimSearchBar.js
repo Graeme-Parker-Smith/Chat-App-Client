@@ -1,8 +1,9 @@
 import React, { useState, useEffect, forwardRef } from 'react';
 import { Animated, Easing } from 'react-native';
 import { Input } from 'react-native-elements';
+import { FontAwesome } from '@expo/vector-icons';
 
-const BouncyInput = forwardRef(
+const AnimSearchBar = forwardRef(
 	(
 		{
 			value,
@@ -51,6 +52,7 @@ const BouncyInput = forwardRef(
 		return (
 			<Animated.View style={{ transform: [{ translateY: introAnim }] }}>
 				<Input
+					leftIcon={() => <FontAwesome name="search" size={32} color={isFocused ? '#0af' : '#303030'} />}
 					value={value}
 					onChangeText={onChangeText}
 					placeholder={placeholder}
@@ -78,4 +80,4 @@ const styles = {
 	},
 };
 
-export default BouncyInput;
+export default AnimSearchBar;
