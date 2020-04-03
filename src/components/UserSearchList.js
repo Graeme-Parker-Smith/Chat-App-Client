@@ -15,6 +15,7 @@ import SocketContext from '../context/SocketContext';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import UserAvatar from './UserAvatar';
 import UserSearchItem from './UserSearchItem';
+import AnimSearchBar from './AnimSearchBar';
 import WhiteText from './WhiteText';
 
 const UserSearchList = ({ user, showForm, setIsLoading }) => {
@@ -49,8 +50,8 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 	return (
 		<View style={styles.container}>
 			<WhiteText>Search</WhiteText>
-			<Input
-				label="Search Users"
+			<AnimSearchBar
+				placeholder="Search Users"
 				value={userSearch}
 				onChangeText={setUserSearch}
 				autoCapitalize="none"

@@ -9,6 +9,7 @@ import { Input } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import UserSearchItem from './UserSearchItem';
 import WhiteText from './WhiteText';
+import AnimSearchBar from './AnimSearchBar';
 
 const FriendsList = ({ user, showForm, setIsLoading }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
@@ -20,8 +21,8 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 			{state.currentUser.requestsReceived.length < 1 ? (
 				<WhiteText>You have no pending friend requests. Bummer.</WhiteText>
 			) : null}
-			<Input
-				label="Search Pending Requests"
+			<AnimSearchBar
+				placeholder="Search Pending Requests"
 				value={userSearch}
 				onChangeText={setUserSearch}
 				autoCapitalize="none"

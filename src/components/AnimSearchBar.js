@@ -70,13 +70,7 @@ const AnimSearchBar = forwardRef(
 					autoFocus={autoFocus}
 					autoCapitalize={autoCapitalize}
 					autoCorrect={autoCorrect}
-					containerStyle={[
-						{
-							...containerStyle,
-							borderColor: isFocused ? '#0af' : '#303030',
-						},
-						styles.input,
-					]}
+					containerStyle={[{ ...containerStyle, borderColor: isFocused ? '#0af' : '#303030' }, styles.input]}
 					inputStyle={inputStyle}
 					returnKeyType={returnKeyType}
 					selectTextOnFocus={selectTextOnFocus}

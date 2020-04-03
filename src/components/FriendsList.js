@@ -15,6 +15,7 @@ import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import UserAvatar from './UserAvatar';
 import UserSearchItem from './UserSearchItem';
 import WhiteText from './WhiteText';
+import AnimSearchBar from './AnimSearchBar';
 
 const FriendsList = ({ user, showForm, setIsLoading }) => {
 	const { addFriend, unblock, state } = useContext(ChannelContext);
@@ -26,8 +27,8 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 			{state.currentUser.friends.length < 1 ? (
 				<WhiteText>You have no friends! Oof.</WhiteText>
 			) : null}
-			<Input
-				label="Search Friends"
+			<AnimSearchBar
+				placeholder="Search Friends"
 				value={userSearch}
 				onChangeText={setUserSearch}
 				autoCapitalize="none"
