@@ -27,7 +27,7 @@ import { back } from '../navigationRef';
 
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
-	const { addFriend, unblock, state } = useContext(ChannelContext);
+	const { state } = useContext(ChannelContext);
 	const socket = useContext(SocketContext);
 	const [userSearch, setUserSearch] = useState('');
 	const [menuIndex, setMenuIndex] = useState(0);
