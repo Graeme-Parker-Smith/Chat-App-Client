@@ -66,7 +66,6 @@ const DashScreen = ({ navigation }) => {
 
 		// Divide the horizontal offset by the width of the view to see which page is visible
 		let pageNum = Math.round(contentOffset.x / viewSize.width);
-		// console.log('scrolled to page ', pageNum);
 		setMenuIndex(pageNum);
 	}
 
@@ -115,7 +114,6 @@ const DashScreen = ({ navigation }) => {
 					return item.comp;
 				}}
 			/>
-			{/* <Button buttonStyle={styles.button} raised title="Cancel" onPress={cancelForm} /> */}
 		</View>
 	);
 };
