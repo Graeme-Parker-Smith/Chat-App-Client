@@ -19,6 +19,8 @@ const MessageItem = ({
 	isImage,
 	isVideo,
 	channelId,
+	index,
+	addToLayoutsMap
 	// setVideoState
 }) => {
 	const [vidRef, setVidRef] = useState('');
@@ -133,10 +135,11 @@ const MessageItem = ({
 				subtitleStyle={styles.subtitle}
 				leftAvatar={avatarImage}
 				onLongPress={handleLongPress}
-				// onLayout={event => {
-				//   const layout = event.nativeEvent.layout;
-				//   addToLayoutsMap(layout, index);
-				// }}
+				onLayout={event => {
+					const layout = event.nativeEvent.layout;
+					console.log('messageItem layout ', layout);
+					addToLayoutsMap(layout.height, index);
+				}}
 			></ListItem>
 		</>
 	);

@@ -32,7 +32,7 @@ import imgUpload from '../helpers/imgUpload';
 import base64 from 'react-native-base64';
 import InviteMenu from '../components/InviteMenu';
 
-// let _layoutsMap = [];
+let _layoutsMap = [];
 let itemHeights = [];
 
 const RoomScreen = ({ navigation, isFocused }) => {
@@ -54,6 +54,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const [keyboardShowing, setKeyboardShowing] = useState(false);
 	const [keyboardHeight, setKeyboardHeight] = useState(0);
 	const [content, setContent] = useState('');
+	const [inputHeight, setInputHeight] = useState(35);
 	// const [scrollPosition, setScrollPosition] = useState(0);
 	// const [endScrollPosition, setEndScrollPosition] = useState(0);
 	const [scrollValues, setScrollValues] = useState({
@@ -313,7 +314,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	//                SCROLL FUNCTIONS
 	// ============================================================
 	const scrollToBottom = () => {
-		const offset = itemHeights.reduce((a, b) => a + b, 0);
+		// const offset = itemHeights.reduce((a, b) => a + b, 0);
+		const offset = _layoutsMap.reduce((a, b) => a + b, 0);
 		if (scrollViewRef.current.scrollToEnd && offset > 470) {
 			try {
 				// const offset = getOffsetByIndex(state.length - 1);
@@ -353,7 +355,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const handleAutoScroll = (width, height) => {
 		if (isCloseToBottom(scrollValues) && state.length > 10) {
 			try {
-				const offset = itemHeights.reduce((a, b) => a + b, 0);
+				// const offset = itemHeights.reduce((a, b) => a + b, 0);
+				const offset = _layoutsMap.reduce((a, b) => a + b, 0);
+
 				scrollViewRef.current.scrollToOffset({ offset, animated: false });
 			} catch {
 				console.log('scroll bs');
@@ -369,6 +373,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 	//                PREPARE FLATLIST PROPS
 	// ============================================================
+
+	const addToLayoutsMap = (layout, index) => {
+		_layoutsMap[index] = layout;
+	};
 
 	const renderItemOutside = (item, index) => {
 		return (
@@ -387,6 +395,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				isVideo={item.isVideo ? true : false}
 				index={index}
 				channelId={item.channel}
+				addToLayoutsMap={addToLayoutsMap}
 			/>
 			// </Animated.View>
 		);
@@ -455,7 +464,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							backgroundColor: 'black',
 							// height: Platform.OS === "ios" ? 470 : 447,
 							// height: keyboardShowing ? 270 : 470,
-							height: Dimensions.get('window').height * 0.8 - keyboardHeight,
+							height: Dimensions.get('window').height * 0.85 - keyboardHeight - inputHeight,
 							flexGrow: 0,
 						}}
 						bounces={true}
@@ -472,6 +481,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						renderItem={({ item, index }) => renderItemOutside(item, index)}
 						getItemLayout={(data, index) => {
 							let height = 46;
+							// console.log('data[index]: ', data[index]);
 							if (data[index].isImage || data[index].isVideo) {
 								height = 224.33325;
 							} else if (data[index].content.length > 32) {
@@ -495,8 +505,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					blurOnSubmit={false}
 					// onSubmitEditing={sendNewMessage}
 					placeholder="Type Your message here"
-					inputStyle={{ color: '#fff' }}
+					inputStyle={{ color: '#fff', alignSelf: 'flex-start', height: Math.max(35, inputHeight) }}
 					placeholderTextColor="#fff"
+					onContentSizeChange={event => setInputHeight(event.nativeEvent.contentSize.height)}
 					leftIcon={
 						<View
 							style={{
