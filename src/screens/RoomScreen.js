@@ -10,6 +10,8 @@ import {
 	Keyboard,
 	Platform,
 	Dimensions,
+	Animated,
+	PanResponder,
 } from 'react-native';
 import { Button, Input, ListItem } from 'react-native-elements';
 import { NavigationEvents, withNavigationFocus, SafeAreaView } from 'react-navigation';
@@ -69,6 +71,23 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		clearMessages,
 		sendNotification,
 	} = useContext(MessageContext);
+	const pan = useRef(new Animated.ValueXY()).current;
+
+	const panResponder = useRef(
+		PanResponder.create({
+			onMoveShouldSetPanResponder: () => true,
+			onPanResponderGrant: () => {
+				pan.setOffset({
+					x: pan.x._value,
+					y: pan.y._value,
+				});
+			},
+			onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }]),
+			onPanResponderRelease: () => {
+				pan.flattenOffset();
+			},
+		})
+	).current;
 
 	const _keyboardDidShow = e => {
 		setKeyboardShowing(true);
@@ -353,18 +372,23 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
 	const renderItemOutside = (item, index) => {
 		return (
-			<MessageItem
-				currentUserUsername={username}
-				itemId={item._id}
-				content={item.content}
-				username={item.creator}
-				time={item.time}
-				avatar={item.avatar}
-				isImage={item.isImage ? true : false}
-				isVideo={item.isVideo ? true : false}
-				index={index}
-				channelId={item.channel}
-			/>
+			// <Animated.View
+			// 	style={{ transform: [{ translateX: pan.x }, { translateY: pan.y }] }}
+			// 	{...panResponder.panHandlers}
+			// >
+				<MessageItem
+					currentUserUsername={username}
+					itemId={item._id}
+					content={item.content}
+					username={item.creator}
+					time={item.time}
+					avatar={item.avatar}
+					isImage={item.isImage ? true : false}
+					isVideo={item.isVideo ? true : false}
+					index={index}
+					channelId={item.channel}
+				/>
+			// </Animated.View>
 		);
 	};
 
