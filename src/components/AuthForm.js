@@ -69,7 +69,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 				<FadeInView>
 					<WhiteText
 						fontSize={40}
-						style={{ color: 'white', alignSelf: 'center', fontFamily: 'Snell Roundhand' }}
+						style={{ color: 'white', alignSelf: 'center' }}
 						h3
 					>
 						{headerText}
