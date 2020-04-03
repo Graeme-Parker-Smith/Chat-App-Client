@@ -500,12 +500,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				<Input
 					autoFocus
 					multiline={true}
+					maxLength={750}
 					value={content}
 					onChangeText={setContent}
 					blurOnSubmit={false}
 					// onSubmitEditing={sendNewMessage}
 					placeholder="Type Your message here"
-					inputStyle={{ color: '#fff', alignSelf: 'flex-start', height: Math.max(35, inputHeight) }}
+					inputStyle={{ color: '#fff', borderWidth: 1, borderColor: '#0af', borderRadius: 15, padding: 5, alignSelf: 'flex-start', height: Math.max(35, inputHeight) }}
 					placeholderTextColor="#fff"
 					onContentSizeChange={event => setInputHeight(event.nativeEvent.contentSize.height)}
 					leftIcon={
