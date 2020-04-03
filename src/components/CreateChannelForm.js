@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-navigation';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
+import BouncyInput from './BouncyInput';
 
 const CreateChannelForm = ({ showForm }) => {
 	const [newChannelName, setNewChannelName] = useState('');
@@ -43,7 +44,7 @@ const CreateChannelForm = ({ showForm }) => {
 				checked={checked}
 				onPress={() => setChecked(!checked)}
 			/> */}
-			<Input
+			<BouncyInput
 				value={newChannelName}
 				onChangeText={setNewChannelName}
 				placeholder="Name your new channel"

@@ -6,6 +6,7 @@ import { Context as AuthContext } from '../context/AuthContext';
 import Spacer from './Spacer';
 import AvatarPicker from './AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
+import BouncyInput from './BouncyInput';
 
 const EditUserForm = ({ showForm }) => {
 	const {

@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableH
 import { Button, Input } from 'react-native-elements';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
+import BouncyInput from './BouncyInput';
 
 const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, setEditMessageVisible, channelId }) => {
 	const { updateMessage, deleteMessage, fetchMessages } = useContext(MessageContext);

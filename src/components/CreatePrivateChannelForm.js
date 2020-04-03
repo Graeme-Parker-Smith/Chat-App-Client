@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-navigation';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
+import BouncyInput from './BouncyInput';
+
 
 const CreatePrivateChannelForm = ({ showForm }) => {
 	const [newChannelName, setNewChannelName] = useState('');
@@ -37,7 +39,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-			<Input
+			<BouncyInput
 				value={newChannelName}
 				onChangeText={setNewChannelName}
 				placeholder="Name your new Private channel"
