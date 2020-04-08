@@ -29,10 +29,11 @@ const AccountScreen = ({ navigation }) => {
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
-	// const [showLists, setShowLists] = useState({ public: true, private: true, publicWidth: 0.5, privateWidth: 0.5 });
+	const [activeLists, setActiveLists] = useState({ public: true, private: true, publicWidth: 0.5, privateWidth: 0.5 });
 	const [publicWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
-
+	// const [publicActive, setPublicActive] = useState(true);
+	// const [privateActive, setPrivateActive] = useState(true);
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
 
@@ -67,30 +68,53 @@ const AccountScreen = ({ navigation }) => {
 
 	const handleListButton = listType => {
 		console.log(publicWidthAnim);
-		console.log('privateWidthAnim', privateWidthAnim);
+		console.log('privateWidthAnim', privateWidthAnim._value);
 		if (listType === 'public') {
-			if (publicWidthAnim && privateWidthAnim) {
-				console.log('typeof', typeof publicWidthAnim);
+			if (publicWidthAnim._value > 0) {
+				setPublicActive(false);
 				Animated.timing(publicWidthAnim, {
 					toValue: 0,
-					duration: 2000,
+					duration: 200,
 				}).start();
 				Animated.timing(privateWidthAnim, {
 					toValue: Dimensions.get('window').width * 0.9,
-					duration: 2000,
+					duration: 200,
 				}).start();
 				console.log(publicWidthAnim);
 				console.log('privateWidthAnim', privateWidthAnim);
+			} else {
+				setPublicActive(true);
+				Animated.timing(publicWidthAnim, {
+					toValue: Dimensions.get('window').width * (privateWidthAnim._value > 0 ? 0.5 : 0.9),
+					duration: 200,
+				}).start();
+				Animated.timing(privateWidthAnim, {
+					toValue: Dimensions.get('window').width * (privateWidthAnim._value > 0 ? 0.5 : 0),
+					duration: 200,
+				}).start();
 			}
 		} else if (listType === 'private') {
-			if (publicWidthAnim && privateWidthAnim) {
+			if (privateWidthAnim._value > 0) {
+				setPrivateActive(false);
 				Animated.timing(privateWidthAnim, {
 					toValue: 0,
-					duration: 2000,
+					duration: 200,
 				}).start();
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * 0.9,
-					duration: 2000,
+					duration: 200,
+				}).start();
+				console.log(publicWidthAnim);
+				console.log('privateWidthAnim', privateWidthAnim);
+			} else {
+				setPrivateActive(true);
+				Animated.timing(privateWidthAnim, {
+					toValue: Dimensions.get('window').width * (publicWidthAnim._value > 0 ? 0.5 : 0.9),
+					duration: 200,
+				}).start();
+				Animated.timing(publicWidthAnim, {
+					toValue: Dimensions.get('window').width * (publicWidthAnim._value > 0 ? 0.5 : 0),
+					duration: 200,
 				}).start();
 			}
 		}
@@ -151,12 +175,14 @@ const AccountScreen = ({ navigation }) => {
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 					<Button
 						title="Public"
-						type={publicWidthAnim ? 'solid' : 'outline'}
+						// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
+						type={publicActive ? 'solid' : 'outline'}
 						onPress={() => handleListButton('public')}
 					/>
 					<Button
 						title="Private"
-						type={privateWidthAnim ? 'solid' : 'outline'}
+						// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
+						type={privateActive ? 'solid' : 'outline'}
 						onPress={() => handleListButton('private')}
 					/>
 					{/* <MaterialCommunityIcons
