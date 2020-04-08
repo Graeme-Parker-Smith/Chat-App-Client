@@ -53,7 +53,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				onChangeText={setLifespan}
 				keyboardType="numeric"
 				selectTextOnFocus={true}
-				label="Set Channel Lifespan"
+				label="Set Channel Lifespan in Minutes"
 				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
@@ -64,7 +64,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				onChangeText={setMsgLife}
 				keyboardType="numeric"
 				selectTextOnFocus={true}
-				label="Set Message Lifespan"
+				label="Set Message Lifespan in Minutes"
 				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
