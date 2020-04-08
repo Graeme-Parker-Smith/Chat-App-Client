@@ -29,7 +29,10 @@ const AccountScreen = ({ navigation }) => {
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
-	const [showLists, setShowLists] = useState({ public: true, private: true, publicWidth: 0.5, privateWidth: 0.5 });
+	// const [showLists, setShowLists] = useState({ public: true, private: true, publicWidth: 0.5, privateWidth: 0.5 });
+	const [publicWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
+	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
+
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
 
@@ -63,12 +66,24 @@ const AccountScreen = ({ navigation }) => {
 	};
 
 	const handleListButton = listType => {
-		if (listType === "public") {
-			if (showLists.publicWidth > 0 && showLists.privateWidth > 0) {
-				
+		console.log(publicWidthAnim);
+		console.log('privateWidthAnim', privateWidthAnim);
+		if (listType === 'public') {
+			if (publicWidthAnim && privateWidthAnim) {
+				console.log('typeof', typeof publicWidthAnim);
+				Animated.timing(publicWidthAnim, {
+					toValue: 0,
+					duration: 2000,
+				}).start();
+				Animated.timing(privateWidthAnim, {
+					toValue: Dimensions.get('window').width * 0.9,
+					duration: 2000,
+				}).start();
+				console.log(publicWidthAnim);
+				console.log('privateWidthAnim', privateWidthAnim);
 			}
 		}
-	}
+	};
 
 	if (!state.currentUser || isLoading) {
 		return (
@@ -125,13 +140,13 @@ const AccountScreen = ({ navigation }) => {
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 					<Button
 						title="Public"
-						type={showLists.public ? 'solid' : 'outline'}
-						onPress={() => setShowLists({ ...showLists, public: !showLists.public })}
+						type={publicWidthAnim ? 'solid' : 'outline'}
+						onPress={() => handleListButton('public')}
 					/>
 					<Button
 						title="Private"
-						type={showLists.private ? 'solid' : 'outline'}
-						onPress={() => setShowLists({ ...showLists, private: !showLists.private })}
+						type={privateWidthAnim ? 'solid' : 'outline'}
+						onPress={() => handleListButton('private')}
 					/>
 					{/* <MaterialCommunityIcons
 						name={showLists.public ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
@@ -149,26 +164,34 @@ const AccountScreen = ({ navigation }) => {
 					/> */}
 				</View>
 				<View style={styles.channelDivider}>
-					<ChannelList
-						listData={state.channels}
-						PMs={[]}
-						channelType="public"
-						navigation={navigation}
-						currentUser={state.currentUser}
-						handleEditChannel={handleClick}
-						channelSearch={channelSearch}
-						showLists={showLists}
-					/>
-					<ChannelList
-						listData={[...state.privateChannels, ...state.currentUser.friends]}
-						PMs={state.PMs}
-						channelType="private"
-						navigation={navigation}
-						currentUser={state.currentUser}
-						handleEditChannel={handleClick}
-						channelSearch={channelSearch}
-						showLists={showLists}
-					/>
+					<Animated.View style={{ width: publicWidthAnim }}>
+						<ChannelList
+							listData={state.channels}
+							PMs={[]}
+							channelType="public"
+							navigation={navigation}
+							currentUser={state.currentUser}
+							handleEditChannel={handleClick}
+							channelSearch={channelSearch}
+							publicWidthAnim={publicWidthAnim}
+							privateWidthAnim={privateWidthAnim}
+							// showLists={showLists}
+						/>
+					</Animated.View>
+					<Animated.View style={{ width: privateWidthAnim }}>
+						<ChannelList
+							listData={[...state.privateChannels, ...state.currentUser.friends]}
+							PMs={state.PMs}
+							channelType="private"
+							navigation={navigation}
+							currentUser={state.currentUser}
+							handleEditChannel={handleClick}
+							channelSearch={channelSearch}
+							publicWidthAnim={publicWidthAnim}
+							privateWidthAnim={privateWidthAnim}
+							// showLists={showLists}
+						/>
+					</Animated.View>
 				</View>
 				<Spacer>
 					<Button title="Sign Out" onPress={handleSignout} />

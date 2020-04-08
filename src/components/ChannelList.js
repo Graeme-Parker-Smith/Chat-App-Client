@@ -17,14 +17,14 @@ const ChannelList = ({
 	let color = '#808080';
 	if (channelType === 'private') color = '#301934';
 	if (channelType === 'pm') color = '#036';
-	let size = 0;
-	if (showLists.public && showLists.private) {
-		size = 0.5;
-	} else if (showLists[channelType]) {
-		size = 0.9;
-	}
+	// let size = 0;
+	// if (showLists.public && showLists.private) {
+	// 	size = 0.5;
+	// } else if (showLists[channelType]) {
+	// 	size = 0.9;
+	// }
 	return (
-		<Animated.View style={{ width: Dimensions.get('window').width * showLists[channelType + 'Width'] }}>
+		<View>
 			<FlatList
 				style={{ marginTop: 0, height: 275 }}
 				data={listData}
@@ -74,7 +74,7 @@ const ChannelList = ({
 					}
 				}}
 			/>
-		</Animated.View>
+		</View>
 	);
 };
 
