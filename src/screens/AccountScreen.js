@@ -29,7 +29,7 @@ const AccountScreen = ({ navigation }) => {
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
-	const [activeLists, setActiveLists] = useState({ public: true, private: true, publicWidth: 0.5, privateWidth: 0.5 });
+	const [activeLists, setActiveLists] = useState({ public: true, private: true });
 	const [publicWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 	// const [publicActive, setPublicActive] = useState(true);
@@ -71,7 +71,7 @@ const AccountScreen = ({ navigation }) => {
 		console.log('privateWidthAnim', privateWidthAnim._value);
 		if (listType === 'public') {
 			if (publicWidthAnim._value > 0) {
-				setPublicActive(false);
+				setActiveLists({ public: false, private: true });
 				Animated.timing(publicWidthAnim, {
 					toValue: 0,
 					duration: 200,
@@ -83,7 +83,7 @@ const AccountScreen = ({ navigation }) => {
 				console.log(publicWidthAnim);
 				console.log('privateWidthAnim', privateWidthAnim);
 			} else {
-				setPublicActive(true);
+				setActiveLists({ public: true, ...activeLists });
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * (privateWidthAnim._value > 0 ? 0.5 : 0.9),
 					duration: 200,
@@ -95,7 +95,7 @@ const AccountScreen = ({ navigation }) => {
 			}
 		} else if (listType === 'private') {
 			if (privateWidthAnim._value > 0) {
-				setPrivateActive(false);
+				setActiveLists({ public: true, private: false });
 				Animated.timing(privateWidthAnim, {
 					toValue: 0,
 					duration: 200,
@@ -107,7 +107,7 @@ const AccountScreen = ({ navigation }) => {
 				console.log(publicWidthAnim);
 				console.log('privateWidthAnim', privateWidthAnim);
 			} else {
-				setPrivateActive(true);
+				setActiveLists({ ...activeLists, private: true });
 				Animated.timing(privateWidthAnim, {
 					toValue: Dimensions.get('window').width * (publicWidthAnim._value > 0 ? 0.5 : 0.9),
 					duration: 200,
@@ -176,13 +176,13 @@ const AccountScreen = ({ navigation }) => {
 					<Button
 						title="Public"
 						// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
-						type={publicActive ? 'solid' : 'outline'}
+						type={activeLists.public ? 'solid' : 'outline'}
 						onPress={() => handleListButton('public')}
 					/>
 					<Button
 						title="Private"
 						// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
-						type={privateActive ? 'solid' : 'outline'}
+						type={activeLists.private ? 'solid' : 'outline'}
 						onPress={() => handleListButton('private')}
 					/>
 					{/* <MaterialCommunityIcons
