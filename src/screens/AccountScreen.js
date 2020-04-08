@@ -82,6 +82,17 @@ const AccountScreen = ({ navigation }) => {
 				console.log(publicWidthAnim);
 				console.log('privateWidthAnim', privateWidthAnim);
 			}
+		} else if (listType === 'private') {
+			if (publicWidthAnim && privateWidthAnim) {
+				Animated.timing(privateWidthAnim, {
+					toValue: 0,
+					duration: 2000,
+				}).start();
+				Animated.timing(publicWidthAnim, {
+					toValue: Dimensions.get('window').width * 0.9,
+					duration: 2000,
+				}).start();
+			}
 		}
 	};
 
