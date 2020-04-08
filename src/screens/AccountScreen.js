@@ -67,8 +67,6 @@ const AccountScreen = ({ navigation }) => {
 	};
 
 	const handleListButton = listType => {
-		console.log(publicWidthAnim);
-		console.log('privateWidthAnim', privateWidthAnim._value);
 		if (listType === 'public') {
 			if (publicWidthAnim._value > 0) {
 				setActiveLists({ public: false, private: true });
@@ -80,10 +78,8 @@ const AccountScreen = ({ navigation }) => {
 					toValue: Dimensions.get('window').width * 0.9,
 					duration: 200,
 				}).start();
-				console.log(publicWidthAnim);
-				console.log('privateWidthAnim', privateWidthAnim);
 			} else {
-				setActiveLists({ public: true, ...activeLists });
+				setActiveLists({ ...activeLists, public: true });
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * (privateWidthAnim._value > 0 ? 0.5 : 0.9),
 					duration: 200,
@@ -104,8 +100,6 @@ const AccountScreen = ({ navigation }) => {
 					toValue: Dimensions.get('window').width * 0.9,
 					duration: 200,
 				}).start();
-				console.log(publicWidthAnim);
-				console.log('privateWidthAnim', privateWidthAnim);
 			} else {
 				setActiveLists({ ...activeLists, private: true });
 				Animated.timing(privateWidthAnim, {
