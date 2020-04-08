@@ -1,10 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions, Animated } from 'react-native';
 import { Input, Button, ListItem } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import CacheImage from './CacheImage';
 
-const ChannelList = ({ listData, channelType, navigation, currentUser, handleEditChannel, channelSearch, PMs, showLists }) => {
+const ChannelList = ({
+	listData,
+	channelType,
+	navigation,
+	currentUser,
+	handleEditChannel,
+	channelSearch,
+	PMs,
+	showLists,
+}) => {
 	let color = '#808080';
 	if (channelType === 'private') color = '#301934';
 	if (channelType === 'pm') color = '#036';
@@ -13,11 +22,11 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 		size = 0.5;
 	} else if (showLists[channelType]) {
 		size = 0.9;
-	} 
+	}
 	return (
-		<View>
+		<Animated.View style={{ width: Dimensions.get('window').width * showLists[channelType + 'Width'] }}>
 			<FlatList
-				style={{ marginTop: 0, height: 275, width: Dimensions.get('window').width * size }}
+				style={{ marginTop: 0, height: 275 }}
 				data={listData}
 				keyExtractor={item => item._id}
 				renderItem={({ item }) => {
@@ -65,7 +74,7 @@ const ChannelList = ({ listData, channelType, navigation, currentUser, handleEdi
 					}
 				}}
 			/>
-		</View>
+		</Animated.View>
 	);
 };
 

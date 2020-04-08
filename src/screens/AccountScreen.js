@@ -29,7 +29,7 @@ const AccountScreen = ({ navigation }) => {
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
-	const [showLists, setShowLists] = useState({ public: true, private: true });
+	const [showLists, setShowLists] = useState({ public: true, private: true, publicWidth: 0.5, privateWidth: 0.5 });
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
 
@@ -61,6 +61,14 @@ const AccountScreen = ({ navigation }) => {
 		signout();
 		clearState();
 	};
+
+	const handleListButton = listType => {
+		if (listType === "public") {
+			if (showLists.publicWidth > 0 && showLists.privateWidth > 0) {
+				
+			}
+		}
+	}
 
 	if (!state.currentUser || isLoading) {
 		return (
@@ -115,7 +123,17 @@ const AccountScreen = ({ navigation }) => {
 					/>
 				</View>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-					<MaterialCommunityIcons
+					<Button
+						title="Public"
+						type={showLists.public ? 'solid' : 'outline'}
+						onPress={() => setShowLists({ ...showLists, public: !showLists.public })}
+					/>
+					<Button
+						title="Private"
+						type={showLists.private ? 'solid' : 'outline'}
+						onPress={() => setShowLists({ ...showLists, private: !showLists.private })}
+					/>
+					{/* <MaterialCommunityIcons
 						name={showLists.public ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
 						size={32}
 						color="#0af"
@@ -128,7 +146,7 @@ const AccountScreen = ({ navigation }) => {
 						color="#0af"
 						style={{ marginBottom: 0 }}
 						onPress={() => setShowLists({ ...showLists, private: !showLists.private })}
-					/>
+					/> */}
 				</View>
 				<View style={styles.channelDivider}>
 					<ChannelList
