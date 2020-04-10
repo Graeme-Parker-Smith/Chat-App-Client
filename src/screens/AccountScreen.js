@@ -144,7 +144,7 @@ const AccountScreen = ({ navigation }) => {
 					/>
 					<MaterialCommunityIcons
 						name="comment-plus"
-						color="#03f"
+						color="#808080"
 						size={32}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
 						onPress={() => handleClick('create_public')}
