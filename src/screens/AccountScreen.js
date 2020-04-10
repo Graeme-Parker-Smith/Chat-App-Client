@@ -155,7 +155,9 @@ const AccountScreen = ({ navigation }) => {
 									margin: 10,
 								}}
 							>
-								<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>Sign Out</WhiteText>
+								<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>
+									Sign Out
+								</WhiteText>
 								{/* <Button title="Sign Out" type="outline" containerStyle={{ margin: 10 }} /> */}
 							</TouchableOpacity>
 						</View>
@@ -178,31 +180,35 @@ const AccountScreen = ({ navigation }) => {
 						onPress={() => handleClick('create_private')}
 					/>
 				</View>
-				<View>
-					<AnimSearchBar
-						placeholder="Channel Search"
-						value={channelSearch}
-						onChangeText={setChannelSearch}
-						autoFocus={false}
-						autoCapitalize="none"
-						autoCorrect={false}
-						inputStyle={{ color: 'white' }}
-					/>
-				</View>
-				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-					<Button
-						title="Public"
-						// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
-						type={activeLists.public ? 'solid' : 'outline'}
-						onPress={() => handleListButton('public')}
-					/>
-					<Button
-						title="Private"
-						// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
-						type={activeLists.private ? 'solid' : 'outline'}
-						onPress={() => handleListButton('private')}
-					/>
-				</View>
+				<Spacer>
+					<View>
+						<AnimSearchBar
+							placeholder="Channel Search"
+							value={channelSearch}
+							onChangeText={setChannelSearch}
+							autoFocus={false}
+							autoCapitalize="none"
+							autoCorrect={false}
+							inputStyle={{ color: 'white' }}
+						/>
+					</View>
+				</Spacer>
+				<Spacer>
+					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+						<Button
+							title="Public"
+							// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
+							type={activeLists.public ? 'solid' : 'outline'}
+							onPress={() => handleListButton('public')}
+						/>
+						<Button
+							title="Private"
+							// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
+							type={activeLists.private ? 'solid' : 'outline'}
+							onPress={() => handleListButton('private')}
+						/>
+					</View>
+				</Spacer>
 				<View style={styles.channelDivider}>
 					<Animated.View style={{ width: publicWidthAnim }}>
 						<ChannelList
@@ -233,9 +239,9 @@ const AccountScreen = ({ navigation }) => {
 						/>
 					</Animated.View>
 				</View>
-				<Spacer>
+				{/* <Spacer>
 					<Button title="Sign Out" onPress={handleSignout} />
-				</Spacer>
+				</Spacer> */}
 			</SafeAreaView>
 		</>
 	);
