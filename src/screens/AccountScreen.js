@@ -303,7 +303,8 @@ const styles = StyleSheet.create({
 		paddingBottom: 10,
 	},
 	userTitle: {
-		fontSize: 16,
+		fontSize: 20,
+		fontWeight: 'bold',
 		textAlign: 'center',
 		marginLeft: 10,
 		marginBottom: 3,
