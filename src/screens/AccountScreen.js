@@ -33,10 +33,23 @@ const AccountScreen = ({ navigation }) => {
 	const [activeLists, setActiveLists] = useState({ public: true, private: true });
 	const [publicWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
+
+	const [keyboardHeight, setKeyboardHeight] = useState(0);
+
 	// const [publicActive, setPublicActive] = useState(true);
 	// const [privateActive, setPrivateActive] = useState(true);
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
+
+	useEffect(() => {
+		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+		return () => {
+			keyboardDidShowListener.remove();
+			keyboardDidHideListener.remove();
+		};
+	}, []);
 
 	useEffect(() => {
 		if (hasMountedRef.current && firstRef.current) {
@@ -49,6 +62,14 @@ const AccountScreen = ({ navigation }) => {
 			hasMountedRef.current = true;
 		}
 	}, [state]);
+
+	const _keyboardDidShow = (e) => {
+		setKeyboardHeight(e.endCoordinates.height);
+	};
+
+	const _keyboardDidHide = () => {
+		setKeyboardHeight(0);
+	};
 
 	const handleClick = (action, item = { name: '', avatar: '' }) => {
 		setFormState({ show: action, item });
@@ -63,7 +84,7 @@ const AccountScreen = ({ navigation }) => {
 	};
 
 	const handleSignout = () => {
-		signout();
+		signout({ user_id: state.currentUser._id });
 		clearState();
 	};
 
@@ -209,8 +230,10 @@ const AccountScreen = ({ navigation }) => {
 						/>
 					</View>
 				</Spacer>
-				<View style={styles.channelDivider}>
-					<Animated.View style={{ width: publicWidthAnim, }}>
+				<View
+					style={[styles.channelDivider, { height: Dimensions.get('window').height * 0.85 - keyboardHeight }]}
+				>
+					<Animated.View style={{ width: publicWidthAnim }}>
 						<ChannelList
 							listData={state.channels}
 							PMs={[]}

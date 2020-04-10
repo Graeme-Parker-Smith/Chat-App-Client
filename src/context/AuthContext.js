@@ -27,7 +27,7 @@ const authReducer = (state, action) => {
 	}
 };
 
-const tryLocalSignin = dispatch => async () => {
+const tryLocalSignin = (dispatch) => async () => {
 	const token = await AsyncStorage.getItem('token');
 	if (token) {
 		// const response = await chatApi.get("/userdata");
@@ -41,11 +41,11 @@ const tryLocalSignin = dispatch => async () => {
 	}
 };
 
-const clearErrorMessage = dispatch => () => {
+const clearErrorMessage = (dispatch) => () => {
 	dispatch({ type: 'clear_error_message' });
 };
 
-const signup = dispatch => async ({ username, password, avatar }) => {
+const signup = (dispatch) => async ({ username, password, avatar }) => {
 	try {
 		let response;
 		if (avatar) {
@@ -92,7 +92,7 @@ const signup = dispatch => async ({ username, password, avatar }) => {
 	}
 };
 
-const signin = dispatch => async ({ username, password }) => {
+const signin = (dispatch) => async ({ username, password }) => {
 	// navigate('Account');
 	try {
 		const response = await chatApi.post('/signin', { username, password });
@@ -110,14 +110,18 @@ const signin = dispatch => async ({ username, password }) => {
 	return 'error';
 };
 
-const deleteUser = dispatch => async ({ username, user_id }) => {
+const deleteUser = (dispatch) => async ({ username, user_id }) => {
 	await chatApi.delete('/user', { params: { username, user_id } });
 	await AsyncStorage.removeItem('token');
 	dispatch({ type: 'signout' });
 	navigate('Signup');
 };
 
-const signout = dispatch => async () => {
+const signout = (dispatch) => async ({ user_id }) => {
+	let pushToken = await AsyncStorage.getItem('pushtoken');
+	if (pushToken) {
+		await chatApi.post('/signout', { user_id, pushToken: pushToken });
+	}
 	await AsyncStorage.removeItem('token');
 	dispatch({ type: 'signout' });
 	navigate('Signin');
