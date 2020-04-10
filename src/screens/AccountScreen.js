@@ -210,7 +210,7 @@ const AccountScreen = ({ navigation }) => {
 					</View>
 				</Spacer>
 				<View style={styles.channelDivider}>
-					<Animated.View style={{ width: publicWidthAnim }}>
+					<Animated.View style={{ width: publicWidthAnim, }}>
 						<ChannelList
 							listData={state.channels}
 							PMs={[]}
