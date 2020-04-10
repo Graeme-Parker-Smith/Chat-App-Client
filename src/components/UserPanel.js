@@ -36,9 +36,9 @@ const UserPanel = ({ user, handleClick }) => {
 
 const styles = StyleSheet.create({
 	avatarStyle: {
-		height: 50,
-		width: 50,
-		borderRadius: 25,
+		height: 60,
+		width: 60,
+		borderRadius: 30,
 	},
 });
 

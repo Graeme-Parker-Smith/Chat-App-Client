@@ -22,6 +22,7 @@ import FormHandler from '../components/FormHandler';
 import ChannelList from '../components/ChannelList';
 import UserPanel from '../components/UserPanel';
 import AnimSearchBar from '../components/AnimSearchBar';
+import WhiteText from '../components/WhiteText';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
@@ -68,7 +69,7 @@ const AccountScreen = ({ navigation }) => {
 
 	// handle list animations
 
-	const handleListButton = listType => {
+	const handleListButton = (listType) => {
 		if (listType === 'public') {
 			if (publicWidthAnim._value > 0) {
 				setActiveLists({ public: false, private: true });
@@ -133,26 +134,46 @@ const AccountScreen = ({ navigation }) => {
 			<NavigationEvents onWillFocus={tryFetchChannels} />
 			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 				<View style={styles.userDisplay}>
-					<UserPanel user={state.currentUser} handleClick={handleClick} />
-					<Text style={styles.userTitle}>{state.currentUser.username}</Text>
-					<Entypo
-						name="edit"
-						color="#0af"
-						size={32}
-						onPress={() => handleClick('edit_user')}
-						style={{ alignSelf: 'center', marginLeft: 10 }}
-					/>
+					<View style={{ flexDirection: 'row' }}>
+						<View style={{ width: Dimensions.get('window').width * 0.4 }}>
+							<Text style={styles.userTitle}>{state.currentUser.username}</Text>
+							{/* <Entypo
+								name="edit"
+								color="#0af"
+								size={32}
+								onPress={() => handleClick('edit_user')}
+								style={{ alignSelf: 'center', marginLeft: 10 }}
+							/> */}
+							<TouchableOpacity
+								onPress={handleSignout}
+								style={{
+									backgroundColor: 'transparent',
+									borderWidth: 1,
+									borderColor: '#0af',
+									padding: 10,
+									borderRadius: 2,
+									margin: 10,
+								}}
+							>
+								<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>Sign Out</WhiteText>
+								{/* <Button title="Sign Out" type="outline" containerStyle={{ margin: 10 }} /> */}
+							</TouchableOpacity>
+						</View>
+					</View>
+					<View style={{ alignSelf: 'center' }}>
+						<UserPanel user={state.currentUser} handleClick={handleClick} />
+					</View>
 					<MaterialCommunityIcons
 						name="comment-plus"
 						color="#808080"
-						size={32}
+						size={48}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
 						onPress={() => handleClick('create_public')}
 					/>
 					<MaterialCommunityIcons
 						name="comment-plus"
 						color="#301934"
-						size={32}
+						size={48}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
 						onPress={() => handleClick('create_private')}
 					/>
@@ -181,20 +202,6 @@ const AccountScreen = ({ navigation }) => {
 						type={activeLists.private ? 'solid' : 'outline'}
 						onPress={() => handleListButton('private')}
 					/>
-					{/* <MaterialCommunityIcons
-						name={showLists.public ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
-						size={32}
-						color="#0af"
-						style={{ marginBottom: 0 }}
-						onPress={() => setShowLists({ ...showLists, public: !showLists.public })}
-					/>
-					<MaterialCommunityIcons
-						name={showLists.private ? 'arrow-collapse-horizontal' : 'arrow-expand-horizontal'}
-						size={32}
-						color="#0af"
-						style={{ marginBottom: 0 }}
-						onPress={() => setShowLists({ ...showLists, private: !showLists.private })}
-					/> */}
 				</View>
 				<View style={styles.channelDivider}>
 					<Animated.View style={{ width: publicWidthAnim }}>
@@ -260,13 +267,13 @@ const styles = StyleSheet.create({
 	},
 	userDisplay: {
 		flexDirection: 'row',
-		justifyContent: 'flex-start',
+		justifyContent: 'space-around',
 		borderBottomWidth: 1,
 		borderBottomColor: '#d3d3d3',
 		paddingBottom: 10,
 	},
 	userTitle: {
-		fontSize: 32,
+		fontSize: 16,
 		textAlign: 'center',
 		marginLeft: 10,
 		marginBottom: 3,
