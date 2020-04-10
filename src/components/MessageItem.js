@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { StyleSheet, Image, View, Dimensions } from 'react-native';
+import { StyleSheet, Image, View, Dimensions, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import EditMessageForm from './EditMessageForm';
 import timeConverter from '../helpers/timeConverter';
@@ -20,7 +20,7 @@ const MessageItem = ({
 	isVideo,
 	channelId,
 	index,
-	addToLayoutsMap
+	addToLayoutsMap,
 	// setVideoState
 }) => {
 	const [vidRef, setVidRef] = useState('');
@@ -32,7 +32,12 @@ const MessageItem = ({
 		const now = new Date();
 		howLongAgo = timeConverter(time, now);
 	}
-	const deets = howLongAgo ? 'from: ' + username + '  -  ' + howLongAgo : 'from: ' + username;
+	const deets = (
+		<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+			<Text style={{ color: '#0af', fontSize: 16, fontWeight: 'bold' }}>{username}</Text>
+			<Text style={{ color: '#808080', fontSize: 12 }}>{howLongAgo ? '  -  ' + howLongAgo : null}</Text>
+		</View>
+	);
 
 	// If user avatar, display that in left icon, else use default avatar
 	let avatarImage;
@@ -68,7 +73,7 @@ const MessageItem = ({
 		);
 	};
 
-	const _handleVideoRef = component => {
+	const _handleVideoRef = (component) => {
 		let playbackObject = component;
 		setVidRef(playbackObject);
 	};
@@ -135,9 +140,8 @@ const MessageItem = ({
 				subtitleStyle={styles.subtitle}
 				leftAvatar={avatarImage}
 				onLongPress={handleLongPress}
-				onLayout={event => {
+				onLayout={(event) => {
 					const layout = event.nativeEvent.layout;
-					console.log('messageItem layout ', layout);
 					addToLayoutsMap(layout.height, index);
 				}}
 			></ListItem>
