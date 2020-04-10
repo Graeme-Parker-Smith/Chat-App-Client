@@ -66,6 +66,8 @@ const AccountScreen = ({ navigation }) => {
 		clearState();
 	};
 
+	// handle list animations
+
 	const handleListButton = listType => {
 		if (listType === 'public') {
 			if (publicWidthAnim._value > 0) {
@@ -140,15 +142,15 @@ const AccountScreen = ({ navigation }) => {
 						onPress={() => handleClick('edit_user')}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
 					/>
-					<FontAwesome
-						name="plus-circle"
-						color="#0af"
+					<MaterialCommunityIcons
+						name="comment-plus"
+						color="#03f"
 						size={32}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
 						onPress={() => handleClick('create_public')}
 					/>
-					<FontAwesome
-						name="plus-circle"
+					<MaterialCommunityIcons
+						name="comment-plus"
 						color="#301934"
 						size={32}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
