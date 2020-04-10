@@ -26,7 +26,7 @@ const ChannelList = ({
 	return (
 		<View>
 			<FlatList
-				style={{ marginTop: 0, height: 275 }}
+				style={{ marginTop: 0 }}
 				data={listData}
 				keyExtractor={item => item._id}
 				renderItem={({ item }) => {

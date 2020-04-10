@@ -9,6 +9,7 @@ import {
 	Dimensions,
 	AppState,
 	Animated,
+	Keyboard,
 } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
@@ -231,7 +232,7 @@ const AccountScreen = ({ navigation }) => {
 					</View>
 				</Spacer>
 				<View
-					style={[styles.channelDivider, { height: Dimensions.get('window').height * 0.85 - keyboardHeight }]}
+					style={[styles.channelDivider, { height: Dimensions.get('window').height * 0.62 - keyboardHeight }]}
 				>
 					<Animated.View style={{ width: publicWidthAnim }}>
 						<ChannelList
