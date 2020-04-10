@@ -5,6 +5,6 @@ const WhiteText = props => {
 	return <Text h3 style={[styles.textStyle, { ...props.style }]}>{props.children}</Text>;
 };
 
-const styles = { textStyle: { color: 'white', fontWeight: 'bold', fontSize: 20 } };
+const styles = { textStyle: { color: 'white', fontWeight: 'bold', fontSize: 16 } };
 
 export default WhiteText;
