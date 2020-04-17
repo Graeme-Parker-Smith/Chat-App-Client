@@ -82,7 +82,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 				onChangeText={setUsername}
 				autoFocus={true}
 				autoCapitalize="none"
-				maxLength={22}
+				maxLength={30}
 				autoCorrect={false}
 				containerStyle={styles.input}
 				inputStyle={{ color: 'white' }}
@@ -93,6 +93,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 			<Spacer />
 			<BouncyInput
 				placeholder={'password'}
+				secure={true}
 				value={password}
 				onChangeText={setPassword}
 				autoCapitalize="none"

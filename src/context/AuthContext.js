@@ -69,6 +69,7 @@ const signup = (dispatch) => async ({ username, password, avatar }) => {
 			// });
 
 			const cloudUrl = await imgUpload(avatar);
+			console.log('cloudUrl', cloudUrl);
 			response = await chatApi.post('/signup', {
 				username,
 				password,

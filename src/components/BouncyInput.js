@@ -16,7 +16,8 @@ const BouncyInput = forwardRef(
 			returnKeyType = 'next',
 			selectTextOnFocus = true,
 			onSubmitEditing = null,
-			maxLength
+			maxLength,
+			secure
 		},
 		ref
 	) => {
@@ -67,6 +68,7 @@ const BouncyInput = forwardRef(
 					ref={ref}
 					onFocus={handleOnFocus}
 					onBlur={handleOnBlur}
+					secureTextEntry={secure}
 				/>
 			</Animated.View>
 		);

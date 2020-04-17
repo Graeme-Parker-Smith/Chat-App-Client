@@ -464,7 +464,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							backgroundColor: 'black',
 							// height: Platform.OS === "ios" ? 470 : 447,
 							// height: keyboardShowing ? 270 : 470,
-							height: Dimensions.get('window').height * 0.85 - keyboardHeight - inputHeight,
+							height: Platform.OS === 'ios' ? Dimensions.get('window').height * 0.83 - keyboardHeight - inputHeight :  Dimensions.get('window').height * 0.86 - keyboardHeight - inputHeight,
 							flexGrow: 0,
 						}}
 						bounces={true}
@@ -508,7 +508,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					placeholder="Type Your message here"
 					inputStyle={{ color: '#fff', borderWidth: 1, borderColor: '#0af', borderRadius: 15, padding: 5, alignSelf: 'flex-start', height: Math.max(35, inputHeight) }}
 					placeholderTextColor="#fff"
-					onContentSizeChange={event => setInputHeight(event.nativeEvent.contentSize.height)}
+					onContentSizeChange={event => Platform.OS === 'ios' ? setInputHeight(event.nativeEvent.contentSize.height + 12) : setInputHeight(event.nativeEvent.contentSize.height)}
 					leftIcon={
 						<View
 							style={{

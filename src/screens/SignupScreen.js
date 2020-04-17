@@ -27,7 +27,7 @@ const SignupScreen = () => {
 
 	const handleSignup = ({ username, password, avatar }) => {
 		setIsLoading(true);
-		signup({ username, password, avatar: avatar.base64Uri });
+		signup({ username, password, avatar: avatar });
 	};
 
 	useEffect(() => {
