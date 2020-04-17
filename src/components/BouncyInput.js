@@ -16,6 +16,7 @@ const BouncyInput = forwardRef(
 			returnKeyType = 'next',
 			selectTextOnFocus = true,
 			onSubmitEditing = null,
+			maxLength
 		},
 		ref
 	) => {
@@ -54,6 +55,7 @@ const BouncyInput = forwardRef(
 					value={value}
 					onChangeText={onChangeText}
 					placeholder={placeholder}
+					maxLength={maxLength}
 					autoFocus={autoFocus}
 					autoCapitalize={autoCapitalize}
 					autoCorrect={autoCorrect}

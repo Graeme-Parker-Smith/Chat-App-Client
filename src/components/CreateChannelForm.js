@@ -46,8 +46,9 @@ const CreateChannelForm = ({ showForm }) => {
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
 				autoFocus={true}
+				maxLength={22}
 			/>
-			<Input
+			<BouncyInput
 				value={String(lifespan)}
 				onChangeText={setLifespan}
 				keyboardType="numeric"
@@ -57,8 +58,9 @@ const CreateChannelForm = ({ showForm }) => {
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
+				maxLength={22}
 			/>
-			<Input
+			<BouncyInput
 				value={String(msgLife)}
 				onChangeText={setMsgLife}
 				keyboardType="numeric"
@@ -68,6 +70,7 @@ const CreateChannelForm = ({ showForm }) => {
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
+				maxLength={22}
 			/>
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
 			<View style={styles.buttonRow}>

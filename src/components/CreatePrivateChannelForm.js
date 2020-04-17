@@ -7,7 +7,6 @@ import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
 
-
 const CreatePrivateChannelForm = ({ showForm }) => {
 	const [newChannelName, setNewChannelName] = useState('');
 	const { state, createPrivateChannel } = useContext(ChannelContext);
@@ -47,8 +46,9 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
 				autoFocus={true}
+				maxLength={22}
 			/>
-			<Input
+			<BouncyInput
 				value={String(lifespan)}
 				onChangeText={setLifespan}
 				keyboardType="numeric"
@@ -58,8 +58,9 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
+				maxLength={22}
 			/>
-			<Input
+			<BouncyInput
 				value={String(msgLife)}
 				onChangeText={setMsgLife}
 				keyboardType="numeric"
@@ -69,6 +70,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
+				maxLength={22}
 			/>
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
 			<View style={styles.buttonRow}>
