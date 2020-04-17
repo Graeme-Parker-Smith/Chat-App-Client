@@ -39,50 +39,6 @@ const SignupScreen = () => {
 	}
 
 	return (
-		// <SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-		// 	<Spacer>
-		// 		<FadeInView>
-		// 			<Text style={{ color: 'white', alignSelf: 'center', fontFamily: 'Snell Roundhand' }} h3>
-		// 				Sign Up
-		// 			</Text>
-		// 		</FadeInView>
-		// 		{/* <Text style={{ color: 'white', alignSelf: 'center', fontFamily: 'Savoye LET' }} h3>
-		// 			Sign Up
-		// 		</Text> */}
-		// 	</Spacer>
-		// 	<BouncyInput
-		// 		placeholder={'username'}
-		// 		value={username}
-		// 		onChangeText={setUsername}
-		// 		autoFocus={true}
-		// 		autoCapitalize="none"
-		// 		autoCorrect={false}
-		// 		containerStyle={styles.input}
-		// 		inputStyle={{ color: 'white' }}
-		// 		returnKeyType="next"
-		// 		selectTextOnFocus={true}
-		// 		onSubmitEditing={_next}
-		// 	/>
-		// 	<Spacer />
-		// 	<BouncyInput
-		// 		placeholder={'password'}
-		// 		value={password}
-		// 		onChangeText={setPassword}
-		// 		autoCapitalize="none"
-		// 		autoCorrect={false}
-		// 		containerStyle={styles.input}
-		// 		inputStyle={{ color: 'white' }}
-		// 		returnKeyType="next"
-		// 		selectTextOnFocus={true}
-		// 		ref={_passwordInput}
-		// 	/>
-		// 	<Spacer />
-		// 	<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
-		// 	{state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text> : null}
-		// 	<Spacer />
-		// 	<Button title="Register User" disabled={!username || !password} onPress={handleSignup} />
-		// 	<NavLink routeName="Signin" text="Go back to Sign In" />
-		// </SafeAreaView>
 		<View style={styles.container}>
 			<NavigationEvents onWillBlur={clearErrorMessage} />
 			<AuthForm
