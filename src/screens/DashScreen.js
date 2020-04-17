@@ -23,7 +23,7 @@ import UserSearchList from '../components/UserSearchList';
 import PendingList from '../components/PendingList';
 import BlockedList from '../components/BlockedList';
 import WhiteText from '../components/WhiteText';
-import { back } from '../navigationRef';
+import { back, navigate } from '../navigationRef';
 
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
@@ -41,14 +41,14 @@ const DashScreen = ({ navigation }) => {
 		navigation.navigate('channelFlow');
 	};
 
-	const handleChangeText = e => {
+	const handleChangeText = (e) => {
 		setUserSearch(e.target);
 		console.log('UserSearch being emitted', userSearch);
 		socket.emit('searchuser', userSearch);
 		console.log('socket emitting search');
 	};
 
-	const handleMenuClick = index => {
+	const handleMenuClick = (index) => {
 		setMenuIndex(index);
 		listRef.current.scrollToIndex({ animated: true, index: index });
 	};
@@ -86,6 +86,9 @@ const DashScreen = ({ navigation }) => {
 				<View style={{ marginTop: 10 }}>
 					<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
 				</View>
+				<TouchableOpacity style={{marginTop: 20}} onPress={() => navigate("EditUser")}>
+					<MaterialIcons name="settings" color="#0af" size={40} />
+				</TouchableOpacity>
 				<View style={styles.userBox}>
 					<WhiteText>{state.currentUser.username}</WhiteText>
 					<WhiteText>Account created on {state.currentUser.createdAt}</WhiteText>
@@ -109,7 +112,7 @@ const DashScreen = ({ navigation }) => {
 				data={dashMenus}
 				horizontal
 				pagingEnabled={true}
-				keyExtractor={item => item.name}
+				keyExtractor={(item) => item.name}
 				renderItem={({ item }) => {
 					return item.comp;
 				}}

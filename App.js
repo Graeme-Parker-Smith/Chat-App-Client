@@ -8,6 +8,7 @@ import AccountScreen from './src/screens/AccountScreen';
 import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
 import RoomScreen from './src/screens/RoomScreen';
 import DashScreen from './src/screens/DashScreen';
+import EditUserScreen from './src/screens/EditUserScreen';
 import { setNavigator, navigate, back } from './src/navigationRef';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as ChannelProvider } from './src/context/ChannelContext';
@@ -41,27 +42,19 @@ const navigator = createSwitchNavigator({
 					navigationOptions: {
 						headerShown: false,
 						title: 'Account',
-						headerTitleStyle: {
-							color: 'white',
-							textAlign: 'center',
-							flexGrow: 1,
-						},
+					},
+				},
+				EditUser: {
+					screen: EditUserScreen,
+					navigationOptions: {
+						headerShown: false,
+						title: 'edit_user',
 					},
 				},
 				Room: {
 					screen: RoomScreen,
 					navigationOptions: {
 						headerShown: false,
-						// headerLeft: (
-						//   <Button
-						//     title="Back To Channels"
-						//     onPress={() => {
-						//       back("Account");
-						//     }}
-						//     type="clear"
-						//     titleStyle={{ color: "rgba(0,122,255,1)" }}
-						//   />
-						// )
 					},
 				},
 			},
@@ -93,7 +86,7 @@ export default () => {
 				<ChannelProvider>
 					<MessageProvider>
 						<App
-							ref={navigator => {
+							ref={(navigator) => {
 								setNavigator(navigator);
 							}}
 						/>
