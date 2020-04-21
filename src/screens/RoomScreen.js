@@ -48,7 +48,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const room_id = navigation.getParam('room_id');
 	const friend = navigation.getParam('friend');
 	const roomCreator = navigation.getParam('roomCreator');
-	const isOwner = username === roomCreator;
+	const isOwner = currentUser._id === roomCreator;
 
 	const [loading, setLoading] = useState(false);
 	const [keyboardShowing, setKeyboardShowing] = useState(false);

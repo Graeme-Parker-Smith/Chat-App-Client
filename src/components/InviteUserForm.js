@@ -4,6 +4,8 @@ import { Button } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { MaterialIcons } from '@expo/vector-icons';
 
+// currently not in use
+
 const InviteUserForm = ({ friend }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const { addFriend, unblock, state } = useContext(ChannelContext);
