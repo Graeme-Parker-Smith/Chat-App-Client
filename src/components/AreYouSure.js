@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
 import { Button, Input } from 'react-native-elements';
-import BouncyInput from '../components/BouncyInput';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { Entypo, MaterialIcons, MaterialCommunityIcons, AntDesign, Foundation } from '@expo/vector-icons';
 
-const InviteMenu = ({ roomName }) => {
+const AreYouSure = ({ roomName }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [invitee, setInvitee] = useState('');
 	const [removee, setRemovee] = useState('');
@@ -73,8 +72,8 @@ const InviteMenu = ({ roomName }) => {
 							</View>
 							{/* modal menu starts here */}
 							<View>
-								<BouncyInput
-									placeholder="invitee"
+								<Input
+									label="invitee"
 									value={invitee}
 									onChangeText={setInvitee}
 									autoFocus={true}
@@ -88,8 +87,8 @@ const InviteMenu = ({ roomName }) => {
 								<TouchableHighlight>
 									<Button disabled={!invitee} title="Send Invite" onPress={handleSubmit} />
 								</TouchableHighlight>
-								<BouncyInput
-									placeholder="Kick User"
+								<Input
+									label="Kick User"
 									value={removee}
 									onChangeText={setRemovee}
 									autoFocus={true}
@@ -124,4 +123,4 @@ const styles = {
 	},
 };
 
-export default InviteMenu;
+export default AreYouSure;
