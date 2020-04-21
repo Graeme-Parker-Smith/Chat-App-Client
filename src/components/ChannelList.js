@@ -28,7 +28,7 @@ const ChannelList = ({
 			<FlatList
 				style={{ marginTop: 0 }}
 				data={listData}
-				keyExtractor={item => item._id}
+				keyExtractor={(item) => item._id}
 				renderItem={({ item }) => {
 					if (
 						(item.name && item.name.includes(channelSearch)) ||
@@ -36,7 +36,10 @@ const ChannelList = ({
 					) {
 						let Pm_id;
 						if (item.username) {
-							let thisPM = PMs.find(pm => pm.members.includes(item.username));
+							let thisPM = PMs.find((pm) => pm.members.includes(item._id));
+							if (!thisPM) {
+								return;
+							}
 							Pm_id = thisPM._id;
 						}
 						return (
@@ -79,7 +82,7 @@ const ChannelList = ({
 };
 
 const styles = StyleSheet.create({
-	channel: color => ({
+	channel: (color) => ({
 		height: 60,
 		backgroundColor: color,
 		margin: 5,
