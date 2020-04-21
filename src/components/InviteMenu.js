@@ -89,7 +89,7 @@ const InviteMenu = ({ roomName }) => {
 									<Button disabled={!invitee} title="Send Invite" onPress={handleSubmit} />
 								</TouchableHighlight>
 								<BouncyInput
-									placeholder="Kick User"
+									placeholder="kickee"
 									value={removee}
 									onChangeText={setRemovee}
 									autoFocus={true}

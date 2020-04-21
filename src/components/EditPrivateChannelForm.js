@@ -7,24 +7,25 @@ import Spacer from './Spacer';
 import AvatarPicker from './AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
-
+import AreYouSure from './AreYouSure';
 
 const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const {
 		state: { currentUser, privateChannels },
 		updateChannel,
-    fetchChannels,
-    deleteChannel,
+		fetchChannels,
+		deleteChannel,
 		invite,
 	} = useContext(ChannelContext);
 	const [newName, setNewName] = useState(thisName);
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
-  const [userSearch, setUserSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-	const channelInfo = privateChannels.find(channel => channel.name === thisName);
+	const [userSearch, setUserSearch] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
+	const [modalVisible, setModalVisible] = useState(false);
+	const channelInfo = privateChannels.find((channel) => channel.name === thisName);
 	const channel_id = channelInfo._id;
 	const channelCreator = channelInfo.creator;
-	const userCanEdit = currentUser.username === channelCreator;
+	const userCanEdit = currentUser._id === channelCreator;
 
 	const handleSubmit = async () => {
 		if (!userCanEdit) {
@@ -66,21 +67,28 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 		if (!userCanEdit) {
 			return;
 		}
-    showForm('');
+		showForm('');
 		await deleteChannel({
 			username: currentUser.username,
 			roomName: thisName,
-      channel_id: channel_id,
-      isPrivate: true
+			channel_id: channel_id,
+			isPrivate: true,
 		});
 		await fetchChannels();
-  };
-  
-  if (isLoading) return <LoadingIndicator />;
+	};
 
+	if (isLoading) return <LoadingIndicator />;
 
 	return (
 		<View style={styles.container}>
+			{modalVisible ? (
+				<AreYouSure
+					yesAction={handleDelete}
+					isOwner={userCanEdit}
+					modalVisible={modalVisible}
+					setModalVisible={setModalVisible}
+				/>
+			) : null}
 			<Spacer>
 				<BouncyInput
 					label="Edit Channel Name"
@@ -121,7 +129,7 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					disabled={!userCanEdit}
 					buttonStyle={styles.deleteButton}
 					title="Delete Channel"
-					onPress={handleDelete}
+					onPress={() => setModalVisible(true)}
 				/>
 			</View>
 		</View>
@@ -136,8 +144,8 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		padding: 10,
-  },
-  deleteButton: {
+	},
+	deleteButton: {
 		padding: 10,
 		backgroundColor: 'red',
 	},

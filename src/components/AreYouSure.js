@@ -1,25 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
 import { Button, Input } from 'react-native-elements';
-import { Context as ChannelContext } from '../context/ChannelContext';
-import { Entypo, MaterialIcons, MaterialCommunityIcons, AntDesign, Foundation } from '@expo/vector-icons';
+import { Context as MessageContext } from '../context/MessageContext';
+import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
+import BouncyInput from './BouncyInput';
 
-const AreYouSure = ({ roomName }) => {
-	const [modalVisible, setModalVisible] = useState(false);
-	const [invitee, setInvitee] = useState('');
-	const [removee, setRemovee] = useState('');
-	const { addFriend, unblock, state, invite, kick } = useContext(ChannelContext);
-
+const AreYouSure = ({ yesAction, isOwner, modalVisible, setModalVisible }) => {
 	const handleSubmit = async () => {
-		await invite({ invitee, roomName });
+		if (!isOwner) return;
+		yesAction();
 		setModalVisible(false);
-	};
-
-	const handleKick = async () => {
-		await kick({ removee, roomName });
-		setModalVisible(false);
-	};
-
+  };
+  
 	return (
 		<View style={{ marginTop: 0 }}>
 			<Modal
@@ -44,7 +36,7 @@ const AreYouSure = ({ roomName }) => {
 					<TouchableOpacity
 						activeOpacity={1}
 						onPress={() => console.log('Pressed inside modal!')}
-						style={{ width: 150, height: 200, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
+						style={{ width: 150, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
 					>
 						<View>
 							<View
@@ -71,46 +63,22 @@ const AreYouSure = ({ roomName }) => {
 								</TouchableHighlight>
 							</View>
 							{/* modal menu starts here */}
-							<View>
-								<Input
-									label="invitee"
-									value={invitee}
-									onChangeText={setInvitee}
-									autoFocus={true}
-									autoCapitalize="none"
-									autoCorrect={false}
-									inputStyle={{ color: 'white' }}
-									returnKeyType="send"
-									selectTextOnFocus={true}
-									onSubmitEditing={handleSubmit}
-								/>
+							<View style={{ flexDirection: 'row' }}>
 								<TouchableHighlight>
-									<Button disabled={!invitee} title="Send Invite" onPress={handleSubmit} />
+									<Button title="YES" onPress={handleSubmit} />
 								</TouchableHighlight>
-								<Input
-									label="Kick User"
-									value={removee}
-									onChangeText={setRemovee}
-									autoFocus={true}
-									autoCapitalize="none"
-									autoCorrect={false}
-									inputStyle={{ color: 'white' }}
-									returnKeyType="send"
-									selectTextOnFocus={true}
-									onSubmitEditing={handleKick}
-								/>
 								<TouchableHighlight>
-									<Button disabled={!removee} title="Kick User" onPress={handleKick} />
+									<Button
+										buttonStyle={{ backgroundColor: 'red' }}
+										title="NO"
+										onPress={() => setModalVisible(false)}
+									/>
 								</TouchableHighlight>
 							</View>
 						</View>
 					</TouchableOpacity>
 				</TouchableHighlight>
 			</Modal>
-
-			<TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => setModalVisible(true)}>
-				<MaterialCommunityIcons name="account-star" size={40} color="#0af" />
-			</TouchableOpacity>
 		</View>
 	);
 };
