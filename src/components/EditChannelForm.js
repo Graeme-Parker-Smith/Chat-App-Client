@@ -7,6 +7,8 @@ import Spacer from './Spacer';
 import AvatarPicker from './AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
+import AreYouSure from './AreYouSure';
+
 
 
 const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
@@ -20,10 +22,12 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const [newName, setNewName] = useState(thisName);
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
 	const [isLoading, setIsLoading] = useState(false);
+	const [modalVisible, setModalVisible] = useState(false);
+
 	const channelInfo = channels.find(channel => channel.name === thisName);
 	const channel_id = channelInfo._id;
 	const channelCreator = channelInfo.creator;
-	const userCanEdit = currentUser.username === channelCreator;
+	const userCanEdit = currentUser._id === channelCreator;
 
 
 	const handleSubmit = async () => {
@@ -65,6 +69,14 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 
 	return (
 		<View style={styles.container}>
+			{modalVisible ? (
+				<AreYouSure
+					yesAction={handleDelete}
+					isOwner={userCanEdit}
+					modalVisible={modalVisible}
+					setModalVisible={setModalVisible}
+				/>
+			) : null}
 			<Spacer>
 				<BouncyInput
 					label="Edit Channel Name"
@@ -91,7 +103,7 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					disabled={!userCanEdit}
 					buttonStyle={styles.deleteButton}
 					title="Delete Channel"
-					onPress={handleDelete}
+					onPress={() => setModalVisible(true)}
 				/>
 			</View>
 		</View>

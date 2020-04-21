@@ -1,17 +1,16 @@
-import React, { useState, useContext } from 'react';
-import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
-import { Button, Input } from 'react-native-elements';
-import { Context as MessageContext } from '../context/MessageContext';
-import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
-import BouncyInput from './BouncyInput';
+import React from 'react';
+import { View, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
+import { Button } from 'react-native-elements';
+import { MaterialIcons } from '@expo/vector-icons';
+import WhiteText from './WhiteText';
 
 const AreYouSure = ({ yesAction, isOwner, modalVisible, setModalVisible }) => {
 	const handleSubmit = async () => {
 		if (!isOwner) return;
 		yesAction();
 		setModalVisible(false);
-  };
-  
+	};
+
 	return (
 		<View style={{ marginTop: 0 }}>
 			<Modal
@@ -63,17 +62,20 @@ const AreYouSure = ({ yesAction, isOwner, modalVisible, setModalVisible }) => {
 								</TouchableHighlight>
 							</View>
 							{/* modal menu starts here */}
-							<View style={{ flexDirection: 'row' }}>
-								<TouchableHighlight>
-									<Button title="YES" onPress={handleSubmit} />
-								</TouchableHighlight>
-								<TouchableHighlight>
-									<Button
-										buttonStyle={{ backgroundColor: 'red' }}
-										title="NO"
-										onPress={() => setModalVisible(false)}
-									/>
-								</TouchableHighlight>
+							<View>
+								<WhiteText>Are You Sure?</WhiteText>
+								<View style={{ flexDirection: 'row' }}>
+									<TouchableHighlight style={{ flexGrow: 1 }}>
+										<Button title="YES" onPress={handleSubmit} />
+									</TouchableHighlight>
+									<TouchableHighlight style={{ flexGrow: 1 }}>
+										<Button
+											buttonStyle={{ backgroundColor: 'red' }}
+											title="NO"
+											onPress={() => setModalVisible(false)}
+										/>
+									</TouchableHighlight>
+								</View>
 							</View>
 						</View>
 					</TouchableOpacity>

@@ -8,6 +8,7 @@ import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from '../components/LoadingIndicator';
 import BouncyInput from '../components/BouncyInput';
 import { back, navigate } from '../navigationRef';
+import AreYouSure from '../components/AreYouSure';
 
 const EditUserScreen = () => {
 	const {
@@ -20,6 +21,7 @@ const EditUserScreen = () => {
 	const [newPassword, setNewPassword] = useState('');
 	const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
 	const [isLoading, setIsLoading] = useState(false);
+	const [modalVisible, setModalVisible] = useState(false);
 
 	const handleSubmit = async () => {
 		setIsLoading(true);
@@ -29,12 +31,12 @@ const EditUserScreen = () => {
 			newPassword,
 			newAvatar: newAvatar.base64Uri,
 		});
-		navigate("Account");
+		navigate('Account');
 		await fetchChannels();
 	};
 
 	const cancelForm = () => {
-		navigate("Account");
+		navigate('Account');
 	};
 
 	const handleDelete = async () => {
@@ -48,6 +50,14 @@ const EditUserScreen = () => {
 
 	return (
 		<View style={styles.container}>
+			{modalVisible ? (
+				<AreYouSure
+					yesAction={handleDelete}
+					isOwner={true}
+					modalVisible={modalVisible}
+					setModalVisible={setModalVisible}
+				/>
+			) : null}
 			<Spacer>
 				<BouncyInput
 					label="Edit Username"
@@ -75,7 +85,11 @@ const EditUserScreen = () => {
 			<View style={styles.buttonRow}>
 				<Button buttonStyle={styles.button} title="Update User Info" onPress={handleSubmit} />
 				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
-				<Button buttonStyle={styles.deleteButton} title="Delete Account" onPress={handleDelete} />
+				<Button
+					buttonStyle={styles.deleteButton}
+					title="Delete Account"
+					onPress={() => setModalVisible(true)}
+				/>
 			</View>
 		</View>
 	);

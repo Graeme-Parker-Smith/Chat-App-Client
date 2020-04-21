@@ -31,7 +31,7 @@ const channelReducer = (state, action) => {
 	}
 };
 
-const addFriend = dispatch => async ({ username, friendName, shouldRemove = false, shouldBlock = false }) => {
+const addFriend = (dispatch) => async ({ username, friendName, shouldRemove = false, shouldBlock = false }) => {
 	try {
 		const response = await chatApi.post('/addfriend', {
 			username,
@@ -46,7 +46,7 @@ const addFriend = dispatch => async ({ username, friendName, shouldRemove = fals
 	}
 };
 
-const unblock = dispatch => async ({ username, friendName }) => {
+const unblock = (dispatch) => async ({ username, friendName }) => {
 	try {
 		const response = await chatApi.post('/unblock', {
 			username,
@@ -58,17 +58,17 @@ const unblock = dispatch => async ({ username, friendName }) => {
 	}
 };
 
-const invite = dispatch => async ({ invitee, roomName }) => {
+const invite = (dispatch) => async ({ invitee, roomName }) => {
 	const response = await chatApi.post('/invite', { invitee, roomName });
 	dispatch({ type: 'update_channel', payload: response.data });
 };
 
-const kick = dispatch => async ({ removee, roomName }) => {
-	const response = await chatApi.put('/kick',  { removee, roomName });
+const kick = (dispatch) => async ({ removee, roomName }) => {
+	const response = await chatApi.put('/kick', { removee, roomName });
 	dispatch({ type: 'update_channel', payload: response.data });
 };
 
-const updateUser = dispatch => async ({ username, newUsername, newPassword, newAvatar }) => {
+const updateUser = (dispatch) => async ({ username, newUsername, newPassword, newAvatar }) => {
 	const cloudUrl = await imgUpload(newAvatar);
 	const response = await chatApi.post('/updateuser', {
 		username,
@@ -79,7 +79,7 @@ const updateUser = dispatch => async ({ username, newUsername, newPassword, newA
 	dispatch({ type: 'update_user', payload: response.data.userData });
 };
 
-const updateChannel = dispatch => async ({ username, prevName, newName, newAvatar, isPrivate = false }) => {
+const updateChannel = (dispatch) => async ({ username, prevName, newName, newAvatar, isPrivate = false }) => {
 	const cloudUrl = await imgUpload(newAvatar);
 	const response = await chatApi.post('/updatechannel', {
 		username,
@@ -91,7 +91,7 @@ const updateChannel = dispatch => async ({ username, prevName, newName, newAvata
 	dispatch({ type: 'update_channel', payload: response.data });
 };
 
-const fetchChannels = dispatch => async () => {
+const fetchChannels = (dispatch) => async () => {
 	try {
 		const response = await chatApi.get('/channels');
 		// const nojson = JSON.parse(response.data);
@@ -105,7 +105,7 @@ const fetchChannels = dispatch => async () => {
 	}
 };
 
-const createChannel = dispatch => async ({ name, creator, avatar, lifespan, msgLife }) => {
+const createChannel = (dispatch) => async ({ name, creator, avatar, lifespan, msgLife }) => {
 	const cloudUrl = await imgUpload(avatar);
 	const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, lifespan, msgLife });
 	dispatch({
@@ -114,16 +114,21 @@ const createChannel = dispatch => async ({ name, creator, avatar, lifespan, msgL
 	});
 };
 
-const createPrivateChannel = dispatch => async ({ name, creator, avatar, lifespan, msgLife }) => {
-	const cloudUrl = await imgUpload(avatar);
-	const response = await chatApi.post('/privatechannels', { name, creator, avatar: cloudUrl, lifespan, msgLife });
-	dispatch({
-		type: 'create_private_channel',
-		payload: response.data,
-	});
+const createPrivateChannel = (dispatch) => async ({ name, creator, avatar, lifespan, msgLife }) => {
+	try {
+		const cloudUrl = await imgUpload(avatar);
+		const response = await chatApi.post('/privatechannels', { name, creator, avatar: cloudUrl, lifespan, msgLife });
+		console.log(response.data.error);
+		dispatch({
+			type: 'create_private_channel',
+			payload: response.data,
+		});
+	} catch (err) {
+		console.log(response.data.error);
+	}
 };
 
-const deleteChannel = dispatch => async ({ username, roomName, channel_id, isPrivate }) => {
+const deleteChannel = (dispatch) => async ({ username, roomName, channel_id, isPrivate }) => {
 	console.log('channel_id in context', channel_id);
 	const response = await chatApi.delete('/channels', { params: { username, roomName, channel_id, isPrivate } });
 	dispatch({
@@ -132,7 +137,7 @@ const deleteChannel = dispatch => async ({ username, roomName, channel_id, isPri
 	});
 };
 
-const clearState = dispatch => () => {
+const clearState = (dispatch) => () => {
 	dispatch({ type: 'clear_state' });
 };
 

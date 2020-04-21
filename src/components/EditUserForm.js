@@ -7,6 +7,8 @@ import Spacer from './Spacer';
 import AvatarPicker from './AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
+import AreYouSure from './AreYouSure';
+
 
 const EditUserForm = ({ showForm }) => {
 	const {
@@ -19,6 +21,8 @@ const EditUserForm = ({ showForm }) => {
 	const [newPassword, setNewPassword] = useState('');
 	const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
 	const [isLoading, setIsLoading] = useState(false);
+	const [modalVisible, setModalVisible] = useState(false);
+
 
 	const handleSubmit = async () => {
 		setIsLoading(true);
@@ -48,6 +52,14 @@ const EditUserForm = ({ showForm }) => {
 
 	return (
 		<View style={styles.container}>
+			{modalVisible ? (
+				<AreYouSure
+					yesAction={handleDelete}
+					isOwner={userCanEdit}
+					modalVisible={modalVisible}
+					setModalVisible={setModalVisible}
+				/>
+			) : null}
 			<Spacer>
 				<BouncyInput
 					label="Edit Username"
@@ -75,7 +87,7 @@ const EditUserForm = ({ showForm }) => {
 			<View style={styles.buttonRow}>
 				<Button buttonStyle={styles.button} title="Update User Info" onPress={handleSubmit} />
 				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
-				<Button buttonStyle={styles.deleteButton} title="Delete Account" onPress={handleDelete} />
+				<Button buttonStyle={styles.deleteButton} title="Delete Account" onPress={() => setModalVisible(true)} />
 			</View>
 		</View>
 	);
