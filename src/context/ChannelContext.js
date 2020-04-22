@@ -69,14 +69,19 @@ const kick = (dispatch) => async ({ removee, roomName }) => {
 };
 
 const updateUser = (dispatch) => async ({ username, newUsername, newPassword, newAvatar }) => {
-	const cloudUrl = await imgUpload(newAvatar);
-	const response = await chatApi.post('/updateuser', {
-		username,
-		newUsername,
-		newPassword,
-		newAvatar: cloudUrl,
-	});
-	dispatch({ type: 'update_user', payload: response.data.userData });
+	try {
+		const cloudUrl = await imgUpload(newAvatar);
+		const response = await chatApi.post('/updateuser', {
+			username,
+			newUsername,
+			newPassword,
+			newAvatar: cloudUrl,
+		});
+		if (response.data.error) return response;
+		dispatch({ type: 'update_user', payload: response.data.userData });
+	} catch (err) {
+		return err;
+	}
 };
 
 const updateChannel = (dispatch) => async ({ username, prevName, newName, newAvatar, isPrivate = false }) => {

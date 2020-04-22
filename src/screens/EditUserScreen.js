@@ -9,6 +9,7 @@ import LoadingIndicator from '../components/LoadingIndicator';
 import BouncyInput from '../components/BouncyInput';
 import { back, navigate } from '../navigationRef';
 import AreYouSure from '../components/AreYouSure';
+import WhiteText from '../components/WhiteText';
 
 const EditUserScreen = () => {
 	const {
@@ -22,15 +23,22 @@ const EditUserScreen = () => {
 	const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
 	const [isLoading, setIsLoading] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
+	const [errMsg, setErrMsg] = useState('');
 
 	const handleSubmit = async () => {
 		setIsLoading(true);
-		await updateUser({
+		const response = await updateUser({
 			username: currentUser.username,
 			newUsername,
 			newPassword,
 			newAvatar: newAvatar.base64Uri,
 		});
+		if (response && response.data.error) {
+			console.log('yes', response.data);
+			setIsLoading(false);
+			setErrMsg(response.data.error);
+			return;
+		}
 		navigate('Account');
 		await fetchChannels();
 	};
@@ -91,6 +99,7 @@ const EditUserScreen = () => {
 					onPress={() => setModalVisible(true)}
 				/>
 			</View>
+			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 		</View>
 	);
 };
