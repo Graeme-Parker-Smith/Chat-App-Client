@@ -6,6 +6,7 @@ import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
+import WhiteText from './WhiteText';
 
 const CreatePrivateChannelForm = ({ showForm }) => {
 	const [newChannelName, setNewChannelName] = useState('');
@@ -14,23 +15,29 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [lifespan, setLifespan] = useState('');
 	const [msgLife, setMsgLife] = useState('');
+	const [errMsg, setErrMsg] = useState('');
 
 	const cancelForm = () => {
 		showForm(false);
 	};
 
 	const handleSubmit = async () => {
+		if (!newChannelName) return;
 		setIsLoading(true);
-		await createPrivateChannel({
+		const response = await createPrivateChannel({
 			name: newChannelName,
 			creator: state.currentUser.username,
 			avatar: avatar.base64Uri,
 			lifespan: lifespan > 0 ? parseInt(lifespan) : undefined,
 			msgLife: msgLife > 0 ? parseInt(msgLife) : null,
 		});
+		setIsLoading(false);
+		if (response.data.error) {
+			setErrMsg(response.data.error);
+			return;
+		}
 		setNewChannelName('');
 		setLifespan(0);
-		setIsLoading(false);
 		showForm(false);
 	};
 
@@ -74,9 +81,15 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 			/>
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
 			<View style={styles.buttonRow}>
-				<Button buttonStyle={styles.button} title="Create New Private Channel" onPress={handleSubmit} />
+				<Button
+					disabled={!newChannelName}
+					buttonStyle={styles.button}
+					title="Create New Private Channel"
+					onPress={handleSubmit}
+				/>
 				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
 			</View>
+			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 		</SafeAreaView>
 	);
 };

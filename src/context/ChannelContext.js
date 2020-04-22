@@ -118,13 +118,13 @@ const createPrivateChannel = (dispatch) => async ({ name, creator, avatar, lifes
 	try {
 		const cloudUrl = await imgUpload(avatar);
 		const response = await chatApi.post('/privatechannels', { name, creator, avatar: cloudUrl, lifespan, msgLife });
-		console.log(response.data.error);
+		if (response.data.error) return response;
 		dispatch({
 			type: 'create_private_channel',
 			payload: response.data,
 		});
 	} catch (err) {
-		console.log(response.data.error);
+		return response;
 	}
 };
 
@@ -156,5 +156,5 @@ export const { Provider, Context } = createDataContext(
 		deleteChannel,
 		clearState,
 	},
-	{ currentUser: null, channels: [], privateChannels: [], PMs: [], errorMessage: '' }
+	{ currentUser: null, channels: [], privateChannels: [], PMs: [] }
 );
