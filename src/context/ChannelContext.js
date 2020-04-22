@@ -77,7 +77,7 @@ const updateUser = (dispatch) => async ({ username, newUsername, newPassword, ne
 			newPassword,
 			newAvatar: cloudUrl,
 		});
-		if (response.data.error) return response;
+		if (response && response.data.error) return response;
 		dispatch({ type: 'update_user', payload: response.data.userData });
 	} catch (err) {
 		return err;
@@ -85,15 +85,20 @@ const updateUser = (dispatch) => async ({ username, newUsername, newPassword, ne
 };
 
 const updateChannel = (dispatch) => async ({ username, prevName, newName, newAvatar, isPrivate = false }) => {
-	const cloudUrl = await imgUpload(newAvatar);
-	const response = await chatApi.post('/updatechannel', {
-		username,
-		prevName,
-		newName,
-		newAvatar: cloudUrl,
-		isPrivate,
-	});
-	dispatch({ type: 'update_channel', payload: response.data });
+	try {
+		const cloudUrl = await imgUpload(newAvatar);
+		const response = await chatApi.post('/updatechannel', {
+			username,
+			prevName,
+			newName,
+			newAvatar: cloudUrl,
+			isPrivate,
+		});
+		if (response && response.data.error) return response;
+		dispatch({ type: 'update_channel', payload: response.data });
+	} catch (err) {
+		return err;
+	}
 };
 
 const fetchChannels = (dispatch) => async () => {
