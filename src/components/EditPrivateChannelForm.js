@@ -21,7 +21,7 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	} = useContext(ChannelContext);
 	const [newName, setNewName] = useState(thisName);
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
-	const [userSearch, setUserSearch] = useState('');
+	// const [userSearch, setUserSearch] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
 	const channelInfo = privateChannels.find((channel) => channel.name === thisName);
@@ -41,7 +41,7 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 			prevName: thisName,
 			newName,
 			newAvatar,
-			private: true,
+			isPrivate: true,
 		});
 		if (response && response.data.error) {
 			console.log("yes", response.data);
@@ -123,7 +123,7 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
 			</View>
 			<View>
-				<Input
+				{/* <Input
 					disabled={!userCanEdit}
 					label="Invite Users"
 					value={userSearch}
@@ -134,7 +134,7 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					returnKeyType="send"
 					selectTextOnFocus={true}
 				/>
-				<Button disabled={!userCanEdit} title="Invite User" onPress={handleInvite} />
+				<Button disabled={!userCanEdit} title="Invite User" onPress={handleInvite} /> */}
 				<Button
 					disabled={!userCanEdit}
 					buttonStyle={styles.deleteButton}
