@@ -8,8 +8,7 @@ import AvatarPicker from './AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
 import AreYouSure from './AreYouSure';
-
-
+import WhiteText from './WhiteText';
 
 const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const {
@@ -23,25 +22,32 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
 	const [isLoading, setIsLoading] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
+	const [errMsg, setErrMsg] = useState('');
 
-	const channelInfo = channels.find(channel => channel.name === thisName);
+
+	const channelInfo = channels.find((channel) => channel.name === thisName);
 	const channel_id = channelInfo._id;
 	const channelCreator = channelInfo.creator;
 	const userCanEdit = currentUser._id === channelCreator;
-
 
 	const handleSubmit = async () => {
 		if (!userCanEdit) {
 			return;
 		}
 		setIsLoading(true);
-		await updateChannel({
+		const response = await updateChannel({
 			username: currentUser.username,
 			prevName: thisName,
 			channel_id,
 			newName,
 			newAvatar: newAvatar.base64Uri,
 		});
+		if (response && response.data.error) {
+			console.log("yes", response.data);
+			setIsLoading(false);
+			setErrMsg(response.data.error);
+			return;
+		}
 		showForm('');
 		await fetchChannels();
 		setIsLoading(false);
@@ -65,7 +71,6 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	};
 
 	if (isLoading) return <LoadingIndicator />;
-
 
 	return (
 		<View style={styles.container}>
@@ -106,6 +111,7 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					onPress={() => setModalVisible(true)}
 				/>
 			</View>
+			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 		</View>
 	);
 };
