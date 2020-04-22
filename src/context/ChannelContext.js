@@ -156,5 +156,5 @@ export const { Provider, Context } = createDataContext(
 		deleteChannel,
 		clearState,
 	},
-	{ currentUser: null, channels: [], privateChannels: [], PMs: [] }
+	{ currentUser: null, channels: [], privateChannels: [], PMs: [], errorMessage: '' }
 );
