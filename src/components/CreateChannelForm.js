@@ -6,6 +6,7 @@ import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
+import WhiteText from './WhiteText';
 
 const CreateChannelForm = ({ showForm }) => {
 	const [newChannelName, setNewChannelName] = useState('');
@@ -14,20 +15,28 @@ const CreateChannelForm = ({ showForm }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [lifespan, setLifespan] = useState('');
 	const [msgLife, setMsgLife] = useState('');
+	const [errMsg, setErrMsg] = useState('');
 
 	const cancelForm = () => {
 		showForm(false);
 	};
 
 	const handleSubmit = async () => {
+		if (!newChannelName) return;
 		setIsLoading(true);
-		await createChannel({
+		const response = await createChannel({
 			name: newChannelName,
 			creator: state.currentUser.username,
 			avatar: avatar.base64Uri,
 			lifespan: lifespan > 0 ? parseInt(lifespan) : null,
 			msgLife: msgLife > 0 ? parseInt(msgLife) : null,
 		});
+		if (response && response.data.error) {
+			console.log("yes", response.data);
+			setIsLoading(false);
+			setErrMsg(response.data.error);
+			return;
+		}
 		setNewChannelName('');
 		setLifespan(0);
 		setIsLoading(false);
@@ -82,6 +91,7 @@ const CreateChannelForm = ({ showForm }) => {
 				/>
 				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
 			</View>
+			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 		</SafeAreaView>
 	);
 };

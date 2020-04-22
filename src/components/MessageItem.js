@@ -25,6 +25,7 @@ const MessageItem = ({
 }) => {
 	const [vidRef, setVidRef] = useState('');
 	const [editMessageVisible, setEditMessageVisible] = useState(false);
+	// should either use id or ensure username gets changed on updates.
 	const isOwner = currentUserUsername === username;
 	// calculate how long ago msg was sent and create title content for msg
 	let howLongAgo;

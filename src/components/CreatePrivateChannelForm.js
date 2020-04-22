@@ -32,7 +32,8 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 			msgLife: msgLife > 0 ? parseInt(msgLife) : null,
 		});
 		setIsLoading(false);
-		if (response.data.error) {
+		if (response && response.data.error) {
+			console.log("yes", response.data);
 			setErrMsg(response.data.error);
 			return;
 		}
