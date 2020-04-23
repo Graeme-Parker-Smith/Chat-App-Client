@@ -43,6 +43,10 @@ const AccountScreen = ({ navigation }) => {
 	const firstRef = useRef(true);
 
 	useEffect(() => {
+		fetchChannels();
+	}, [formState]);
+
+	useEffect(() => {
 		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
 		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
 

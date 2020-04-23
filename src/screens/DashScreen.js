@@ -24,13 +24,18 @@ import PendingList from '../components/PendingList';
 import BlockedList from '../components/BlockedList';
 import WhiteText from '../components/WhiteText';
 import { back, navigate } from '../navigationRef';
+import { NavigationEvents } from 'react-navigation';
 
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
-	const { state } = useContext(ChannelContext);
+	const { state, fetchChannels } = useContext(ChannelContext);
 	const socket = useContext(SocketContext);
 	const [userSearch, setUserSearch] = useState('');
 	const [menuIndex, setMenuIndex] = useState(0);
+
+	useEffect(() => {
+		fetchChannels();
+	}, [menuIndex]);
 
 	const handleClick = () => {
 		// showForm({ show: 'edit_user' });
@@ -71,6 +76,7 @@ const DashScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
+			{/* <NavigationEvents onWillFocus={fetchChannels} /> */}
 			<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
 				<Button
 					containerStyle={{ alignSelf: 'center' }}
@@ -86,7 +92,7 @@ const DashScreen = ({ navigation }) => {
 				<View style={{ marginTop: 10 }}>
 					<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
 				</View>
-				<TouchableOpacity style={{marginTop: 20}} onPress={() => navigate("EditUser")}>
+				<TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
 					<MaterialIcons name="settings" color="#0af" size={40} />
 				</TouchableOpacity>
 				<View style={styles.userBox}>

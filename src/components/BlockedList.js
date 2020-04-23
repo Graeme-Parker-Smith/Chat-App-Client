@@ -1,10 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {
-	View,
-	StyleSheet,
-  FlatList,
-  Dimensions
-} from 'react-native';
+import { View, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { Input } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import UserSearchItem from './UserSearchItem';
@@ -34,7 +29,7 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 			<FlatList
 				userSearch={userSearch}
 				data={state.currentUser.blocked}
-				keyExtractor={item => item.username}
+				keyExtractor={(item) => item.username}
 				renderItem={({ item }) => {
 					if (item.username.includes(userSearch)) {
 						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
@@ -53,8 +48,8 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		backgroundColor: '#000',
-    flex: 1,
-    width: Dimensions.get('window').width
+		flex: 1,
+		width: Dimensions.get('window').width,
 	},
 });
 

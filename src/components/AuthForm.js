@@ -20,58 +20,11 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 	};
 
 	return (
-		// <>
-		// 	<Spacer />
-		// 	<Spacer>
-		// 		<FadeInView>
-		// 			<WhiteText fontSize={20} style={{ alignSelf: 'center' }}>
-		// 				{headerText}
-		// 			</WhiteText>
-		// 		</FadeInView>
-		// 	</Spacer>
-		// 	<BouncyInput
-		// 		placeholder="username"
-		// 		value={username}
-		// 		autoFocus={true}
-		// 		onChangeText={setusername}
-		// 		autoCapitalize="none"
-		// 		autoCorrect={false}
-		// 		returnKeyType="next"
-		// 		selectTextOnFocus={true}
-		// 		ref={_usernameInput}
-		// 		onSubmitEditing={_next}
-		// 		textContentType="none"
-		// 	/>
-		// 	<Spacer />
-		// 	<BouncyInput
-		// 		placeholder="Password"
-		// 		value={password}
-		// 		textContentType="none"
-		// 		onChangeText={setPassword}
-		// 		autoCapitalize="none"
-		// 		autoCorrect={false}
-		// 		returnKeyType="send"
-		// 		selectTextOnFocus={true}
-		// 		ref={_passwordInput}
-		// 		onSubmitEditing={() => onSubmit({ username, password })}
-		// 	/>
-		// 	{isSignup ? (
-		// 		<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
-		// 	) : null}
-		// 	{errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
-		// 	<Spacer>
-		// 		<Button title={submitButtonText} onPress={() => onSubmit({ username, password })} />
-		// 	</Spacer>
-		// </>
-
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
+			<Spacer />
 			<Spacer>
 				<FadeInView>
-					<WhiteText
-						fontSize={40}
-						style={{ color: 'white', alignSelf: 'center' }}
-						h3
-					>
+					<WhiteText fontSize={40} style={{ color: 'white', alignSelf: 'center' }} h3>
 						{headerText}
 					</WhiteText>
 				</FadeInView>

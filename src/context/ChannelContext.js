@@ -107,6 +107,7 @@ const fetchChannels = (dispatch) => async () => {
 		// const nojson = JSON.parse(response.data);
 		// console.log("response.data is: ", response.data);
 		await dispatch({ type: 'fetch_channels', payload: response.data });
+		console.log('Channels Fetched!');
 		return { error: null };
 	} catch (err) {
 		if (err.response.data.error === 'user could not be found') {
