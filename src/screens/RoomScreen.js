@@ -90,7 +90,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		})
 	).current;
 
-	const _keyboardDidShow = e => {
+	const _keyboardDidShow = (e) => {
 		setKeyboardShowing(true);
 		setKeyboardHeight(e.endCoordinates.height);
 	};
@@ -105,7 +105,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 
 	useEffect(() => {
-		socket.emit('join', { name: username, room: room_id }, error => {
+		socket.emit('join', { name: username, userId: currentUser._id, room: room_id }, (error) => {
 			if (error) {
 				if (error === 'Username is taken') {
 					navigation.replace('Account');
@@ -144,7 +144,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		});
 
 		socket.on('roomData', ({ users }) => {
-			const userNames = users.map(u => u.name);
+			const userNames = users.map((u) => u.name);
 			console.log('usernames', userNames);
 			setUsers(userNames);
 		});
@@ -201,7 +201,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		if (roomType === 'pm') {
 			console.log('friend', friend);
 			const friend_id = friend._id;
-			sendNotification({ sender: currentUser._id, messageBody: content, receiver: friend_id });
+			sendNotification({ sender: currentUser._id, messageBody: content, receiver: friend_id, room_id: room_id });
 		}
 		setContent('');
 	};
@@ -327,7 +327,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			return;
 		}
 	};
-	const handleScroll = async e => {
+	const handleScroll = async (e) => {
 		setScrollValues({
 			layoutHeight: e.nativeEvent.layoutMeasurement.height,
 			offsetY: e.nativeEvent.contentOffset.y,
@@ -401,7 +401,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		);
 	};
 
-	const keyExtractor = item => (item._id ? item._id : uuid());
+	const keyExtractor = (item) => (item._id ? item._id : uuid());
 
 	// ============================================================
 	//                CREATE LIST OF USERS IN ROOM
@@ -464,7 +464,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							backgroundColor: 'black',
 							// height: Platform.OS === "ios" ? 470 : 447,
 							// height: keyboardShowing ? 270 : 470,
-							height: Platform.OS === 'ios' ? Dimensions.get('window').height * 0.83 - keyboardHeight - inputHeight :  Dimensions.get('window').height * 0.86 - keyboardHeight - inputHeight,
+							height:
+								Platform.OS === 'ios'
+									? Dimensions.get('window').height * 0.83 - keyboardHeight - inputHeight
+									: Dimensions.get('window').height * 0.86 - keyboardHeight - inputHeight,
 							flexGrow: 0,
 						}}
 						bounces={true}
@@ -506,9 +509,21 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					blurOnSubmit={false}
 					// onSubmitEditing={sendNewMessage}
 					placeholder="Type Your message here"
-					inputStyle={{ color: '#fff', borderWidth: 1, borderColor: '#0af', borderRadius: 15, padding: 5, alignSelf: 'flex-start', height: Math.max(35, inputHeight) }}
+					inputStyle={{
+						color: '#fff',
+						borderWidth: 1,
+						borderColor: '#0af',
+						borderRadius: 15,
+						padding: 5,
+						alignSelf: 'flex-start',
+						height: Math.max(35, inputHeight),
+					}}
 					placeholderTextColor="#fff"
-					onContentSizeChange={event => Platform.OS === 'ios' ? setInputHeight(event.nativeEvent.contentSize.height + 12) : setInputHeight(event.nativeEvent.contentSize.height)}
+					onContentSizeChange={(event) =>
+						Platform.OS === 'ios'
+							? setInputHeight(event.nativeEvent.contentSize.height + 12)
+							: setInputHeight(event.nativeEvent.contentSize.height)
+					}
 					leftIcon={
 						<View
 							style={{

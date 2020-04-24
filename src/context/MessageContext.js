@@ -89,8 +89,8 @@ const deleteMessage = dispatch => async ({ itemId }) => {
 	dispatch({ type: null, payload: null });
 };
 
-const sendNotification = dispatch => async ({ sender, messageBody, receiver }) => {
-	const response = await chatApi.post('/sendnotification', { sender, messageBody, receiver });
+const sendNotification = dispatch => async ({ sender, messageBody, receiver, room_id }) => {
+	const response = await chatApi.post('/sendnotification', { sender, messageBody, receiver, room_id });
 };
 
 export const { Provider, Context } = createDataContext(
