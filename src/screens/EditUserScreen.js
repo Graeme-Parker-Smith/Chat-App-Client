@@ -86,6 +86,7 @@ const EditUserScreen = () => {
 					autoCapitalize="none"
 					autoCorrect={false}
 					inputStyle={{ color: 'white' }}
+					secureTextEntry={true}
 				/>
 			</Spacer>
 			<AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={'User'} />
