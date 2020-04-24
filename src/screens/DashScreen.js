@@ -46,12 +46,6 @@ const DashScreen = ({ navigation }) => {
 		}
 	}, [state]);
 
-	// useEffect(() => {
-	// 	if (initialIndex) {
-	// 		handleMenuClick(initialIndex);
-	// 	}
-	// }, [initialIndex]);
-
 	useEffect(() => {
 		fetchChannels();
 	}, [menuIndex]);
