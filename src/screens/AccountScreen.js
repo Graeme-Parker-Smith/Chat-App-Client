@@ -24,6 +24,8 @@ import ChannelList from '../components/ChannelList';
 import UserPanel from '../components/UserPanel';
 import AnimSearchBar from '../components/AnimSearchBar';
 import WhiteText from '../components/WhiteText';
+import { Notifications } from 'expo';
+import { navigate, back } from '../navigationRef';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
@@ -61,12 +63,21 @@ const AccountScreen = ({ navigation }) => {
 			(async () => {
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') handleSignout();
+				_notificationSubscription = Notifications.addListener(_handleNotification);
 			})();
 			firstRef.current = false;
 		} else if (firstRef.current) {
 			hasMountedRef.current = true;
 		}
 	}, [state]);
+
+	const _handleNotification = (notification) => {
+		// do whatever you want to do with the notification
+		console.log('Notification Incoming! ', notification);
+		if (notification && notification.data.destination) {
+			navigate(notification.data.destination, { initialIndex: 2 });
+		}
+	};
 
 	const _keyboardDidShow = (e) => {
 		setKeyboardHeight(e.endCoordinates.height);

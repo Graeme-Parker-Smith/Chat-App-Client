@@ -30,8 +30,15 @@ const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
 	const { state, fetchChannels } = useContext(ChannelContext);
 	const socket = useContext(SocketContext);
+	const initialIndex = navigation.getParam('initialIndex');
 	const [userSearch, setUserSearch] = useState('');
 	const [menuIndex, setMenuIndex] = useState(0);
+
+	useEffect(() => {
+		if (initialIndex) {
+			handleMenuClick(initialIndex);
+		}
+	}, [initialIndex]);
 
 	useEffect(() => {
 		fetchChannels();
