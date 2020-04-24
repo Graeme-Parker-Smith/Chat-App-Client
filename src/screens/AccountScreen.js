@@ -15,6 +15,7 @@ import { Button, Input } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
+import SocketContext from '../context/SocketContext';
 import { FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import registerForNotifications from '../services/push_notifications';
 import Spacer from '../components/Spacer';
@@ -41,6 +42,9 @@ const AccountScreen = ({ navigation }) => {
 
 	// const [publicActive, setPublicActive] = useState(true);
 	// const [privateActive, setPrivateActive] = useState(true);
+
+	const socket = useContext(SocketContext);
+
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
 
@@ -57,6 +61,17 @@ const AccountScreen = ({ navigation }) => {
 			keyboardDidHideListener.remove();
 		};
 	}, []);
+
+	useEffect(() => {
+		socket.on('update_user', ({ newData }) => {
+			console.log('received new data');
+		});
+
+		return () => {
+			socket.emit('disconnect');
+			socket.off();
+		};
+	}, [state]);
 
 	useEffect(() => {
 		if (hasMountedRef.current && firstRef.current) {
