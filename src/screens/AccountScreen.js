@@ -75,7 +75,7 @@ const AccountScreen = ({ navigation }) => {
 		// do whatever you want to do with the notification
 		console.log('Notification Incoming! ', notification);
 		if (notification && notification.data.destination) {
-			navigate(notification.data.destination, { initialIndex: 2 });
+			navigate(notification.data.destination, { initialIndex: notification.data.initialIndex });
 		}
 	};
 

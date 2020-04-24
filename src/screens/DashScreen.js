@@ -34,11 +34,23 @@ const DashScreen = ({ navigation }) => {
 	const [userSearch, setUserSearch] = useState('');
 	const [menuIndex, setMenuIndex] = useState(0);
 
+	const hasMountedRef = useRef(false);
+	const firstRef = useRef(true);
+
 	useEffect(() => {
-		if (initialIndex) {
+		if (hasMountedRef.current && firstRef.current && initialIndex) {
 			handleMenuClick(initialIndex);
+			firstRef.current = false;
+		} else if (firstRef.current) {
+			hasMountedRef.current = true;
 		}
-	}, [initialIndex]);
+	}, [state]);
+
+	// useEffect(() => {
+	// 	if (initialIndex) {
+	// 		handleMenuClick(initialIndex);
+	// 	}
+	// }, [initialIndex]);
 
 	useEffect(() => {
 		fetchChannels();
