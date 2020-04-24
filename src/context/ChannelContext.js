@@ -116,6 +116,10 @@ const fetchChannels = (dispatch) => async () => {
 	}
 };
 
+const updateState = (dispatch) => async (newData) => {
+	dispatch({ type: 'fetch_channels', payload: newData });
+};
+
 const createChannel = (dispatch) => async ({ name, creator, avatar, lifespan, msgLife }) => {
 	try {
 		const cloudUrl = await imgUpload(avatar);
@@ -161,6 +165,7 @@ export const { Provider, Context } = createDataContext(
 	channelReducer,
 	{
 		fetchChannels,
+		updateState,
 		createChannel,
 		createPrivateChannel,
 		updateUser,

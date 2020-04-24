@@ -30,7 +30,7 @@ import { navigate, back } from '../navigationRef';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
-	const { state, fetchChannels, addFriend, clearState } = useContext(ChannelContext);
+	const { state, fetchChannels, updateState, addFriend, clearState } = useContext(ChannelContext);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
@@ -68,7 +68,8 @@ const AccountScreen = ({ navigation }) => {
 		}
 
 		socket.on('update_user', ({ newData }) => {
-			console.log('received new data');
+			console.log('received new data', newData.currentUser);
+			updateState(newData);
 			// update state on add and remove friends, invite/kick from room, pm/unread msgs
 		});
 
