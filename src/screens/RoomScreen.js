@@ -446,7 +446,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						containerStyle={{
 							height: 30,
 							position: 'absolute',
-							top: Platform.OS === 'ios' ? 40 : 60,
+							top: Platform.OS === 'ios' ? 70 : 90,
 							zIndex: 1000,
 							width: Dimensions.get('window').width,
 						}}
