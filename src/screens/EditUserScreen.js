@@ -66,9 +66,11 @@ const EditUserScreen = () => {
 					setModalVisible={setModalVisible}
 				/>
 			) : null}
+			<Spacer />
+			<WhiteText style={{ fontSize: 24, alignSelf: 'center' }}>Edit Account</WhiteText>
 			<Spacer>
 				<BouncyInput
-					label="Edit Username"
+					label="Change Username"
 					value={newUsername}
 					onChangeText={setNewUsername}
 					autoFocus={true}
@@ -80,7 +82,7 @@ const EditUserScreen = () => {
 			<Spacer>
 				<BouncyInput
 					secureTextEntry
-					label=" Edit Password"
+					placeholder="Change Password"
 					value={newPassword}
 					onChangeText={setNewPassword}
 					autoCapitalize="none"
