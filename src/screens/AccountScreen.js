@@ -31,6 +31,7 @@ import { navigate, back } from '../navigationRef';
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
 	const { state, fetchChannels, updateState, addFriend, clearState } = useContext(ChannelContext);
+	console.log('PMS', state.PMs);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
