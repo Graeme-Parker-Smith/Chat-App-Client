@@ -32,14 +32,21 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 
 	useEffect(() => {
 		if (userSearch.length > 0) {
+			console.log('useEffect usersearch fired!!!');
 			socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
 		}
-	}, [state]);
+	}, [state, userSearch]);
 
 	const doSearch = () => {
 		if (userSearch.length > 0) {
 			socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
 		}
+	};
+
+	const handleChange = async (newContent) => {
+		await setUserSearch(newContent);
+		console.log('handleChange: ', userSearch);
+		socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
 	};
 
 	// Warning: Can't perform a React state update on an unmounted component.
@@ -64,15 +71,17 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 					<MaterialIcons name="send" size={32} color={userSearch ? '#0af' : '#808080'} onPress={doSearch} />
 				}
 			/>
-			<FlatList
-				data={searchResults}
-				keyExtractor={item => item.username}
-				renderItem={({ item }) => {
-					// if (item.username.includes(userSearch)) {
-					return <UserSearchItem currentUser={state.currentUser} friend={item} />;
-					// }
-				}}
-			/>
+			<View style={{ height: 250 }}>
+				<FlatList
+					data={searchResults}
+					keyExtractor={(item) => item.username}
+					renderItem={({ item }) => {
+						// if (item.username.includes(userSearch)) {
+						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
+						// }
+					}}
+				/>
+			</View>
 		</View>
 	);
 };
