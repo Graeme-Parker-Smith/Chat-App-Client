@@ -67,7 +67,6 @@ const ChannelList = ({
 									}}
 									// value={73}
 									containerStyle={styles.channel(item.username ? '#036' : color)}
-									chevron
 									title={item.name ? item.name : item.username}
 									titleStyle={styles.title}
 									leftAvatar={
