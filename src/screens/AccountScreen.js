@@ -133,21 +133,21 @@ const AccountScreen = ({ navigation }) => {
 				setActiveLists({ public: false, private: true });
 				Animated.timing(publicWidthAnim, {
 					toValue: 0,
-					duration: 200,
+					duration: 400,
 				}).start();
 				Animated.timing(privateWidthAnim, {
 					toValue: Dimensions.get('window').width * 0.9,
-					duration: 200,
+					duration: 400,
 				}).start();
 			} else {
 				setActiveLists({ ...activeLists, public: true });
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * (privateWidthAnim._value > 0 ? 0.5 : 0.9),
-					duration: 200,
+					duration: 400,
 				}).start();
 				Animated.timing(privateWidthAnim, {
 					toValue: Dimensions.get('window').width * (privateWidthAnim._value > 0 ? 0.5 : 0),
-					duration: 200,
+					duration: 400,
 				}).start();
 			}
 		} else if (listType === 'private') {
@@ -155,21 +155,21 @@ const AccountScreen = ({ navigation }) => {
 				setActiveLists({ public: true, private: false });
 				Animated.timing(privateWidthAnim, {
 					toValue: 0,
-					duration: 200,
+					duration: 400,
 				}).start();
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * 0.9,
-					duration: 200,
+					duration: 400,
 				}).start();
 			} else {
 				setActiveLists({ ...activeLists, private: true });
 				Animated.timing(privateWidthAnim, {
 					toValue: Dimensions.get('window').width * (publicWidthAnim._value > 0 ? 0.5 : 0.9),
-					duration: 200,
+					duration: 400,
 				}).start();
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * (publicWidthAnim._value > 0 ? 0.5 : 0),
-					duration: 200,
+					duration: 400,
 				}).start();
 			}
 		}
