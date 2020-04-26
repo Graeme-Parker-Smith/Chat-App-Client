@@ -68,7 +68,6 @@ const AccountScreen = ({ navigation }) => {
 		}
 
 		socket.on('update_user', ({ newData }) => {
-			console.log('received new data', newData.currentUser);
 			updateState(newData);
 			// update state on add and remove friends, invite/kick from room, pm/unread msgs
 		});

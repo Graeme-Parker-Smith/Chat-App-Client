@@ -70,13 +70,6 @@ const DashScreen = ({ navigation }) => {
 		navigation.navigate('channelFlow');
 	};
 
-	const handleChangeText = (e) => {
-		setUserSearch(e.target);
-		console.log('UserSearch being emitted', userSearch);
-		socket.emit('searchuser', userSearch);
-		console.log('socket emitting search');
-	};
-
 	const handleMenuClick = (index) => {
 		setMenuIndex(index);
 		listRef.current.scrollToIndex({ animated: true, index: index });
