@@ -28,7 +28,7 @@ import { NavigationEvents } from 'react-navigation';
 
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
-	const { state, fetchChannels } = useContext(ChannelContext);
+	const { state, fetchChannels, updateState } = useContext(ChannelContext);
 	const socket = useContext(SocketContext);
 	const initialIndex = navigation.getParam('initialIndex');
 	const [userSearch, setUserSearch] = useState('');
@@ -44,6 +44,17 @@ const DashScreen = ({ navigation }) => {
 		} else if (firstRef.current) {
 			hasMountedRef.current = true;
 		}
+
+		socket.on('update_user', ({ newData }) => {
+			// console.log('received new data', newData.currentUser);
+			updateState(newData);
+			// update state on add and remove friends, invite/kick from room, pm/unread msgs
+		});
+
+		return () => {
+			socket.emit('disconnect');
+			socket.off();
+		};
 	}, [state]);
 
 	useEffect(() => {
