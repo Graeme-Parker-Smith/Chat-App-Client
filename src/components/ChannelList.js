@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions, Animated } from 'react-native';
-import { Input, Button, ListItem } from 'react-native-elements';
+import { Input, Button, ListItem, Badge } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import CacheImage from './CacheImage';
 
@@ -58,6 +58,13 @@ const ChannelList = ({
 								onLongPress={item.name ? () => handleEditChannel(`edit_${channelType}`, item) : null}
 							>
 								<ListItem
+									// badge={<Badge value={item.msgCount ? item.msgCount : 73} />}
+									// # of messages on channel in badge
+									badge={{
+										value: item.msgCount >= 0 ? item.msgCount : null,
+										badgeStyle: { backgroundColor: item.msgCount >= 0 ? '#0af' : 'transparent' },
+									}}
+									// value={73}
 									containerStyle={styles.channel(item.username ? '#036' : color)}
 									chevron
 									title={item.name ? item.name : item.username}
