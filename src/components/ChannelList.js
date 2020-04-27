@@ -20,12 +20,6 @@ const ChannelList = ({
 	let color = '#808080';
 	if (channelType === 'private') color = '#301934';
 	if (channelType === 'pm') color = '#036';
-	// let size = 0;
-	// if (showLists.public && showLists.private) {
-	// 	size = 0.5;
-	// } else if (showLists[channelType]) {
-	// 	size = 0.9;
-	// }
 	return (
 		<View>
 			<FlatList
