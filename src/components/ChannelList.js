@@ -4,6 +4,9 @@ import { Input, Button, ListItem, Badge } from 'react-native-elements';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import CacheImage from './CacheImage';
 
+const MessageCount = () => <MaterialCommunityIcons name="message-text" color="#0af" size={32} />;
+const Fawkes = () => <MaterialCommunityIcons name="guy-fawkes-mask" color="black" size={32} />;
+
 const ChannelList = ({
 	listData,
 	channelType,
