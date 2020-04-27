@@ -6,6 +6,35 @@ const channelReducer = (state, action) => {
 	switch (action.type) {
 		case 'fetch_channels':
 			return action.payload;
+		case 'refresh':
+			let updatedChannels = state.channels.map((chan) => {
+				let newChan;
+				if (action.payload[chan._id]) {
+					newChan = { ...chan, userCount: action.payload[chan._id] };
+				} else {
+					newChan = chan;
+				}
+				return newChan;
+			});
+			let updatedPrivates = state.privateChannels.map((chan) => {
+				let newChan;
+				if (action.payload[chan._id]) {
+					newChan = { ...chan, userCount: action.payload[chan._id] };
+				} else {
+					newChan = chan;
+				}
+				return newChan;
+			});
+			let updatedPMs = state.PMs.map((chan) => {
+				let newChan;
+				if (action.payload[chan._id]) {
+					newChan = { ...chan, userCount: action.payload[chan._id] };
+				} else {
+					newChan = chan;
+				}
+				return newChan;
+			});
+			return { ...state, channels: updatedChannels, privateChannels: updatedPrivates, PMs: updatedPMs };
 		case 'add_friend':
 			return {
 				...state,
@@ -120,6 +149,10 @@ const updateState = (dispatch) => async (newData) => {
 	dispatch({ type: 'fetch_channels', payload: newData });
 };
 
+const refreshChannelsData = (dispatch) => async ({ channelsData }) => {
+	dispatch({ type: 'refresh', payload: channelsData });
+};
+
 const createChannel = (dispatch) => async ({ name, creator, avatar, lifespan, msgLife }) => {
 	try {
 		const cloudUrl = await imgUpload(avatar);
@@ -176,6 +209,7 @@ export const { Provider, Context } = createDataContext(
 		kick,
 		deleteChannel,
 		clearState,
+		refreshChannelsData,
 	},
 	{ currentUser: null, channels: [], privateChannels: [], PMs: [] }
 );

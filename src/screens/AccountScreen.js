@@ -30,7 +30,7 @@ import { navigate, back } from '../navigationRef';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
-	const { state, fetchChannels, updateState, addFriend, clearState } = useContext(ChannelContext);
+	const { state, fetchChannels, updateState, addFriend, clearState, refreshChannelsData } = useContext(ChannelContext);
 	// console.log('PMS', state.PMs);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -75,6 +75,7 @@ const AccountScreen = ({ navigation }) => {
 
 		socket.on('channelsData', ({ channelsData }) => {
 			console.log('received channelsData!', channelsData);
+			refreshChannelsData({channelsData});
 		});
 
 		return () => {
