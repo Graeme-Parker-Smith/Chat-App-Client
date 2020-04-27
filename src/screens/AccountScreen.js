@@ -31,7 +31,7 @@ import { navigate, back } from '../navigationRef';
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
 	const { state, fetchChannels, updateState, addFriend, clearState } = useContext(ChannelContext);
-	console.log('PMS', state.PMs);
+	// console.log('PMS', state.PMs);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
@@ -71,6 +71,10 @@ const AccountScreen = ({ navigation }) => {
 		socket.on('update_user', ({ newData }) => {
 			updateState(newData);
 			// update state on add and remove friends, invite/kick from room, pm/unread msgs
+		});
+
+		socket.on('channelsData', ({ channelsData }) => {
+			console.log('received channelsData!', channelsData);
 		});
 
 		return () => {
