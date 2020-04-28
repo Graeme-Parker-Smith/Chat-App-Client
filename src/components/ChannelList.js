@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions, Animated } from 'react-native';
 import { Input, Button, ListItem, Badge } from 'react-native-elements';
-import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import CacheImage from './CacheImage';
 
 const MessageCount = ({ msgCount }) => (
@@ -110,6 +110,14 @@ const ChannelList = ({
 									containerStyle={styles.channel(item.username ? '#036' : color)}
 									title={item.name ? item.name : item.username}
 									titleStyle={styles.title}
+									rightElement={
+										<TouchableOpacity
+											onPress={() => console.log('Show Description!')}
+											style={{ borderLeftWidth: 1, borderLeftColor: 'black' }}
+										>
+											<AntDesign name="caretdown" size={20} color="black" />
+										</TouchableOpacity>
+									}
 									leftAvatar={
 										item.avatar ? (
 											<View>
