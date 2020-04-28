@@ -116,7 +116,7 @@ const ChannelList = ({
 												<CacheImage uri={item.avatar} style={styles.avatarStyle} />
 											</View>
 										) : (
-											<Entypo name="users" size={40} color="#0af" />
+											<Entypo name={item.username ? 'user' : 'users'} size={40} color="#0af" />
 										)
 									}
 								/>
