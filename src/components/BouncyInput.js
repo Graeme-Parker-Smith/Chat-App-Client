@@ -19,6 +19,7 @@ const BouncyInput = forwardRef(
 			onSubmitEditing = null,
 			maxLength,
 			secure,
+			multiline = false,
 		},
 		ref
 	) => {
@@ -69,6 +70,8 @@ const BouncyInput = forwardRef(
 					onSubmitEditing={onSubmitEditing}
 					ref={ref}
 					onFocus={handleOnFocus}
+					multiline={multiline}
+					numberOfLines={5}
 					onBlur={handleOnBlur}
 					secureTextEntry={secure}
 				/>

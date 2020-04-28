@@ -10,7 +10,7 @@ const MessageCount = ({ msgCount }) => (
 		style={{
 			position: 'absolute',
 			top: 5,
-			right: 40,
+			right: 80,
 			// backgroundColor: 'black',
 			borderRadius: 5,
 			zIndex: 2,
@@ -32,7 +32,7 @@ const Fawkes = ({ userCount }) => (
 		style={{
 			position: 'absolute',
 			top: 5,
-			right: 5,
+			right: 45,
 			// backgroundColor: 'black',
 			borderRadius: 5,
 			zIndex: 2,

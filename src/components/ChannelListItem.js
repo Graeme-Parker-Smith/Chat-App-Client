@@ -16,15 +16,39 @@ const ChannelListItem = ({ item, color }) => {
 			// 	badgeStyle: { backgroundColor: item.msgCount >= 0 ? '#0af' : 'transparent' },
 			// }}
 			// value={73}
-			containerStyle={[styles.channel(item.username ? '#036' : color), { height: showDescription ? 120 : 60 }]}
+			containerStyle={[
+				styles.channel(item.username ? '#036' : color),
+				{ height: showDescription ? 180 : 60, paddingRight: 0 },
+			]}
 			title={item.name ? item.name : item.username}
+			subtitle={
+				showDescription
+					? item.username
+						? `I'm your friend! We're friends, right?`
+						: item.description || 'No Description'
+					: null
+			}
 			titleStyle={styles.title}
+			subtitleStyle={styles.subtitle}
 			rightElement={
 				<TouchableOpacity
 					onPress={() => setShowDescription(!showDescription)}
-					style={{ borderLeftWidth: 1, borderLeftColor: 'black' }}
+					style={{
+						borderLeftWidth: 1,
+						borderLeftColor: 'black',
+						height: showDescription ? 180 : 60,
+						backgroundColor: 'green',
+						width: 40,
+						borderRadius: 10,
+						justifyContent: 'center',
+					}}
 				>
-					<AntDesign name="caretdown" size={20} color="black" />
+					<AntDesign
+						name={showDescription ? 'caretup' : 'caretdown'}
+						size={20}
+						color="black"
+						style={{ alignSelf: 'center' }}
+					/>
 				</TouchableOpacity>
 			}
 			leftAvatar={
@@ -50,10 +74,14 @@ const styles = StyleSheet.create({
 	title: {
 		color: 'white',
 	},
+	subtitle: {
+		fontSize: 12,
+		color: 'green',
+	},
 	avatarStyle: {
-		height: 50,
-		width: 50,
-		borderRadius: 25,
+		height: 40,
+		width: 40,
+		borderRadius: 20,
 	},
 });
 

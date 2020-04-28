@@ -93,6 +93,7 @@ const CreateChannelForm = ({ showForm }) => {
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
 				maxLength={225}
+				multiline={true}
 			/>
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
 			<View style={styles.buttonRow}>
