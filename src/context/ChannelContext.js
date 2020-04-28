@@ -153,10 +153,10 @@ const refreshChannelsData = (dispatch) => async ({ channelsData }) => {
 	dispatch({ type: 'refresh', payload: channelsData });
 };
 
-const createChannel = (dispatch) => async ({ name, creator, avatar, lifespan, msgLife }) => {
+const createChannel = (dispatch) => async ({ name, creator, avatar, description, lifespan, msgLife }) => {
 	try {
 		const cloudUrl = await imgUpload(avatar);
-		const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, lifespan, msgLife });
+		const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, description, lifespan, msgLife });
 		if (response.data.error) return response;
 		dispatch({
 			type: 'create_channel',

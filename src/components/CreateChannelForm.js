@@ -10,6 +10,7 @@ import WhiteText from './WhiteText';
 
 const CreateChannelForm = ({ showForm }) => {
 	const [newChannelName, setNewChannelName] = useState('');
+	const [description, setDescription] = useState('');
 	const { state, createChannel } = useContext(ChannelContext);
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -28,11 +29,12 @@ const CreateChannelForm = ({ showForm }) => {
 			name: newChannelName,
 			creator: state.currentUser.username,
 			avatar: avatar.base64Uri,
+			description,
 			lifespan: lifespan > 0 ? parseInt(lifespan) : null,
 			msgLife: msgLife > 0 ? parseInt(msgLife) : null,
 		});
 		if (response && response.data.error) {
-			console.log("yes", response.data);
+			console.log('yes', response.data);
 			setIsLoading(false);
 			setErrMsg(response.data.error);
 			return;
@@ -81,6 +83,16 @@ const CreateChannelForm = ({ showForm }) => {
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
 				maxLength={22}
+			/>
+			<BouncyInput
+				value={description}
+				onChangeText={setDescription}
+				label="Add A Description For Your Channel"
+				placeholder="(Optional. 225 char max.)"
+				inputContainerStyle={{ marginBottom: 20 }}
+				inputStyle={{ color: '#fff' }}
+				placeholderTextColor="#fff"
+				maxLength={225}
 			/>
 			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
 			<View style={styles.buttonRow}>
