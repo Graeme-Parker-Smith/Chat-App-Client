@@ -4,8 +4,50 @@ import { Input, Button, ListItem, Badge } from 'react-native-elements';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import CacheImage from './CacheImage';
 
-const MessageCount = () => <MaterialCommunityIcons name="message-text" color="#0af" size={32} />;
-const Fawkes = () => <MaterialCommunityIcons name="guy-fawkes-mask" color="black" size={32} />;
+const MessageCount = ({ msgCount }) => (
+	<View
+		style={{
+			position: 'absolute',
+			top: 5,
+			right: 40,
+			// backgroundColor: 'black',
+			borderRadius: 5,
+			zIndex: 2,
+			flexDirection: 'row',
+			alignItems: 'center',
+		}}
+	>
+		{/* <View style={{ flexDirection: 'row' }}> */}
+		<MaterialCommunityIcons name="message-text" color="black" size={20} />
+		<Badge
+			value={msgCount >= 0 ? msgCount : null}
+			badgeStyle={{ backgroundColor: msgCount >= 0 ? 'black' : 'transparent' }}
+		/>
+		{/* </View> */}
+	</View>
+);
+const Fawkes = ({ userCount }) => (
+	<View
+		style={{
+			position: 'absolute',
+			top: 5,
+			right: 5,
+			// backgroundColor: 'black',
+			borderRadius: 5,
+			zIndex: 2,
+			flexDirection: 'row',
+			alignItems: 'center',
+		}}
+	>
+		{/* <View style={{ flexDirection: 'row' }}> */}
+		<MaterialCommunityIcons name="guy-fawkes-mask" color="black" size={20} />
+		<Badge
+			value={userCount >= 0 ? userCount : null}
+			badgeStyle={{ backgroundColor: userCount >= 0 ? 'black' : 'transparent' }}
+		/>
+		{/* </View> */}
+	</View>
+);
 
 const ChannelList = ({
 	listData,
@@ -55,13 +97,15 @@ const ChannelList = ({
 								}
 								onLongPress={item.name ? () => handleEditChannel(`edit_${channelType}`, item) : null}
 							>
+								<MessageCount msgCount={item.msgCount ? item.msgCount : null} />
+								<Fawkes userCount={item.userCount ? item.userCount : null} />
 								<ListItem
 									// badge={<Badge value={item.msgCount ? item.msgCount : 73} />}
 									// # of messages on channel in badge
-									badge={{
-										value: item.msgCount >= 0 ? item.msgCount : null,
-										badgeStyle: { backgroundColor: item.msgCount >= 0 ? '#0af' : 'transparent' },
-									}}
+									// badge={{
+									// 	value: item.msgCount >= 0 ? item.msgCount : null,
+									// 	badgeStyle: { backgroundColor: item.msgCount >= 0 ? '#0af' : 'transparent' },
+									// }}
 									// value={73}
 									containerStyle={styles.channel(item.username ? '#036' : color)}
 									title={item.name ? item.name : item.username}
