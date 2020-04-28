@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions, 
 import { Input, Button, ListItem, Badge } from 'react-native-elements';
 import { Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import CacheImage from './CacheImage';
+import ChannelListItem from './ChannelListItem';
 
 const MessageCount = ({ msgCount }) => (
 	<View
@@ -99,7 +100,7 @@ const ChannelList = ({
 							>
 								<MessageCount msgCount={item.msgCount ? item.msgCount : null} />
 								<Fawkes userCount={item.userCount ? item.userCount : null} />
-								<ListItem
+								{/* <ListItem
 									// badge={<Badge value={item.msgCount ? item.msgCount : 73} />}
 									// # of messages on channel in badge
 									// badge={{
@@ -127,7 +128,8 @@ const ChannelList = ({
 											<Entypo name={item.username ? 'user' : 'users'} size={40} color="#0af" />
 										)
 									}
-								/>
+								/> */}
+								<ChannelListItem color={color} item={item} />
 							</TouchableOpacity>
 						);
 					}
