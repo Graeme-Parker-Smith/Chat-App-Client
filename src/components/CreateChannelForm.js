@@ -50,7 +50,8 @@ const CreateChannelForm = ({ showForm }) => {
 			<BouncyInput
 				value={newChannelName}
 				onChangeText={setNewChannelName}
-				placeholder="Name your new channel"
+				label="Name Your New Public Channel"
+				placeholder="(Required)"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
@@ -62,7 +63,7 @@ const CreateChannelForm = ({ showForm }) => {
 				onChangeText={setLifespan}
 				keyboardType="numeric"
 				selectTextOnFocus={true}
-				label="Set Channel Lifespan in Minutes"
+				label="# in Minutes Before Channel is Deleted."
 				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
@@ -74,7 +75,7 @@ const CreateChannelForm = ({ showForm }) => {
 				onChangeText={setMsgLife}
 				keyboardType="numeric"
 				selectTextOnFocus={true}
-				label="Set Message Lifespan in Minutes"
+				label="# in Minutes Before Each Message is Deleted."
 				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}

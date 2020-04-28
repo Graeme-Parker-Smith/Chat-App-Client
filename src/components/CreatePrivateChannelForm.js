@@ -49,7 +49,8 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 			<BouncyInput
 				value={newChannelName}
 				onChangeText={setNewChannelName}
-				placeholder="Name your new Private channel"
+				label="Name Your New Private Channel"
+				placeholder="(Required)"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
 				placeholderTextColor="#fff"
@@ -61,7 +62,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				onChangeText={setLifespan}
 				keyboardType="numeric"
 				selectTextOnFocus={true}
-				label="Set Channel Lifespan in Minutes"
+				label="# in Minutes Before Channel is Deleted."
 				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
@@ -73,7 +74,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				onChangeText={setMsgLife}
 				keyboardType="numeric"
 				selectTextOnFocus={true}
-				label="Set Message Lifespan in Minutes"
+				label="# in Minutes Before Each Message is Deleted."
 				placeholder="Forever"
 				inputContainerStyle={{ marginBottom: 20 }}
 				inputStyle={{ color: '#fff' }}
