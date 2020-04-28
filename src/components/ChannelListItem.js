@@ -18,7 +18,7 @@ const ChannelListItem = ({ item, color }) => {
 			// value={73}
 			containerStyle={[
 				styles.channel(item.username ? '#036' : color),
-				{ height: showDescription ? 180 : 60, paddingRight: 0 },
+				{ height: showDescription ? 180 : 60, padding: 0 },
 			]}
 			title={item.name ? item.name : item.username}
 			subtitle={
