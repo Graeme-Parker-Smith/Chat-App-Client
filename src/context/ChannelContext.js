@@ -12,7 +12,7 @@ const channelReducer = (state, action) => {
 				if (action.payload[chan._id]) {
 					newChan = { ...chan, userCount: action.payload[chan._id] };
 				} else {
-					newChan = chan;
+					newChan = { ...chan, userCount: 0 };
 				}
 				return newChan;
 			});
