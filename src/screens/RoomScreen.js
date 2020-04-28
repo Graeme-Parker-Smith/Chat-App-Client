@@ -338,7 +338,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		// console.log("scroll event CONTENT OFFSET.y: ", e.nativeEvent);
 
 		// e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
-		if (e.nativeEvent.contentOffset.y < 1 && loading === false && state.length > 6) {
+		if (e.nativeEvent.contentOffset.y < 1 && loading === false && state.length > 5) {
 			setLoading(true);
 			await fetchEarlierMessages(state, roomName, roomType, room_id);
 			// May need to change this to scrollToOffset
@@ -354,7 +354,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		}
 	};
 	const handleAutoScroll = (width, height) => {
-		if (isCloseToBottom(scrollValues) && state.length > 6) {
+		if (isCloseToBottom(scrollValues) && state.length > 5) {
 			try {
 				// const offset = itemHeights.reduce((a, b) => a + b, 0);
 				const offset = _layoutsMap.reduce((a, b) => a + b, 0);
@@ -420,8 +420,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		await fetchMessages(roomName, roomType, room_id);
 		scrollToBottom();
 	};
-
-
 
 	return (
 		<SafeAreaView style={styles.body}>
