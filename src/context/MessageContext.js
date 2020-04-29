@@ -23,7 +23,7 @@ const clearMessages = dispatch => () => {
 };
 
 const fetchEarlierMessages = dispatch => async (state, roomName, roomType, room_id) => {
-	if (state.length > 6) {
+	if (state.length > 18) {
 		const response = await chatApi.get('/messages', {
 			params: { stateLength: state.length, roomName, roomType, room_id },
 		});

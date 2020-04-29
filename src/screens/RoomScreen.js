@@ -31,7 +31,6 @@ import * as FileSystem from 'expo-file-system';
 import imgUpload from '../helpers/imgUpload';
 import base64 from 'react-native-base64';
 import InviteMenu from '../components/InviteMenu';
-import LoadingIndicator from '../components/LoadingIndicator';
 
 let _layoutsMap = [];
 let itemHeights = [];
@@ -338,7 +337,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		// console.log("scroll event CONTENT OFFSET.y: ", e.nativeEvent);
 
 		// e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
-		if (e.nativeEvent.contentOffset.y < 1 && loading === false && state.length > 6) {
+		if (e.nativeEvent.contentOffset.y < 1 && loading === false && state.length > 18) {
 			setLoading(true);
 			await fetchEarlierMessages(state, roomName, roomType, room_id);
 			// May need to change this to scrollToOffset
@@ -354,7 +353,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		}
 	};
 	const handleAutoScroll = (width, height) => {
-		if (isCloseToBottom(scrollValues) && state.length > 6) {
+		if (isCloseToBottom(scrollValues) && state.length > 10) {
 			try {
 				// const offset = itemHeights.reduce((a, b) => a + b, 0);
 				const offset = _layoutsMap.reduce((a, b) => a + b, 0);
@@ -480,7 +479,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						onScroll={handleScroll}
 						scrollEventThrottle={16}
 						overScrollMode="auto"
-						// initialNumToRender={9}
 						data={state}
 						keyExtractor={keyExtractor}
 						renderItem={({ item, index }) => renderItemOutside(item, index)}
