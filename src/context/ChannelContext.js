@@ -167,10 +167,10 @@ const createChannel = (dispatch) => async ({ name, creator, avatar, description,
 	}
 };
 
-const createPrivateChannel = (dispatch) => async ({ name, creator, avatar, lifespan, msgLife }) => {
+const createPrivateChannel = (dispatch) => async ({ name, creator, avatar, description, lifespan, msgLife }) => {
 	try {
 		const cloudUrl = await imgUpload(avatar);
-		const response = await chatApi.post('/privatechannels', { name, creator, avatar: cloudUrl, lifespan, msgLife });
+		const response = await chatApi.post('/privatechannels', { name, creator, avatar: cloudUrl, description, lifespan, msgLife });
 		if (response.data.error) return response;
 		dispatch({
 			type: 'create_private_channel',
