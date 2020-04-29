@@ -462,8 +462,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					<FlatList
 						style={{
 							backgroundColor: 'black',
-							// height: Platform.OS === "ios" ? 470 : 447,
-							// height: keyboardShowing ? 270 : 470,
 							height:
 								Platform.OS === 'ios'
 									? Dimensions.get('window').height * 0.83 - keyboardHeight - inputHeight
