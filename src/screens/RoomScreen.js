@@ -484,7 +484,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						renderItem={({ item, index }) => renderItemOutside(item, index)}
 						getItemLayout={(data, index) => {
 							let height = 46;
-							// console.log('data[index]: ', data[index]);
 							if (data[index].isImage || data[index].isVideo) {
 								height = 224.33325;
 							} else if (data[index].content.length > 32) {
