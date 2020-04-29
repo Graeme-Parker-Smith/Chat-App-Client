@@ -338,7 +338,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		// console.log("scroll event CONTENT OFFSET.y: ", e.nativeEvent);
 
 		// e.nativeEvent.contentOffset.y < 1 tells us if user has scrolled to top
-		if (e.nativeEvent.contentOffset.y < 1 && loading === false && state.length > 5) {
+		if (e.nativeEvent.contentOffset.y < 1 && loading === false && state.length > 6) {
 			setLoading(true);
 			await fetchEarlierMessages(state, roomName, roomType, room_id);
 			// May need to change this to scrollToOffset
@@ -354,7 +354,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		}
 	};
 	const handleAutoScroll = (width, height) => {
-		if (isCloseToBottom(scrollValues) && state.length > 5) {
+		if (isCloseToBottom(scrollValues) && state.length > 6) {
 			try {
 				// const offset = itemHeights.reduce((a, b) => a + b, 0);
 				const offset = _layoutsMap.reduce((a, b) => a + b, 0);
@@ -484,21 +484,21 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						data={state}
 						keyExtractor={keyExtractor}
 						renderItem={({ item, index }) => renderItemOutside(item, index)}
-						// getItemLayout={(data, index) => {
-						// 	let height = 46;
-						// 	// console.log('data[index]: ', data[index]);
-						// 	if (data[index].isImage || data[index].isVideo) {
-						// 		height = 224.33325;
-						// 	} else if (data[index].content.length > 32) {
-						// 		height = 67.33337;
-						// 	}
-						// 	itemHeights[index] = height;
-						// 	return {
-						// 		length: height,
-						// 		offset: height * index,
-						// 		index,
-						// 	};
-						// }}
+						getItemLayout={(data, index) => {
+							let height = 46;
+							// console.log('data[index]: ', data[index]);
+							if (data[index].isImage || data[index].isVideo) {
+								height = 224.33325;
+							} else if (data[index].content.length > 32) {
+								height = 67.33337;
+							}
+							itemHeights[index] = height;
+							return {
+								length: height,
+								offset: height * index,
+								index,
+							};
+						}}
 						removeClippedSubviews={true}
 					/>
 				</View>
