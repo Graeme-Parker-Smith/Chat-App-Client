@@ -8,15 +8,17 @@ const ChannelListItem = ({ item, color }) => {
 	const [showDescription, setShowDescription] = useState(false);
 	const [heightAnim] = useState(new Animated.Value(60));
 
-	const handleHeightAnim = async () => {
+	const handleHeightAnim = () => {
 		if (!showDescription) {
-			await Animated.timing(heightAnim, {
+			Animated.timing(heightAnim, {
 				toValue: 180,
 				duration: 500,
 			}).start();
-			setShowDescription(true);
+			setTimeout(() => {
+				setShowDescription(true);
+			}, 500);
 		} else {
-			await Animated.timing(heightAnim, {
+			Animated.timing(heightAnim, {
 				toValue: 60,
 				duration: 500,
 			}).start();
@@ -25,7 +27,7 @@ const ChannelListItem = ({ item, color }) => {
 	};
 
 	return (
-		<Animated.View style={{ height: heightAnim }}>
+		<Animated.View style={{ height: heightAnim, backgroundColor: color, margin: 5, borderRadius: 10 }}>
 			<ListItem
 				// badge={<Badge value={item.msgCount ? item.msgCount : 73} />}
 				// # of messages on channel in badge
@@ -36,7 +38,15 @@ const ChannelListItem = ({ item, color }) => {
 				// value={73}
 				containerStyle={
 					// { backgroundColor: 'transparent', alignSelf: 'center' }
-					[styles.channel(item.username ? '#036' : color), { height: showDescription ? 180 : 60, justifyContent: 'center', alignItems: 'center', padding: 0 }]
+					[
+						styles.channel(item.username ? '#036' : color),
+						{
+							height: showDescription ? 180 : 60,
+							justifyContent: 'center',
+							alignItems: 'center',
+							padding: 0,
+						},
+					]
 				}
 				// Component={<Animated.View style={{ height: heightAnim }} />}
 				contentContainerStyle={
@@ -77,11 +87,16 @@ const ChannelListItem = ({ item, color }) => {
 				}
 				leftAvatar={
 					item.avatar ? (
-						<View>
+						<View style={showDescription ? { position: 'relative', top: -60 } : null}>
 							<CacheImage uri={item.avatar} style={styles.avatarStyle} />
 						</View>
 					) : (
-						<Entypo name={item.username ? 'user' : 'users'} size={40} color="#0af" />
+						<Entypo
+							style={showDescription ? { position: 'relative', top: -60 } : null}
+							name={item.username ? 'user' : 'users'}
+							size={40}
+							color="#0af"
+						/>
 					)
 				}
 			/>
@@ -93,7 +108,7 @@ const styles = StyleSheet.create({
 	channel: (color) => ({
 		height: 60,
 		backgroundColor: color,
-		margin: 5,
+		// margin: 5,
 		borderRadius: 10,
 	}),
 	title: {
