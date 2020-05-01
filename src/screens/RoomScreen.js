@@ -35,7 +35,7 @@ import InviteMenu from '../components/InviteMenu';
 let _layoutsMap = [];
 let itemHeights = [];
 
-const RoomScreen = ({ navigation, isFocused }) => {
+const RoomScreen = ({ navigation }) => {
 	const scrollViewRef = useRef();
 	const didMountRef = useRef(false);
 	const socket = useContext(SocketContext);
@@ -168,15 +168,15 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	//   HANDLE COMPONENT LOSE FOCUS/NAVIGATE AWAY FROM SCREEN
 	// ============================================================
 
-	useEffect(() => {
-		if (didMountRef.current) {
-			if (!isFocused) {
-				socket.emit('leave', { room: roomName, name: username });
-			}
-		} else {
-			didMountRef.current = true;
-		}
-	}, [isFocused]);
+	// useEffect(() => {
+	// 	if (didMountRef.current) {
+	// 		if (!isFocused) {
+	// 			socket.emit('leave', { room: roomName, name: username });
+	// 		}
+	// 	} else {
+	// 		didMountRef.current = true;
+	// 	}
+	// }, [isFocused]);
 
 	// ============================================================
 	//                SEND TEXT MESSAGE FUNCTION
@@ -555,4 +555,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default memo(withNavigationFocus(RoomScreen));
+export default RoomScreen;

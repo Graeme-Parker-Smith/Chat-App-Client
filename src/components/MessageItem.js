@@ -171,4 +171,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default memo(MessageItem);
+export default MessageItem;
