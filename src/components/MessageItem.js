@@ -7,7 +7,7 @@ import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
 import CacheImage from './CacheImage';
 
-const DefaultAvatar = () => <Entypo name="user" size={20} color="#0af" />;
+const DefaultAvatar = () => <Entypo name="user" size={40} color="#0af" />;
 
 const MessageItem = ({
 	currentUserUsername,
