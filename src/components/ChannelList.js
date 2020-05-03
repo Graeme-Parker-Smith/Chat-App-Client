@@ -86,7 +86,7 @@ const ChannelList = ({
 						return (
 							<TouchableOpacity
 								onPress={() =>
-									navigation.navigate('Room', {
+									navigation.replace('Room', {
 										roomName: item.name ? item.name : item.username,
 										username: currentUser.username,
 										friend: item.username ? item : null,

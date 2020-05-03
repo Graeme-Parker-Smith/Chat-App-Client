@@ -42,6 +42,7 @@ const AccountScreen = ({ navigation }) => {
 	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 
 	const [keyboardHeight, setKeyboardHeight] = useState(0);
+	const [listener, setListener] = useState(false);
 
 	// const [publicActive, setPublicActive] = useState(true);
 	// const [privateActive, setPrivateActive] = useState(true);
@@ -69,6 +70,21 @@ const AccountScreen = ({ navigation }) => {
 	useEffect(() => {
 		if (state.currentUser) {
 			socket.emit('register_socket', { userId: state.currentUser._id });
+
+			// console.log('socket joining...');
+			// socket.emit(
+			// 	'join',
+			// 	{ name: state.currentUser.username, room: socket.id, userId: state.currentUser._id },
+			// 	(error) => {
+			// 		if (error) {
+			// 			// if (error === 'Username is taken') {
+			// 			// 	navigation.replace('Account');
+			// 			// 	alert('Error: Username is Taken.');
+			// 			// }
+			// 			console.log(error);
+			// 		}
+			// 	}
+			// );
 		}
 
 		socket.on('update_user', ({ newData }) => {
@@ -82,6 +98,7 @@ const AccountScreen = ({ navigation }) => {
 
 		return () => {
 			console.log('unmounting accountscreen');
+			setListener(false);
 			socket.emit('disconnect');
 			socket.off();
 		};
@@ -89,19 +106,6 @@ const AccountScreen = ({ navigation }) => {
 
 	useEffect(() => {
 		if (hasMountedRef.current && firstRef.current) {
-			socket.emit(
-				'join',
-				{ name: state.currentUser.username, room: socket.id, userId: state.currentUser._id },
-				(error) => {
-					if (error) {
-						// if (error === 'Username is taken') {
-						// 	navigation.replace('Account');
-						// 	alert('Error: Username is Taken.');
-						// }
-						console.log(error);
-					}
-				}
-			);
 			(async () => {
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') handleSignout();
@@ -139,6 +143,7 @@ const AccountScreen = ({ navigation }) => {
 		if (error === 'user could not be found') {
 			signout();
 		}
+		setListener(true);
 	};
 
 	const handleSignout = () => {

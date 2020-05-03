@@ -35,7 +35,7 @@ import InviteMenu from '../components/InviteMenu';
 let _layoutsMap = [];
 let itemHeights = [];
 
-const RoomScreen = ({ navigation }) => {
+const RoomScreen = ({ navigation, isFocused }) => {
 	const scrollViewRef = useRef();
 	const didMountRef = useRef(false);
 	const socket = useContext(SocketContext);
@@ -154,7 +154,7 @@ const RoomScreen = ({ navigation }) => {
 			console.log('username is: ', username);
 			if (username === removee) {
 				console.log('user must go back!');
-				back('Account');
+				navigation.replace('Account');
 			}
 		});
 
@@ -429,7 +429,7 @@ const RoomScreen = ({ navigation }) => {
 						containerStyle={{ alignSelf: 'center' }}
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
 						icon={
-							<TouchableOpacity onPress={() => back('Account')}>
+							<TouchableOpacity onPress={() => navigation.replace('Account')}>
 								<Entypo name="back" color="#0af" size={50} />
 							</TouchableOpacity>
 						}
