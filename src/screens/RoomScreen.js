@@ -159,8 +159,8 @@ const RoomScreen = ({ navigation }) => {
 		});
 
 		return () => {
-			// socket.emit('disconnect');
-			// socket.off();
+			socket.emit('disconnect');
+			socket.off();
 		};
 	}, [state, users]);
 
@@ -168,15 +168,15 @@ const RoomScreen = ({ navigation }) => {
 	//   HANDLE COMPONENT LOSE FOCUS/NAVIGATE AWAY FROM SCREEN
 	// ============================================================
 
-	// useEffect(() => {
-	// 	if (didMountRef.current) {
-	// 		if (!isFocused) {
-	// 			socket.emit('leave', { room: roomName, name: username });
-	// 		}
-	// 	} else {
-	// 		didMountRef.current = true;
-	// 	}
-	// }, [isFocused]);
+	useEffect(() => {
+		if (didMountRef.current) {
+			if (!isFocused) {
+				socket.emit('leave', { room: roomName, name: username });
+			}
+		} else {
+			didMountRef.current = true;
+		}
+	}, [isFocused]);
 
 	// ============================================================
 	//                SEND TEXT MESSAGE FUNCTION
@@ -555,4 +555,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default RoomScreen;
+export default memo(withNavigationFocus(RoomScreen));
