@@ -72,23 +72,23 @@ const RoomScreen = ({ navigation }) => {
 		clearMessages,
 		sendNotification,
 	} = useContext(MessageContext);
-	const pan = useRef(new Animated.ValueXY()).current;
+	// const pan = useRef(new Animated.ValueXY()).current;
 
-	const panResponder = useRef(
-		PanResponder.create({
-			onMoveShouldSetPanResponder: () => true,
-			onPanResponderGrant: () => {
-				pan.setOffset({
-					x: pan.x._value,
-					y: pan.y._value,
-				});
-			},
-			onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }]),
-			onPanResponderRelease: () => {
-				pan.flattenOffset();
-			},
-		})
-	).current;
+	// const panResponder = useRef(
+	// 	PanResponder.create({
+	// 		onMoveShouldSetPanResponder: () => true,
+	// 		onPanResponderGrant: () => {
+	// 			pan.setOffset({
+	// 				x: pan.x._value,
+	// 				y: pan.y._value,
+	// 			});
+	// 		},
+	// 		onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }]),
+	// 		onPanResponderRelease: () => {
+	// 			pan.flattenOffset();
+	// 		},
+	// 	})
+	// ).current;
 
 	const _keyboardDidShow = (e) => {
 		setKeyboardShowing(true);
