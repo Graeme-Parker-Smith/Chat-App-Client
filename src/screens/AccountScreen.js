@@ -30,7 +30,9 @@ import { navigate, back } from '../navigationRef';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
-	const { state, fetchChannels, updateState, addFriend, clearState, refreshChannelsData } = useContext(ChannelContext);
+	const { state, fetchChannels, updateState, addFriend, clearState, refreshChannelsData } = useContext(
+		ChannelContext
+	);
 	// console.log('PMS', state.PMs);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +47,7 @@ const AccountScreen = ({ navigation }) => {
 	// const [privateActive, setPrivateActive] = useState(true);
 
 	const socket = useContext(SocketContext);
+	console.log('socket', socket.id);
 
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
@@ -72,13 +75,13 @@ const AccountScreen = ({ navigation }) => {
 			updateState(newData);
 			// update state on add and remove friends, invite/kick from room, pm/unread msgs
 		});
-
 		socket.on('channelsData', ({ channelsData }) => {
 			console.log('received channelsData!', channelsData);
-			refreshChannelsData({channelsData});
+			refreshChannelsData({ channelsData });
 		});
 
 		return () => {
+			console.log('unmounting accountscreen');
 			socket.emit('disconnect');
 			socket.off();
 		};
@@ -86,6 +89,19 @@ const AccountScreen = ({ navigation }) => {
 
 	useEffect(() => {
 		if (hasMountedRef.current && firstRef.current) {
+			socket.emit(
+				'join',
+				{ name: state.currentUser.username, room: socket.id, userId: state.currentUser._id },
+				(error) => {
+					if (error) {
+						// if (error === 'Username is taken') {
+						// 	navigation.replace('Account');
+						// 	alert('Error: Username is Taken.');
+						// }
+						console.log(error);
+					}
+				}
+			);
 			(async () => {
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') handleSignout();

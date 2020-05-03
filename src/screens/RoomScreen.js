@@ -107,10 +107,10 @@ const RoomScreen = ({ navigation }) => {
 	useEffect(() => {
 		socket.emit('join', { name: username, userId: currentUser._id, room: room_id }, (error) => {
 			if (error) {
-				if (error === 'Username is taken') {
-					navigation.replace('Account');
-					alert('Error: Username is Taken.');
-				}
+				// if (error === 'Username is taken') {
+				// 	navigation.replace('Account');
+				// 	alert('Error: Username is Taken.');
+				// }
 			}
 		});
 		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
@@ -159,8 +159,8 @@ const RoomScreen = ({ navigation }) => {
 		});
 
 		return () => {
-			socket.emit('disconnect');
-			socket.off();
+			// socket.emit('disconnect');
+			// socket.off();
 		};
 	}, [state, users]);
 
