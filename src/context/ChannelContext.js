@@ -20,8 +20,9 @@ const channelReducer = (state, action) => {
 				let newChan;
 				if (action.payload[chan._id]) {
 					newChan = { ...chan, userCount: action.payload[chan._id] };
+					console.log('newChan', newChan);
 				} else {
-					newChan = chan;
+					newChan = { ...chan, userCount: 0 };
 				}
 				return newChan;
 			});
@@ -30,7 +31,7 @@ const channelReducer = (state, action) => {
 				if (action.payload[chan._id]) {
 					newChan = { ...chan, userCount: action.payload[chan._id] };
 				} else {
-					newChan = chan;
+					newChan = { ...chan, userCount: 0 };
 				}
 				return newChan;
 			});
@@ -68,7 +69,6 @@ const addFriend = (dispatch) => async ({ username, friendName, shouldRemove = fa
 			shouldRemove,
 			shouldBlock,
 		});
-		console.log(response.data);
 		dispatch({ type: 'add_friend', payload: response.data });
 	} catch (err) {
 		console.log(err);
@@ -136,7 +136,6 @@ const fetchChannels = (dispatch) => async () => {
 		// const nojson = JSON.parse(response.data);
 		// console.log("response.data is: ", response.data);
 		await dispatch({ type: 'fetch_channels', payload: response.data });
-		console.log('Channels Fetched!');
 		return { error: null };
 	} catch (err) {
 		if (err.response.data.error === 'user could not be found') {
@@ -156,7 +155,14 @@ const refreshChannelsData = (dispatch) => async ({ channelsData }) => {
 const createChannel = (dispatch) => async ({ name, creator, avatar, description, lifespan, msgLife }) => {
 	try {
 		const cloudUrl = await imgUpload(avatar);
-		const response = await chatApi.post('/channels', { name, creator, avatar: cloudUrl, description, lifespan, msgLife });
+		const response = await chatApi.post('/channels', {
+			name,
+			creator,
+			avatar: cloudUrl,
+			description,
+			lifespan,
+			msgLife,
+		});
 		if (response.data.error) return response;
 		dispatch({
 			type: 'create_channel',
@@ -170,7 +176,14 @@ const createChannel = (dispatch) => async ({ name, creator, avatar, description,
 const createPrivateChannel = (dispatch) => async ({ name, creator, avatar, description, lifespan, msgLife }) => {
 	try {
 		const cloudUrl = await imgUpload(avatar);
-		const response = await chatApi.post('/privatechannels', { name, creator, avatar: cloudUrl, description, lifespan, msgLife });
+		const response = await chatApi.post('/privatechannels', {
+			name,
+			creator,
+			avatar: cloudUrl,
+			description,
+			lifespan,
+			msgLife,
+		});
 		if (response.data.error) return response;
 		dispatch({
 			type: 'create_private_channel',
@@ -182,7 +195,6 @@ const createPrivateChannel = (dispatch) => async ({ name, creator, avatar, descr
 };
 
 const deleteChannel = (dispatch) => async ({ username, roomName, channel_id, isPrivate }) => {
-	console.log('channel_id in context', channel_id);
 	const response = await chatApi.delete('/channels', { params: { username, roomName, channel_id, isPrivate } });
 	dispatch({
 		type: 'delete_channel',

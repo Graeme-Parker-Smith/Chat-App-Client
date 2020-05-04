@@ -78,9 +78,11 @@ const ChannelList = ({
 						if (item.username) {
 							let thisPM = PMs.find((pm) => pm.members.includes(item._id));
 							item.msgCount = thisPM.msgCount;
+							item.userCount = thisPM.userCount;
 							if (!thisPM) {
 								return;
 							}
+							console.log('userCount', item.userCount);
 							Pm_id = thisPM._id;
 						}
 						return (

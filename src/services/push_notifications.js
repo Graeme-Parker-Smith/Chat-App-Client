@@ -11,7 +11,6 @@ export default async ({ user }) => {
 	// console.log(previousToken);
 
 	if (previousToken) {
-		console.log('previous token', previousToken);
 		const response = await chatApi.post('/pushToken', {
 			token: previousToken,
 			user,
@@ -30,7 +29,6 @@ export default async ({ user }) => {
 		} catch (err) {
 			console.log(err);
 		}
-		console.log('token: ', token);
 		const response = await chatApi.post('/pushToken', {
 			token,
 			user,

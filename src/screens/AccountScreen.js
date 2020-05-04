@@ -48,13 +48,15 @@ const AccountScreen = ({ navigation }) => {
 	// const [privateActive, setPrivateActive] = useState(true);
 
 	const socket = useContext(SocketContext);
-	console.log('socket', socket.id);
 
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
 
 	useEffect(() => {
-		fetchChannels();
+		if (hasMountedRef.current && firstRef.current) {
+			fetchChannels();
+			socket.emit('get_channels_data', { socketId: socket.id });
+		}
 	}, [formState]);
 
 	useEffect(() => {
@@ -70,21 +72,6 @@ const AccountScreen = ({ navigation }) => {
 	useEffect(() => {
 		if (state.currentUser) {
 			socket.emit('register_socket', { userId: state.currentUser._id });
-
-			// console.log('socket joining...');
-			// socket.emit(
-			// 	'join',
-			// 	{ name: state.currentUser.username, room: socket.id, userId: state.currentUser._id },
-			// 	(error) => {
-			// 		if (error) {
-			// 			// if (error === 'Username is taken') {
-			// 			// 	navigation.replace('Account');
-			// 			// 	alert('Error: Username is Taken.');
-			// 			// }
-			// 			console.log(error);
-			// 		}
-			// 	}
-			// );
 		}
 
 		socket.on('update_user', ({ newData }) => {
@@ -119,7 +106,7 @@ const AccountScreen = ({ navigation }) => {
 
 	const _handleNotification = (notification) => {
 		// do whatever you want to do with the notification
-		console.log('Notification Incoming! ', notification);
+		// console.log('Notification Incoming! ', notification);
 		if (notification && notification.data.destination) {
 			navigate(notification.data.destination, { initialIndex: notification.data.initialIndex });
 		}
@@ -138,12 +125,13 @@ const AccountScreen = ({ navigation }) => {
 	};
 
 	const tryFetchChannels = async () => {
-		console.log('tryFetchChannels');
+		// console.log('tryFetchChannels');
 		const { error } = await fetchChannels();
 		if (error === 'user could not be found') {
 			signout();
 		}
 		setListener(true);
+		socket.emit('get_channels_data', { socketId: socket.id });
 	};
 
 	const handleSignout = () => {

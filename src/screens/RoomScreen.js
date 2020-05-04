@@ -145,7 +145,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
 		socket.on('roomData', ({ users }) => {
 			const userNames = users.map((u) => u.name);
-			console.log('usernames', userNames);
 			setUsers(userNames);
 		});
 		socket.on('kick', ({ roomName, removee }) => {
@@ -199,7 +198,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		};
 		socket.emit('sendMessage', messageToSend);
 		if (roomType === 'pm') {
-			console.log('friend', friend);
 			const friend_id = friend._id;
 			sendNotification({ sender: currentUser._id, messageBody: content, receiver: friend_id, room_id: room_id });
 		}
