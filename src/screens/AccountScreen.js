@@ -82,6 +82,10 @@ const AccountScreen = ({ navigation }) => {
 			console.log('received channelsData!', channelsData);
 			refreshChannelsData({ channelsData });
 		});
+		socket.on('invite', async ({ roomName, invitee }) => {
+			await fetchChannels();
+			socket.emit('get_channels_data', { socketId: socket.id });
+		});
 
 		return () => {
 			console.log('unmounting accountscreen');
