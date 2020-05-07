@@ -1,25 +1,25 @@
-import axios from "axios";
-import { AsyncStorage } from "react-native";
+import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 
-const instance = axios.create({
-  baseURL: "https://graeme-chat-app.herokuapp.com"
-});
 // const instance = axios.create({
-//   baseURL: "http://55aae215.ngrok.io"
+//   baseURL: "https://graeme-chat-app.herokuapp.com"
 // });
+const instance = axios.create({
+	baseURL: 'http://972570ad.ngrok.io',
+});
 
 // before making an authentication request, check to see if jwtoken is already present
 instance.interceptors.request.use(
-  async config => {
-    const token = await AsyncStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  err => {
-    return Promise.reject(err);
-  }
+	async (config) => {
+		const token = await AsyncStorage.getItem('token');
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`;
+		}
+		return config;
+	},
+	(err) => {
+		return Promise.reject(err);
+	}
 );
 
 export default instance;
