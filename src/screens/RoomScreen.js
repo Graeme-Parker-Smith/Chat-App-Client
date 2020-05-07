@@ -31,6 +31,7 @@ import * as FileSystem from 'expo-file-system';
 import imgUpload from '../helpers/imgUpload';
 import base64 from 'react-native-base64';
 import InviteMenu from '../components/InviteMenu';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 let _layoutsMap = [];
 let itemHeights = [];
@@ -42,7 +43,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const {
 		state: { currentUser },
 	} = useContext(ChannelContext);
-	const { username, avatar } = currentUser;
 	const roomName = navigation.getParam('roomName');
 	const roomType = navigation.getParam('roomType');
 	const room_id = navigation.getParam('room_id');
@@ -105,7 +105,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 
 	useEffect(() => {
-		socket.emit('join', { name: username, userId: currentUser._id, room: room_id }, (error) => {
+		socket.emit('join', { name: currentUser.username, userId: currentUser._id, room: room_id }, (error) => {
 			if (error) {
 				// if (error === 'Username is taken') {
 				// 	navigation.replace('Account');
@@ -120,7 +120,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			console.log('component unmounting');
 			keyboardDidShowListener.remove();
 			keyboardDidHideListener.remove();
-			socket.emit('leave', { room: roomName, name: username });
+			socket.emit('leave', { room: roomName, name: currentUser.username });
 		};
 	}, []);
 
@@ -150,8 +150,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		socket.on('kick', ({ roomName, removee }) => {
 			console.log('removee is: ', removee);
 			console.log('roomName is: ', roomName);
-			console.log('username is: ', username);
-			if (username === removee) {
+			console.log('username is: ', currentUser.username);
+			if (currentUser.username === removee) {
 				console.log('user must go back!');
 				navigation.replace('Account');
 			}
@@ -170,7 +170,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	useEffect(() => {
 		if (didMountRef.current) {
 			if (!isFocused) {
-				socket.emit('leave', { room: roomName, name: username });
+				socket.emit('leave', { room: roomName, name: currentUser.username });
 			}
 		} else {
 			didMountRef.current = true;
@@ -186,8 +186,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		const date = new Date();
 		const time = date.toLocaleString();
 		const messageToSend = {
-			creator: username,
-			avatar,
+			creator: currentUser.username,
+			avatar: currentUser.avatar,
 			content,
 			roomName,
 			time,
@@ -235,9 +235,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			if (result.type === 'video') {
 				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`, true);
 				imageToSend = {
-					creator: username,
+					creator: currentUser.username,
 					content: cloudUrl,
-					avatar,
+					avatar: currentUser.avatar,
 					roomName,
 					time,
 					isImage: false,
@@ -248,9 +248,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			} else {
 				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`);
 				imageToSend = {
-					creator: username,
+					creator: currentUser.username,
 					content: cloudUrl,
-					avatar,
+					avatar: currentUser.avatar,
 					roomName,
 					time,
 					isImage: true,
@@ -280,9 +280,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			if (result.type === 'video') {
 				const cloudUrl = await imgUpload(result.uri, true);
 				imageToSend = {
-					creator: username,
+					creator: currentUser.username,
 					content: cloudUrl,
-					avatar,
+					avatar: currentUser.avatar,
 					roomName,
 					time,
 					isImage: false,
@@ -293,9 +293,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			} else {
 				const cloudUrl = await imgUpload(`data:image/jpg;base64,${result.base64}`);
 				imageToSend = {
-					creator: username,
+					creator: currentUser.username,
 					content: cloudUrl,
-					avatar,
+					avatar: currentUser.avatar,
 					roomName,
 					time,
 					isImage: true,
@@ -383,7 +383,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			// 	{...panResponder.panHandlers}
 			// >
 			<MessageItem
-				currentUserUsername={username}
+				currentUserUsername={currentUser.username}
 				itemId={item._id}
 				content={item.content}
 				username={item.creator}
@@ -417,6 +417,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		await fetchMessages(roomName, roomType, room_id);
 		scrollToBottom();
 	};
+
+	if (!currentUser) {
+		return (
+			<View>
+				<LoadingIndicator />
+			</View>
+		);
+	}
 
 	return (
 		<SafeAreaView style={styles.body}>

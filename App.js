@@ -13,7 +13,7 @@ import { setNavigator, navigate, back } from './src/navigationRef';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as ChannelProvider } from './src/context/ChannelContext';
 import { Provider as MessageProvider } from './src/context/MessageContext';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { YellowBox } from 'react-native';
 window.navigator.userAgent = 'react-native';
 import SocketContext from './src/context/SocketContext';
@@ -35,20 +35,21 @@ const navigator = createSwitchNavigator({
 	Signup: SignupScreen,
 	Signin: SigninScreen,
 	channelFlow: {
-		screen: createStackNavigator(
+		screen: createMaterialTopTabNavigator(
 			{
-				Account: {
-					screen: AccountScreen,
-					navigationOptions: {
-						headerShown: false,
-						title: 'Account',
-					},
-				},
 				EditUser: {
 					screen: EditUserScreen,
 					navigationOptions: {
 						headerShown: false,
 						title: 'edit_user',
+					},
+				},
+				Dash: DashScreen,
+				Account: {
+					screen: AccountScreen,
+					navigationOptions: {
+						headerShown: false,
+						title: 'Account',
 					},
 				},
 				Room: {
@@ -60,6 +61,8 @@ const navigator = createSwitchNavigator({
 			},
 			{
 				initialRouteName: 'Account',
+				tabBarComponent: null,
+				lazy: true,
 				defaultNavigationOptions: {
 					headerStyle: {
 						backgroundColor: 'black',
@@ -68,14 +71,13 @@ const navigator = createSwitchNavigator({
 			}
 		),
 	},
-	Dash: DashScreen,
 });
 
 // socket.io connection does not work when using localhost:3000 as ENDPOINT!
 // enter ipconfig on terminal and use IPv4 Address instead!
 // in my case it is: 192.168.1.233
 
-const ENDPOINT = "https://graeme-chat-app.herokuapp.com";
+const ENDPOINT = 'https://graeme-chat-app.herokuapp.com';
 // const ENDPOINT = 'http://192.168.1.233:3000';
 const socket = io(ENDPOINT);
 const App = createAppContainer(navigator);

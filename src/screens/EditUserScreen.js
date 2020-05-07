@@ -18,9 +18,10 @@ const EditUserScreen = () => {
 		fetchChannels,
 	} = useContext(ChannelContext);
 	const { deleteUser } = useContext(AuthContext);
-	const [newUsername, setNewUsername] = useState(currentUser.username);
+
+	const [newUsername, setNewUsername] = useState('');
 	const [newPassword, setNewPassword] = useState('');
-	const [newAvatar, setNewAvatar] = useState(currentUser.avatar);
+	const [newAvatar, setNewAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [errMsg, setErrMsg] = useState('');
@@ -54,7 +55,15 @@ const EditUserScreen = () => {
 		});
 	};
 
-	if (isLoading) return <LoadingIndicator />;
+
+
+	if (!currentUser || isLoading) {
+		return (
+			<View>
+				<LoadingIndicator />
+			</View>
+		);
+	}
 
 	return (
 		<View style={styles.container}>

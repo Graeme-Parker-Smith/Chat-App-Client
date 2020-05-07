@@ -25,6 +25,8 @@ import BlockedList from '../components/BlockedList';
 import WhiteText from '../components/WhiteText';
 import { back, navigate } from '../navigationRef';
 import { NavigationEvents } from 'react-navigation';
+import LoadingIndicator from '../components/LoadingIndicator';
+
 
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
@@ -89,6 +91,14 @@ const DashScreen = ({ navigation }) => {
 		// Divide the horizontal offset by the width of the view to see which page is visible
 		let pageNum = Math.round(contentOffset.x / viewSize.width);
 		setMenuIndex(pageNum);
+	}
+
+	if (!state.currentUser) {
+		return (
+			<View>
+				<LoadingIndicator />
+			</View>
+		);
 	}
 
 	return (
