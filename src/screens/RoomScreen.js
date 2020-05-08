@@ -49,12 +49,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	let room_id = navigation.getParam('room_id');
 	let friend = navigation.getParam('friend');
 	let roomCreator = navigation.getParam('roomCreator');
+	const [visibleRoomName, setVisibleRoomName] = useState(roomName);
+
 	// console.log('roomName', roomName);
 	// console.log('roomType', roomType);
 	// console.log('room_id', room_id);
 	// console.log('friend', friend);
 	// console.log('roomCreator', roomCreator);
-
 
 	const isOwner = currentUser._id === roomCreator;
 
@@ -438,7 +439,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			roomName = randomRoom.name;
 			roomType = 'public';
 			roomCreator = randomRoom.creator;
-			
+			setVisibleRoomName(roomName);
 		}
 		socket.emit('join', { name: currentUser.username, userId: currentUser._id, room: room_id }, (error) => {
 			if (error) {
@@ -493,7 +494,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					/>
 					{roomType === 'private' && isOwner ? <InviteMenu roomName={roomName} /> : null}
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
-						@{roomName} ({users.length} users online): {userList}
+						@{visibleRoomName} ({users.length} users online): {userList}
 					</Text>
 				</View>
 				{!isCloseToBottom(scrollValues) ? (
