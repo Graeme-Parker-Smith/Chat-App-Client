@@ -63,7 +63,7 @@ const navigator = createSwitchNavigator({
 			{
 				initialRouteName: 'Account',
 				tabBarComponent: null,
-				lazy: false,
+				lazy: true,
 				defaultNavigationOptions: {
 					headerStyle: {
 						backgroundColor: 'black',
