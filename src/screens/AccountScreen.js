@@ -329,9 +329,6 @@ const AccountScreen = ({ navigation }) => {
 						/>
 					</Animated.View>
 				</View>
-				{/* <Spacer>
-					<Button title="Sign Out" onPress={handleSignout} />
-				</Spacer> */}
 			</SafeAreaView>
 		</>
 	);
