@@ -41,13 +41,21 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const didMountRef = useRef(false);
 	const socket = useContext(SocketContext);
 	const {
-		state: { currentUser },
+		state: { currentUser, channels },
 	} = useContext(ChannelContext);
-	const roomName = navigation.getParam('roomName');
-	const roomType = navigation.getParam('roomType');
-	const room_id = navigation.getParam('room_id');
-	const friend = navigation.getParam('friend');
-	const roomCreator = navigation.getParam('roomCreator');
+
+	let roomName = navigation.getParam('roomName');
+	let roomType = navigation.getParam('roomType');
+	let room_id = navigation.getParam('room_id');
+	let friend = navigation.getParam('friend');
+	let roomCreator = navigation.getParam('roomCreator');
+	// console.log('roomName', roomName);
+	// console.log('roomType', roomType);
+	// console.log('room_id', room_id);
+	// console.log('friend', friend);
+	// console.log('roomCreator', roomCreator);
+
+
 	const isOwner = currentUser._id === roomCreator;
 
 	const [loading, setLoading] = useState(false);
@@ -423,6 +431,15 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 	const handleOnFocus = async () => {
 		console.log('focusing roomscreen...');
+		if (room_id === undefined && channels.length > 0) {
+			let randomRoom = channels[Math.floor(Math.random() * channels.length)];
+			console.log('randomRoom', randomRoom);
+			room_id = randomRoom._id;
+			roomName = randomRoom.name;
+			roomType = 'public';
+			roomCreator = randomRoom.creator;
+			
+		}
 		socket.emit('join', { name: currentUser.username, userId: currentUser._id, room: room_id }, (error) => {
 			if (error) {
 				// if (error === 'Username is taken') {
