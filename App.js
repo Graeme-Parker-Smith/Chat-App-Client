@@ -13,6 +13,7 @@ import { setNavigator, navigate, back } from './src/navigationRef';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as ChannelProvider } from './src/context/ChannelContext';
 import { Provider as MessageProvider } from './src/context/MessageContext';
+import { Provider as FilterProvider } from './src/context/FilterContext';
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { YellowBox } from 'react-native';
 window.navigator.userAgent = 'react-native';
@@ -86,13 +87,15 @@ export default () => {
 		<SocketContext.Provider value={socket}>
 			<AuthProvider>
 				<ChannelProvider>
-					<MessageProvider>
-						<App
-							ref={(navigator) => {
-								setNavigator(navigator);
-							}}
-						/>
-					</MessageProvider>
+					<FilterProvider>
+						<MessageProvider>
+							<App
+								ref={(navigator) => {
+									setNavigator(navigator);
+								}}
+							/>
+						</MessageProvider>
+					</FilterProvider>
 				</ChannelProvider>
 			</AuthProvider>
 		</SocketContext.Provider>
