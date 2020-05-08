@@ -20,7 +20,6 @@ const channelReducer = (state, action) => {
 				let newChan;
 				if (action.payload[chan._id]) {
 					newChan = { ...chan, userCount: action.payload[chan._id] };
-					console.log('newChan', newChan);
 				} else {
 					newChan = { ...chan, userCount: 0 };
 				}
@@ -131,13 +130,15 @@ const updateChannel = (dispatch) => async ({ username, prevName, newName, newAva
 };
 
 const fetchChannels = (dispatch) => async () => {
+	console.log('fetching');
 	try {
 		const response = await chatApi.get('/channels');
 		// const nojson = JSON.parse(response.data);
 		// console.log("response.data is: ", response.data);
 		await dispatch({ type: 'fetch_channels', payload: response.data });
-		return { error: null };
+		return { success: true };
 	} catch (err) {
+		return { error: err };
 		if (err.response.data.error === 'user could not be found') {
 			return { error: err.response.data.error };
 		}

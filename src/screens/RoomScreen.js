@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { Button, Input, ListItem } from 'react-native-elements';
 import { NavigationEvents, withNavigationFocus, SafeAreaView } from 'react-navigation';
-import { back } from '../navigationRef';
+import { back, navigate } from '../navigationRef';
 import Spacer from '../components/Spacer';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
@@ -124,6 +124,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		};
 	}, []);
 
+	const handleGoBack = () => {
+		back('Account');
+		console.log('component unmounting');
+		keyboardDidShowListener.remove();
+		keyboardDidHideListener.remove();
+		socket.emit('leave', { room: roomName, name: currentUser.username });
+	};
+
 	// ============================================================
 	//              HANDLE COMPONENT RECEIVE DATA FROM SERVER
 	// ============================================================
@@ -144,6 +152,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		});
 
 		socket.on('roomData', ({ users }) => {
+			console.log('got room data');
 			const userNames = users.map((u) => u.name);
 			setUsers(userNames);
 		});
@@ -153,7 +162,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			console.log('username is: ', currentUser.username);
 			if (currentUser.username === removee) {
 				console.log('user must go back!');
-				navigation.replace('Account');
+				navigation.navigate('Account');
 			}
 		});
 
@@ -413,9 +422,32 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	//                DO THIS ON SCREEN FOCUS
 	// ============================================================
 	const handleOnFocus = async () => {
+		console.log('focusing roomscreen...');
+		socket.emit('join', { name: currentUser.username, userId: currentUser._id, room: room_id }, (error) => {
+			if (error) {
+				// if (error === 'Username is taken') {
+				// 	navigation.replace('Account');
+				// 	alert('Error: Username is Taken.');
+				// }
+			}
+		});
+		socket.on('roomData', ({ users }) => {
+			console.log('got room data');
+			const userNames = users.map((u) => u.name);
+			setUsers(userNames);
+		});
+		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
 		await clearMessages();
 		await fetchMessages(roomName, roomType, room_id);
 		scrollToBottom();
+	};
+
+	const handleOnBlur = async () => {
+		console.log('component blurring...');
+		keyboardDidShowListener.remove();
+		keyboardDidHideListener.remove();
+		socket.emit('leave', { room: roomName, name: currentUser.username });
 	};
 
 	if (!currentUser) {
@@ -428,14 +460,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
 	return (
 		<SafeAreaView style={styles.body}>
-			<NavigationEvents onWillFocus={handleOnFocus} />
+			<NavigationEvents onWillFocus={handleOnFocus} onWillBlur={handleOnBlur} />
 			<View style={{ marginTop: 0, backgroundColor: '#000' }}>
 				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 					<Button
 						containerStyle={{ alignSelf: 'center' }}
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
 						icon={
-							<TouchableOpacity onPress={() => navigation.replace('Account')}>
+							<TouchableOpacity onPress={() => navigate('Account')}>
 								<Entypo name="back" color="#0af" size={50} />
 							</TouchableOpacity>
 						}

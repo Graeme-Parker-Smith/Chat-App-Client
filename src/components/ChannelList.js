@@ -4,6 +4,7 @@ import { Input, Button, ListItem, Badge } from 'react-native-elements';
 import { Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import CacheImage from './CacheImage';
 import ChannelListItem from './ChannelListItem';
+import { navigate } from '../navigationRef';
 
 const MessageCount = ({ msgCount }) => (
 	<View
@@ -82,13 +83,12 @@ const ChannelList = ({
 							if (!thisPM) {
 								return;
 							}
-							console.log('userCount', item.userCount);
 							Pm_id = thisPM._id;
 						}
 						return (
 							<TouchableOpacity
 								onPress={() =>
-									navigation.replace('Room', {
+									navigate('Room', {
 										roomName: item.name ? item.name : item.username,
 										username: currentUser.username,
 										friend: item.username ? item : null,

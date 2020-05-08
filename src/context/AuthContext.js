@@ -118,10 +118,10 @@ const deleteUser = (dispatch) => async ({ username, user_id }) => {
 	navigate('Signup');
 };
 
-const signout = (dispatch) => async ({ user_id }) => {
+const signout = (dispatch) => async (user) => {
 	let pushToken = await AsyncStorage.getItem('pushtoken');
-	if (pushToken) {
-		await chatApi.post('/signout', { user_id, pushToken: pushToken });
+	if (pushToken && user) {
+		await chatApi.post('/signout', { user_id: user.user_id, pushToken: pushToken });
 	}
 	await AsyncStorage.removeItem('token');
 	dispatch({ type: 'signout' });

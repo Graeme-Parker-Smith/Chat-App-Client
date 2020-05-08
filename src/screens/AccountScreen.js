@@ -99,7 +99,7 @@ const AccountScreen = ({ navigation }) => {
 		if (hasMountedRef.current && firstRef.current) {
 			(async () => {
 				let r = await registerForNotifications({ user: state.currentUser });
-				if (r === 'no userData received') handleSignout();
+				if (r === 'no userData received') signout(false);
 				_notificationSubscription = Notifications.addListener(_handleNotification);
 			})();
 			firstRef.current = false;
@@ -130,12 +130,15 @@ const AccountScreen = ({ navigation }) => {
 
 	const tryFetchChannels = async () => {
 		// console.log('tryFetchChannels');
-		const { error } = await fetchChannels();
-		if (error === 'user could not be found') {
-			signout();
+		const response = await fetchChannels();
+		if (!response || response.error || response.error === null) {
+			console.log('error. signing out.');
+			clearState();
+			signout(false);
+		} else {
+			setListener(true);
+			socket.emit('get_channels_data', { socketId: socket.id });
 		}
-		setListener(true);
-		socket.emit('get_channels_data', { socketId: socket.id });
 	};
 
 	const handleSignout = () => {
@@ -193,6 +196,15 @@ const AccountScreen = ({ navigation }) => {
 		}
 	};
 
+	const handleOnBlur = async () => {
+		console.log('blurring accountscreen...');
+		setListener(false);
+		socket.emit('disconnect');
+		socket.off();
+		keyboardDidShowListener.remove();
+		keyboardDidHideListener.remove();
+	};
+
 	if (!state.currentUser || isLoading) {
 		return (
 			<View>
@@ -207,7 +219,7 @@ const AccountScreen = ({ navigation }) => {
 	}
 	return (
 		<>
-			<NavigationEvents onWillFocus={tryFetchChannels} />
+			<NavigationEvents onWillFocus={tryFetchChannels} onWillBlur={handleOnBlur} />
 			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 				<View style={styles.userDisplay}>
 					<View style={{ flexDirection: 'row' }}>
