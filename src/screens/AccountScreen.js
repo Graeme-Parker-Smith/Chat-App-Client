@@ -15,6 +15,7 @@ import { Button, Input } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
+import { Context as FilterContext } from '../context/FilterContext';
 import SocketContext from '../context/SocketContext';
 import { FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import registerForNotifications from '../services/push_notifications';
@@ -34,6 +35,7 @@ const AccountScreen = ({ navigation }) => {
 		ChannelContext
 	);
 	// console.log('PMS', state.PMs);
+	const { state: filterState } = useContext(FilterContext);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
