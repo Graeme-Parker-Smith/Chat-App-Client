@@ -44,13 +44,17 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		state: { currentUser, channels },
 	} = useContext(ChannelContext);
 
-	let roomName = navigation.getParam('roomName');
-	let roomType = navigation.getParam('roomType');
-	let room_id = navigation.getParam('room_id');
-	let friend = navigation.getParam('friend');
-	let roomCreator = navigation.getParam('roomCreator');
-	const [visibleRoomName, setVisibleRoomName] = useState(roomName);
-
+	let temp_roomName = navigation.getParam('roomName');
+	let temp_roomType = navigation.getParam('roomType');
+	let temp_room_id = navigation.getParam('room_id');
+	let temp_friend = navigation.getParam('friend');
+	let temp_roomCreator = navigation.getParam('roomCreator');
+	const [roomName, setRoomName] = useState(temp_roomName);
+	console.log('roomName', temp_roomName);
+	const [roomType, setRoomType] = useState(temp_roomType);
+	const [room_id, setRoom_id] = useState(temp_room_id);
+	const [friend, setFriend] = useState(temp_friend);
+	const [roomCreator, setRoomCreator] = useState(temp_roomCreator);
 	// console.log('roomName', roomName);
 	// console.log('roomType', roomType);
 	// console.log('room_id', room_id);
@@ -432,15 +436,20 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 	const handleOnFocus = async () => {
 		console.log('focusing roomscreen...');
-		if (room_id === undefined && channels.length > 0) {
+		if (temp_room_id === undefined && channels.length > 0) {
 			let randomRoom = channels[Math.floor(Math.random() * channels.length)];
-			console.log('randomRoom', randomRoom);
-			room_id = randomRoom._id;
-			roomName = randomRoom.name;
-			roomType = 'public';
-			roomCreator = randomRoom.creator;
-			setVisibleRoomName(roomName);
+			// console.log('randomRoom', randomRoom);
+			temp_room_id = randomRoom._id;
+			temp_roomName = randomRoom.name;
+			temp_friend = randomRoom.friend ? randomRoom.friend : null;
+			temp_roomType = 'public';
+			temp_roomCreator = randomRoom.creator;
 		}
+		setRoomName(temp_roomName);
+		setRoomType(temp_roomType);
+		setRoom_id(temp_room_id);
+		setFriend(temp_friend);
+		setRoomCreator(temp_roomCreator);
 		socket.emit('join', { name: currentUser.username, userId: currentUser._id, room: room_id }, (error) => {
 			if (error) {
 				// if (error === 'Username is taken') {
@@ -463,6 +472,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 
 	const handleOnBlur = async () => {
 		console.log('component blurring...');
+		Keyboard.dismiss();
 		keyboardDidShowListener.remove();
 		keyboardDidHideListener.remove();
 		socket.emit('leave', { room: roomName, name: currentUser.username });
@@ -494,7 +504,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					/>
 					{roomType === 'private' && isOwner ? <InviteMenu roomName={roomName} /> : null}
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
-						@{visibleRoomName} ({users.length} users online): {userList}
+						@{roomName} ({users.length} users online): {userList}
 					</Text>
 				</View>
 				{!isCloseToBottom(scrollValues) ? (
