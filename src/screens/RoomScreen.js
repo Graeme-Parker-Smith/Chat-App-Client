@@ -434,8 +434,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 	//                DO THIS ON SCREEN FOCUS
 	// ============================================================
-	const handleOnFocus = async () => {
-		console.log('focusing roomscreen...');
+
+	const adjustRoomValues = () => {
 		if (temp_room_id === undefined && channels.length > 0) {
 			let randomRoom = channels[Math.floor(Math.random() * channels.length)];
 			// console.log('randomRoom', randomRoom);
@@ -450,23 +450,33 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		setRoom_id(temp_room_id);
 		setFriend(temp_friend);
 		setRoomCreator(temp_roomCreator);
-		socket.emit('join', { name: currentUser.username, userId: currentUser._id, room: room_id }, (error) => {
-			if (error) {
-				// if (error === 'Username is taken') {
-				// 	navigation.replace('Account');
-				// 	alert('Error: Username is Taken.');
-				// }
+	};
+
+	const handleOnFocus = async () => {
+		console.log('focusing roomscreen...');
+		await adjustRoomValues();
+		socket.emit(
+			'join',
+			{ name: currentUser.username, userId: currentUser._id, room: temp_room_id || room_id },
+			(error) => {
+				if (error) {
+					// if (error === 'Username is taken') {
+					// 	navigation.replace('Account');
+					// 	alert('Error: Username is Taken.');
+					// }
+				}
 			}
-		});
+		);
 		socket.on('roomData', ({ users }) => {
-			console.log('got room data');
+			// console.log('got room data');
 			const userNames = users.map((u) => u.name);
 			setUsers(userNames);
 		});
 		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
 		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
 		await clearMessages();
-		await fetchMessages(roomName, roomType, room_id);
+		console.log('fetching for...', `${temp_roomName}, ${temp_roomType}, ${temp_room_id}`);
+		await fetchMessages(temp_roomName || roomName, temp_roomType || roomType, temp_room_id || room_id);
 		scrollToBottom();
 	};
 
