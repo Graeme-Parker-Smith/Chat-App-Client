@@ -19,7 +19,6 @@ import { back, navigate } from '../navigationRef';
 import Spacer from '../components/Spacer';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
-import { Context as FilterContext } from '../context/FilterContext';
 import SocketContext from '../context/SocketContext';
 import uuid from 'uuid/v4';
 import MessageItem from '../components/MessageItem';
@@ -30,7 +29,6 @@ import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { Video } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import imgUpload from '../helpers/imgUpload';
-import base64 from 'react-native-base64';
 import InviteMenu from '../components/InviteMenu';
 import LoadingIndicator from '../components/LoadingIndicator';
 
@@ -44,8 +42,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const {
 		state: { currentUser, channels },
 	} = useContext(ChannelContext);
-	const { state: filterState } = useContext(FilterContext);
-
 	let temp_roomName = navigation.getParam('roomName');
 	let temp_roomType = navigation.getParam('roomType');
 	let temp_room_id = navigation.getParam('room_id');

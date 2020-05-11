@@ -15,7 +15,6 @@ import { Button, Input } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
-import { Context as FilterContext } from '../context/FilterContext';
 import SocketContext from '../context/SocketContext';
 import { FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import registerForNotifications from '../services/push_notifications';
@@ -34,12 +33,9 @@ const AccountScreen = ({ navigation }) => {
 	const { state, fetchChannels, updateState, addFriend, clearState, refreshChannelsData } = useContext(
 		ChannelContext
 	);
-	// console.log('PMS', state.PMs);
-	const { state: filterState, setChannelSearch } = useContext(FilterContext);
-	const {channelSearch} = filterState;
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	// const [channelSearch, setChannelSearch] = useState('');
+	const [channelSearch, setChannelSearch] = useState('')
 	const [activeLists, setActiveLists] = useState({ public: true, private: true });
 	const [publicWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
@@ -155,6 +151,7 @@ const AccountScreen = ({ navigation }) => {
 		if (listType === 'public') {
 			if (publicWidthAnim._value > 0) {
 				setActiveLists({ public: false, private: true });
+				// togglePublic();
 				Animated.timing(publicWidthAnim, {
 					toValue: 0,
 					duration: 500,
@@ -165,6 +162,7 @@ const AccountScreen = ({ navigation }) => {
 				}).start();
 			} else {
 				setActiveLists({ ...activeLists, public: true });
+				// togglePublic();
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * (privateWidthAnim._value > 0 ? 0.5 : 0.9),
 					duration: 500,
@@ -185,6 +183,7 @@ const AccountScreen = ({ navigation }) => {
 					toValue: Dimensions.get('window').width * 0.9,
 					duration: 500,
 				}).start();
+				// togglePrivate();
 			} else {
 				setActiveLists({ ...activeLists, private: true });
 				Animated.timing(privateWidthAnim, {
@@ -195,6 +194,7 @@ const AccountScreen = ({ navigation }) => {
 					toValue: Dimensions.get('window').width * (publicWidthAnim._value > 0 ? 0.5 : 0),
 					duration: 500,
 				}).start();
+				// togglePrivate();
 			}
 		}
 	};
