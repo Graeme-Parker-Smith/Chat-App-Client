@@ -19,6 +19,7 @@ import { back, navigate } from '../navigationRef';
 import Spacer from '../components/Spacer';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
+import { Context as FilterContext } from '../context/FilterContext';
 import SocketContext from '../context/SocketContext';
 import uuid from 'uuid/v4';
 import MessageItem from '../components/MessageItem';
@@ -43,6 +44,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const {
 		state: { currentUser, channels },
 	} = useContext(ChannelContext);
+	const { state: filterState } = useContext(FilterContext);
 
 	let temp_roomName = navigation.getParam('roomName');
 	let temp_roomType = navigation.getParam('roomType');
