@@ -52,7 +52,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	let temp_friend = navigation.getParam('friend');
 	let temp_roomCreator = navigation.getParam('roomCreator');
 	const [roomName, setRoomName] = useState(temp_roomName);
-	console.log('roomName', temp_roomName);
+	// console.log('roomName', temp_roomName);
 	const [roomType, setRoomType] = useState(temp_roomType);
 	const [room_id, setRoom_id] = useState(temp_room_id);
 	const [friend, setFriend] = useState(temp_friend);
@@ -140,11 +140,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	}, []);
 
 	const handleGoBack = () => {
-		back('Account');
-		console.log('component unmounting');
-		keyboardDidShowListener.remove();
-		keyboardDidHideListener.remove();
-		socket.emit('leave', { room: roomName, name: currentUser.username });
+		navigate('Account')
+		// console.log('component unmounting');
+		// keyboardDidShowListener.remove();
+		// keyboardDidHideListener.remove();
+		// socket.emit('leave', { room: roomName, name: currentUser.username });
 	};
 
 	// ============================================================
@@ -167,16 +167,16 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		});
 
 		socket.on('roomData', ({ users }) => {
-			console.log('got room data');
+			// console.log('got room data');
 			const userNames = users.map((u) => u.name);
 			setUsers(userNames);
 		});
 		socket.on('kick', ({ roomName, removee }) => {
-			console.log('removee is: ', removee);
-			console.log('roomName is: ', roomName);
-			console.log('username is: ', currentUser.username);
+			// console.log('removee is: ', removee);
+			// console.log('roomName is: ', roomName);
+			// console.log('username is: ', currentUser.username);
 			if (currentUser.username === removee) {
-				console.log('user must go back!');
+				// console.log('user must go back!');
 				navigation.navigate('Account');
 			}
 		});
@@ -233,7 +233,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// ============================================================
 	const getPermissionAsync = async () => {
 		if (Platform.OS === 'ios') {
-			console.log('starting async permissions');
+			// console.log('starting async permissions');
 			const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 			if (status !== 'granted') {
 				alert('Sorry, we need camera roll permissions to make this work!');
@@ -455,7 +455,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	};
 
 	const handleOnFocus = async () => {
-		console.log('focusing roomscreen...');
+		// console.log('focusing roomscreen...');
 		await adjustRoomValues();
 		socket.emit(
 			'join',
@@ -477,7 +477,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
 		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
 		await clearMessages();
-		console.log('fetching for...', `${temp_roomName}, ${temp_roomType}, ${temp_room_id}`);
+		// console.log('fetching for...', `${temp_roomName}, ${temp_roomType}, ${temp_room_id}`);
 		await fetchMessages(temp_roomName || roomName, temp_roomType || roomType, temp_room_id || room_id);
 		scrollToBottom();
 	};
@@ -507,7 +507,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						containerStyle={{ alignSelf: 'center' }}
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
 						icon={
-							<TouchableOpacity onPress={() => navigate('Account')}>
+							<TouchableOpacity onPress={handleGoBack}>
 								<Entypo name="back" color="#0af" size={50} />
 							</TouchableOpacity>
 						}

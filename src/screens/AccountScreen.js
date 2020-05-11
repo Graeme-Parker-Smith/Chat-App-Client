@@ -81,7 +81,7 @@ const AccountScreen = ({ navigation }) => {
 			// update state on add and remove friends, invite/kick from room, pm/unread msgs
 		});
 		socket.on('channelsData', ({ channelsData }) => {
-			console.log('received channelsData!', channelsData);
+			// console.log('received channelsData!', channelsData);
 			refreshChannelsData({ channelsData });
 		});
 		socket.on('invite', async ({ roomName, invitee }) => {
@@ -90,7 +90,7 @@ const AccountScreen = ({ navigation }) => {
 		});
 
 		return () => {
-			console.log('unmounting accountscreen');
+			// console.log('unmounting accountscreen');
 			setListener(false);
 			socket.emit('disconnect');
 			socket.off();
@@ -134,7 +134,7 @@ const AccountScreen = ({ navigation }) => {
 		// console.log('tryFetchChannels');
 		const response = await fetchChannels();
 		if (!response || response.error || response.error === null) {
-			console.log('error. signing out.');
+			// console.log('error. signing out.');
 			clearState();
 			signout(false);
 		} else {
@@ -199,7 +199,7 @@ const AccountScreen = ({ navigation }) => {
 	};
 
 	const handleOnBlur = async () => {
-		console.log('blurring accountscreen...');
+		// console.log('blurring accountscreen...');
 		setListener(false);
 		socket.emit('disconnect');
 		socket.off();
