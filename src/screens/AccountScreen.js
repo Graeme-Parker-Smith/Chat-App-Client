@@ -35,10 +35,11 @@ const AccountScreen = ({ navigation }) => {
 		ChannelContext
 	);
 	// console.log('PMS', state.PMs);
-	const { state: filterState } = useContext(FilterContext);
+	const { state: filterState, setChannelSearch } = useContext(FilterContext);
+	const {channelSearch} = filterState;
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [channelSearch, setChannelSearch] = useState('');
+	// const [channelSearch, setChannelSearch] = useState('');
 	const [activeLists, setActiveLists] = useState({ public: true, private: true });
 	const [publicWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
