@@ -14,12 +14,14 @@ const BouncyInput = forwardRef(
 			autoCorrect = false,
 			containerStyle = {},
 			inputStyle = { color: 'white' },
+			inputContainerStyle= {},
 			returnKeyType = 'next',
 			selectTextOnFocus = true,
 			onSubmitEditing = null,
 			maxLength,
 			secure,
 			multiline = false,
+			keyboardType = 'default'
 		},
 		ref
 	) => {
@@ -69,11 +71,13 @@ const BouncyInput = forwardRef(
 					selectTextOnFocus={selectTextOnFocus}
 					onSubmitEditing={onSubmitEditing}
 					ref={ref}
+					inputContainerStyle={inputContainerStyle}
 					onFocus={handleOnFocus}
 					multiline={multiline}
 					numberOfLines={5}
 					onBlur={handleOnBlur}
 					secureTextEntry={secure}
+					keyboardType={keyboardType}
 				/>
 			</Animated.View>
 		);

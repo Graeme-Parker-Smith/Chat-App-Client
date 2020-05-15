@@ -60,30 +60,36 @@ const CreateChannelForm = ({ showForm }) => {
 				autoFocus={true}
 				maxLength={22}
 			/>
-			<BouncyInput
-				value={String(lifespan)}
-				onChangeText={setLifespan}
-				keyboardType="numeric"
-				selectTextOnFocus={true}
-				label="# in Minutes Before Channel is Deleted."
-				placeholder="Forever"
-				inputContainerStyle={{ marginBottom: 20 }}
-				inputStyle={{ color: '#fff' }}
-				placeholderTextColor="#fff"
-				maxLength={22}
-			/>
-			<BouncyInput
-				value={String(msgLife)}
-				onChangeText={setMsgLife}
-				keyboardType="numeric"
-				selectTextOnFocus={true}
-				label="# in Minutes Before Each Message is Deleted."
-				placeholder="Forever"
-				inputContainerStyle={{ marginBottom: 20 }}
-				inputStyle={{ color: '#fff' }}
-				placeholderTextColor="#fff"
-				maxLength={22}
-			/>
+			<View
+				style={{ flexDirection: 'row' }}
+			>
+				<BouncyInput
+					value={String(lifespan)}
+					onChangeText={setLifespan}
+					keyboardType="numeric"
+					selectTextOnFocus={true}
+					label="Channel Life in mins."
+					placeholder="Forever"
+					inputContainerStyle={{ marginBottom: 20, width: Dimensions.get('window').width * 0.45 }}
+					inputStyle={{ color: '#fff' }}
+					placeholderTextColor="#fff"
+					maxLength={22}
+					containerStyle={{  }}
+				/>
+				<BouncyInput
+					value={String(msgLife)}
+					onChangeText={setMsgLife}
+					keyboardType="numeric"
+					selectTextOnFocus={true}
+					label="Msg Life in mins."
+					placeholder="Forever"
+					inputContainerStyle={{ marginBottom: 20, width: Dimensions.get('window').width * 0.45 }}
+					inputStyle={{ color: '#fff' }}
+					placeholderTextColor="#fff"
+					maxLength={22}
+					containerStyle={{  }}
+				/>
+			</View>
 			<BouncyInput
 				value={description}
 				onChangeText={setDescription}
