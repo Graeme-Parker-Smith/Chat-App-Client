@@ -28,7 +28,11 @@ const ChannelListItem = ({ item, color }) => {
 
 	return (
 		<Animated.View style={{ height: heightAnim, backgroundColor: color, margin: 5, borderRadius: 10 }}>
-			{item.mature ? <View style={{position: 'absolute', left: 80, top: 0, backgroundColor: 'red', zIndex: 1000}}><Text>M</Text></View> : null}
+			{item.mature ? (
+				<View style={{ position: 'absolute', left: 80, top: 0, backgroundColor: 'red', zIndex: 1000 }}>
+					<Text>M</Text>
+				</View>
+			) : null}
 			<ListItem
 				// badge={<Badge value={item.msgCount ? item.msgCount : 73} />}
 				// # of messages on channel in badge

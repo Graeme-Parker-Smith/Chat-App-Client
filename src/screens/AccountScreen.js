@@ -41,7 +41,6 @@ const AccountScreen = ({ navigation }) => {
 	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 
 	const [keyboardHeight, setKeyboardHeight] = useState(0);
-	const [listener, setListener] = useState(false);
 
 	// const [publicActive, setPublicActive] = useState(true);
 	// const [privateActive, setPrivateActive] = useState(true);
@@ -88,7 +87,6 @@ const AccountScreen = ({ navigation }) => {
 
 		return () => {
 			// console.log('unmounting accountscreen');
-			setListener(false);
 			socket.emit('disconnect');
 			socket.off();
 		};
@@ -135,7 +133,6 @@ const AccountScreen = ({ navigation }) => {
 			clearState();
 			signout(false);
 		} else {
-			setListener(true);
 			socket.emit('get_channels_data', { socketId: socket.id });
 		}
 	};
@@ -201,7 +198,6 @@ const AccountScreen = ({ navigation }) => {
 
 	const handleOnBlur = async () => {
 		// console.log('blurring accountscreen...');
-		setListener(false);
 		socket.emit('disconnect');
 		socket.off();
 		keyboardDidShowListener.remove();
