@@ -64,6 +64,7 @@ const ChannelListItem = ({ item, color }) => {
 				}
 				titleStyle={styles.title}
 				subtitleStyle={styles.subtitle}
+				leftElement={item.mature ? <View>M</View> : null}
 				rightElement={
 					<TouchableOpacity
 						onPress={handleHeightAnim}
