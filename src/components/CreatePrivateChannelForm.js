@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, CheckBox } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import AvatarPicker from '../components/AvatarPicker';
@@ -17,6 +17,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 	const [lifespan, setLifespan] = useState('');
 	const [msgLife, setMsgLife] = useState('');
 	const [errMsg, setErrMsg] = useState('');
+	const [mature, setMature] = useState(false);
 
 	const cancelForm = () => {
 		showForm(false);
@@ -32,10 +33,11 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 			description,
 			lifespan: lifespan > 0 ? parseInt(lifespan) : undefined,
 			msgLife: msgLife > 0 ? parseInt(msgLife) : null,
+			mature,
 		});
 		setIsLoading(false);
 		if (response && response.data.error) {
-			console.log("yes", response.data);
+			console.log('yes', response.data);
 			setErrMsg(response.data.error);
 			return;
 		}
@@ -59,30 +61,35 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 				autoFocus={true}
 				maxLength={22}
 			/>
-			<BouncyInput
-				value={String(lifespan)}
-				onChangeText={setLifespan}
-				keyboardType="numeric"
-				selectTextOnFocus={true}
-				label="# in Minutes Before Channel is Deleted."
-				placeholder="Forever"
-				inputContainerStyle={{ marginBottom: 20 }}
-				inputStyle={{ color: '#fff' }}
-				placeholderTextColor="#fff"
-				maxLength={22}
-			/>
-			<BouncyInput
-				value={String(msgLife)}
-				onChangeText={setMsgLife}
-				keyboardType="numeric"
-				selectTextOnFocus={true}
-				label="# in Minutes Before Each Message is Deleted."
-				placeholder="Forever"
-				inputContainerStyle={{ marginBottom: 20 }}
-				inputStyle={{ color: '#fff' }}
-				placeholderTextColor="#fff"
-				maxLength={22}
-			/>
+			<View style={{ flexDirection: 'row' }}>
+				<BouncyInput
+					value={String(lifespan)}
+					onChangeText={setLifespan}
+					keyboardType="numeric"
+					selectTextOnFocus={true}
+					label="Channel Life in mins."
+					placeholder="Forever"
+					inputContainerStyle={{ marginBottom: 20, width: Dimensions.get('window').width * 0.45 }}
+					inputStyle={{ color: '#fff' }}
+					placeholderTextColor="#fff"
+					maxLength={22}
+					containerStyle={{}}
+				/>
+				<BouncyInput
+					value={String(msgLife)}
+					onChangeText={setMsgLife}
+					keyboardType="numeric"
+					selectTextOnFocus={true}
+					label="Msg Life in mins."
+					placeholder="Forever"
+					inputContainerStyle={{ marginBottom: 20, width: Dimensions.get('window').width * 0.45 }}
+					inputStyle={{ color: '#fff' }}
+					placeholderTextColor="#fff"
+					maxLength={22}
+					containerStyle={{}}
+				/>
+			</View>
+			<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
 			<BouncyInput
 				value={description}
 				onChangeText={setDescription}
