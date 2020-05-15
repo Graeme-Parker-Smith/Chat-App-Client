@@ -17,6 +17,7 @@ const CreateChannelForm = ({ showForm }) => {
 	const [lifespan, setLifespan] = useState('');
 	const [msgLife, setMsgLife] = useState('');
 	const [errMsg, setErrMsg] = useState('');
+	const [mature, setMature] = useState(false);
 
 	const cancelForm = () => {
 		showForm(false);
@@ -32,6 +33,7 @@ const CreateChannelForm = ({ showForm }) => {
 			description,
 			lifespan: lifespan > 0 ? parseInt(lifespan) : null,
 			msgLife: msgLife > 0 ? parseInt(msgLife) : null,
+			mature
 		});
 		if (response && response.data.error) {
 			console.log('yes', response.data);
@@ -60,9 +62,7 @@ const CreateChannelForm = ({ showForm }) => {
 				autoFocus={true}
 				maxLength={22}
 			/>
-			<View
-				style={{ flexDirection: 'row' }}
-			>
+			<View style={{ flexDirection: 'row' }}>
 				<BouncyInput
 					value={String(lifespan)}
 					onChangeText={setLifespan}
@@ -74,7 +74,7 @@ const CreateChannelForm = ({ showForm }) => {
 					inputStyle={{ color: '#fff' }}
 					placeholderTextColor="#fff"
 					maxLength={22}
-					containerStyle={{  }}
+					containerStyle={{}}
 				/>
 				<BouncyInput
 					value={String(msgLife)}
@@ -87,9 +87,10 @@ const CreateChannelForm = ({ showForm }) => {
 					inputStyle={{ color: '#fff' }}
 					placeholderTextColor="#fff"
 					maxLength={22}
-					containerStyle={{  }}
+					containerStyle={{}}
 				/>
 			</View>
+			<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
 			<BouncyInput
 				value={description}
 				onChangeText={setDescription}
