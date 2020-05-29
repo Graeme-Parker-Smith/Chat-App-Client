@@ -61,7 +61,11 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 			/>
 			<Spacer />
 			{isSignup ? (
-				<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
+				<View>
+					<GenderSelector />
+					<AgeSelector />
+					<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
+				</View>
 			) : null}
 			{errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
 			<Spacer />
