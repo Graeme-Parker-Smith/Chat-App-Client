@@ -12,7 +12,7 @@ const AdvSwitch = (props) => {
 				thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
 				ios_backgroundColor="#3e3e3e"
 				onValueChange={toggleSwitch}
-				value={isEnabled}
+        value={isEnabled}
 			/>
 		</View>
 	);
