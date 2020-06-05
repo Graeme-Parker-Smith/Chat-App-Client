@@ -7,6 +7,7 @@ import WhiteText from '../components/WhiteText';
 import AvatarPicker from '../components/AvatarPicker';
 import Spacer from './Spacer';
 import AdvSwitch from './AdvSwitch';
+import GSwitch from './GSwitch';
 import NumberDial from './NumberDial';
 
 const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSignup = false }) => {
@@ -64,6 +65,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 			<Spacer />
 			{isSignup ? (
 				<View>
+					<GSwitch />
 					<AdvSwitch />
 					{/* <NumberDial /> */}
 					<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
