@@ -17,6 +17,7 @@ const AdvSwitch = (props) => {
 		<TouchableOpacity
 			style={[styles.container, { backgroundColor: isEnabled ? '#767577' : '#81b0ff' }]}
 			onPress={toggleSwitch}
+			activeOpacity={1}
 		>
 			<Animated.View
 				style={[styles.thumb, { backgroundColor: isEnabled ? '#f4f3f4' : '#f5dd4b', left: thumbAnim }]}
