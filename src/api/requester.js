@@ -5,7 +5,7 @@ import { AsyncStorage } from 'react-native';
 //   baseURL: "https://graeme-chat-app.herokuapp.com"
 // });
 const instance = axios.create({
-	baseURL: 'http://a1ebf1fc028c.ngrok.io',
+	baseURL: 'http://c3197881f58e.ngrok.io',
 });
 
 // before making an authentication request, check to see if jwtoken is already present

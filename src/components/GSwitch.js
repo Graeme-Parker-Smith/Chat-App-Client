@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { View, Switch, StyleSheet } from 'react-native';
+import { View, Switch, StyleSheet, TouchableOpacity } from 'react-native';
 
 const AdvSwitch = (props) => {
+	const { leftText, rightText } = props;
 	const [isEnabled, setIsEnabled] = useState(false);
 	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
 	return (
-		<View style={styles.container}>
+		<TouchableOpacity style={[styles.container, {backgroundColor: isEnabled ? '#f5dd4b' : '#f4f3f4'}]} onPress={toggleSwitch}>
 			<View style={styles.thumb} />
-		</View>
+		</TouchableOpacity>
 	);
 };
 
@@ -23,8 +24,8 @@ const styles = StyleSheet.create({
 		height: 26,
 		width: 26,
 		borderRadius: 12,
-    backgroundColor: '#f4f3f4',
-    margin: 2
+		backgroundColor: '#f4f3f4',
+		margin: 2,
 	},
 });
 
