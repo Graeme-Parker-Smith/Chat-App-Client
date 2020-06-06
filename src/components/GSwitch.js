@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
-import { View, Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Switch, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 
 const AdvSwitch = (props) => {
 	const { leftText, rightText } = props;
-	const [isEnabled, setIsEnabled] = useState(false);
-	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+	const [isEnabled, setIsEnabled] = useState(true);
+	const [thumbAnim] = useState(new Animated.Value(0));
+	const toggleSwitch = () => {
+		Animated.spring(thumbAnim, {
+			duration: 300,
+			toValue: isEnabled ? 20 : 0,
+		}).start();
+		setIsEnabled((previousState) => !previousState);
+	};
 
 	return (
-		<TouchableOpacity style={[styles.container, {backgroundColor: isEnabled ? '#f5dd4b' : '#f4f3f4'}]} onPress={toggleSwitch}>
-			<View style={styles.thumb} />
+		<TouchableOpacity
+			style={[styles.container, { backgroundColor: isEnabled ? '#767577' : '#81b0ff' }]}
+			onPress={toggleSwitch}
+		>
+			<Animated.View
+				style={[styles.thumb, { backgroundColor: isEnabled ? '#f4f3f4' : '#f5dd4b', left: thumbAnim }]}
+			/>
 		</TouchableOpacity>
 	);
 };
-
 const styles = StyleSheet.create({
 	container: {
 		width: 50,
