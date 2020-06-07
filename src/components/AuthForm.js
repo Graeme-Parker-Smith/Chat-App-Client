@@ -14,9 +14,11 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [avatar, setAvatar] = useState('');
+	const [gender, setGender] = useState('female');
 	const [isLoading, setIsLoading] = useState(false);
 	const _usernameInput = useRef();
 	const _passwordInput = useRef();
+	console.log(gender);
 
 	const _next = () => {
 		_passwordInput && _passwordInput.current.focus();
@@ -24,62 +26,60 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-			<ScrollView>
-				<Spacer />
-				<Spacer>
-					<FadeInView>
-						<WhiteText fontSize={40} style={{ color: 'white', alignSelf: 'center' }} h3>
-							{headerText}
-						</WhiteText>
-					</FadeInView>
-				</Spacer>
-				<BouncyInput
-					placeholder={'username'}
-					value={username}
-					onChangeText={setUsername}
-					autoFocus={true}
-					autoCapitalize="none"
-					maxLength={30}
-					autoCorrect={false}
-					containerStyle={styles.input}
-					inputStyle={{ color: 'white' }}
-					returnKeyType="next"
-					selectTextOnFocus={true}
-					onSubmitEditing={_next}
-				/>
-				<Spacer />
-				<BouncyInput
-					placeholder={'password'}
-					secure={true}
-					value={password}
-					onChangeText={setPassword}
-					autoCapitalize="none"
-					maxLength={22}
-					autoCorrect={false}
-					containerStyle={styles.input}
-					inputStyle={{ color: 'white' }}
-					returnKeyType="next"
-					selectTextOnFocus={true}
-					ref={_passwordInput}
-					onSubmitEditing={isSignup ? null : () => onSubmit({ username, password })}
-				/>
-				<Spacer />
-				{isSignup ? (
-					<View>
-						<GSwitch />
-						<AdvSwitch />
-						{/* <NumberDial /> */}
-						<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
-					</View>
-				) : null}
-				{errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
-				<Spacer />
-				<Button
-					disabled={!username || !password}
-					title={submitButtonText}
-					onPress={() => onSubmit({ username, password, avatar: avatar.base64Uri ? avatar.base64Uri : null })}
-				/>
-			</ScrollView>
+			<Spacer />
+			<Spacer>
+				<FadeInView>
+					<WhiteText fontSize={40} style={{ color: 'white', alignSelf: 'center' }} h3>
+						{headerText}
+					</WhiteText>
+				</FadeInView>
+			</Spacer>
+			<BouncyInput
+				placeholder={'username'}
+				value={username}
+				onChangeText={setUsername}
+				autoFocus={true}
+				autoCapitalize="none"
+				maxLength={30}
+				autoCorrect={false}
+				containerStyle={styles.input}
+				inputStyle={{ color: 'white' }}
+				returnKeyType="next"
+				selectTextOnFocus={true}
+				onSubmitEditing={_next}
+			/>
+			<Spacer />
+			<BouncyInput
+				placeholder={'password'}
+				secure={true}
+				value={password}
+				onChangeText={setPassword}
+				autoCapitalize="none"
+				maxLength={22}
+				autoCorrect={false}
+				containerStyle={styles.input}
+				inputStyle={{ color: 'white' }}
+				returnKeyType="next"
+				selectTextOnFocus={true}
+				ref={_passwordInput}
+				onSubmitEditing={isSignup ? null : () => onSubmit({ username, password })}
+			/>
+			<Spacer />
+			{isSignup ? (
+				<View>
+					<GSwitch gender={gender} setGender={setGender} />
+					<AdvSwitch />
+					{/* <NumberDial /> */}
+					<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
+				</View>
+			) : null}
+			{errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+			<Spacer />
+			<Button
+				disabled={!username || !password}
+				title={submitButtonText}
+				onPress={() => onSubmit({ username, password, avatar: avatar.base64Uri ? avatar.base64Uri : null })}
+			/>
 		</SafeAreaView>
 	);
 };
