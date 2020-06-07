@@ -8,7 +8,7 @@ const AdvSwitch = (props) => {
 	const toggleSwitch = () => {
 		Animated.spring(thumbAnim, {
 			duration: 200,
-			toValue: isEnabled ? 20 : 0,
+			toValue: gender === 'female' ? 20 : 0,
 		}).start();
 		setGender((previousState) => (previousState === 'female' ? 'male' : 'female'));
 	};

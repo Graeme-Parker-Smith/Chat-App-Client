@@ -18,7 +18,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 	const [isLoading, setIsLoading] = useState(false);
 	const _usernameInput = useRef();
 	const _passwordInput = useRef();
-	console.log(gender);
+	// console.log(gender);
 
 	const _next = () => {
 		_passwordInput && _passwordInput.current.focus();
