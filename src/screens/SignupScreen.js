@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { StyleSheet, Dimensions, View } from 'react-native';
+import { StyleSheet, Dimensions, View, ScrollView } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Text, Button } from 'react-native-elements';
 import Spacer from '../components/Spacer';
@@ -40,15 +40,17 @@ const SignupScreen = () => {
 
 	return (
 		<View style={styles.container}>
-			<NavigationEvents onWillBlur={clearErrorMessage} />
-			<AuthForm
-				headerText="Sign Up"
-				errorMessage={state.errorMessage}
-				submitButtonText="Create User"
-				onSubmit={handleSignup}
-				isSignup={true}
-			/>
-			<NavLink routeName="Signin" text="Back to Sign In" />
+			<ScrollView>
+				<NavigationEvents onWillBlur={clearErrorMessage} />
+				<AuthForm
+					headerText="Sign Up"
+					errorMessage={state.errorMessage}
+					submitButtonText="Create User"
+					onSubmit={handleSignup}
+					isSignup={true}
+				/>
+				<NavLink routeName="Signin" text="Back to Sign In" />
+			</ScrollView>
 		</View>
 	);
 };

@@ -25,6 +25,7 @@ const AdvSwitch = (props) => {
 		</TouchableOpacity>
 	);
 };
+
 const styles = StyleSheet.create({
 	container: {
 		width: 50,

@@ -74,7 +74,6 @@ const BouncyInput = forwardRef(
 					inputContainerStyle={inputContainerStyle}
 					onFocus={handleOnFocus}
 					multiline={multiline}
-					numberOfLines={5}
 					onBlur={handleOnBlur}
 					secureTextEntry={secure}
 					keyboardType={keyboardType}
