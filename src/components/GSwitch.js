@@ -7,7 +7,7 @@ const AdvSwitch = (props) => {
 	const [thumbAnim] = useState(new Animated.Value(0));
 	const toggleSwitch = () => {
 		Animated.spring(thumbAnim, {
-			duration: 300,
+			duration: 200,
 			toValue: isEnabled ? 20 : 0,
 		}).start();
 		setIsEnabled((previousState) => !previousState);
@@ -15,7 +15,7 @@ const AdvSwitch = (props) => {
 
 	return (
 		<TouchableOpacity
-			style={[styles.container, { backgroundColor: isEnabled ? '#767577' : '#81b0ff' }]}
+			style={[styles.container, { backgroundColor: isEnabled ? '#3e3e3e' : '#81b0ff' }]}
 			onPress={toggleSwitch}
 			activeOpacity={1}
 		>
