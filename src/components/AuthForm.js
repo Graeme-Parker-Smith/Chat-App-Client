@@ -67,9 +67,6 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 			<Spacer />
 			{isSignup ? (
 				<View>
-					<GSwitch gender={gender} setGender={setGender} />
-					<AdvSwitch />
-					{/* <NumberDial /> */}
 					<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'User'} displayName={username} />
 				</View>
 			) : null}
