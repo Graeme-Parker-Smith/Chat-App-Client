@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-const DEFAULT_MARGIN = 15;
+const DEFAULT_MARGIN = 10;
 
 const Spacer = ({ margin, children }) => {
   return (

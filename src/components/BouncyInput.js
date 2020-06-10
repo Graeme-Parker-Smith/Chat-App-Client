@@ -8,7 +8,7 @@ const BouncyInput = forwardRef(
 			value,
 			onChangeText,
 			placeholder = '',
-			label = '',
+			label = false,
 			autoFocus = false,
 			autoCapitalize = 'none',
 			autoCorrect = false,

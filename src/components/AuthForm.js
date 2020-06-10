@@ -70,7 +70,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 				</View>
 			) : null}
 			{errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
-			<Spacer />
+			{/* <Spacer /> */}
 			<Button
 				disabled={!username || !password}
 				title={submitButtonText}

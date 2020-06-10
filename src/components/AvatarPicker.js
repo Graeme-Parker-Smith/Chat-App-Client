@@ -7,7 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
-const DefaultAvatar = () => <Entypo style={styles.avatarStyle} name="user" size={90} color="#0af" />;
+const DefaultAvatar = () => <Entypo style={styles.avatarStyle} name="user" size={50} color="#0af" />;
 
 const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword, displayName = '' }) => {
 	const _pickImage = async () => {
@@ -42,7 +42,7 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword, displayName =
 			<Text style={{ color: 'white', textAlign: 'center' }}>Set {whichForm} Avatar</Text>
 			<View style={styles.imagePickerStyle}>
 				<TouchableOpacity style={styles.obviousButton} onPress={launchCamera}>
-					<MaterialIcons style={{ alignSelf: 'center' }} name="photo-camera" size={100} color="#0af" />
+					<MaterialIcons style={{ alignSelf: 'center' }} name="photo-camera" size={50} color="#0af" />
 				</TouchableOpacity>
 				<View style={{ alignItems: 'center' }}>
 					{avatar ? (
@@ -53,7 +53,7 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword, displayName =
 					<WhiteText>{displayName}</WhiteText>
 				</View>
 				<TouchableOpacity style={styles.obviousButton} onPress={_pickImage}>
-					<MaterialIcons style={{ alignSelf: 'center' }} name="photo-library" size={100} color="#0af" />
+					<MaterialIcons style={{ alignSelf: 'center' }} name="photo-library" size={50} color="#0af" />
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -61,10 +61,10 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword, displayName =
 };
 const styles = StyleSheet.create({
 	avatarStyle: {
-		height: 100,
-		width: 100,
+		height: 50,
+		width: 50,
 		alignSelf: 'center',
-		borderRadius: 50,
+		borderRadius: 25,
 	},
 	imagePickerStyle: {
 		display: 'flex',
@@ -74,9 +74,9 @@ const styles = StyleSheet.create({
 	},
 	obviousButton: {
 		backgroundColor: '#303030',
-		height: 120,
-		width: 120,
-		borderRadius: 60,
+		height: 65,
+		width: 65,
+		borderRadius: 40,
 		alignContent: 'center',
 		justifyContent: 'center',
 	},
