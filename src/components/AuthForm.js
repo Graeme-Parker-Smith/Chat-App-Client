@@ -14,7 +14,6 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [avatar, setAvatar] = useState('');
-	const [gender, setGender] = useState('female');
 	const [isLoading, setIsLoading] = useState(false);
 	const _usernameInput = useRef();
 	const _passwordInput = useRef();

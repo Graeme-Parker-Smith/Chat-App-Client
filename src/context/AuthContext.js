@@ -45,7 +45,7 @@ const clearErrorMessage = (dispatch) => () => {
 	dispatch({ type: 'clear_error_message' });
 };
 
-const signup = (dispatch) => async ({ username, password, avatar, gender, age }) => {
+const signup = (dispatch) => async ({ username, password, avatar }) => {
 	try {
 		let response;
 		if (avatar) {
@@ -74,15 +74,11 @@ const signup = (dispatch) => async ({ username, password, avatar, gender, age })
 				username,
 				password,
 				avatar: cloudUrl,
-				gender,
-				age
 			});
 		} else {
 			response = await chatApi.post('/signup', {
 				username,
 				password,
-				gender,
-				age
 			});
 		}
 		await AsyncStorage.setItem('token', response.data.token);
