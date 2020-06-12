@@ -70,6 +70,7 @@ const BouncyInput = forwardRef(
 					returnKeyType={returnKeyType}
 					selectTextOnFocus={selectTextOnFocus}
 					onSubmitEditing={onSubmitEditing}
+					keyboar
 					ref={ref}
 					inputContainerStyle={inputContainerStyle}
 					onFocus={handleOnFocus}
