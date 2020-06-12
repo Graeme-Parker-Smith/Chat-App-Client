@@ -33,9 +33,28 @@ import InviteMenu from '../components/InviteMenu';
 import LoadingIndicator from '../components/LoadingIndicator';
 
 const CreateChannelForm = (props) => {
-  const [keyboardShowing, setKeyboardShowing] = useState(false);
-  const [keyboardHeight, setKeyboardHeight] = useState(0);
-  
+	const [keyboardShowing, setKeyboardShowing] = useState(false);
+	const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+	useEffect(() => {
+		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+		return () => {
+			keyboardDidShowListener.remove();
+			keyboardDidHideListener.remove();
+		};
+	}, []);
+
+	const _keyboardDidShow = (e) => {
+		setKeyboardShowing(true);
+		setKeyboardHeight(e.endCoordinates.height);
+	};
+
+	const _keyboardDidHide = () => {
+		setKeyboardShowing(false);
+		setKeyboardHeight(0);
+	};
+
 	return <ScrollView style={styles.scrollView}>{props.children}</ScrollView>;
 };
 
