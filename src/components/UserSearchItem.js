@@ -9,24 +9,27 @@ import LoadingIndicator from './LoadingIndicator';
 import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import UserInteractButton from './UserInteractButton';
 import UserMoreOptions from './UserMoreOptions';
+import Spacer from './Spacer';
 
 const UserSearchItem = ({ friend, showPanel, currentUser }) => {
 	const handleClick = () => {
 		showPanel('user_dash', friend);
 	};
 	let status;
-	if (currentUser.friends.some(f => f._id === friend._id)) status = 'added';
-	else if (currentUser.pending.some(f => f._id === friend._id)) status = 'pending';
+	if (currentUser.friends.some((f) => f._id === friend._id)) status = 'added';
+	else if (currentUser.pending.some((f) => f._id === friend._id)) status = 'pending';
 	else status = 'add';
 
 	return (
-		<ListItem
-			containerStyle={styles.container}
-			title={friend.username}
-			leftAvatar={<UserAvatar avatar={friend.avatar} handleClick={showPanel} />}
-			rightIcon={<UserInteractButton friendName={friend.username} status={status} />}
-			rightElement={<UserMoreOptions friend={friend} />}
-		/>
+		<Spacer>
+			<ListItem
+				containerStyle={styles.container}
+				title={friend.username}
+				leftAvatar={<UserAvatar avatar={friend.avatar} handleClick={showPanel} />}
+				rightIcon={<UserInteractButton friendName={friend.username} status={status} />}
+				rightElement={<UserMoreOptions friend={friend} />}
+			/>
+		</Spacer>
 	);
 };
 
