@@ -9,6 +9,7 @@ import {
 	TouchableHighlight,
 	FlatList,
 	Platform,
+	Keyboard
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
@@ -26,6 +27,8 @@ import WhiteText from '../components/WhiteText';
 import { back, navigate } from '../navigationRef';
 import { NavigationEvents } from 'react-navigation';
 import LoadingIndicator from '../components/LoadingIndicator';
+import Spacer from '../components/Spacer';
+import ScrollWithKeyboard from '../components/ScrollWithKeyboard';
 
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
@@ -34,6 +37,25 @@ const DashScreen = ({ navigation }) => {
 	const initialIndex = navigation.getParam('initialIndex');
 	const [userSearch, setUserSearch] = useState('');
 	const [menuIndex, setMenuIndex] = useState(0);
+
+	const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+	useEffect(() => {
+		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+		return () => {
+			keyboardDidShowListener.remove();
+			keyboardDidHideListener.remove();
+		};
+	}, []);
+
+	const _keyboardDidShow = (e) => {
+		setKeyboardHeight(e.endCoordinates.height);
+	};
+
+	const _keyboardDidHide = () => {
+		setKeyboardHeight(0);
+	};
 
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
@@ -102,54 +124,56 @@ const DashScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
-			{/* <NavigationEvents onWillFocus={fetchChannels} /> */}
-			<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-				<Button
-					containerStyle={{ alignSelf: 'center' }}
-					buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
-					icon={
-						<TouchableOpacity onPress={cancelForm}>
-							<Entypo name="back" color="#0af" size={50} />
-						</TouchableOpacity>
-					}
-					type="outline"
-					titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
-				/>
-				<View style={{ marginTop: 10 }}>
-					<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
-				</View>
-				<TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
-					<MaterialIcons name="settings" color="#0af" size={40} />
-				</TouchableOpacity>
-				<View style={styles.userBox}>
-					<WhiteText>{state.currentUser.username}</WhiteText>
-					<WhiteText>Account created on {state.currentUser.createdAt}</WhiteText>
-					<WhiteText>Messages Sent: {state.currentUser.msgsSent}</WhiteText>
-				</View>
-			</View>
-			<View style={styles.menuContainer}>
-				{dashMenus.map((menu, index) => (
+			<View style={{height: Dimensions.get('window').height - keyboardHeight}}>
+				{/* <NavigationEvents onWillFocus={fetchChannels} /> */}
+				<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
 					<Button
-						key={index}
-						title={menu.name}
-						type={menuIndex === index ? 'solid' : 'outline'}
-						containerStyle={styles.menu}
-						onPress={() => handleMenuClick(index)}
+						containerStyle={{ alignSelf: 'center' }}
+						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
+						icon={
+							<TouchableOpacity onPress={cancelForm}>
+								<Entypo name="back" color="#0af" size={50} />
+							</TouchableOpacity>
+						}
+						type="outline"
+						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/>
-				))}
+					<View style={{ marginTop: 10 }}>
+						<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
+					</View>
+					<TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
+						<MaterialIcons name="settings" color="#0af" size={40} />
+					</TouchableOpacity>
+					<View style={styles.userBox}>
+						<WhiteText>{state.currentUser.username}</WhiteText>
+						<WhiteText>Account created on {state.currentUser.createdAt}</WhiteText>
+						<WhiteText>Messages Sent: {state.currentUser.msgsSent}</WhiteText>
+					</View>
+				</View>
+				<View style={styles.menuContainer}>
+					{dashMenus.map((menu, index) => (
+						<Button
+							key={index}
+							title={menu.name}
+							type={menuIndex === index ? 'solid' : 'outline'}
+							containerStyle={styles.menu}
+							onPress={() => handleMenuClick(index)}
+						/>
+					))}
+				</View>
+				<FlatList
+					style={styles.flatlist}
+					ref={listRef}
+					onMomentumScrollEnd={onScrollEnd}
+					data={dashMenus}
+					horizontal
+					pagingEnabled={true}
+					keyExtractor={(item) => item.name}
+					renderItem={({ item }) => {
+						return item.comp;
+					}}
+				/>
 			</View>
-			<FlatList
-				style={styles.flatlist}
-				ref={listRef}
-				onMomentumScrollEnd={onScrollEnd}
-				data={dashMenus}
-				horizontal
-				pagingEnabled={true}
-				keyExtractor={(item) => item.name}
-				renderItem={({ item }) => {
-					return item.comp;
-				}}
-			/>
 		</View>
 	);
 };
@@ -172,10 +196,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	flatlist: {
-		width: Dimensions.get('window').width * 0.8,
+		// width: Dimensions.get('window').width * 0.8,
 		borderWidth: 2,
 		borderColor: 'red',
-		alignSelf: 'center'
+		alignSelf: 'center',
 	},
 	menu: {
 		flexGrow: 1,

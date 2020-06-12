@@ -71,7 +71,7 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 					<MaterialIcons name="send" size={32} color={userSearch ? '#0af' : '#808080'} onPress={doSearch} />
 				}
 			/>
-			<View style={{ height: 250 }}>
+			<View >
 				<FlatList
 					data={searchResults}
 					keyExtractor={(item) => item.username}
@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		backgroundColor: '#000',
-		flex: 1,
 		width: Dimensions.get('window').width,
 	},
 });
