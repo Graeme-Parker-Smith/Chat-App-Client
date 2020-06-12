@@ -9,6 +9,7 @@ import BouncyInput from './BouncyInput';
 import WhiteText from './WhiteText';
 import { ScrollView } from 'react-native-gesture-handler';
 import Spacer from './Spacer';
+import ScrollWithKeyboard from './ScrollWithKeyboard';
 
 const CreateChannelForm = ({ showForm }) => {
 	const [newChannelName, setNewChannelName] = useState('');
@@ -53,7 +54,7 @@ const CreateChannelForm = ({ showForm }) => {
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-			<ScrollView style={styles.scrollView}>
+			<ScrollWithKeyboard>
 				<BouncyInput
 					value={newChannelName}
 					onChangeText={setNewChannelName}
@@ -120,7 +121,7 @@ const CreateChannelForm = ({ showForm }) => {
 				</View>
 				<Spacer />
 				<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
-			</ScrollView>
+			</ScrollWithKeyboard>
 		</SafeAreaView>
 	);
 };
