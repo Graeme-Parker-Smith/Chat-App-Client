@@ -9,7 +9,7 @@ const UserAvatar = ({ avatar, handleClick }) => {
 				{avatar ? (
 					<Image source={{ uri: avatar }} style={styles.avatarStyle} />
 				) : (
-					<Entypo name="user" size={20} color="#0af" />
+					<Entypo name="user" size={50} color="#0af" />
 				)}
 			</TouchableOpacity>
 		</View>
