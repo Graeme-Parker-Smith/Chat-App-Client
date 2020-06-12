@@ -55,7 +55,7 @@ const CreateChannelForm = (props) => {
 		setKeyboardHeight(0);
 	};
 
-	return <ScrollView style={styles.scrollView}>{props.children}</ScrollView>;
+	return <ScrollView style={{ height: Dimensions.get('window').height - keyboardHeight }}>{props.children}</ScrollView>;
 };
 
 const styles = StyleSheet.create({
