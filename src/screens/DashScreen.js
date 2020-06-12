@@ -126,7 +126,6 @@ const DashScreen = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<View style={{ height: Dimensions.get('window').height - keyboardHeight }}>
-				{/* <NavigationEvents onWillFocus={fetchChannels} /> */}
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
 					<Button
 						containerStyle={{ alignSelf: 'center' }}
