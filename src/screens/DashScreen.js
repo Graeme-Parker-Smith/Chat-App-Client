@@ -27,7 +27,6 @@ import { back, navigate } from '../navigationRef';
 import { NavigationEvents } from 'react-navigation';
 import LoadingIndicator from '../components/LoadingIndicator';
 
-
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
 	const { state, fetchChannels, updateState } = useContext(ChannelContext);
@@ -140,6 +139,7 @@ const DashScreen = ({ navigation }) => {
 				))}
 			</View>
 			<FlatList
+				style={styles.flatlist}
 				ref={listRef}
 				onMomentumScrollEnd={onScrollEnd}
 				data={dashMenus}
@@ -170,6 +170,12 @@ const styles = StyleSheet.create({
 	},
 	menuContainer: {
 		flexDirection: 'row',
+	},
+	flatlist: {
+		width: Dimensions.get('window').width * 0.8,
+		borderWidth: 2,
+		borderColor: 'red',
+		alignSelf: 'center'
 	},
 	menu: {
 		flexGrow: 1,
