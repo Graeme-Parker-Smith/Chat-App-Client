@@ -7,6 +7,7 @@ import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
 import WhiteText from './WhiteText';
+import Spacer from './Spacer';
 import ScrollWithKeyboard from './ScrollWithKeyboard';
 
 const CreatePrivateChannelForm = ({ showForm }) => {
@@ -92,6 +93,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 					/>
 				</View>
 				<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
+				<Spacer />
 				<BouncyInput
 					value={description}
 					onChangeText={setDescription}
@@ -103,7 +105,9 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 					maxLength={225}
 					multiline={true}
 				/>
+				<Spacer />
 				<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
+				<Spacer />
 				<View style={styles.buttonRow}>
 					<Button
 						disabled={!newChannelName}
@@ -113,6 +117,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 					/>
 					<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
 				</View>
+				<Spacer />
 				<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 			</ScrollWithKeyboard>
 		</SafeAreaView>
@@ -121,7 +126,6 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 
 const styles = StyleSheet.create({
 	container: {
-		height: Dimensions.get('window').height,
 		backgroundColor: '#301934',
 	},
 	button: {
