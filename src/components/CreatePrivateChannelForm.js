@@ -7,6 +7,7 @@ import AvatarPicker from '../components/AvatarPicker';
 import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
 import WhiteText from './WhiteText';
+import ScrollWithKeyboard from './ScrollWithKeyboard';
 
 const CreatePrivateChannelForm = ({ showForm }) => {
 	const [newChannelName, setNewChannelName] = useState('');
@@ -50,68 +51,70 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-			<BouncyInput
-				value={newChannelName}
-				onChangeText={setNewChannelName}
-				label="Name Your New Private Channel"
-				placeholder="(Required)"
-				inputContainerStyle={{ marginBottom: 20 }}
-				inputStyle={{ color: '#fff' }}
-				placeholderTextColor="#fff"
-				autoFocus={true}
-				maxLength={22}
-			/>
-			<View style={{ flexDirection: 'row' }}>
+			<ScrollWithKeyboard>
 				<BouncyInput
-					value={String(lifespan)}
-					onChangeText={setLifespan}
-					keyboardType="numeric"
-					selectTextOnFocus={true}
-					label="Channel Life in mins."
-					placeholder="Forever"
-					inputContainerStyle={{ marginBottom: 20, width: Dimensions.get('window').width * 0.45 }}
+					value={newChannelName}
+					onChangeText={setNewChannelName}
+					label="Name Your New Private Channel"
+					placeholder="(Required)"
+					inputContainerStyle={{ marginBottom: 20 }}
 					inputStyle={{ color: '#fff' }}
 					placeholderTextColor="#fff"
+					autoFocus={true}
 					maxLength={22}
-					containerStyle={{}}
 				/>
+				<View style={{ flexDirection: 'row' }}>
+					<BouncyInput
+						value={String(lifespan)}
+						onChangeText={setLifespan}
+						keyboardType="numeric"
+						selectTextOnFocus={true}
+						label="Channel Life in mins."
+						placeholder="Forever"
+						inputContainerStyle={{ marginBottom: 20, width: Dimensions.get('window').width * 0.45 }}
+						inputStyle={{ color: '#fff' }}
+						placeholderTextColor="#fff"
+						maxLength={22}
+						containerStyle={{}}
+					/>
+					<BouncyInput
+						value={String(msgLife)}
+						onChangeText={setMsgLife}
+						keyboardType="numeric"
+						selectTextOnFocus={true}
+						label="Msg Life in mins."
+						placeholder="Forever"
+						inputContainerStyle={{ marginBottom: 20, width: Dimensions.get('window').width * 0.45 }}
+						inputStyle={{ color: '#fff' }}
+						placeholderTextColor="#fff"
+						maxLength={22}
+						containerStyle={{}}
+					/>
+				</View>
+				<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
 				<BouncyInput
-					value={String(msgLife)}
-					onChangeText={setMsgLife}
-					keyboardType="numeric"
-					selectTextOnFocus={true}
-					label="Msg Life in mins."
-					placeholder="Forever"
-					inputContainerStyle={{ marginBottom: 20, width: Dimensions.get('window').width * 0.45 }}
+					value={description}
+					onChangeText={setDescription}
+					label="Add A Description For Your Channel"
+					placeholder="(Optional. 225 char max.)"
+					inputContainerStyle={{ marginBottom: 20 }}
 					inputStyle={{ color: '#fff' }}
 					placeholderTextColor="#fff"
-					maxLength={22}
-					containerStyle={{}}
+					maxLength={225}
+					multiline={true}
 				/>
-			</View>
-			<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
-			<BouncyInput
-				value={description}
-				onChangeText={setDescription}
-				label="Add A Description For Your Channel"
-				placeholder="(Optional. 225 char max.)"
-				inputContainerStyle={{ marginBottom: 20 }}
-				inputStyle={{ color: '#fff' }}
-				placeholderTextColor="#fff"
-				maxLength={225}
-				multiline={true}
-			/>
-			<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
-			<View style={styles.buttonRow}>
-				<Button
-					disabled={!newChannelName}
-					buttonStyle={styles.button}
-					title="Create New Private Channel"
-					onPress={handleSubmit}
-				/>
-				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
-			</View>
-			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
+				<AvatarPicker avatar={avatar} setAvatar={setAvatar} whichForm={'Channel'} />
+				<View style={styles.buttonRow}>
+					<Button
+						disabled={!newChannelName}
+						buttonStyle={styles.button}
+						title="Create New Private Channel"
+						onPress={handleSubmit}
+					/>
+					<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
+				</View>
+				<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
+			</ScrollWithKeyboard>
 		</SafeAreaView>
 	);
 };
