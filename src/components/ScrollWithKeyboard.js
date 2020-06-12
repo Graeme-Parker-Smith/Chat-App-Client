@@ -33,46 +33,9 @@ import InviteMenu from '../components/InviteMenu';
 import LoadingIndicator from '../components/LoadingIndicator';
 
 const CreateChannelForm = (props) => {
-	const [newChannelName, setNewChannelName] = useState('');
-	const [description, setDescription] = useState('');
-	const { state, createChannel } = useContext(ChannelContext);
-	const [avatar, setAvatar] = useState('');
-	const [isLoading, setIsLoading] = useState(false);
-	const [lifespan, setLifespan] = useState('');
-	const [msgLife, setMsgLife] = useState('');
-	const [errMsg, setErrMsg] = useState('');
-	const [mature, setMature] = useState(false);
-
-	const cancelForm = () => {
-		showForm(false);
-	};
-
-	const handleSubmit = async () => {
-		if (!newChannelName) return;
-		setIsLoading(true);
-		const response = await createChannel({
-			name: newChannelName,
-			creator: state.currentUser.username,
-			avatar: avatar.base64Uri,
-			description,
-			lifespan: lifespan > 0 ? parseInt(lifespan) : null,
-			msgLife: msgLife > 0 ? parseInt(msgLife) : null,
-			mature,
-		});
-		if (response && response.data.error) {
-			console.log('yes', response.data);
-			setIsLoading(false);
-			setErrMsg(response.data.error);
-			return;
-		}
-		setNewChannelName('');
-		setLifespan(0);
-		setIsLoading(false);
-		showForm(false);
-	};
-
-	if (isLoading) return <LoadingIndicator />;
-
+  const [keyboardShowing, setKeyboardShowing] = useState(false);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  
 	return <ScrollView style={styles.scrollView}>{props.children}</ScrollView>;
 };
 
