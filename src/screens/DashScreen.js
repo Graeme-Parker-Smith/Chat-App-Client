@@ -9,7 +9,7 @@ import {
 	TouchableHighlight,
 	FlatList,
 	Platform,
-	Keyboard
+	Keyboard,
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
@@ -90,7 +90,8 @@ const DashScreen = ({ navigation }) => {
 
 	const cancelForm = () => {
 		// showForm(false);
-		navigation.navigate('channelFlow');
+		// navigation.navigate('channelFlow');
+		navigate('Account');
 	};
 
 	const handleMenuClick = (index) => {
@@ -124,7 +125,7 @@ const DashScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
-			<View style={{height: Dimensions.get('window').height - keyboardHeight}}>
+			<View style={{ height: Dimensions.get('window').height - keyboardHeight }}>
 				{/* <NavigationEvents onWillFocus={fetchChannels} /> */}
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
 					<Button
@@ -146,8 +147,8 @@ const DashScreen = ({ navigation }) => {
 					</TouchableOpacity>
 					<View style={styles.userBox}>
 						<WhiteText>{state.currentUser.username}</WhiteText>
-						<WhiteText>Account created on {state.currentUser.createdAt}</WhiteText>
-						<WhiteText>Messages Sent: {state.currentUser.msgsSent}</WhiteText>
+						<WhiteText>Created:{state.currentUser.createdAt}</WhiteText>
+						<WhiteText>Score: {state.currentUser.msgsSent}</WhiteText>
 					</View>
 				</View>
 				<View style={styles.menuContainer}>

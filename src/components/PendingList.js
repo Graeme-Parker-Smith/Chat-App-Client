@@ -31,10 +31,10 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 				returnKeyType="send"
 				selectTextOnFocus={true}
 			/>
-			<WhiteText>Requests Received</WhiteText>
+			{/* <WhiteText>Requests Received</WhiteText> */}
 			<FlatList
 				userSearch={userSearch}
-				data={state.currentUser.requestsReceived}
+				data={[...state.currentUser.requestsReceived, ...state.currentUser.pending]}
 				keyExtractor={item => item.username}
 				renderItem={({ item }) => {
 					if (item.username.includes(userSearch)) {
@@ -42,8 +42,8 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 					}
 				}}
 			/>
-			<WhiteText>Pending Requests Sent</WhiteText>
-			<FlatList
+			{/* <WhiteText>Pending Requests Sent</WhiteText> */}
+			{/* <FlatList
 				userSearch={userSearch}
 				data={state.currentUser.pending}
 				keyExtractor={item => item.username}
@@ -52,7 +52,7 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
 					}
 				}}
-			/>
+			/> */}
 		</View>
 	);
 };
