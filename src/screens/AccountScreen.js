@@ -35,7 +35,7 @@ const AccountScreen = ({ navigation }) => {
 	);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [channelSearch, setChannelSearch] = useState('')
+	const [channelSearch, setChannelSearch] = useState('');
 	const [activeLists, setActiveLists] = useState({ public: true, private: true });
 	const [publicWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
@@ -95,6 +95,7 @@ const AccountScreen = ({ navigation }) => {
 	useEffect(() => {
 		if (hasMountedRef.current && firstRef.current) {
 			(async () => {
+				console.log('state.currentUser', state.currentUser);
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') signout(false);
 				_notificationSubscription = Notifications.addListener(_handleNotification);

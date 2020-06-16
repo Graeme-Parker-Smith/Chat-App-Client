@@ -136,7 +136,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	}, []);
 
 	const handleGoBack = () => {
-		navigate('Account')
+		navigate('Account');
 		// console.log('component unmounting');
 		// keyboardDidShowListener.remove();
 		// keyboardDidHideListener.remove();
@@ -474,6 +474,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
 		await clearMessages();
 		// console.log('fetching for...', `${temp_roomName}, ${temp_roomType}, ${temp_room_id}`);
+		console.log('room_id', room_id);
 		await fetchMessages(temp_roomName || roomName, temp_roomType || roomType, temp_room_id || room_id);
 		scrollToBottom();
 	};

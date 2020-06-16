@@ -11,6 +11,7 @@ import LoadingIndicator from '../components/LoadingIndicator';
 import FadeInView from '../components/FadeInView';
 import BouncyInput from '../components/BouncyInput';
 import AuthForm from '../components/AuthForm';
+import ScrollWithKeyboard from '../components/ScrollWithKeyboard';
 
 const SignupScreen = () => {
 	// const [username, setUsername] = useState('');
@@ -40,7 +41,7 @@ const SignupScreen = () => {
 
 	return (
 		<View style={styles.container}>
-			<ScrollView>
+			<ScrollWithKeyboard>
 				<NavigationEvents onWillBlur={clearErrorMessage} />
 				<AuthForm
 					headerText="Sign Up"
@@ -50,7 +51,7 @@ const SignupScreen = () => {
 					isSignup={true}
 				/>
 				<NavLink routeName="Signin" text="Back to Sign In" />
-			</ScrollView>
+			</ScrollWithKeyboard>
 		</View>
 	);
 };

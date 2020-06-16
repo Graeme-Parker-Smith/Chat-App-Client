@@ -17,12 +17,12 @@ const messageReducer = (state, action) => {
 	}
 };
 
-const clearMessages = dispatch => () => {
+const clearMessages = (dispatch) => () => {
 	// console.log("clearing message state");
 	dispatch({ type: 'clear_messages' });
 };
 
-const fetchEarlierMessages = dispatch => async (state, roomName, roomType, room_id) => {
+const fetchEarlierMessages = (dispatch) => async (state, roomName, roomType, room_id) => {
 	if (state.length > 18) {
 		const response = await chatApi.get('/messages', {
 			params: { stateLength: state.length, roomName, roomType, room_id },
@@ -35,14 +35,20 @@ const fetchEarlierMessages = dispatch => async (state, roomName, roomType, room_
 	}
 };
 
-const fetchMessages = dispatch => async (roomName, roomType, room_id) => {
-	const response = await chatApi.get('/messages', {
+const fetchMessages = (dispatch) => async (roomName, roomType, room_id) => {
+	console.log('room_id', room_id);
+	try {
+		// const response = await chatApi.get('/messages');
+		const response = await chatApi.get('/messages', {
 		params: { roomName, roomType, room_id },
-	});
-	dispatch({ type: 'fetch_messages', payload: response.data });
+		});
+		dispatch({ type: 'fetch_messages', payload: response.data });
+	} catch (err) {
+		console.log(err);
+	}
 };
 
-const addMessage = dispatch => async ({ creator, avatar, content, roomName, isImage, isVideo }) => {
+const addMessage = (dispatch) => async ({ creator, avatar, content, roomName, isImage, isVideo }) => {
 	const date = new Date();
 	const time = date.toLocaleString();
 	const message = {
@@ -62,7 +68,7 @@ const addMessage = dispatch => async ({ creator, avatar, content, roomName, isIm
 	});
 };
 
-const addQuickMessage = dispatch => ({ creator, avatar, content, time, roomName, isImage, isVideo }) => {
+const addQuickMessage = (dispatch) => ({ creator, avatar, content, time, roomName, isImage, isVideo }) => {
 	const quickMessage = {
 		creator,
 		avatar,
@@ -79,17 +85,17 @@ const addQuickMessage = dispatch => ({ creator, avatar, content, time, roomName,
 	});
 };
 
-const updateMessage = dispatch => async ({ currentContent, newContent, itemId }) => {
+const updateMessage = (dispatch) => async ({ currentContent, newContent, itemId }) => {
 	await chatApi.put('/messages', { currentContent, newContent, itemId });
 	dispatch({ type: null, payload: null });
 };
 
-const deleteMessage = dispatch => async ({ itemId }) => {
+const deleteMessage = (dispatch) => async ({ itemId }) => {
 	await chatApi.delete('/messages', { params: { itemId } });
 	dispatch({ type: null, payload: null });
 };
 
-const sendNotification = dispatch => async ({ sender, messageBody, receiver, room_id }) => {
+const sendNotification = (dispatch) => async ({ sender, messageBody, receiver, room_id }) => {
 	const response = await chatApi.post('/sendnotification', { sender, messageBody, receiver, room_id });
 };
 
