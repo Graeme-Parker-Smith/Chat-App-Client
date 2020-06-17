@@ -128,7 +128,7 @@ const DashScreen = ({ navigation }) => {
 			<View style={{ height: Dimensions.get('window').height - keyboardHeight }}>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
 					<TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
-						<MaterialIcons name="settings" color="#0af" size={40} />
+						<Entypo name="arrow-with-circle-left" color="#0af" size={40} />
 					</TouchableOpacity>
 					<View style={{ marginTop: 10 }}>
 						<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
@@ -143,7 +143,7 @@ const DashScreen = ({ navigation }) => {
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
 						icon={
 							<TouchableOpacity onPress={cancelForm}>
-								<Entypo name="back" color="#0af" size={50} />
+								<Entypo name="arrow-with-circle-right" color="#0af" size={50} />
 							</TouchableOpacity>
 						}
 						type="outline"
