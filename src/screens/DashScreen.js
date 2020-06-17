@@ -127,6 +127,17 @@ const DashScreen = ({ navigation }) => {
 		<View style={styles.container}>
 			<View style={{ height: Dimensions.get('window').height - keyboardHeight }}>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+					<TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
+						<MaterialIcons name="settings" color="#0af" size={40} />
+					</TouchableOpacity>
+					<View style={{ marginTop: 10 }}>
+						<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
+					</View>
+					<View style={styles.userBox}>
+						<WhiteText>{state.currentUser.username}</WhiteText>
+						<WhiteText>Created:{state.currentUser.createdAt}</WhiteText>
+						<WhiteText>Score: {state.currentUser.msgsSent}</WhiteText>
+					</View>
 					<Button
 						containerStyle={{ alignSelf: 'center' }}
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
@@ -138,17 +149,6 @@ const DashScreen = ({ navigation }) => {
 						type="outline"
 						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/>
-					<View style={{ marginTop: 10 }}>
-						<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
-					</View>
-					<TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
-						<MaterialIcons name="settings" color="#0af" size={40} />
-					</TouchableOpacity>
-					<View style={styles.userBox}>
-						<WhiteText>{state.currentUser.username}</WhiteText>
-						<WhiteText>Created:{state.currentUser.createdAt}</WhiteText>
-						<WhiteText>Score: {state.currentUser.msgsSent}</WhiteText>
-					</View>
 				</View>
 				<View style={styles.menuContainer}>
 					{dashMenus.map((menu, index) => (
