@@ -37,19 +37,25 @@ const navigator = createSwitchNavigator({
 	channelFlow: {
 		screen: createMaterialTopTabNavigator(
 			{
-				EditUser: {
-					screen: EditUserScreen,
+				// EditUser: {
+				// 	screen: EditUserScreen,
+				// 	navigationOptions: {
+				// 		headerShown: false,
+				// 		title: 'edit_user',
+				// 	},
+				// },
+				Dash: {
+					screen: DashScreen,
 					navigationOptions: {
 						headerShown: false,
-						title: 'edit_user',
+						title: 'User',
 					},
 				},
-				Dash: DashScreen,
 				Account: {
 					screen: AccountScreen,
 					navigationOptions: {
 						headerShown: false,
-						title: 'Account',
+						title: 'Channels',
 					},
 				},
 				Room: {
@@ -86,13 +92,13 @@ export default () => {
 		<SocketContext.Provider value={socket}>
 			<AuthProvider>
 				<ChannelProvider>
-						<MessageProvider>
-							<App
-								ref={(navigator) => {
-									setNavigator(navigator);
-								}}
-							/>
-						</MessageProvider>
+					<MessageProvider>
+						<App
+							ref={(navigator) => {
+								setNavigator(navigator);
+							}}
+						/>
+					</MessageProvider>
 				</ChannelProvider>
 			</AuthProvider>
 		</SocketContext.Provider>

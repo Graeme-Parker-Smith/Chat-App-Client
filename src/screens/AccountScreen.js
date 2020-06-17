@@ -221,17 +221,10 @@ const AccountScreen = ({ navigation }) => {
 		<>
 			<NavigationEvents onWillFocus={tryFetchChannels} onWillBlur={handleOnBlur} />
 			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-				<View style={styles.userDisplay}>
+				{/* <View style={styles.userDisplay}>
 					<View style={{ flexDirection: 'row' }}>
 						<View style={{ width: Dimensions.get('window').width * 0.4 }}>
 							<Text style={styles.userTitle}>{state.currentUser.username}</Text>
-							{/* <Entypo
-								name="edit"
-								color="#0af"
-								size={32}
-								onPress={() => handleClick('edit_user')}
-								style={{ alignSelf: 'center', marginLeft: 10 }}
-							/> */}
 							<TouchableOpacity
 								onPress={handleSignout}
 								style={{
@@ -246,7 +239,6 @@ const AccountScreen = ({ navigation }) => {
 								<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>
 									Sign Out
 								</WhiteText>
-								{/* <Button title="Sign Out" type="outline" containerStyle={{ margin: 10 }} /> */}
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -280,7 +272,7 @@ const AccountScreen = ({ navigation }) => {
 							inputStyle={{ color: 'white' }}
 						/>
 					</View>
-				</Spacer>
+				</Spacer> */}
 				<Spacer>
 					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 						<Button
