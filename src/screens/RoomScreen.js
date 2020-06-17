@@ -521,7 +521,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						containerStyle={{
 							height: 30,
 							position: 'absolute',
-							top: Platform.OS === 'ios' ? 70 : 90,
+							top: Platform.OS === 'ios' ? 5 : 0,
 							zIndex: 1000,
 							width: Dimensions.get('window').width,
 						}}
@@ -539,8 +539,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							backgroundColor: 'black',
 							height:
 								Platform.OS === 'ios'
-									? Dimensions.get('window').height * 0.83 - keyboardHeight - inputHeight
-									: Dimensions.get('window').height * 0.86 - keyboardHeight - inputHeight,
+									? Dimensions.get('window').height * 0.89 - keyboardHeight - inputHeight
+									: Dimensions.get('window').height * 0.92 - keyboardHeight - inputHeight,
 							flexGrow: 0,
 						}}
 						bounces={true}
