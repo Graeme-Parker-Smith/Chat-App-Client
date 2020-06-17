@@ -499,7 +499,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		<SafeAreaView style={styles.body}>
 			<NavigationEvents onWillFocus={handleOnFocus} onWillBlur={handleOnBlur} />
 			<View style={{ marginTop: 0, backgroundColor: '#000' }}>
-				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+				{/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 					<Button
 						containerStyle={{ alignSelf: 'center' }}
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
@@ -515,7 +515,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
 						@{roomName} ({users.length} users online): {userList}
 					</Text>
-				</View>
+				</View> */}
 				{!isCloseToBottom(scrollValues) ? (
 					<Button
 						containerStyle={{
