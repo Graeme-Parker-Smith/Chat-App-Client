@@ -127,9 +127,9 @@ const DashScreen = ({ navigation }) => {
 		<View style={styles.container}>
 			<View style={{ height: Dimensions.get('window').height - keyboardHeight }}>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-					<TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
+					{/* <TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
 						<Entypo name="arrow-with-circle-left" color="#0af" size={40} />
-					</TouchableOpacity>
+					</TouchableOpacity> */}
 					<View style={{ marginTop: 10 }}>
 						<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
 					</View>
@@ -138,7 +138,7 @@ const DashScreen = ({ navigation }) => {
 						<WhiteText>Created:{state.currentUser.createdAt}</WhiteText>
 						<WhiteText>Score: {state.currentUser.msgsSent}</WhiteText>
 					</View>
-					<Button
+					{/* <Button
 						containerStyle={{ alignSelf: 'center' }}
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
 						icon={
@@ -148,7 +148,7 @@ const DashScreen = ({ navigation }) => {
 						}
 						type="outline"
 						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
-					/>
+					/> */}
 				</View>
 				<View style={styles.menuContainer}>
 					{dashMenus.map((menu, index) => (
