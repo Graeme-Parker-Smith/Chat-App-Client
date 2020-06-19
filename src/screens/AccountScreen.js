@@ -10,6 +10,8 @@ import {
 	AppState,
 	Animated,
 	Keyboard,
+	Platform,
+	StatusBar,
 } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
@@ -220,7 +222,10 @@ const AccountScreen = ({ navigation }) => {
 	return (
 		<>
 			<NavigationEvents onWillFocus={tryFetchChannels} onWillBlur={handleOnBlur} />
-			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
+			<SafeAreaView
+				forceInset={{ top: 'always' }}
+				style={[styles.container, { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 }]}
+			>
 				{/* <View style={styles.userDisplay}>
 					<View style={{ flexDirection: 'row' }}>
 						<View style={{ width: Dimensions.get('window').width * 0.4 }}>
