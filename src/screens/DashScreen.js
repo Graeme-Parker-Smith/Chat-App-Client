@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
 	},
 	flatlist: {
 		// width: Dimensions.get('window').width * 0.8,
-		borderWidth: 2,
-		borderColor: 'red',
+		// borderWidth: 2,
+		// borderColor: 'red',
 		alignSelf: 'center',
 	},
 	menu: {
