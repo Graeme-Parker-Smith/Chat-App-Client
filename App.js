@@ -1,4 +1,6 @@
 import React from 'react';
+import { YellowBox, StatusBar, Platform, View } from 'react-native';
+import { Constants } from 'expo';
 import { Button, Icon } from 'react-native-elements';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -14,7 +16,6 @@ import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as ChannelProvider } from './src/context/ChannelContext';
 import { Provider as MessageProvider } from './src/context/MessageContext';
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
-import { YellowBox } from 'react-native';
 window.navigator.userAgent = 'react-native';
 import SocketContext from './src/context/SocketContext';
 import io from 'socket.io-client';
@@ -29,6 +30,8 @@ const channelFlow = createStackNavigator({
 	Room: RoomScreen,
 });
 YellowBox.ignoreWarnings;
+
+
 
 const navigator = createSwitchNavigator({
 	ResolveAuth: ResolveAuthScreen,
@@ -93,11 +96,11 @@ export default () => {
 			<AuthProvider>
 				<ChannelProvider>
 					<MessageProvider>
-						<App
-							ref={(navigator) => {
-								setNavigator(navigator);
-							}}
-						/>
+							<App
+								ref={(navigator) => {
+									setNavigator(navigator);
+								}}
+							/>
 					</MessageProvider>
 				</ChannelProvider>
 			</AuthProvider>

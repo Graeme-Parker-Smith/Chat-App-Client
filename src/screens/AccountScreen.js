@@ -199,6 +199,18 @@ const AccountScreen = ({ navigation }) => {
 		}
 	};
 
+	const NavigationContainer = (props) => {
+		return (
+			// <View style={styles.navigationContainer}>
+				<View>
+
+				<StatusBar />
+				{props.children}
+				</View>
+			// </View>
+		);
+	};
+
 	const handleOnBlur = async () => {
 		// console.log('blurring accountscreen...');
 		socket.emit('disconnect');
@@ -220,10 +232,11 @@ const AccountScreen = ({ navigation }) => {
 		return <FormHandler formState={formState} setFormState={setFormState} setIsLoading={setIsLoading} />;
 	}
 	return (
+		// <View style={{ paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 }}>
 		<>
-			<NavigationEvents onWillFocus={tryFetchChannels} onWillBlur={handleOnBlur} />
-			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-				<View style={{ paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 }}>
+			<NavigationContainer>
+				<NavigationEvents onWillFocus={tryFetchChannels} onWillBlur={handleOnBlur} />
+				<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 					{/* <View style={styles.userDisplay}>
 					<View style={{ flexDirection: 'row' }}>
 					<View style={{ width: Dimensions.get('window').width * 0.4 }}>
@@ -327,9 +340,10 @@ const AccountScreen = ({ navigation }) => {
 							/>
 						</Animated.View>
 					</View>
-				</View>
-			</SafeAreaView>
+				</SafeAreaView>
+			</NavigationContainer>
 		</>
+		// </View>
 	);
 };
 
@@ -339,6 +353,9 @@ const styles = StyleSheet.create({
 		backgroundColor: '#808080',
 		margin: 5,
 		borderRadius: 10,
+	},
+	navigationContainer: {
+		paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
 	},
 	privateChannel: {
 		height: 60,
