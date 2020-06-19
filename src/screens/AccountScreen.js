@@ -199,17 +199,7 @@ const AccountScreen = ({ navigation }) => {
 		}
 	};
 
-	const NavigationContainer = (props) => {
-		return (
-			// <View style={styles.navigationContainer}>
-				<View>
 
-				<StatusBar />
-				{props.children}
-				</View>
-			// </View>
-		);
-	};
 
 	const handleOnBlur = async () => {
 		// console.log('blurring accountscreen...');
@@ -234,7 +224,7 @@ const AccountScreen = ({ navigation }) => {
 	return (
 		// <View style={{ paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 }}>
 		<>
-			<NavigationContainer>
+			<StatusBar />
 				<NavigationEvents onWillFocus={tryFetchChannels} onWillBlur={handleOnBlur} />
 				<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
 					{/* <View style={styles.userDisplay}>
@@ -341,7 +331,6 @@ const AccountScreen = ({ navigation }) => {
 						</Animated.View>
 					</View>
 				</SafeAreaView>
-			</NavigationContainer>
 		</>
 		// </View>
 	);
