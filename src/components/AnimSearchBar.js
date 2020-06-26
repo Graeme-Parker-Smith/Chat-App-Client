@@ -23,13 +23,13 @@ const AnimSearchBar = forwardRef(
 		const [isFocused, setIsFocused] = useState(false);
 		const [introAnim] = useState(new Animated.Value(-50));
 		const [widthAnim] = useState(new Animated.Value(200));
-		useEffect(() => {
-			Animated.timing(introAnim, {
-				toValue: 0,
-				easing: Easing.bounce,
-				duration: 500,
-			}).start();
-		}, []);
+		// useEffect(() => {
+		// 	Animated.timing(introAnim, {
+		// 		toValue: 0,
+		// 		easing: Easing.bounce,
+		// 		duration: 500,
+		// 	}).start();
+		// }, []);
 
 		// const [bounceAnim] = useState(new Animated.Value(0));
 		const handleOnFocus = () => {
@@ -61,7 +61,7 @@ const AnimSearchBar = forwardRef(
 		};
 
 		return (
-			<Animated.View style={{ alignSelf: 'center', transform: [{ translateY: introAnim }], width: widthAnim }}>
+			<Animated.View style={{ alignSelf: 'center', width: widthAnim }}>
 				<Input
 					leftIcon={() => <FontAwesome name="search" size={32} color={isFocused ? '#0af' : '#303030'} />}
 					value={value}

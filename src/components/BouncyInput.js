@@ -26,14 +26,14 @@ const BouncyInput = forwardRef(
 		ref
 	) => {
 		const [isFocused, setIsFocused] = useState(false);
-		const [introAnim] = useState(new Animated.Value(-50));
-		useEffect(() => {
-			Animated.timing(introAnim, {
-				toValue: 0,
-				easing: Easing.bounce,
-				duration: 500,
-			}).start();
-		}, []);
+		const [introAnim] = useState(new Animated.Value(0));
+		// useEffect(() => {
+		// 	Animated.timing(introAnim, {
+		// 		toValue: 0,
+		// 		easing: Easing.bounce,
+		// 		duration: 500,
+		// 	}).start();
+		// }, []);
 
 		// const [bounceAnim] = useState(new Animated.Value(0));
 		const handleOnFocus = () => {

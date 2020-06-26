@@ -8,21 +8,23 @@ import UserSearchList from './UserSearchList';
 import PendingList from './PendingList';
 import BlockedList from './BlockedList';
 
-const FirstRoute = () => <FriendsList />;
-
-const SecondRoute = () => <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />;
-const SecondRoute = () => <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />;
-const SecondRoute = () => <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />;
-
-const initialLayout = { width: Dimensions.get('window').width };
-
 export default function TabViewExample() {
+	const FirstRoute = () => <FriendsList user={state.currentUser} />;
+
+	const SecondRoute = () => <UserSearchList user={state.currentUser} />;
+	const ThirdRoute = () => <PendingList user={state.currentUser} />;
+	const FourthRoute = () => <BlockedList user={state.currentUser} />;
+
+	const initialLayout = { width: Dimensions.get('window').width };
+
 	const { state } = useContext(ChannelContext);
 
-	const [index, setIndex] = React.useState(0);
+	const [index, setIndex] = useState(0);
 	const [routes] = React.useState([
-		{ key: 'first', title: 'First' },
+		{ key: 'first', title: 'Friends' },
 		{ key: 'second', title: 'Second' },
+		{ key: 'third', title: 'Third' },
+		{ key: 'fourth', title: 'Fourth' },
 	]);
 
 	const renderScene = SceneMap({

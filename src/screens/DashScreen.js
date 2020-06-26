@@ -30,7 +30,7 @@ import LoadingIndicator from '../components/LoadingIndicator';
 import Spacer from '../components/Spacer';
 import ScrollWithKeyboard from '../components/ScrollWithKeyboard';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import TabViewExample from '../components/TabViewExample';
+import DashTabs from '../components/DashTabs';
 
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
@@ -152,7 +152,7 @@ const DashScreen = ({ navigation }) => {
 						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/> */}
 				</View>
-				<TabViewExample />
+				<DashTabs />
 				{/* <View style={styles.menuContainer}>
 					{dashMenus.map((menu, index) => (
 						<Button
