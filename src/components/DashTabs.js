@@ -9,9 +9,9 @@ import PendingList from './PendingList';
 import BlockedList from './BlockedList';
 
 export default function TabViewExample() {
-	const FirstRoute = () => <FriendsList user={state.currentUser} />;
+	const FirstRoute = () => <UserSearchList user={state.currentUser} />;
 
-	const SecondRoute = () => <UserSearchList user={state.currentUser} />;
+	const SecondRoute = () => <FriendsList user={state.currentUser} />;
 	const ThirdRoute = () => <PendingList user={state.currentUser} />;
 	const FourthRoute = () => <BlockedList user={state.currentUser} />;
 
@@ -21,10 +21,10 @@ export default function TabViewExample() {
 
 	const [index, setIndex] = useState(0);
 	const [routes] = React.useState([
-		{ key: 'first', title: 'Friends' },
-		{ key: 'second', title: 'Second' },
-		{ key: 'third', title: 'Third' },
-		{ key: 'fourth', title: 'Fourth' },
+		{ key: 'first', title: 'Search' },
+		{ key: 'second', title: 'Friends' },
+		{ key: 'third', title: 'Pending' },
+		{ key: 'fourth', title: 'Blocked' },
 	]);
 
 	const renderScene = SceneMap({
