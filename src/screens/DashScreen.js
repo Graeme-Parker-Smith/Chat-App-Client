@@ -64,7 +64,7 @@ const DashScreen = ({ navigation }) => {
 
 	useEffect(() => {
 		if (hasMountedRef.current && firstRef.current && initialIndex) {
-			handleMenuClick(initialIndex);
+			// handleMenuClick(initialIndex);
 			firstRef.current = false;
 		} else if (firstRef.current) {
 			hasMountedRef.current = true;
@@ -87,35 +87,35 @@ const DashScreen = ({ navigation }) => {
 	}, [menuIndex]);
 
 	const handleClick = () => {
-		// showForm({ show: 'edit_user' });
+		navigate("EditUser")
 	};
 
-	const cancelForm = () => {
-		// showForm(false);
-		// navigation.navigate('channelFlow');
-		navigate('Account');
-	};
+	// const cancelForm = () => {
+	// 	// showForm(false);
+	// 	// navigation.navigate('channelFlow');
+	// 	navigate('Account');
+	// };
 
-	const handleMenuClick = (index) => {
-		setMenuIndex(index);
-		listRef.current.scrollToIndex({ animated: true, index: index });
-	};
+	// const handleMenuClick = (index) => {
+	// 	setMenuIndex(index);
+	// 	listRef.current.scrollToIndex({ animated: true, index: index });
+	// };
 
-	const dashMenus = [
-		{ name: 'search', comp: <UserSearchList user={state.currentUser} /> },
-		{ name: 'friends', comp: <FriendsList user={state.currentUser} /> },
-		{ name: 'pending', comp: <PendingList user={state.currentUser} /> },
-		{ name: 'blocked', comp: <BlockedList user={state.currentUser} /> },
-	];
+	// const dashMenus = [
+	// 	{ name: 'search', comp: <UserSearchList user={state.currentUser} /> },
+	// 	{ name: 'friends', comp: <FriendsList user={state.currentUser} /> },
+	// 	{ name: 'pending', comp: <PendingList user={state.currentUser} /> },
+	// 	{ name: 'blocked', comp: <BlockedList user={state.currentUser} /> },
+	// ];
 
-	function onScrollEnd(e) {
-		let contentOffset = e.nativeEvent.contentOffset;
-		let viewSize = e.nativeEvent.layoutMeasurement;
+	// function onScrollEnd(e) {
+	// 	let contentOffset = e.nativeEvent.contentOffset;
+	// 	let viewSize = e.nativeEvent.layoutMeasurement;
 
-		// Divide the horizontal offset by the width of the view to see which page is visible
-		let pageNum = Math.round(contentOffset.x / viewSize.width);
-		setMenuIndex(pageNum);
-	}
+	// 	// Divide the horizontal offset by the width of the view to see which page is visible
+	// 	let pageNum = Math.round(contentOffset.x / viewSize.width);
+	// 	setMenuIndex(pageNum);
+	// }
 
 	if (!state.currentUser) {
 		return (
@@ -132,7 +132,7 @@ const DashScreen = ({ navigation }) => {
 					{/* <TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
 						<Entypo name="arrow-with-circle-left" color="#0af" size={40} />
 					</TouchableOpacity> */}
-					<View style={{ marginTop: 10 }}>
+					<View style={{ marginTop: 0 }}>
 						<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
 					</View>
 					<View style={styles.userBox}>
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 	},
 	userBox: {
-		marginTop: 40,
+		marginTop: 0,
 		alignSelf: 'center',
 	},
 	container: {

@@ -31,22 +31,20 @@ const channelFlow = createStackNavigator({
 });
 YellowBox.ignoreWarnings;
 
-
-
 const navigator = createSwitchNavigator({
 	ResolveAuth: ResolveAuthScreen,
 	Signup: SignupScreen,
 	Signin: SigninScreen,
+	EditUser: {
+		screen: EditUserScreen,
+		navigationOptions: {
+			headerShown: false,
+			title: 'edit_user',
+		},
+	},
 	channelFlow: {
 		screen: createMaterialTopTabNavigator(
 			{
-				// EditUser: {
-				// 	screen: EditUserScreen,
-				// 	navigationOptions: {
-				// 		headerShown: false,
-				// 		title: 'edit_user',
-				// 	},
-				// },
 				Dash: {
 					screen: DashScreen,
 					navigationOptions: {
@@ -96,11 +94,11 @@ export default () => {
 			<AuthProvider>
 				<ChannelProvider>
 					<MessageProvider>
-							<App
-								ref={(navigator) => {
-									setNavigator(navigator);
-								}}
-							/>
+						<App
+							ref={(navigator) => {
+								setNavigator(navigator);
+							}}
+						/>
 					</MessageProvider>
 				</ChannelProvider>
 			</AuthProvider>
