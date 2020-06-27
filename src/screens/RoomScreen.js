@@ -512,16 +512,16 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/>
 					{roomType === 'private' && isOwner ? <InviteMenu roomName={roomName} /> : null}
-					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
-						@{roomName} ({users.length} users online): {userList}
-					</Text>
 				</View> */}
+				<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
+					@{roomName} ({users.length} users online): {userList}
+				</Text>
 				{!isCloseToBottom(scrollValues) ? (
 					<Button
 						containerStyle={{
 							height: 30,
 							position: 'absolute',
-							top: Platform.OS === 'ios' ? 5 : 0,
+							top: Platform.OS === 'ios' ? 15 : 10,
 							zIndex: 1000,
 							width: Dimensions.get('window').width,
 						}}
@@ -539,14 +539,14 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							backgroundColor: 'black',
 							height:
 								Platform.OS === 'ios'
-									? Dimensions.get('window').height * 0.89 - keyboardHeight - inputHeight
-									: Dimensions.get('window').height * 0.92 - keyboardHeight - inputHeight,
+									? Dimensions.get('window').height * 0.90 - keyboardHeight - inputHeight
+									: Dimensions.get('window').height * 0.86 - keyboardHeight - inputHeight,
 							flexGrow: 0,
 						}}
 						bounces={true}
 						indicatorStyle="white"
 						keyboardDismissMode="interactive"
-						keyboardShouldPersistTaps={'always'}
+						keyboardShouldPersistTaps={'never'}
 						ref={scrollViewRef}
 						onContentSizeChange={handleAutoScroll}
 						onScroll={handleScroll}
