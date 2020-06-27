@@ -205,6 +205,7 @@ const AccountScreen = ({ navigation }) => {
 				<View>
 
 				<StatusBar />
+				<View style={{paddingTop: Platform.OS === 'ios' ? 10 : 0}} />
 				{props.children}
 				</View>
 			// </View>
@@ -237,7 +238,7 @@ const AccountScreen = ({ navigation }) => {
 			<NavigationContainer>
 				<NavigationEvents onWillFocus={tryFetchChannels} onWillBlur={handleOnBlur} />
 				<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-					{/* <View style={styles.userDisplay}>
+					<View style={styles.userDisplay}>
 					<View style={{ flexDirection: 'row' }}>
 					<View style={{ width: Dimensions.get('window').width * 0.4 }}>
 					<Text style={styles.userTitle}>{state.currentUser.username}</Text>
@@ -288,7 +289,7 @@ const AccountScreen = ({ navigation }) => {
 					inputStyle={{ color: 'white' }}
 					/>
 					</View>
-				</Spacer> */}
+				</Spacer>
 					<Spacer>
 						<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 							<Button

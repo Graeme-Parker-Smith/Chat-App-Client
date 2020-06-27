@@ -1,5 +1,5 @@
 import React from 'react';
-import { YellowBox, StatusBar, Platform, View } from 'react-native';
+import { YellowBox, StatusBar, Platform, View, Dimensions } from 'react-native';
 import { Constants } from 'expo';
 import { Button, Icon } from 'react-native-elements';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -50,6 +50,7 @@ const navigator = createSwitchNavigator({
 					navigationOptions: {
 						headerShown: false,
 						title: 'User',
+						
 					},
 				},
 				Account: {
@@ -70,9 +71,10 @@ const navigator = createSwitchNavigator({
 				initialRouteName: 'Account',
 				// tabBarComponent: null,
 				lazy: true,
+				// initialLayout: { width: Dimensions.get('window').width },
 				defaultNavigationOptions: {
 					headerStyle: {
-						backgroundColor: 'black',
+						backgroundColor: 'red',
 					},
 				},
 			}
