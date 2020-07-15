@@ -40,6 +40,7 @@ export default function TabViewExample() {
 			renderScene={renderScene}
 			onIndexChange={setIndex}
 			initialLayout={initialLayout}
+			swipeEnabled={false}
 		/>
 	);
 }
