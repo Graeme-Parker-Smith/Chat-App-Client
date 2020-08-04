@@ -205,7 +205,7 @@ const AccountScreen = ({ navigation }) => {
 				<View>
 
 				<StatusBar hidden={true} />
-				<View style={{paddingTop: Platform.OS === 'ios' ? 10 : 0}} />
+				{/* <View style={{paddingTop: Platform.OS === 'ios' ? 10 : 0}} /> */}
 				{props.children}
 				</View>
 			// </View>
@@ -355,9 +355,9 @@ const styles = StyleSheet.create({
 		margin: 5,
 		borderRadius: 10,
 	},
-	navigationContainer: {
-		paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-	},
+	// navigationContainer: {
+	// 	paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+	// },
 	privateChannel: {
 		height: 60,
 		backgroundColor: '#301934',
