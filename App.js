@@ -24,6 +24,7 @@ import io from 'socket.io-client';
 // 	"Accessing view manager configs directly off UIManager via UIManager['getConstants'] is no longer supported. Use UIManager.getViewManagerConfig('getConstants') instead.",
 // ]);
 console.disableYellowBox = true;
+console.log('statusBarHeight: ', StatusBar.currentHeight);
 
 const channelFlow = createStackNavigator({
 	Account: AccountScreen,
@@ -50,7 +51,6 @@ const navigator = createSwitchNavigator({
 					navigationOptions: {
 						headerShown: false,
 						title: 'User',
-						
 					},
 				},
 				Account: {
@@ -71,8 +71,8 @@ const navigator = createSwitchNavigator({
 				initialRouteName: 'Account',
 				// tabBarComponent: null,
 				lazy: true,
-				tabBarOptions: {style: {backgroundColor: '#0af'}},
-				style: {paddingTop: 30, backgroundColor: '#0af'},
+				tabBarOptions: { style: { backgroundColor: '#0af' } },
+				style: { paddingTop: 30, backgroundColor: '#0af' },
 				// initialLayout: { width: Dimensions.get('window').width },
 				defaultNavigationOptions: {
 					headerStyle: {
