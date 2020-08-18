@@ -19,6 +19,7 @@ import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-n
 window.navigator.userAgent = 'react-native';
 import SocketContext from './src/context/SocketContext';
 import io from 'socket.io-client';
+import { FontAwesome, Entypo, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 // YellowBox.ignoreWarnings([
 // 	"Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?",
 // 	"Accessing view manager configs directly off UIManager via UIManager['getConstants'] is no longer supported. Use UIManager.getViewManagerConfig('getConstants') instead.",
@@ -50,6 +51,9 @@ const navigator = createSwitchNavigator({
 					navigationOptions: {
 						headerShown: false,
 						title: 'User',
+						tabBarIcon: ({tintColor}) => (
+							<Entypo name="user" size={25} color="#000" />
+						)
 					},
 				},
 				Account: {
@@ -57,12 +61,18 @@ const navigator = createSwitchNavigator({
 					navigationOptions: {
 						headerShown: false,
 						title: 'Channels',
+						tabBarIcon: ({tintColor}) => (
+							<Octicons name="home" size={25} color="#000" />
+						)
 					},
 				},
 				Room: {
 					screen: RoomScreen,
 					navigationOptions: {
 						headerShown: false,
+						tabBarIcon: ({tintColor}) => (
+							<MaterialCommunityIcons name="chat" size={25} color="#000" />
+						)
 					},
 				},
 			},
@@ -70,7 +80,7 @@ const navigator = createSwitchNavigator({
 				initialRouteName: 'Account',
 				// tabBarComponent: null,
 				lazy: true,
-				tabBarOptions: { style: { backgroundColor: '#0af' } },
+				tabBarOptions: { style: { backgroundColor: '#0af' }, showIcon: true, showLabel: false },
 				style: { paddingTop: StatusBar.currentHeight || 30, backgroundColor: '#0af' },
 				// initialLayout: { width: Dimensions.get('window').width },
 				// not compatible with lazy loading
