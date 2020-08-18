@@ -73,6 +73,7 @@ const navigator = createSwitchNavigator({
 				tabBarOptions: { style: { backgroundColor: '#0af' } },
 				style: { paddingTop: StatusBar.currentHeight || 30, backgroundColor: '#0af' },
 				// initialLayout: { width: Dimensions.get('window').width },
+				// not compatible with lazy loading
 				defaultNavigationOptions: {
 					headerStyle: {
 						backgroundColor: 'red',
