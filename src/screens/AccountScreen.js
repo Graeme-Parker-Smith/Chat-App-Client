@@ -204,7 +204,7 @@ const AccountScreen = ({ navigation }) => {
 			// <View style={styles.navigationContainer}>
 				<View>
 
-				<StatusBar hidden={true} />
+				<StatusBar  />
 				{/* <View style={{paddingTop: Platform.OS === 'ios' ? 10 : 0}} /> */}
 				{props.children}
 				</View>
