@@ -19,7 +19,7 @@ import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-n
 window.navigator.userAgent = 'react-native';
 import SocketContext from './src/context/SocketContext';
 import io from 'socket.io-client';
-import { FontAwesome, Entypo, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
+import { FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 // YellowBox.ignoreWarnings([
 // 	"Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?",
 // 	"Accessing view manager configs directly off UIManager via UIManager['getConstants'] is no longer supported. Use UIManager.getViewManagerConfig('getConstants') instead.",
@@ -52,7 +52,7 @@ const navigator = createSwitchNavigator({
 						headerShown: false,
 						title: 'User',
 						tabBarIcon: ({tintColor}) => (
-							<Entypo name="user" size={25} color="#000" />
+							<Entypo name="user" size={25} color="#0af" />
 						)
 					},
 				},
@@ -62,7 +62,7 @@ const navigator = createSwitchNavigator({
 						headerShown: false,
 						title: 'Channels',
 						tabBarIcon: ({tintColor}) => (
-							<Octicons name="home" size={25} color="#000" />
+							<FontAwesome name="home" size={25} color="#0af" />
 						)
 					},
 				},
@@ -71,7 +71,7 @@ const navigator = createSwitchNavigator({
 					navigationOptions: {
 						headerShown: false,
 						tabBarIcon: ({tintColor}) => (
-							<MaterialCommunityIcons name="chat" size={25} color="#000" />
+							<MaterialCommunityIcons name="chat" size={25} color="#0af" />
 						)
 					},
 				},
@@ -80,8 +80,8 @@ const navigator = createSwitchNavigator({
 				initialRouteName: 'Account',
 				// tabBarComponent: null,
 				lazy: true,
-				tabBarOptions: { style: { backgroundColor: '#0af' }, showIcon: true, showLabel: false },
-				style: { paddingTop: StatusBar.currentHeight || 30, backgroundColor: '#0af' },
+				tabBarOptions: { style: { backgroundColor: '#000' }, showIcon: true, showLabel: false, activeTintColor: "#FFF" },
+				style: { paddingTop: StatusBar.currentHeight || 30, backgroundColor: '#000' },
 				// initialLayout: { width: Dimensions.get('window').width },
 				// not compatible with lazy loading
 				defaultNavigationOptions: {
