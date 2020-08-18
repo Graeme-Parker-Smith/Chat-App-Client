@@ -202,12 +202,11 @@ const AccountScreen = ({ navigation }) => {
 	const NavigationContainer = (props) => {
 		return (
 			// <View style={styles.navigationContainer}>
-				<View>
-
-				<StatusBar  />
+			<View>
+				<StatusBar />
 				{/* <View style={{paddingTop: Platform.OS === 'ios' ? 10 : 0}} /> */}
 				{props.children}
-				</View>
+			</View>
 			// </View>
 		);
 	};
@@ -236,112 +235,111 @@ const AccountScreen = ({ navigation }) => {
 		// <View style={{ paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 }}>
 		<>
 			{/* <NavigationContainer> */}
-				<NavigationEvents onWillFocus={tryFetchChannels} onWillBlur={handleOnBlur} />
-				<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-					<View style={styles.userDisplay}>
-					<View style={{ flexDirection: 'row' }}>
-					<View style={{ width: Dimensions.get('window').width * 0.4 }}>
-					<Text style={styles.userTitle}>{state.currentUser.username}</Text>
-					<TouchableOpacity
-					onPress={handleSignout}
-					style={{
-						backgroundColor: 'transparent',
-						borderWidth: 1,
-						borderColor: '#0af',
-						padding: 10,
-						borderRadius: 2,
-						margin: 10,
-					}}
-					>
-					<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>
-					Sign Out
-					</WhiteText>
-					</TouchableOpacity>
-					</View>
+			<NavigationEvents onWillFocus={tryFetchChannels} onWillBlur={handleOnBlur} />
+			<SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
+				{/* <View style={styles.userDisplay}> */}
+					{/* <View style={{ flexDirection: 'row' }}> */}
+						{/* <View style={{ width: Dimensions.get('window').width * 0.4 }}>
+							<Text style={styles.userTitle}>{state.currentUser.username}</Text>
+							<TouchableOpacity
+								onPress={handleSignout}
+								style={{
+									backgroundColor: 'transparent',
+									borderWidth: 1,
+									borderColor: '#0af',
+									padding: 10,
+									borderRadius: 2,
+									margin: 10,
+								}}
+							>
+								<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>
+									Sign Out
+								</WhiteText>
+							</TouchableOpacity>
+						</View>
 					</View>
 					<View style={{ alignSelf: 'center' }}>
-					<UserPanel user={state.currentUser} handleClick={handleClick} />
-					</View>
-					<MaterialCommunityIcons
-					name="comment-plus"
-					color="#808080"
-					size={48}
-					style={{ alignSelf: 'center', marginLeft: 10 }}
-					onPress={() => handleClick('create_public')}
-					/>
-					<MaterialCommunityIcons
-					name="comment-plus"
-					color="#301934"
-					size={48}
-					style={{ alignSelf: 'center', marginLeft: 10 }}
-					onPress={() => handleClick('create_private')}
-					/>
-					</View>
-					<Spacer>
+						<UserPanel user={state.currentUser} handleClick={handleClick} />
+					</View> */}
+					
+				
+				{/* </View> */}
+				{/* <Spacer> */}
 					<View>
-					<AnimSearchBar
-					placeholder="Channel Search"
-					value={channelSearch}
-					onChangeText={setChannelSearch}
-					autoFocus={false}
-					autoCapitalize="none"
-					autoCorrect={false}
-					inputStyle={{ color: 'white' }}
+						<AnimSearchBar
+							placeholder="Channel Search"
+							value={channelSearch}
+							onChangeText={setChannelSearch}
+							autoFocus={false}
+							autoCapitalize="none"
+							autoCorrect={false}
+							inputStyle={{ color: 'white' }}
+						/>
+					</View>
+				{/* </Spacer> */}
+				<Spacer>
+					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+						<Button
+							title="Public"
+							// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
+							type={activeLists.public ? 'solid' : 'outline'}
+							onPress={() => handleListButton('public')}
+						/>
+						<MaterialCommunityIcons
+						name="comment-plus"
+						color="#808080"
+						size={48}
+						style={{ alignSelf: 'center', marginLeft: 10 }}
+						onPress={() => handleClick('create_public')}
+					/>
+						<Button
+							title="Private"
+							// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
+							type={activeLists.private ? 'solid' : 'outline'}
+							onPress={() => handleListButton('private')}
+						/>
+							<MaterialCommunityIcons
+						name="comment-plus"
+						color="#301934"
+						size={48}
+						style={{ alignSelf: 'center', marginLeft: 10 }}
+						onPress={() => handleClick('create_private')}
 					/>
 					</View>
 				</Spacer>
-					<Spacer>
-						<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-							<Button
-								title="Public"
-								// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
-								type={activeLists.public ? 'solid' : 'outline'}
-								onPress={() => handleListButton('public')}
-							/>
-							<Button
-								title="Private"
-								// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
-								type={activeLists.private ? 'solid' : 'outline'}
-								onPress={() => handleListButton('private')}
-							/>
-						</View>
-					</Spacer>
-					<View
-						style={[
-							styles.channelDivider,
-							{ height: Dimensions.get('window').height * 0.62 - keyboardHeight },
-						]}
-					>
-						<Animated.View style={{ width: publicWidthAnim }}>
-							<ChannelList
-								listData={state.channels}
-								PMs={[]}
-								channelType="public"
-								navigation={navigation}
-								currentUser={state.currentUser}
-								handleEditChannel={handleClick}
-								channelSearch={channelSearch}
-								publicWidthAnim={publicWidthAnim}
-								privateWidthAnim={privateWidthAnim}
-								// showLists={showLists}
-							/>
-						</Animated.View>
-						<Animated.View style={{ width: privateWidthAnim }}>
-							<ChannelList
-								listData={[...state.privateChannels, ...state.currentUser.friends]}
-								PMs={state.PMs}
-								channelType="private"
-								navigation={navigation}
-								currentUser={state.currentUser}
-								handleEditChannel={handleClick}
-								channelSearch={channelSearch}
-								publicWidthAnim={publicWidthAnim}
-								privateWidthAnim={privateWidthAnim}
-								// showLists={showLists}
-							/>
-						</Animated.View>
-					</View>
-				</SafeAreaView>
+				<View
+					style={[styles.channelDivider, { height: Dimensions.get('window').height * 0.62 - keyboardHeight }]}
+				>
+					<Animated.View style={{ width: publicWidthAnim }}>
+						<ChannelList
+							listData={state.channels}
+							PMs={[]}
+							channelType="public"
+							navigation={navigation}
+							currentUser={state.currentUser}
+							handleEditChannel={handleClick}
+							channelSearch={channelSearch}
+							publicWidthAnim={publicWidthAnim}
+							privateWidthAnim={privateWidthAnim}
+							// showLists={showLists}
+						/>
+					</Animated.View>
+					<Animated.View style={{ width: privateWidthAnim }}>
+						<ChannelList
+							listData={[...state.privateChannels, ...state.currentUser.friends]}
+							PMs={state.PMs}
+							channelType="private"
+							navigation={navigation}
+							currentUser={state.currentUser}
+							handleEditChannel={handleClick}
+							channelSearch={channelSearch}
+							publicWidthAnim={publicWidthAnim}
+							privateWidthAnim={privateWidthAnim}
+							// showLists={showLists}
+						/>
+					</Animated.View>
+				</View>
+			</SafeAreaView>
 			{/* </NavigationContainer> */}
 		</>
 		// </View>
