@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import UserAvatar from '../components/UserAvatar';
 
@@ -39,6 +39,21 @@ export default function TabViewExample() {
 		fifth: FifthRoute
 	});
 
+	const getTabBarIcon = (props) => {
+
+    const {route} = props
+
+      if (route.key === 'fifth') {
+
+       return <UserAvatar avatar={state.currentUser.avatar} />
+
+      } else {
+
+       return 
+
+      }
+}
+
 	return (
 		<TabView
 			navigationState={{ index, routes }}
@@ -46,6 +61,17 @@ export default function TabViewExample() {
 			onIndexChange={setIndex}
 			initialLayout={initialLayout}
 			swipeEnabled={false}
+			renderTabBar={props =>
+				<TabBar
+						{...props}
+						indicatorStyle={{backgroundColor: 'red'}}
+						renderIcon={
+								props => getTabBarIcon(props)
+						}
+						tabStyle={styles.bubble}
+						labelStyle={styles.noLabel}
+				/>
+		}
 			// style={{width: Dimensions.get('window').width * 0.9}}
 		/>
 	);
