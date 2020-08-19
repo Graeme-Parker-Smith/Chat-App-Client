@@ -77,6 +77,11 @@ const EditUserScreen = () => {
 			) : null}
 			<Spacer />
 			<WhiteText style={{ fontSize: 24, alignSelf: 'center' }}>Edit Account</WhiteText>
+			<View style={styles.userBox}>
+						<WhiteText>{state.currentUser.username}</WhiteText>
+						<WhiteText>Created:{state.currentUser.createdAt}</WhiteText>
+						<WhiteText>Score: {state.currentUser.msgsSent}</WhiteText>
+					</View>
 			<Spacer>
 				<BouncyInput
 					label="Change Username"
@@ -128,6 +133,10 @@ const styles = StyleSheet.create({
 	deleteButton: {
 		padding: 10,
 		backgroundColor: 'red',
+	},
+	userBox: {
+		marginTop: 0,
+		alignSelf: 'center',
 	},
 	buttonRow: {
 		flexDirection: 'row',
