@@ -71,7 +71,7 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 					<MaterialIcons name="send" size={32} color={userSearch ? '#0af' : '#808080'} onPress={doSearch} />
 				}
 			/>
-			<View >
+			<View style={{margin: 10}}>
 				<FlatList
 					data={searchResults}
 					keyExtractor={(item) => item.username}
