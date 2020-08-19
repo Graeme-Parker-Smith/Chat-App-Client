@@ -135,11 +135,11 @@ const DashScreen = ({ navigation }) => {
 					<View style={{ marginTop: 0 }}>
 						<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
 					</View>
-					<View style={styles.userBox}>
+					{/* <View style={styles.userBox}>
 						<WhiteText>{state.currentUser.username}</WhiteText>
 						<WhiteText>Created:{state.currentUser.createdAt}</WhiteText>
 						<WhiteText>Score: {state.currentUser.msgsSent}</WhiteText>
-					</View>
+					</View> */}
 					{/* <Button
 						containerStyle={{ alignSelf: 'center' }}
 						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
