@@ -28,7 +28,7 @@ export default function TabViewExample() {
 		{ key: 'second', title: 'Friends' },
 		{ key: 'third', title: 'Pending' },
 		{ key: 'fourth', title: 'Blocked' },
-		{ key: 'fifth', title: 'Edit', icon: <UserAvatar avatar={state.currentUser.avatar} />}
+		{ key: 'fifth', icon: <UserAvatar avatar={state.currentUser.avatar} />}
 	]);
 
 	const renderScene = SceneMap({
