@@ -78,9 +78,9 @@ const EditUserScreen = () => {
 			<Spacer />
 			<WhiteText style={{ fontSize: 24, alignSelf: 'center' }}>Edit Account</WhiteText>
 			<View style={styles.userBox}>
-						<WhiteText>{state.currentUser.username}</WhiteText>
-						<WhiteText>Created:{state.currentUser.createdAt}</WhiteText>
-						<WhiteText>Score: {state.currentUser.msgsSent}</WhiteText>
+						<WhiteText>{currentUser.username}</WhiteText>
+						<WhiteText>Created:{currentUser.createdAt}</WhiteText>
+						<WhiteText>Score: {currentUser.msgsSent}</WhiteText>
 					</View>
 			<Spacer>
 				<BouncyInput
