@@ -40,12 +40,12 @@ const EditUserScreen = () => {
 			setErrMsg(response.data.error);
 			return;
 		}
-		navigate('Account');
+		navigate('Dash');
 		await fetchChannels();
 	};
 
 	const cancelForm = () => {
-		navigate('Account');
+		navigate('Dash');
 	};
 
 	const handleDelete = async () => {
@@ -82,7 +82,7 @@ const EditUserScreen = () => {
 					label="Change Username"
 					value={newUsername}
 					onChangeText={setNewUsername}
-					autoFocus={true}
+					autoFocus={false}
 					autoCapitalize="none"
 					autoCorrect={false}
 					inputStyle={{ color: 'white' }}

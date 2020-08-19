@@ -2,11 +2,13 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { Context as ChannelContext } from '../context/ChannelContext';
+import UserAvatar from '../components/UserAvatar';
 
 import FriendsList from './FriendsList';
 import UserSearchList from './UserSearchList';
 import PendingList from './PendingList';
 import BlockedList from './BlockedList';
+import EditUserScreen from '../screens/EditUserScreen';
 
 export default function TabViewExample() {
 	const FirstRoute = () => <UserSearchList user={state.currentUser} />;
@@ -14,6 +16,7 @@ export default function TabViewExample() {
 	const SecondRoute = () => <FriendsList user={state.currentUser} />;
 	const ThirdRoute = () => <PendingList user={state.currentUser} />;
 	const FourthRoute = () => <BlockedList user={state.currentUser} />;
+	const FifthRoute = () => <EditUserScreen user={state.currentUser} />
 
 	const initialLayout = { width: Dimensions.get('window').width };
 
@@ -25,6 +28,7 @@ export default function TabViewExample() {
 		{ key: 'second', title: 'Friends' },
 		{ key: 'third', title: 'Pending' },
 		{ key: 'fourth', title: 'Blocked' },
+		{ key: 'fifth', title: 'Edit', icon: <UserAvatar avatar={state.currentUser.avatar} />}
 	]);
 
 	const renderScene = SceneMap({
@@ -32,6 +36,7 @@ export default function TabViewExample() {
 		second: SecondRoute,
 		third: ThirdRoute,
 		fourth: FourthRoute,
+		fifth: FifthRoute
 	});
 
 	return (
@@ -41,6 +46,7 @@ export default function TabViewExample() {
 			onIndexChange={setIndex}
 			initialLayout={initialLayout}
 			swipeEnabled={false}
+			// style={{width: Dimensions.get('window').width * 0.9}}
 		/>
 	);
 }

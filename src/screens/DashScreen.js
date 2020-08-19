@@ -87,7 +87,7 @@ const DashScreen = ({ navigation }) => {
 	}, [menuIndex]);
 
 	const handleClick = () => {
-		navigate("EditUser")
+		navigate('EditUser');
 	};
 
 	// const cancelForm = () => {
@@ -152,7 +152,10 @@ const DashScreen = ({ navigation }) => {
 						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/> */}
 				</View>
-				<DashTabs />
+				{/* <View style={{ flexDirection: 'row' }}> */}
+					{/* <UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} /> */}
+					<DashTabs />
+				{/* </View> */}
 				{/* <View style={styles.menuContainer}>
 					{dashMenus.map((menu, index) => (
 						<Button
