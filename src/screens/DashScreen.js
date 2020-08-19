@@ -132,9 +132,9 @@ const DashScreen = ({ navigation }) => {
 					{/* <TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
 						<Entypo name="arrow-with-circle-left" color="#0af" size={40} />
 					</TouchableOpacity> */}
-					<View style={{ marginTop: 0 }}>
+					{/* <View style={{ marginTop: 0 }}>
 						<UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} />
-					</View>
+					</View> */}
 					{/* <View style={styles.userBox}>
 						<WhiteText>{state.currentUser.username}</WhiteText>
 						<WhiteText>Created:{state.currentUser.createdAt}</WhiteText>
