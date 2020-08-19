@@ -109,7 +109,7 @@ const EditUserScreen = () => {
 			<Spacer />
 			<View style={styles.buttonRow}>
 				<Button buttonStyle={styles.button} title="Update User Info" onPress={handleSubmit} />
-				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
+				{/* <Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} /> */}
 				<Button
 					buttonStyle={styles.deleteButton}
 					title="Delete Account"
