@@ -1,11 +1,12 @@
 import React from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, TouchableOpacity, View, Dimensions } from 'react-native';
 import shorthash from 'shorthash';
 import * as FileSystem from 'expo-file-system';
 
 export default class CacheImage extends React.Component {
 	state = {
 		source: null,
+		active: false,
 	};
 
 	componentDidMount = async () => {
@@ -22,7 +23,6 @@ export default class CacheImage extends React.Component {
 			return;
 		}
 
-		console.log('downloading image to cache');
 		const newImage = await FileSystem.downloadAsync(uri, path);
 		this.setState({
 			source: {
@@ -31,11 +31,36 @@ export default class CacheImage extends React.Component {
 		});
 	};
 
+	onPress = () => {
+		console.log('PRESSED IMAGE!');
+		if (this.state.active) {
+			this.setState({ active: false });
+		} else {
+			this.setState({ active: true });
+		}
+	};
+
 	render() {
 		return (
-				<TouchableOpacity>
-					<Image style={this.props.style} source={this.state.source} />
-				</TouchableOpacity>
+			<TouchableOpacity onPress={this.onPress}>
+				<Image
+					style={
+						this.state.active
+							? styles.fullSize
+							: this.props.style
+					}
+					source={this.state.source}
+				/>
+			</TouchableOpacity>
 		);
 	}
 }
+
+const styles = {
+	fullSize: {
+		height: Dimensions.get('window').height * 0.8,
+		width: Dimensions.get('window').width * 0.8,
+		zIndex: 100,
+		position: "absolute"
+	},
+};
