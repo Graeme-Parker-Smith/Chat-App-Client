@@ -8,6 +8,7 @@ export default class CacheImage extends React.Component {
 	state = {
 		source: null,
 		active: false,
+		modalVisible: false
 	};
 
 	componentDidMount = async () => {
@@ -34,10 +35,10 @@ export default class CacheImage extends React.Component {
 
 	onPress = () => {
 		console.log('PRESSED IMAGE!');
-		if (this.state.active) {
-			this.setState({ active: false });
+		if (this.state.modalVisible) {
+			this.setState({ modalVisible: false });
 		} else {
-			this.setState({ active: true });
+			this.setState({ modalVisible: true });
 		}
 	};
 
@@ -46,8 +47,8 @@ export default class CacheImage extends React.Component {
 			<>
 				{modalVisible ? (
 					<FullscreenImage
-						modalVisible={modalVisible}
-						setModalVisible={setModalVisible}
+						modalVisible={this.state.modalVisible}
+						setModalVisible={this.onPress}
 						source={this.state.source}
 					/>
 				) : null}
