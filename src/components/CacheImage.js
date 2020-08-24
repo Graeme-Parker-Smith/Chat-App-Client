@@ -45,7 +45,7 @@ export default class CacheImage extends React.Component {
 	render() {
 		return (
 			<>
-				{modalVisible ? (
+				{this.state.modalVisible ? (
 					<FullscreenImage
 						modalVisible={this.state.modalVisible}
 						setModalVisible={this.onPress}

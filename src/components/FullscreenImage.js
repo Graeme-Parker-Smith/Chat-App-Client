@@ -5,11 +5,7 @@ import { Context as MessageContext } from '../context/MessageContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 import BouncyInput from './BouncyInput';
 
-
 const FullscreenImage = ({ source, modalVisible, setModalVisible }) => {
-
-  
-
 	return (
 		<View style={{ marginTop: 0 }}>
 			<Modal
@@ -33,8 +29,14 @@ const FullscreenImage = ({ source, modalVisible, setModalVisible }) => {
 				>
 					<TouchableOpacity
 						activeOpacity={1}
-						onPress={() => console.log('Pressed inside modal!')}
-						style={{ width: 150, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
+						onPress={() => setModalVisible(!modalVisible)}
+						style={{
+							height: Dimensions.get('window').height,
+							width: Dimensions.get('window').width,
+							backgroundColor: '#000',
+							paddingTop: 5,
+							paddingBottom: 5,
+						}}
 					>
 						<View>
 							<View
@@ -62,7 +64,14 @@ const FullscreenImage = ({ source, modalVisible, setModalVisible }) => {
 							</View>
 							{/* modal menu starts here */}
 							<View style={{ flex: 1 }}>
-								<Image source={source} style={{ flex: 1, resizeMode: 'cover' }} />
+								<Image
+									source={source}
+									style={{
+										height: Dimensions.get('window').height,
+										width: Dimensions.get('window').width,
+										resizeMode: 'cover',
+									}}
+								/>
 							</View>
 						</View>
 					</TouchableOpacity>
