@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, TouchableOpacity, View, Dimensions } from 'react-native';
 import shorthash from 'shorthash';
 import * as FileSystem from 'expo-file-system';
+import FullscreenImage from '../components/FullscreenImage';
 
 export default class CacheImage extends React.Component {
 	state = {
@@ -42,16 +43,18 @@ export default class CacheImage extends React.Component {
 
 	render() {
 		return (
-			<TouchableOpacity onPress={this.onPress}>
-				<Image
-					style={
-						this.state.active
-							? styles.fullSize
-							: this.props.style
-					}
-					source={this.state.source}
-				/>
-			</TouchableOpacity>
+			<>
+				{modalVisible ? (
+					<FullscreenImage
+						modalVisible={modalVisible}
+						setModalVisible={setModalVisible}
+						source={this.state.source}
+					/>
+				) : null}
+				<TouchableOpacity onPress={this.onPress}>
+					<Image style={this.props.style} source={this.state.source} />
+				</TouchableOpacity>
+			</>
 		);
 	}
 }
@@ -61,6 +64,6 @@ const styles = {
 		height: Dimensions.get('window').height * 0.8,
 		width: Dimensions.get('window').width * 0.8,
 		zIndex: 100,
-		position: "absolute"
+		position: 'absolute',
 	},
 };
