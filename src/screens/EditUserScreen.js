@@ -17,7 +17,7 @@ const EditUserScreen = () => {
 		updateUser,
 		fetchChannels,
 	} = useContext(ChannelContext);
-	const { deleteUser } = useContext(AuthContext);
+	const { deleteUser, signout } = useContext(AuthContext);
 
 	const [newUsername, setNewUsername] = useState('');
 	const [newPassword, setNewPassword] = useState('');
@@ -55,7 +55,10 @@ const EditUserScreen = () => {
 		});
 	};
 
-
+	const handleSignout = () => {
+		signout({ user_id: state.currentUser._id });
+		clearState();
+	};
 
 	if (!currentUser || isLoading) {
 		return (
@@ -78,10 +81,10 @@ const EditUserScreen = () => {
 			<Spacer />
 			<WhiteText style={{ fontSize: 24, alignSelf: 'center' }}>Edit Account</WhiteText>
 			<View style={styles.userBox}>
-						<WhiteText>{currentUser.username}</WhiteText>
-						<WhiteText>Created:{currentUser.createdAt}</WhiteText>
-						<WhiteText>Score: {currentUser.msgsSent}</WhiteText>
-					</View>
+				<WhiteText>{currentUser.username}</WhiteText>
+				<WhiteText>Created:{currentUser.createdAt}</WhiteText>
+				<WhiteText>Score: {currentUser.msgsSent}</WhiteText>
+			</View>
 			<Spacer>
 				<BouncyInput
 					label="Change Username"
@@ -110,6 +113,19 @@ const EditUserScreen = () => {
 			<View style={styles.buttonRow}>
 				<Button buttonStyle={styles.button} title="Update User Info" onPress={handleSubmit} />
 				{/* <Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} /> */}
+				<TouchableOpacity
+					onPress={handleSignout}
+					style={{
+						backgroundColor: 'transparent',
+						borderWidth: 1,
+						borderColor: '#0af',
+						padding: 10,
+						borderRadius: 2,
+						margin: 10,
+					}}
+				>
+					<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>Sign Out</WhiteText>
+				</TouchableOpacity>
 				<Button
 					buttonStyle={styles.deleteButton}
 					title="Delete Account"
