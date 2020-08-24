@@ -9,7 +9,11 @@ const FullscreenImage = ({ source, modalVisible, setModalVisible }) => {
 	return (
 		<View style={{ marginTop: 0 }}>
 			<Modal
-				style={{ width: 50, height: 50 }}
+				style={{
+					height: Dimensions.get('window').height,
+					width: Dimensions.get('window').width,
+					backgroundColor: '#000',
+				}}
 				animationType="slide"
 				transparent={true}
 				visible={modalVisible}
@@ -39,7 +43,7 @@ const FullscreenImage = ({ source, modalVisible, setModalVisible }) => {
 						}}
 					>
 						<View>
-							<View
+							{/* <View
 								style={{
 									position: 'absolute',
 									top: -15,
@@ -61,7 +65,7 @@ const FullscreenImage = ({ source, modalVisible, setModalVisible }) => {
 										onPress={() => setModalVisible(!modalVisible)}
 									/>
 								</TouchableHighlight>
-							</View>
+							</View> */}
 							{/* modal menu starts here */}
 							<View style={{ flex: 1 }}>
 								<Image
@@ -69,7 +73,7 @@ const FullscreenImage = ({ source, modalVisible, setModalVisible }) => {
 									style={{
 										height: Dimensions.get('window').height,
 										width: Dimensions.get('window').width,
-										resizeMode: 'cover',
+										resizeMode: 'contain',
 									}}
 								/>
 							</View>
