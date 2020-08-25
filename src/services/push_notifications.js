@@ -7,8 +7,9 @@ import axios from 'axios';
 const PUSH_ENDPOINT = 'https://exp.host/--/api/v2/push/send';
 
 export default async ({ user }) => {
+	// await AsyncStorage.removeItem('pushtoken');
 	let previousToken = await AsyncStorage.getItem('pushtoken');
-	// console.log(previousToken);
+	console.log(previousToken);
 
 	if (previousToken) {
 		const response = await chatApi.post('/pushToken', {
@@ -23,7 +24,7 @@ export default async ({ user }) => {
 		if (status !== 'granted') {
 			return;
 		}
-    let token;
+		let token;
 		try {
 			token = await Notifications.getExpoPushTokenAsync();
 		} catch (err) {

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { Input, Button, Text } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { Context as AuthContext } from '../context/AuthContext';
@@ -16,6 +16,7 @@ const EditUserScreen = () => {
 		state: { currentUser },
 		updateUser,
 		fetchChannels,
+		clearState
 	} = useContext(ChannelContext);
 	const { deleteUser, signout } = useContext(AuthContext);
 
@@ -56,7 +57,7 @@ const EditUserScreen = () => {
 	};
 
 	const handleSignout = () => {
-		signout({ user_id: state.currentUser._id });
+		signout({ user_id: currentUser._id });
 		clearState();
 	};
 
