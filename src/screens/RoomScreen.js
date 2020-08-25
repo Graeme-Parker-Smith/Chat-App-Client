@@ -539,7 +539,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							backgroundColor: 'black',
 							height:
 								Platform.OS === 'ios'
-									? Dimensions.get('window').height * 0.90 - keyboardHeight - inputHeight
+									? Dimensions.get('window').height * 0.88 - keyboardHeight - inputHeight
 									: Dimensions.get('window').height * 0.86 - keyboardHeight - inputHeight,
 							flexGrow: 0,
 						}}
