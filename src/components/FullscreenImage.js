@@ -14,7 +14,7 @@ const FullscreenImage = ({ source, modalVisible, setModalVisible }) => {
 					width: Dimensions.get('window').width,
 					backgroundColor: '#000',
 				}}
-				animationType="slide"
+				animationType="none"
 				transparent={true}
 				visible={modalVisible}
 				onRequestClose={() => {
