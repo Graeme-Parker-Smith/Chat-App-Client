@@ -5,7 +5,9 @@ import { Context as MessageContext } from '../context/MessageContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 import BouncyInput from './BouncyInput';
 
-const UserProfile = ({ thisUser, source, modalVisible, setModalVisible }) => {
+const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
+	const fetchUserInfo = () => {console.log("FETCH user info!", username)};
+
 	return (
 		<View style={{ marginTop: 0 }}>
 			<Modal
@@ -17,6 +19,7 @@ const UserProfile = ({ thisUser, source, modalVisible, setModalVisible }) => {
 				animationType="none"
 				transparent={true}
 				visible={modalVisible}
+				onShow={fetchUserInfo}
 				onRequestClose={() => {
 					console.log('Modal has been closed.');
 				}}
@@ -77,9 +80,9 @@ const UserProfile = ({ thisUser, source, modalVisible, setModalVisible }) => {
 									}}
 								/>
 								<View style={styles.userBox}>
-									<WhiteText>{currentUser.username}</WhiteText>
-									<WhiteText>Created:{currentUser.createdAt}</WhiteText>
-									<WhiteText>Score: {currentUser.msgsSent}</WhiteText>
+									<WhiteText>{thisUser.username}</WhiteText>
+									<WhiteText>Created:{thisUser.createdAt}</WhiteText>
+									<WhiteText>Score: {thisUser.msgsSent}</WhiteText>
 								</View>
 							</View>
 						</View>
@@ -95,8 +98,8 @@ const styles = {
 		margin: 10,
 		marginTop: 5,
 		marginBottom: 5,
-  },
-  userBox: {
+	},
+	userBox: {
 		marginTop: 0,
 		alignSelf: 'center',
 	},

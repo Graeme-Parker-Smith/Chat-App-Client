@@ -1,11 +1,12 @@
 import React, { memo, useState } from 'react';
-import { StyleSheet, Image, View, Dimensions, Text } from 'react-native';
+import { StyleSheet, Image, View, Dimensions, Text, TouchableOpacity } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import EditMessageForm from './EditMessageForm';
 import timeConverter from '../helpers/timeConverter';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
 import CacheImage from './CacheImage';
+import UserProfile from './UserProfile';
 
 const DefaultAvatar = () => <Entypo name="user" size={40} color="#0af" />;
 
@@ -25,6 +26,7 @@ const MessageItem = ({
 }) => {
 	const [vidRef, setVidRef] = useState('');
 	const [editMessageVisible, setEditMessageVisible] = useState(false);
+	const [showUserProfile, setShowUserProfile] = useState(false);
 	// should either use id or ensure username gets changed on updates.
 	const isOwner = currentUserUsername === username;
 	// calculate how long ago msg was sent and create title content for msg
@@ -44,9 +46,9 @@ const MessageItem = ({
 	let avatarImage;
 	if (avatar) {
 		avatarImage = (
-			<View>
+			<TouchableOpacity onPress={() => setShowUserProfile(true)}>
 				<CacheImage uri={avatar} style={styles.avatarStyle} />
-			</View>
+			</TouchableOpacity>
 		);
 	} else {
 		avatarImage = DefaultAvatar;
@@ -127,6 +129,14 @@ const MessageItem = ({
 					editMessageVisible={editMessageVisible}
 					setEditMessageVisible={setEditMessageVisible}
 					channelId={channelId}
+				/>
+			) : null}
+			{showUserProfile ? (
+				<UserProfile
+					username={username}
+					source={avatar}
+					modalVisible={showUserProfile}
+					setModalVisible={setShowUserProfile}
 				/>
 			) : null}
 			<ListItem
