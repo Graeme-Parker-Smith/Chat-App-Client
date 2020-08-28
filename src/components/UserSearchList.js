@@ -17,6 +17,7 @@ import UserAvatar from './UserAvatar';
 import UserSearchItem from './UserSearchItem';
 import AnimSearchBar from './AnimSearchBar';
 import WhiteText from './WhiteText';
+import Spacer from './Spacer';
 
 const UserSearchList = () => {
 	const socket = useContext(SocketContext);
@@ -77,6 +78,7 @@ const UserSearchList = () => {
 				<FlatList
 					// keyboardShouldPersistTaps="always"
 					// keyboardDismissMode="interactive"
+					style={{ height: Dimensions.get('window').height - 300, borderColor: '#808080', borderWidth: 1 }}
 					data={searchResults}
 					keyExtractor={(item) => item.username}
 					renderItem={({ item }) => {
@@ -86,6 +88,7 @@ const UserSearchList = () => {
 					}}
 				/>
 			</View>
+			<Spacer margin={25} />
 		</View>
 	);
 };
