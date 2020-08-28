@@ -43,22 +43,22 @@ const DashScreen = ({ navigation }) => {
 	const [keyboardHeight, setKeyboardHeight] = useState(0);
 
 	console.log('DASHSCREEN RENDERING!!!');
-	useEffect(() => {
-		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
-		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
-		return () => {
-			keyboardDidShowListener.remove();
-			keyboardDidHideListener.remove();
-		};
-	}, []);
+	// useEffect(() => {
+	// 	keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+	// 	keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+	// 	return () => {
+	// 		keyboardDidShowListener.remove();
+	// 		keyboardDidHideListener.remove();
+	// 	};
+	// }, []);
 
-	const _keyboardDidShow = (e) => {
-		setKeyboardHeight(e.endCoordinates.height);
-	};
+	// const _keyboardDidShow = (e) => {
+	// 	setKeyboardHeight(e.endCoordinates.height);
+	// };
 
-	const _keyboardDidHide = () => {
-		setKeyboardHeight(0);
-	};
+	// const _keyboardDidHide = () => {
+	// 	setKeyboardHeight(0);
+	// };
 
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
@@ -83,9 +83,9 @@ const DashScreen = ({ navigation }) => {
 		};
 	}, [state]);
 
-	useEffect(() => {
-		fetchChannels();
-	}, [menuIndex]);
+	// useEffect(() => {
+	// 	fetchChannels();
+	// }, [menuIndex]);
 
 	const handleClick = () => {
 		navigate('EditUser');
@@ -128,7 +128,7 @@ const DashScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
-			<View style={{ height: Dimensions.get('window').height - keyboardHeight }}>
+			<View style={{ height: Dimensions.get('window').height }}>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
 					{/* <TouchableOpacity style={{ marginTop: 20 }} onPress={() => navigate('EditUser')}>
 						<Entypo name="arrow-with-circle-left" color="#0af" size={40} />
