@@ -15,10 +15,6 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 	const [searchResults, setSearchResults] = useState([]);
 	const [friendState, setFriendState] = useState(null);
 
-	let isFriend;
-	let isPending;
-	let isBlocked;
-
 	useEffect(() => {
 		socket.on('usersearch', ({ results }) => {
 			setSearchResults(results[0]);
@@ -36,11 +32,6 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 	// useEffect(() => {
 	// 	socket.emit('usersearch', { currentUser: state.currentUser, searchKey: username });
 	// }, []);
-
-	const fetchUserInfo = () => {
-		console.log('FETCH user info!', username);
-	};
-	console.log('image source is: ', source);
 
 	return (
 		<View style={{ marginTop: 0 }}>
