@@ -126,6 +126,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 											{friendState === 'isFriend' || friendState === 'isPending' ? (
 												<Button
 													containerStyle={styles.modalButton}
+													buttonStyle={{ padding: 15 }}
 													title={
 														friendState === 'isFriend' ? 'Remove Friend' : 'Cancel Request'
 													}
@@ -140,6 +141,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 											) : (
 												<Button
 													containerStyle={styles.modalButton}
+													buttonStyle={{ padding: 15 }}
 													title="Add Friend"
 													onPress={() =>
 														addFriend({
@@ -154,6 +156,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 											{friendState === 'isBlocked' ? (
 												<Button
 													containerStyle={styles.modalButton}
+													buttonStyle={{ padding: 15 }}
 													title="Unblock"
 													onPress={() =>
 														unblock({
@@ -165,6 +168,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 											) : (
 												<Button
 													containerStyle={styles.modalButton}
+													buttonStyle={{ padding: 15 }}
 													title="Block"
 													onPress={() =>
 														addFriend({
@@ -193,7 +197,7 @@ const styles = {
 		margin: 10,
 		marginTop: 5,
 		marginBottom: 5,
-		padding: 5
+		padding: 5,
 	},
 	userBox: {
 		marginTop: 0,
