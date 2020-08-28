@@ -116,11 +116,13 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 							</View> */}
 							{/* modal menu starts here */}
 							<View style={{ flex: 1 }}>
+								<Spacer />
 								<Image
 									source={{ uri: source }}
 									style={{
 										height: 200,
 										width: 200,
+										margin: 10,
 										resizeMode: 'contain',
 										alignSelf: 'center',
 									}}
