@@ -16,6 +16,10 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 	const [friendState, setFriendState] = useState(null);
 
 	useEffect(() => {
+		socket.emit('usersearch', { currentUser: state.currentUser, searchKey: username });
+	}, [state]);
+
+	useEffect(() => {
 		socket.on('usersearch', ({ results }) => {
 			setSearchResults(results[0]);
 			console.log('friend._id is: ', results[0]._id);
