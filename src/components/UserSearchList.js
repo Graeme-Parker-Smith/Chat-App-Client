@@ -18,12 +18,13 @@ import UserSearchItem from './UserSearchItem';
 import AnimSearchBar from './AnimSearchBar';
 import WhiteText from './WhiteText';
 
-const UserSearchList = ({ user, showForm, setIsLoading }) => {
+const UserSearchList = () => {
 	const socket = useContext(SocketContext);
-	const { addFriend, unblock, state } = useContext(ChannelContext);
+	const { state } = useContext(ChannelContext);
 	const [userSearch, setUserSearch] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
 
+	console.log('USERSEARCHLIST RENDERING!!!');
 	useEffect(() => {
 		socket.on('usersearch', ({ results }) => {
 			setSearchResults(results);
@@ -58,6 +59,7 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 		<View style={styles.container}>
 			<WhiteText>Search</WhiteText>
 			<AnimSearchBar
+				// autoFocus="always"
 				placeholder="Search Users"
 				value={userSearch}
 				onChangeText={setUserSearch}
@@ -71,8 +73,10 @@ const UserSearchList = ({ user, showForm, setIsLoading }) => {
 					<MaterialIcons name="send" size={32} color={userSearch ? '#0af' : '#808080'} onPress={doSearch} />
 				}
 			/>
-			<View style={{margin: 10}}>
+			<View style={{ margin: 10 }}>
 				<FlatList
+					// keyboardShouldPersistTaps="always"
+					// keyboardDismissMode="interactive"
 					data={searchResults}
 					keyExtractor={(item) => item.username}
 					renderItem={({ item }) => {

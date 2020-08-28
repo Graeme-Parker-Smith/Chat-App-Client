@@ -42,6 +42,7 @@ const DashScreen = ({ navigation }) => {
 
 	const [keyboardHeight, setKeyboardHeight] = useState(0);
 
+	console.log('DASHSCREEN RENDERING!!!');
 	useEffect(() => {
 		keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
 		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
@@ -153,8 +154,8 @@ const DashScreen = ({ navigation }) => {
 					/> */}
 				</View>
 				{/* <View style={{ flexDirection: 'row' }}> */}
-					{/* <UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} /> */}
-					<DashTabs />
+				{/* <UserAvatar avatar={state.currentUser.avatar} handleClick={handleClick} /> */}
+				<DashTabs />
 				{/* </View> */}
 				{/* <View style={styles.menuContainer}>
 					{dashMenus.map((menu, index) => (
