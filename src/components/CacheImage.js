@@ -8,7 +8,7 @@ export default class CacheImage extends React.Component {
 	state = {
 		source: null,
 		active: false,
-		modalVisible: false
+		modalVisible: false,
 	};
 
 	componentDidMount = async () => {
@@ -52,7 +52,7 @@ export default class CacheImage extends React.Component {
 						source={this.state.source}
 					/>
 				) : null}
-				<TouchableOpacity >
+				<TouchableOpacity onPress={this.onPress}>
 					<Image style={this.props.style} source={this.state.source} />
 				</TouchableOpacity>
 			</>

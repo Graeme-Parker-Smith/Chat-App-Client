@@ -9,7 +9,7 @@ import FriendsList from './FriendsList';
 import UserSearchList from './UserSearchList';
 import PendingList from './PendingList';
 import BlockedList from './BlockedList';
-import EditUserScreen from '../screens/EditUserScreen';
+import EditUserForm from './EditUserForm';
 
 export default function TabViewExample() {
 	const FirstRoute = () => <UserSearchList user={state.currentUser} />;
@@ -17,7 +17,7 @@ export default function TabViewExample() {
 	const SecondRoute = () => <FriendsList user={state.currentUser} />;
 	const ThirdRoute = () => <PendingList user={state.currentUser} />;
 	const FourthRoute = () => <BlockedList user={state.currentUser} />;
-	const FifthRoute = () => <EditUserScreen user={state.currentUser} />;
+	const FifthRoute = () => <EditUserForm user={state.currentUser} />;
 
 	const initialLayout = { width: Dimensions.get('window').width };
 
@@ -29,7 +29,7 @@ export default function TabViewExample() {
 		{ key: 'second' },
 		{ key: 'third' },
 		{ key: 'fourth' },
-		{ key: 'fifth', icon: <UserAvatar avatar={state.currentUser.avatar} /> },
+		{ key: 'fifth', icon: <UserAvatar avatar={state.currentUser.avatar} color="#000" /> },
 	]);
 
 	const renderScene = SceneMap({

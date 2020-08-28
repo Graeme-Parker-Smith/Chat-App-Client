@@ -10,7 +10,7 @@ import AccountScreen from './src/screens/AccountScreen';
 import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
 import RoomScreen from './src/screens/RoomScreen';
 import DashScreen from './src/screens/DashScreen';
-import EditUserScreen from './src/screens/EditUserScreen';
+// import EditUserScreen from './src/screens/EditUserScreen';
 import { setNavigator, navigate, back } from './src/navigationRef';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as ChannelProvider } from './src/context/ChannelContext';
@@ -36,13 +36,13 @@ const navigator = createSwitchNavigator({
 	ResolveAuth: ResolveAuthScreen,
 	Signup: SignupScreen,
 	Signin: SigninScreen,
-	EditUser: {
-		screen: EditUserScreen,
-		navigationOptions: {
-			headerShown: false,
-			title: 'edit_user',
-		},
-	},
+	// EditUser: {
+	// 	screen: EditUserScreen,
+	// 	navigationOptions: {
+	// 		headerShown: false,
+	// 		title: 'edit_user',
+	// 	},
+	// },
 	channelFlow: {
 		screen: createMaterialTopTabNavigator(
 			{
