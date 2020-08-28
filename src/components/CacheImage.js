@@ -52,7 +52,7 @@ export default class CacheImage extends React.Component {
 						source={this.state.source}
 					/>
 				) : null}
-				<TouchableOpacity onPress={this.onPress}>
+				<TouchableOpacity >
 					<Image style={this.props.style} source={this.state.source} />
 				</TouchableOpacity>
 			</>
