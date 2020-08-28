@@ -11,7 +11,7 @@ import WhiteText from './WhiteText';
 
 const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 	const socket = useContext(SocketContext);
-	const { addFriend, unblock, state } = useContext(ChannelContext);
+	const { addFriend, unblock, state, updateState } = useContext(ChannelContext);
 	const [searchResults, setSearchResults] = useState([]);
 	const [friendState, setFriendState] = useState(null);
 
@@ -33,6 +33,20 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 		});
 	}, [state, searchResults]);
 
+	// useEffect(() => {
+	// 	socket.on('update_user', ({ newData }) => {
+	// 		console.log('received new data', newData.currentUser);
+	// 		updateState(newData);
+	// 		// update state on add and remove friends, invite/kick from room, pm/unread msgs
+	// 	});
+
+	// 	// return () => {
+	// 	// 	socket.emit('disconnect');
+	// 	// 	socket.off();
+	// 	// };
+	// }, [state]);
+
+	// console.log('friendState is : ', friendState);
 	// useEffect(() => {
 	// 	socket.emit('usersearch', { currentUser: state.currentUser, searchKey: username });
 	// }, []);
