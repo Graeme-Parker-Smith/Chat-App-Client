@@ -46,7 +46,7 @@ const MessageItem = ({
 	let avatarImage;
 	if (avatar) {
 		avatarImage = (
-			<TouchableOpacity onPress={() => setShowUserProfile(true)}>
+			<TouchableOpacity>
 				<CacheImage uri={avatar} style={styles.avatarStyle} />
 			</TouchableOpacity>
 		);
@@ -87,6 +87,9 @@ const MessageItem = ({
 		console.log('itemId', itemId);
 		if (isOwner) {
 			setEditMessageVisible(true);
+		} else {
+			console.log('show USER PROFILE!');
+			setShowUserProfile(true);
 		}
 	};
 

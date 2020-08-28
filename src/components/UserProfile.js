@@ -1,12 +1,38 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, Text, Dimensions, Image, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
+import SocketContext from '../context/SocketContext';
 import { Button, Input } from 'react-native-elements';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons';
 import BouncyInput from './BouncyInput';
+import WhiteText from './WhiteText';
 
 const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
-	const fetchUserInfo = () => {console.log("FETCH user info!", username)};
+	const socket = useContext(SocketContext);
+
+	useEffect(() => {
+		socket.on('usersearch', ({ results }) => {
+			setSearchResults(results);
+		});
+	}, [state, userSearch, searchResults]);
+
+	useEffect(() => {
+		if (userSearch.length > 0) {
+			console.log('useEffect usersearch fired!!!');
+			socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
+		}
+	}, [state, userSearch]);
+
+	const doSearch = () => {
+		if (userSearch.length > 0) {
+			socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
+		}
+	};
+
+	const fetchUserInfo = () => {
+		console.log('FETCH user info!', username);
+	};
+	console.log('image source is: ', source);
 
 	return (
 		<View style={{ marginTop: 0 }}>
@@ -72,7 +98,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 							{/* modal menu starts here */}
 							<View style={{ flex: 1 }}>
 								<Image
-									source={source}
+									source={{ uri: source }}
 									style={{
 										height: 200,
 										width: 200,
@@ -80,9 +106,10 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 									}}
 								/>
 								<View style={styles.userBox}>
-									<WhiteText>{thisUser.username}</WhiteText>
+									{/* <WhiteText>{thisUser.username}</WhiteText>
 									<WhiteText>Created:{thisUser.createdAt}</WhiteText>
-									<WhiteText>Score: {thisUser.msgsSent}</WhiteText>
+									<WhiteText>Score: {thisUser.msgsSent}</WhiteText> */}
+									{/* on long press user username from messageItem and add friend button */}
 								</View>
 							</View>
 						</View>
