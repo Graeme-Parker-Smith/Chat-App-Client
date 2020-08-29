@@ -45,11 +45,11 @@ const UserSearchList = () => {
 		}
 	};
 
-	const handleChange = async (newContent) => {
-		await setUserSearch(newContent);
-		console.log('handleChange: ', userSearch);
-		socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
-	};
+	// const handleChange = async (newContent) => {
+	// 	await setUserSearch(newContent);
+	// 	console.log('handleChange: ', userSearch);
+	// 	socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
+	// };
 
 	// Warning: Can't perform a React state update on an unmounted component.
 	//  This is a no-op, but it indicates a memory leak in your application. To fix, cancel
@@ -76,19 +76,14 @@ const UserSearchList = () => {
 			/>
 			<View >
 				<FlatList
-					// keyboardShouldPersistTaps="always"
-					// keyboardDismissMode="interactive"
 					style={styles.list}
 					data={searchResults}
 					keyExtractor={(item) => item.username}
 					renderItem={({ item }) => {
-						// if (item.username.includes(userSearch)) {
 						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
-						// }
 					}}
 				/>
 			</View>
-			{/* <Spacer margin={25} /> */}
 		</View>
 	);
 };
