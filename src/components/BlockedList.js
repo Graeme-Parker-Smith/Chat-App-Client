@@ -26,17 +26,19 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 				returnKeyType="send"
 				selectTextOnFocus={true}
 			/>
-			<FlatList
+			<View>
+				<FlatList
 					style={styles.list}
 					userSearch={userSearch}
-				data={state.currentUser.blocked}
-				keyExtractor={(item) => item.username}
-				renderItem={({ item }) => {
-					if (item.username.includes(userSearch)) {
-						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
-					}
-				}}
-			/>
+					data={state.currentUser.blocked}
+					keyExtractor={(item) => item.username}
+					renderItem={({ item }) => {
+						if (item.username.includes(userSearch)) {
+							return <UserSearchItem currentUser={state.currentUser} friend={item} />;
+						}
+					}}
+				/>
+			</View>
 		</View>
 	);
 };
