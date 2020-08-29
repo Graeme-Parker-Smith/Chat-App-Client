@@ -1,10 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {
-	View,
-	StyleSheet,
-  FlatList,
-  Dimensions
-} from 'react-native';
+import { View, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { Input } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import UserSearchItem from './UserSearchItem';
@@ -18,9 +13,6 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 	return (
 		<View style={styles.container}>
 			<WhiteText>Pending Friend Requests</WhiteText>
-			{state.currentUser.requestsReceived.length < 1 ? (
-				<WhiteText>You have no pending friend requests. Bummer.</WhiteText>
-			) : null}
 			<AnimSearchBar
 				placeholder="Search Pending Requests"
 				value={userSearch}
@@ -32,17 +24,19 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 				selectTextOnFocus={true}
 			/>
 			{/* <WhiteText>Requests Received</WhiteText> */}
-			<FlatList
+			<View>
+				<FlatList
 					style={styles.list}
 					userSearch={userSearch}
-				data={[...state.currentUser.requestsReceived, ...state.currentUser.pending]}
-				keyExtractor={item => item.username}
-				renderItem={({ item }) => {
-					if (item.username.includes(userSearch)) {
-						return <UserSearchItem currentUser={state.currentUser} friend={item} />;
-					}
-				}}
-			/>
+					data={[...state.currentUser.requestsReceived, ...state.currentUser.pending]}
+					keyExtractor={(item) => item.username}
+					renderItem={({ item }) => {
+						if (item.username.includes(userSearch)) {
+							return <UserSearchItem currentUser={state.currentUser} friend={item} />;
+						}
+					}}
+				/>
+			</View>
 			{/* <WhiteText>Pending Requests Sent</WhiteText> */}
 			{/* <FlatList
 				userSearch={userSearch}
@@ -66,8 +60,8 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		backgroundColor: '#000',
-    flex: 1,
-    width: Dimensions.get('window').width
+		flex: 1,
+		width: Dimensions.get('window').width,
 	},
 	list: {
 		height: Dimensions.get('window').height - 300,

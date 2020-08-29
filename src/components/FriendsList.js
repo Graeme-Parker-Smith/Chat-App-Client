@@ -24,9 +24,6 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 	return (
 		<View style={styles.container}>
 			<WhiteText>My Friends</WhiteText>
-			{state.currentUser.friends.length < 1 ? (
-				<WhiteText>You have no friends! Oof.</WhiteText>
-			) : null}
 			<AnimSearchBar
 				placeholder="Search Friends"
 				value={userSearch}
