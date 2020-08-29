@@ -38,6 +38,7 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 				selectTextOnFocus={true}
 			/>
 			<FlatList
+			style={{ height: Dimensions.get('window').height - 300, borderColor: '#808080', borderWidth: 1 }}
 				userSearch={userSearch}
 				data={state.currentUser.friends}
 				keyExtractor={item => item.username}

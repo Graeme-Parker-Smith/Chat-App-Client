@@ -74,11 +74,11 @@ const UserSearchList = () => {
 					<MaterialIcons name="send" size={32} color={userSearch ? '#0af' : '#808080'} onPress={doSearch} />
 				}
 			/>
-			<View style={{ margin: 10 }}>
+			<View >
 				<FlatList
 					// keyboardShouldPersistTaps="always"
 					// keyboardDismissMode="interactive"
-					style={{ height: Dimensions.get('window').height - 300, borderColor: '#808080', borderWidth: 1 }}
+					style={styles.list}
 					data={searchResults}
 					keyExtractor={(item) => item.username}
 					renderItem={({ item }) => {
@@ -88,7 +88,7 @@ const UserSearchList = () => {
 					}}
 				/>
 			</View>
-			<Spacer margin={25} />
+			{/* <Spacer margin={25} /> */}
 		</View>
 	);
 };
@@ -102,6 +102,13 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#000',
 		width: Dimensions.get('window').width,
+	},
+	list: {
+		height: Dimensions.get('window').height - 300,
+		borderColor: '#808080',
+		borderWidth: 1,
+		margin: 10,
+		marginBottom: 25,
 	},
 });
 

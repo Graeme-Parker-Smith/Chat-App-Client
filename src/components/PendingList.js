@@ -33,6 +33,7 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 			/>
 			{/* <WhiteText>Requests Received</WhiteText> */}
 			<FlatList
+			style={{ height: Dimensions.get('window').height - 300, borderColor: '#808080', borderWidth: 1 }}
 				userSearch={userSearch}
 				data={[...state.currentUser.requestsReceived, ...state.currentUser.pending]}
 				keyExtractor={item => item.username}
