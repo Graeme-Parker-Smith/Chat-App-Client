@@ -119,13 +119,13 @@ const deleteUser = (dispatch) => async ({ username, user_id }) => {
 };
 
 const signout = (dispatch) => async (user) => {
+	navigate('Signin');
 	let pushToken = await AsyncStorage.getItem('pushtoken');
 	if (pushToken && user) {
 		await chatApi.post('/signout', { user_id: user.user_id, pushToken: pushToken });
 	}
 	await AsyncStorage.removeItem('token');
 	dispatch({ type: 'signout' });
-	navigate('Signin');
 };
 
 export const { Provider, Context } = createDataContext(
