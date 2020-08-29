@@ -110,7 +110,7 @@ const InviteMenu = ({ roomName }) => {
 			</Modal>
 
 			<TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => setModalVisible(true)}>
-				<MaterialCommunityIcons name="account-star" size={40} color="#0af" />
+				<MaterialCommunityIcons name="account-star" size={20} color="#0af" />
 			</TouchableOpacity>
 		</View>
 	);

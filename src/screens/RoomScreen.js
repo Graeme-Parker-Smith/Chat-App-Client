@@ -494,6 +494,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			</View>
 		);
 	}
+	console.log('ISOWNER IS: ', isOwner);
 
 	return (
 		<SafeAreaView style={styles.body}>
@@ -511,11 +512,17 @@ const RoomScreen = ({ navigation, isFocused }) => {
 						type="outline"
 						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
 					/>
-					{roomType === 'private' && isOwner ? <InviteMenu roomName={roomName} /> : null}
 				</View> */}
-				<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
-					@{roomName} ({users.length} users online): {userList}
-				</Text>
+				<View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+					{roomType === 'private' && isOwner ? (
+						// <View style={{ height: 200, width: 200, backgroundColor: 'red' }}>
+						<InviteMenu roomName={roomName} />
+					) : // </View>
+					null}
+					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
+						@{roomName} ({users.length} users online): {userList}
+					</Text>
+				</View>
 				{!isCloseToBottom(scrollValues) ? (
 					<Button
 						containerStyle={{
