@@ -246,8 +246,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			base64: true,
 		});
 
-		// console.log(result);
-
 		if (!result.cancelled) {
 			const date = new Date();
 			const time = date.toLocaleString();
@@ -500,19 +498,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		<SafeAreaView style={styles.body}>
 			<NavigationEvents onWillFocus={handleOnFocus} onWillBlur={handleOnBlur} />
 			<View style={{ marginTop: 0, backgroundColor: '#000' }}>
-				{/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-					<Button
-						containerStyle={{ alignSelf: 'center' }}
-						buttonStyle={{ padding: 0, margin: 10, marginTop: Platform.OS === 'ios' ? 10 : 25 }}
-						icon={
-							<TouchableOpacity onPress={handleGoBack}>
-								<Entypo name="back" color="#0af" size={50} />
-							</TouchableOpacity>
-						}
-						type="outline"
-						titleStyle={{ color: 'rgba(0,122,255,1)', fontSize: 24 }}
-					/>
-				</View> */}
 				<View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 					{roomType === 'private' && isOwner ? (
 						// <View style={{ height: 200, width: 200, backgroundColor: 'red' }}>
