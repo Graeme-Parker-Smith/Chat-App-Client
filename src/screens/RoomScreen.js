@@ -492,7 +492,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			</View>
 		);
 	}
-	console.log('ISOWNER IS: ', isOwner);
+	// console.log('ISOWNER IS: ', isOwner);
 
 	return (
 		<SafeAreaView style={styles.body}>
