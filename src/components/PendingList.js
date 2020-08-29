@@ -33,8 +33,8 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 			/>
 			{/* <WhiteText>Requests Received</WhiteText> */}
 			<FlatList
-			style={{ height: Dimensions.get('window').height - 300, borderColor: '#808080', borderWidth: 1 }}
-				userSearch={userSearch}
+					style={styles.list}
+					userSearch={userSearch}
 				data={[...state.currentUser.requestsReceived, ...state.currentUser.pending]}
 				keyExtractor={item => item.username}
 				renderItem={({ item }) => {
@@ -68,6 +68,13 @@ const styles = StyleSheet.create({
 		backgroundColor: '#000',
     flex: 1,
     width: Dimensions.get('window').width
+	},
+	list: {
+		height: Dimensions.get('window').height - 300,
+		borderColor: '#808080',
+		borderWidth: 1,
+		margin: 10,
+		marginBottom: 25,
 	},
 });
 

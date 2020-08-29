@@ -38,8 +38,8 @@ const FriendsList = ({ user, showForm, setIsLoading }) => {
 				selectTextOnFocus={true}
 			/>
 			<FlatList
-			style={{ height: Dimensions.get('window').height - 300, borderColor: '#808080', borderWidth: 1 }}
-				userSearch={userSearch}
+					style={styles.list}
+					userSearch={userSearch}
 				data={state.currentUser.friends}
 				keyExtractor={item => item.username}
 				renderItem={({ item }) => {
@@ -63,6 +63,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: Dimensions.get('window').width
 
+	},
+	list: {
+		height: Dimensions.get('window').height - 300,
+		borderColor: '#808080',
+		borderWidth: 1,
+		margin: 10,
+		marginBottom: 25,
 	},
 });
 
