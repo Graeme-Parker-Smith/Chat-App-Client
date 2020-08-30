@@ -29,6 +29,8 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 				setFriendState('isPending');
 			} else if (state.currentUser.blocked.some((b) => b._id === results[0]._id)) {
 				setFriendState('isBlocked');
+			} else {
+				setFriendState(null);
 			}
 		});
 	}, [state, searchResults]);
@@ -130,7 +132,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 								<View style={styles.userBox}>
 									<WhiteText>{username}</WhiteText>
 									{searchResults ? (
-										<>
+										<View >
 											<WhiteText>Created:{searchResults.createdAt}</WhiteText>
 											<WhiteText>Score: {searchResults.msgsSent}</WhiteText>
 
@@ -191,7 +193,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 													}
 												/>
 											)}
-										</>
+										</View>
 									) : null}
 								</View>
 							</View>
