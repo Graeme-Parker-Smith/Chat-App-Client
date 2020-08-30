@@ -85,8 +85,6 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 						activeOpacity={1}
 						onPress={() => setModalVisible(!modalVisible)}
 						style={{
-							height: Dimensions.get('window').height,
-							width: Dimensions.get('window').width,
 							backgroundColor: '#000',
 							paddingTop: 5,
 							paddingBottom: 5,
@@ -130,9 +128,11 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 									}}
 								/>
 								<View style={styles.userBox}>
-									<WhiteText>{username}</WhiteText>
+									{/* <View style={{ width: 300, height: 24 }}> */}
+										<WhiteText>{username}</WhiteText>
+									{/* </View> */}
 									{searchResults ? (
-										<View >
+										<>
 											<WhiteText>Created:{searchResults.createdAt}</WhiteText>
 											<WhiteText>Score: {searchResults.msgsSent}</WhiteText>
 
@@ -193,7 +193,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 													}
 												/>
 											)}
-										</View>
+										</>
 									) : null}
 								</View>
 							</View>
@@ -215,6 +215,10 @@ const styles = {
 	userBox: {
 		marginTop: 0,
 		alignSelf: 'center',
+		flex: 1,
+		backgroundColor: '#000',
+		height: 300,
+		width: 300,
 	},
 };
 
