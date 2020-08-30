@@ -22,7 +22,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 	useEffect(() => {
 		socket.on('usersearch', ({ results }) => {
 			setSearchResults(results[0]);
-			console.log('friend._id is: ', results[0]._id);
+			// console.log('friend._id is: ', results[0]._id);
 			if (state.currentUser.friends.some((f) => f._id === results[0]._id)) {
 				setFriendState('isFriend');
 			} else if (state.currentUser.pending.some((f) => f._id === results[0]._id)) {
@@ -32,9 +32,13 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 			} else {
 				setFriendState(null);
 			}
+			// else {
+			// 	setFriendState(null)
+			// }
 		});
 	}, [state, searchResults]);
-
+	// console.log('friendState is: ', friendState);
+	console.log('searchResults is: ', searchResults);
 	// useEffect(() => {
 	// 	socket.on('update_user', ({ newData }) => {
 	// 		console.log('received new data', newData.currentUser);
@@ -133,9 +137,13 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 									{/* </View> */}
 									{searchResults ? (
 										<>
+											<Text style={{ height: 100, width: 100, backgroundColor: 'yellow' }}>
+												HELLLLOOOOO
+											</Text>
 											<WhiteText>Created:{searchResults.createdAt}</WhiteText>
 											<WhiteText>Score: {searchResults.msgsSent}</WhiteText>
 
+									<Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>{username}</Text>
 											{friendState === 'isFriend' || friendState === 'isPending' ? (
 												<Button
 													containerStyle={styles.modalButton}
@@ -156,6 +164,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 													containerStyle={styles.modalButton}
 													buttonStyle={{ padding: 15 }}
 													title="Add Friend"
+													type="outline"
 													onPress={() =>
 														addFriend({
 															username: state.currentUser.username,
