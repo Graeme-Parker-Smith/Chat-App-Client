@@ -565,7 +565,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					/>
 				</View>
 				<Input
-					autoFocus
 					multiline={true}
 					maxLength={750}
 					value={content}
