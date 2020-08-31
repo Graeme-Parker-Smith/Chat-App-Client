@@ -127,7 +127,7 @@ const updateUser = (dispatch) => async ({ username, newUsername, newPassword, ne
 	}
 };
 
-const updateChannel = (dispatch) => async ({ username, prevName, newName, newAvatar, isPrivate = false }) => {
+const updateChannel = (dispatch) => async ({ username, prevName, newName, newAvatar, isPrivate = false, newDescription }) => {
 	try {
 		const cloudUrl = await imgUpload(newAvatar);
 		const response = await chatApi.post('/updatechannel', {
@@ -135,6 +135,7 @@ const updateChannel = (dispatch) => async ({ username, prevName, newName, newAva
 			prevName,
 			newName,
 			newAvatar: cloudUrl,
+			newDescription,
 			isPrivate,
 		});
 		if (response && response.data.error) return response;
