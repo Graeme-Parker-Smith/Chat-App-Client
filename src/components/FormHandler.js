@@ -20,6 +20,7 @@ const FormHandler = ({ formState, setFormState, setIsLoading }) => {
 					setIsLoading={setIsLoading}
 					thisName={formState.item.name}
 					thisAvatar={formState.item.avatar}
+					thisDescription={formState.item.description}
 				/>
 			);
 		case 'edit_private':
@@ -29,6 +30,7 @@ const FormHandler = ({ formState, setFormState, setIsLoading }) => {
 					setIsLoading={setIsLoading}
 					thisName={formState.item.name}
 					thisAvatar={formState.item.avatar}
+					thisDescription={formState.item.description}
 				/>
 			);
 		default: {

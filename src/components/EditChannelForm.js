@@ -10,7 +10,7 @@ import BouncyInput from './BouncyInput';
 import AreYouSure from './AreYouSure';
 import WhiteText from './WhiteText';
 
-const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
+const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '' }) => {
 	const {
 		state: { currentUser, channels },
 		updateChannel,
@@ -20,6 +20,7 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const { tryLocalSignin } = useContext(AuthContext);
 	const [newName, setNewName] = useState(thisName);
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
+	const [description, setDescription] = useState(thisDescription)
 	const [isLoading, setIsLoading] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [errMsg, setErrMsg] = useState('');
@@ -41,6 +42,7 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 			channel_id,
 			newName,
 			newAvatar: newAvatar.base64Uri,
+			newDescription: description
 		});
 		if (response && response.data.error) {
 			console.log("yes", response.data);
@@ -94,6 +96,17 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					inputStyle={{ color: 'white' }}
 				/>
 			</Spacer>
+			<BouncyInput
+					value={description}
+					onChangeText={setDescription}
+					label="Edit Description"
+					placeholder="225 char max"
+					inputContainerStyle={{ marginBottom: 20 }}
+					inputStyle={{ color: '#fff' }}
+					placeholderTextColor="#fff"
+					maxLength={225}
+					multiline={true}
+				/>
 			<AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={'Channel'} />
 			<Spacer />
 			<View style={styles.buttonRow}>
