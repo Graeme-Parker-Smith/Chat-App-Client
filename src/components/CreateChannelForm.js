@@ -63,7 +63,7 @@ const CreateChannelForm = ({ showForm }) => {
 					inputContainerStyle={{ marginBottom: 20 }}
 					inputStyle={{ color: '#fff' }}
 					placeholderTextColor="#fff"
-					autoFocus={true}
+					autoFocus={false}
 					maxLength={22}
 				/>
 				<View style={{ flexDirection: 'row' }}>
