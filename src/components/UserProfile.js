@@ -11,7 +11,7 @@ import WhiteText from './WhiteText';
 
 const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 	const socket = useContext(SocketContext);
-	const { addFriend, unblock, state, updateState } = useContext(ChannelContext);
+	const { addFriend, unblock, state, report, updateState } = useContext(ChannelContext);
 	const [searchResults, setSearchResults] = useState([]);
 	const [friendState, setFriendState] = useState(null);
 
@@ -137,13 +137,12 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 									{/* </View> */}
 									{searchResults ? (
 										<>
-											<Text style={{ height: 100, width: 100, backgroundColor: 'yellow' }}>
-												HELLLLOOOOO
-											</Text>
 											<WhiteText>Created:{searchResults.createdAt}</WhiteText>
 											<WhiteText>Score: {searchResults.msgsSent}</WhiteText>
 
-									<Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>{username}</Text>
+											<Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>
+												{username}
+											</Text>
 											{friendState === 'isFriend' || friendState === 'isPending' ? (
 												<Button
 													containerStyle={styles.modalButton}
@@ -208,11 +207,9 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 												buttonStyle={{ padding: 15, backgroundColor: 'red' }}
 												title="Report"
 												onPress={() =>
-													addFriend({
+													report({
+														reportedUser: searchResults,
 														username: state.currentUser.username,
-														friendName: searchResults.username,
-														shouldRemove: true,
-														shouldBlock: true,
 													})
 												}
 											/>

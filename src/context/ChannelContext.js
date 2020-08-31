@@ -74,6 +74,21 @@ const addFriend = (dispatch) => async ({ username, friendName, shouldRemove = fa
 	}
 };
 
+const report = (dispatch) => async ({ username, reportedUser }) => {
+	console.log('REPORTED', reportedUser);
+	try {
+		const response = await chatApi.post('/addfriend', {
+			username: username,
+			friendName: reportedUser.username,
+			shouldRemove: true,
+			shouldBlock: true,
+		});
+		dispatch({ type: 'add_friend', payload: response.data });
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 const unblock = (dispatch) => async ({ username, friendName }) => {
 	try {
 		const response = await chatApi.post('/unblock', {
@@ -236,6 +251,7 @@ export const { Provider, Context } = createDataContext(
 		updateChannel,
 		addFriend,
 		unblock,
+		report,
 		invite,
 		kick,
 		deleteChannel,
