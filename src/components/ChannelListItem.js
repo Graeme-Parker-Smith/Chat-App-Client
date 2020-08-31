@@ -29,7 +29,7 @@ const ChannelListItem = ({ item, color }) => {
 	return (
 		<Animated.View style={{ height: heightAnim, backgroundColor: color, margin: 5, borderRadius: 10 }}>
 			{item.mature ? (
-				<View style={{ position: 'absolute', left: 80, top: 0, backgroundColor: 'red', zIndex: 1000 }}>
+				<View style={{ position: 'absolute', left: 40, top: 0, backgroundColor: 'red', zIndex: 1000 }}>
 					<Text>M</Text>
 				</View>
 			) : null}
@@ -63,7 +63,7 @@ const ChannelListItem = ({ item, color }) => {
 				subtitle={
 					showDescription
 						? item.username
-							? `I'm your friend! We're friends, right?`
+							? `Your Friend`
 							: item.description || 'No Description'
 						: null
 				}
