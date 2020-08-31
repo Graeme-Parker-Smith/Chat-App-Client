@@ -88,7 +88,7 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					disabled={!userCanEdit}
 					value={newName}
 					onChangeText={setNewName}
-					autoFocus={true}
+					autoFocus={false}
 					autoCapitalize="none"
 					autoCorrect={false}
 					inputStyle={{ color: 'white' }}
