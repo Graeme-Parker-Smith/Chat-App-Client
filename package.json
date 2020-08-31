@@ -26,7 +26,7 @@
     "react-native": "^0.59.8",
     "react-native-base64": "0.0.2",
     "react-native-elements": "^1.2.7",
-    "react-native-fast-image": "^8.1.2",
+    "react-native-fast-image": "^6.0.0",
     "react-native-gesture-handler": "~1.3.0",
     "react-native-gifted-chat": "^0.12.0",
     "react-native-reanimated": "~1.2.0",

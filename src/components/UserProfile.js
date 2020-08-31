@@ -129,7 +129,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 								/>
 								<View style={styles.userBox}>
 									{/* <View style={{ width: 300, height: 24 }}> */}
-										<WhiteText>{username}</WhiteText>
+									<WhiteText>{username}</WhiteText>
 									{/* </View> */}
 									{searchResults ? (
 										<>
@@ -193,6 +193,20 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 													}
 												/>
 											)}
+
+											<Button
+												containerStyle={styles.modalButton}
+												buttonStyle={{ padding: 15, backgroundColor: 'red' }}
+												title="Report"
+												onPress={() =>
+													addFriend({
+														username: state.currentUser.username,
+														friendName: searchResults.username,
+														shouldRemove: true,
+														shouldBlock: true,
+													})
+												}
+											/>
 										</>
 									) : null}
 								</View>

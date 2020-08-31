@@ -29,6 +29,7 @@ import AnimSearchBar from '../components/AnimSearchBar';
 import WhiteText from '../components/WhiteText';
 import { Notifications } from 'expo';
 import { navigate, back } from '../navigationRef';
+import MasonImage from '../components/MasonImage';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
@@ -276,6 +277,26 @@ const AccountScreen = ({ navigation }) => {
 						inputStyle={{ color: 'white' }}
 					/>
 				</View>
+				{/* <Image
+					style={{ height: 200, width: 200 }}
+					source={{
+						uri:
+							'file:///var/mobile/Containers/Data/Application/A85F4FD3-1330-4EF3-9C4F-F80BCDA14568/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fjaded/Z1MUPbk.gif',
+					}}
+				/> */}
+				{/* <MasonImage
+					style={{ height: 200, width: 200 }}
+					source={{
+						uri: 'https://res.cloudinary.com/jaded/image/upload/v1598819741/ltuuouyqw11ynmwazmmy.gif',
+					}}
+					title="goofy"
+				/> */}
+				{/* <Image
+					style={{ height: 200, width: 200 }}
+					source={{
+						uri: 'https://res.cloudinary.com/jaded/image/upload/v1598819741/ltuuouyqw11ynmwazmmy.gif',
+					}}
+				/> */}
 				{/* </Spacer> */}
 				<Spacer>
 					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>

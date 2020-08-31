@@ -82,13 +82,13 @@ const MessageItem = ({
 	};
 
 	const handleLongPress = () => {
-		console.log('msg creator', username);
-		console.log('isOwner', isOwner);
-		console.log('itemId', itemId);
+		// console.log('msg creator', username);
+		// console.log('isOwner', isOwner);
+		// console.log('itemId', itemId);
 		if (isOwner) {
 			setEditMessageVisible(true);
 		} else {
-			console.log('show USER PROFILE!');
+			// console.log('show USER PROFILE!');
 			setShowUserProfile(true);
 		}
 	};
