@@ -9,7 +9,7 @@ const UserAvatar = ({ avatar, handleClick, color = '#0af' }) => {
 				{avatar ? (
 					<Image source={{ uri: avatar }} style={styles.avatarStyle} />
 				) : (
-					<Entypo name="user" size={50} color="#000" />
+					<Entypo name="user" size={35} color="#000" />
 				)}
 			</TouchableOpacity>
 		</View>
@@ -18,9 +18,9 @@ const UserAvatar = ({ avatar, handleClick, color = '#0af' }) => {
 
 const styles = StyleSheet.create({
 	avatarStyle: {
-		height: 50,
-		width: 50,
-		borderRadius: 25,
+		height: 35,
+		width: 35,
+		borderRadius: 17,
 	},
 });
 

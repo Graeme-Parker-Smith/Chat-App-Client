@@ -36,8 +36,8 @@ const UserSearchItem = ({ friend, showPanel, currentUser }) => {
 const styles = StyleSheet.create({
 	container: {
 		// width: Dimensions.get('window').width * 0.8,
-		marginLeft: 10,
-		marginRight: 10,
+		// marginLeft: 5,
+		// marginRight: 5,
 		backgroundColor: '#adaba3',
 		borderWidth: 1,
 		borderColor: '#808080',
