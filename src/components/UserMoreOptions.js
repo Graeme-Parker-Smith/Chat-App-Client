@@ -36,7 +36,7 @@ const UserMoreOptions = ({ friend }) => {
 					<TouchableOpacity
 						activeOpacity={1}
 						onPress={() => console.log('Pressed inside modal!')}
-						style={{ width: 150, height: 150, backgroundColor: '#808080', paddingTop: 5, paddingBottom: 5 }}
+						style={{ width: 200, height: 150, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
 					>
 						<View>
 							<View
@@ -127,9 +127,9 @@ const UserMoreOptions = ({ friend }) => {
 
 const styles = {
 	modalButton: {
-		margin: 10,
-		marginTop: 5,
-		marginBottom: 5,
+		margin: 20,
+		marginTop: 10,
+		marginBottom: 10,
 	},
 };
 
