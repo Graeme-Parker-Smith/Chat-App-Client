@@ -76,7 +76,7 @@ const ChannelListItem = ({ item, color }) => {
 							borderLeftWidth: 1,
 							borderLeftColor: 'black',
 							height: showDescription ? 180 : 60,
-							backgroundColor: 'green',
+							backgroundColor: '#0af',
 							width: 40,
 							borderRadius: 10,
 							justifyContent: 'center',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 	},
 	subtitle: {
 		fontSize: 12,
-		color: 'green',
+		color: 'white',
 	},
 	avatarStyle: {
 		height: 40,
