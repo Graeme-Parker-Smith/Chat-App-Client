@@ -10,7 +10,6 @@ import BouncyInput from './BouncyInput';
 import AreYouSure from './AreYouSure';
 import WhiteText from './WhiteText';
 
-
 const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const {
 		state: { currentUser, privateChannels },
@@ -30,7 +29,6 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const userCanEdit = currentUser._id === channelCreator;
 	const [errMsg, setErrMsg] = useState('');
 
-
 	const handleSubmit = async () => {
 		if (!userCanEdit) {
 			return;
@@ -44,7 +42,7 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 			isPrivate: true,
 		});
 		if (response && response.data.error) {
-			console.log("yes", response.data);
+			console.log('yes', response.data);
 			setIsLoading(false);
 			setErrMsg(response.data.error);
 			return;
@@ -105,7 +103,7 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					disabled={!userCanEdit}
 					value={newName}
 					onChangeText={setNewName}
-					autoFocus={true}
+					autoFocus={false}
 					autoCapitalize="none"
 					autoCorrect={false}
 					inputStyle={{ color: 'white' }}
@@ -121,6 +119,12 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					onPress={handleSubmit}
 				/>
 				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
+				<Button
+					disabled={!userCanEdit}
+					buttonStyle={styles.deleteButton}
+					title="Delete Channel"
+					onPress={() => setModalVisible(true)}
+				/>
 			</View>
 			<View>
 				{/* <Input
@@ -135,12 +139,6 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					selectTextOnFocus={true}
 				/>
 				<Button disabled={!userCanEdit} title="Invite User" onPress={handleInvite} /> */}
-				<Button
-					disabled={!userCanEdit}
-					buttonStyle={styles.deleteButton}
-					title="Delete Channel"
-					onPress={() => setModalVisible(true)}
-				/>
 			</View>
 			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 		</View>
