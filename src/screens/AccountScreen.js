@@ -308,7 +308,7 @@ const AccountScreen = ({ navigation }) => {
 						/>
 						<MaterialCommunityIcons
 							name="comment-plus"
-							color="#808080"
+							color="#0af"
 							size={48}
 							style={{ alignSelf: 'center', marginLeft: 10 }}
 							onPress={() => handleClick('create_public')}
@@ -321,7 +321,7 @@ const AccountScreen = ({ navigation }) => {
 						/>
 						<MaterialCommunityIcons
 							name="comment-plus"
-							color="#301934"
+							color="#FF8100"
 							size={48}
 							style={{ alignSelf: 'center', marginLeft: 10 }}
 							onPress={() => handleClick('create_private')}

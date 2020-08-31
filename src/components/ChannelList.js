@@ -62,7 +62,7 @@ const ChannelList = ({
 	showLists,
 }) => {
 	let color = '#0af';
-	if (channelType === 'private') color = '#301934';
+	if (channelType === 'private') color = '#FF8100';
 	if (channelType === 'pm') color = '#036';
 	return (
 		<View>

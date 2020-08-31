@@ -44,7 +44,7 @@ const ChannelListItem = ({ item, color }) => {
 				containerStyle={
 					// { backgroundColor: 'transparent', alignSelf: 'center' }
 					[
-						styles.channel(item.username ? '#036' : color),
+						styles.channel(item.username ? '#FFB500' : color),
 						{
 							height: showDescription ? 180 : 60,
 							justifyContent: 'center',
@@ -100,7 +100,7 @@ const ChannelListItem = ({ item, color }) => {
 							style={showDescription ? { position: 'relative', top: -60 } : null}
 							name={item.username ? 'user' : 'users'}
 							size={40}
-							color="#0af"
+							color="#000"
 						/>
 					)
 				}

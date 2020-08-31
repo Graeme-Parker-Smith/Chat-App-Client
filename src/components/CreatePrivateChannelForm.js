@@ -127,7 +127,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: '#301934',
+		backgroundColor: '#000',
 	},
 	button: {
 		padding: 10,

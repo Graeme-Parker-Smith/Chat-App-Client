@@ -8,7 +8,7 @@ import { Video } from 'expo-av';
 import CacheImage from './CacheImage';
 import UserProfile from './UserProfile';
 
-const DefaultAvatar = () => <Entypo name="user" size={40} color="#0af" />;
+const DefaultAvatar = () => <Entypo name="user" size={35} color="#0af" />;
 
 const MessageItem = ({
 	currentUserUsername,
