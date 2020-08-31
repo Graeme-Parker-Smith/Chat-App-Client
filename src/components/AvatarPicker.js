@@ -6,10 +6,13 @@ import WhiteText from './WhiteText';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import FullscreenImage from './FullscreenImage';
 
 const DefaultAvatar = () => <Entypo style={styles.avatarStyle} name="user" size={50} color="#0af" />;
 
 const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword, displayName = '' }) => {
+	const [modalVisible, setModalVisible] = useState(false);
+
 	const _pickImage = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -37,6 +40,16 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword, displayName =
 			setAvatar({ localUri: result.uri, base64Uri: `data:image/jpg;base64,${result.base64}` });
 		}
 	};
+
+	const onPress = () => {
+		// console.log('PRESSED IMAGE!');
+		// if (this.state.modalVisible) {
+		setModalVisible(!modalVisible);
+		// } else {
+		// 	this.setState({ modalVisible: true });
+		// }
+	};
+
 	return (
 		<View>
 			<Text style={{ color: 'white', textAlign: 'center' }}>Set {whichForm} Avatar</Text>
@@ -44,9 +57,18 @@ const AvatarPicker = ({ avatar, setAvatar, whichForm, _toPassword, displayName =
 				<TouchableOpacity style={styles.obviousButton} onPress={launchCamera}>
 					<MaterialIcons style={{ alignSelf: 'center' }} name="photo-camera" size={50} color="#0af" />
 				</TouchableOpacity>
+				{modalVisible ? (
+					<FullscreenImage
+						modalVisible={modalVisible}
+						setModalVisible={onPress}
+						source={{ uri: avatar.localUri } || { uri: avatar }}
+					/>
+				) : null}
 				<View style={{ alignItems: 'center' }}>
 					{avatar ? (
-						<Image source={{ uri: avatar.localUri || avatar }} style={styles.avatarStyle} />
+						<TouchableOpacity onPress={onPress}>
+							<Image source={{ uri: avatar.localUri || avatar }} style={styles.avatarStyle} />
+						</TouchableOpacity>
 					) : (
 						<DefaultAvatar />
 					)}
