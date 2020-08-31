@@ -10,7 +10,7 @@ import BouncyInput from './BouncyInput';
 import AreYouSure from './AreYouSure';
 import WhiteText from './WhiteText';
 
-const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
+const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '' }) => {
 	const {
 		state: { currentUser, privateChannels },
 		updateChannel,
@@ -28,6 +28,8 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 	const channelCreator = channelInfo.creator;
 	const userCanEdit = currentUser._id === channelCreator;
 	const [errMsg, setErrMsg] = useState('');
+	const [description, setDescription] = useState(thisDescription)
+
 
 	const handleSubmit = async () => {
 		if (!userCanEdit) {
@@ -40,6 +42,8 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 			newName,
 			newAvatar,
 			isPrivate: true,
+			newDescription: description
+
 		});
 		if (response && response.data.error) {
 			console.log('yes', response.data);
@@ -109,6 +113,17 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar }) => {
 					inputStyle={{ color: 'white' }}
 				/>
 			</Spacer>
+			<BouncyInput
+					value={description}
+					onChangeText={setDescription}
+					label="Edit Description"
+					placeholder="225 char max"
+					inputContainerStyle={{ marginBottom: 20 }}
+					inputStyle={{ color: '#fff' }}
+					placeholderTextColor="#fff"
+					maxLength={225}
+					multiline={true}
+				/>
 			<AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={'Channel'} />
 			<Spacer />
 			<View style={styles.buttonRow}>
