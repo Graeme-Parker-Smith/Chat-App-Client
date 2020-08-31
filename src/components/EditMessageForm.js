@@ -78,13 +78,13 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 								</TouchableHighlight>
 							</View>
 							{/* modal menu starts here */}
-							<View>
+							<View style={{ justifyContent: 'space-between', height: 200 }}>
 								<BouncyInput
 									disabled={!isOwner}
 									label="Message Content"
 									value={content}
 									onChangeText={setContent}
-									autoFocus={true}
+									autoFocus={false}
 									autoCapitalize="none"
 									autoCorrect={false}
 									inputStyle={{ color: 'white' }}
