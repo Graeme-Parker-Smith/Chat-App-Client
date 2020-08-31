@@ -92,6 +92,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 						containerStyle={{}}
 					/>
 				</View>
+				<Spacer />
 				<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
 				<Spacer />
 				<BouncyInput

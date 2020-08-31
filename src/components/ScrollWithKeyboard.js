@@ -22,7 +22,7 @@ const CreateChannelForm = (props) => {
 	};
 
 	return (
-		<ScrollView style={{ height: Dimensions.get('window').height - keyboardHeight }}>{props.children}</ScrollView>
+		<ScrollView style={{ height: Dimensions.get('window').height - keyboardHeight - 75 }}>{props.children}</ScrollView>
 	);
 };
 
