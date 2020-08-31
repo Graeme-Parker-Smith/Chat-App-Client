@@ -35,7 +35,7 @@ const AreYouSure = ({ yesAction, isOwner, modalVisible, setModalVisible }) => {
 					<TouchableOpacity
 						activeOpacity={1}
 						onPress={() => console.log('Pressed inside modal!')}
-						style={{ width: 150, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
+						style={{ width: 200, backgroundColor: '#000', paddingTop: 15, paddingBottom: 15 }}
 					>
 						<View>
 							<View
@@ -63,12 +63,12 @@ const AreYouSure = ({ yesAction, isOwner, modalVisible, setModalVisible }) => {
 							</View>
 							{/* modal menu starts here */}
 							<View>
-								<WhiteText>Are You Sure?</WhiteText>
-								<View style={{ flexDirection: 'row' }}>
-									<TouchableHighlight style={{ flexGrow: 1 }}>
+								<WhiteText style={{ fontSize: 28, textAlign: 'center' }}>Are You Sure?</WhiteText>
+								<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+									<TouchableHighlight style={{ flexGrow: 1, margin: 30 }}>
 										<Button title="YES" onPress={handleSubmit} />
 									</TouchableHighlight>
-									<TouchableHighlight style={{ flexGrow: 1 }}>
+									<TouchableHighlight style={{ flexGrow: 1, margin: 30 }}>
 										<Button
 											buttonStyle={{ backgroundColor: 'red' }}
 											title="NO"
