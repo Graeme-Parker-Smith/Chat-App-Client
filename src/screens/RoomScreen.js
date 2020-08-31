@@ -395,6 +395,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	};
 
 	const renderItemOutside = (item, index) => {
+		if (currentUser.blocked.some(user => user.username === item.creator)) {
+			return;
+		}
 		return (
 			// <Animated.View
 			// 	style={{ transform: [{ translateX: pan.x }, { translateY: pan.y }] }}
