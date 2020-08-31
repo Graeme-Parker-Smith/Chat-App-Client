@@ -6,11 +6,11 @@ import { Entypo, MaterialIcons, AntDesign, Foundation } from '@expo/vector-icons
 
 const UserMoreOptions = ({ friend }) => {
 	const [modalVisible, setModalVisible] = useState(false);
-	const { addFriend, unblock, state } = useContext(ChannelContext);
+	const { addFriend, unblock, state, report } = useContext(ChannelContext);
 
-	const isFriend = state.currentUser.friends.some(f => f._id === friend._id);
-	const isPending = state.currentUser.pending.some(f => f._id === friend._id);
-	const isBlocked = state.currentUser.blocked.some(b => b._id === friend._id);
+	const isFriend = state.currentUser.friends.some((f) => f._id === friend._id);
+	const isPending = state.currentUser.pending.some((f) => f._id === friend._id);
+	const isBlocked = state.currentUser.blocked.some((b) => b._id === friend._id);
 
 	return (
 		<View style={{ marginTop: 0 }}>
@@ -113,6 +113,17 @@ const UserMoreOptions = ({ friend }) => {
 									}
 								/>
 							)}
+							<Button
+								containerStyle={styles.modalButton}
+								buttonStyle={{ padding: 15, backgroundColor: 'red' }}
+								title="Report"
+								onPress={() =>
+									report({
+										reportedUser: friend,
+										username: state.currentUser.username,
+									})
+								}
+							/>
 						</View>
 					</TouchableOpacity>
 				</TouchableHighlight>
