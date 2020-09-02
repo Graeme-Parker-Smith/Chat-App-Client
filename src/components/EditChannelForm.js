@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';
-import { Input, Button, Text } from 'react-native-elements';
+import { Input, Button, Text, CheckBox } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { Context as AuthContext } from '../context/AuthContext';
 import Spacer from './Spacer';
@@ -10,7 +10,7 @@ import BouncyInput from './BouncyInput';
 import AreYouSure from './AreYouSure';
 import WhiteText from './WhiteText';
 
-const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '' }) => {
+const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '', thisMature = false }) => {
 	const {
 		state: { currentUser, channels },
 		updateChannel,
@@ -20,11 +20,11 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '' 
 	const { tryLocalSignin } = useContext(AuthContext);
 	const [newName, setNewName] = useState(thisName);
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
-	const [description, setDescription] = useState(thisDescription)
+	const [description, setDescription] = useState(thisDescription);
+	const [mature, setMature] = useState(thisMature);
 	const [isLoading, setIsLoading] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [errMsg, setErrMsg] = useState('');
-
 
 	const channelInfo = channels.find((channel) => channel.name === thisName);
 	const channel_id = channelInfo._id;
@@ -42,10 +42,11 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '' 
 			channel_id,
 			newName,
 			newAvatar: newAvatar.base64Uri,
-			newDescription: description
+			newDescription: description,
+			newMature: mature
 		});
 		if (response && response.data.error) {
-			console.log("yes", response.data);
+			console.log('yes', response.data);
 			setIsLoading(false);
 			setErrMsg(response.data.error);
 			return;
@@ -96,17 +97,20 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '' 
 					inputStyle={{ color: 'white' }}
 				/>
 			</Spacer>
+			<Spacer />
+			<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
+			<Spacer />
 			<BouncyInput
-					value={description}
-					onChangeText={setDescription}
-					label="Edit Description"
-					placeholder="225 char max"
-					inputContainerStyle={{ marginBottom: 20 }}
-					inputStyle={{ color: '#fff' }}
-					placeholderTextColor="#fff"
-					maxLength={225}
-					multiline={true}
-				/>
+				value={description}
+				onChangeText={setDescription}
+				label="Edit Description"
+				placeholder="225 char max"
+				inputContainerStyle={{ marginBottom: 20 }}
+				inputStyle={{ color: '#fff' }}
+				placeholderTextColor="#fff"
+				maxLength={225}
+				multiline={true}
+			/>
 			<AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={'Channel'} />
 			<Spacer />
 			<View style={styles.buttonRow}>

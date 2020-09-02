@@ -21,6 +21,7 @@ const FormHandler = ({ formState, setFormState, setIsLoading }) => {
 					thisName={formState.item.name}
 					thisAvatar={formState.item.avatar}
 					thisDescription={formState.item.description}
+					thisMature={formState.item.mature}
 				/>
 			);
 		case 'edit_private':
