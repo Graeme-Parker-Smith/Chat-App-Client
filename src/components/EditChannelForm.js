@@ -16,6 +16,7 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '',
 		updateChannel,
 		fetchChannels,
 		deleteChannel,
+		reportChannel,
 	} = useContext(ChannelContext);
 	const { tryLocalSignin } = useContext(AuthContext);
 	const [newName, setNewName] = useState(thisName);
@@ -55,6 +56,19 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '',
 		await fetchChannels();
 		setIsLoading(false);
 	};
+
+	const handleReport = async () => {
+		reportChannel({
+			name: thisName,
+			id: channel_id,
+			avatar: thisAvatar,
+			description: thisDescription,
+			mature: thisMature,
+		})
+		showForm('');
+		await fetchChannels();
+		setIsLoading(false);
+	}
 
 	const cancelForm = () => {
 		showForm('');
@@ -128,19 +142,14 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '',
 					onPress={() => setModalVisible(true)}
 				/>
 			</View>
-			{/* {userCanEdit ? null : (
+			{userCanEdit ? null : (
 				<Button
 					containerStyle={styles.button}
 					buttonStyle={{ padding: 15, backgroundColor: 'red' }}
-					title="Report"
-					onPress={() =>
-						report({
-							reportedUser: searchResults,
-							username: state.currentUser.username,
-						})
-					}
+					title="Report Channel"
+					onPress={handleReport}
 				/>
-			)} */}
+			)}
 			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 		</View>
 	);

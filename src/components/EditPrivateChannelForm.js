@@ -17,6 +17,7 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 		fetchChannels,
 		deleteChannel,
 		invite,
+		reportChannel,
 	} = useContext(ChannelContext);
 	const [newName, setNewName] = useState(thisName);
 	const [newAvatar, setNewAvatar] = useState(thisAvatar);
@@ -59,6 +60,19 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 		await fetchChannels();
 		setIsLoading(false);
 	};
+
+	const handleReport = async () => {
+		reportChannel({
+			name: thisName,
+			id: channel_id,
+			avatar: thisAvatar,
+			description: thisDescription,
+			mature: thisMature,
+		})
+		showForm('');
+		await fetchChannels();
+		setIsLoading(false);
+	}
 
 	const cancelForm = () => {
 		showForm('');
@@ -148,6 +162,14 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 					onPress={() => setModalVisible(true)}
 				/>
 			</View>
+			{userCanEdit ? null : (
+				<Button
+					containerStyle={styles.button}
+					buttonStyle={{ padding: 15, backgroundColor: 'red' }}
+					title="Report Channel"
+					onPress={handleReport}
+				/>
+			)}
 			<View>
 				{/* <Input
 					disabled={!userCanEdit}

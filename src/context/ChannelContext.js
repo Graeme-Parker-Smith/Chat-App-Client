@@ -162,6 +162,22 @@ const updateChannel = (dispatch) => async ({
 	}
 };
 
+const reportChannel = (dispatch) => async ({ name, id, avatar, description, mature }) => {
+	console.log('reporting channel');
+	try {
+		const response = chatApi.post('reportchannel', {
+			name,
+			id,
+			avatar,
+			description,
+			mature,
+		});
+		return;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 const fetchChannels = (dispatch) => async () => {
 	console.log('fetching');
 	try {
@@ -270,6 +286,7 @@ export const { Provider, Context } = createDataContext(
 		addFriend,
 		unblock,
 		report,
+		reportChannel,
 		invite,
 		kick,
 		deleteChannel,
