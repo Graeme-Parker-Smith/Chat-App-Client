@@ -60,14 +60,20 @@ const channelReducer = (state, action) => {
 	}
 };
 
-const addFriend = (dispatch) => async ({ username, friendName, shouldRemove = false, shouldBlock = false, shouldReport = false }) => {
+const addFriend = (dispatch) => async ({
+	username,
+	friendName,
+	shouldRemove = false,
+	shouldBlock = false,
+	shouldReport = false,
+}) => {
 	try {
 		const response = await chatApi.post('/addfriend', {
 			username,
 			friendName,
 			shouldRemove,
 			shouldBlock,
-			shouldReport
+			shouldReport,
 		});
 		dispatch({ type: 'add_friend', payload: response.data });
 	} catch (err) {
@@ -83,7 +89,7 @@ const report = (dispatch) => async ({ username, reportedUser }) => {
 			friendName: reportedUser.username,
 			shouldRemove: true,
 			shouldBlock: true,
-			shouldReport: true
+			shouldReport: true,
 		});
 		dispatch({ type: 'add_friend', payload: response.data });
 	} catch (err) {
@@ -129,7 +135,15 @@ const updateUser = (dispatch) => async ({ username, newUsername, newPassword, ne
 	}
 };
 
-const updateChannel = (dispatch) => async ({ username, prevName, newName, newAvatar, isPrivate = false, newDescription, newMature }) => {
+const updateChannel = (dispatch) => async ({
+	username,
+	prevName,
+	newName,
+	newAvatar,
+	isPrivate = false,
+	newDescription,
+	newMature = false,
+}) => {
 	try {
 		const cloudUrl = await imgUpload(newAvatar);
 		const response = await chatApi.post('/updatechannel', {

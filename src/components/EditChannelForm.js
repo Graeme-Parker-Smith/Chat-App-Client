@@ -43,7 +43,7 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '',
 			newName,
 			newAvatar: newAvatar.base64Uri,
 			newDescription: description,
-			newMature: mature
+			newMature: mature,
 		});
 		if (response && response.data.error) {
 			console.log('yes', response.data);
@@ -128,6 +128,19 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '',
 					onPress={() => setModalVisible(true)}
 				/>
 			</View>
+			{/* {userCanEdit ? null : (
+				<Button
+					containerStyle={styles.button}
+					buttonStyle={{ padding: 15, backgroundColor: 'red' }}
+					title="Report"
+					onPress={() =>
+						report({
+							reportedUser: searchResults,
+							username: state.currentUser.username,
+						})
+					}
+				/>
+			)} */}
 			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 		</View>
 	);

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';
-import { Input, Button, Text } from 'react-native-elements';
+import { Input, Button, Text, CheckBox } from 'react-native-elements';
 import { Context as ChannelContext } from '../context/ChannelContext';
 import { Context as AuthContext } from '../context/AuthContext';
 import Spacer from './Spacer';
@@ -10,7 +10,7 @@ import BouncyInput from './BouncyInput';
 import AreYouSure from './AreYouSure';
 import WhiteText from './WhiteText';
 
-const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '' }) => {
+const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '', thisMature = false }) => {
 	const {
 		state: { currentUser, privateChannels },
 		updateChannel,
@@ -29,6 +29,8 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 	const userCanEdit = currentUser._id === channelCreator;
 	const [errMsg, setErrMsg] = useState('');
 	const [description, setDescription] = useState(thisDescription)
+	const [mature, setMature] = useState(thisMature);
+
 
 
 	const handleSubmit = async () => {
@@ -42,7 +44,9 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 			newName,
 			newAvatar,
 			isPrivate: true,
-			newDescription: description
+			newDescription: description,
+			newMature: mature
+
 
 		});
 		if (response && response.data.error) {
@@ -113,6 +117,9 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 					inputStyle={{ color: 'white' }}
 				/>
 			</Spacer>
+			<Spacer />
+			<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
+			<Spacer />
 			<BouncyInput
 					value={description}
 					onChangeText={setDescription}
