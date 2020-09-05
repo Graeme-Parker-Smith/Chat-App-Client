@@ -168,7 +168,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 													}
 												/>
 											)}
-											<Spacer />
+											{/* <Spacer /> */}
 
 											{friendState === 'isBlocked' ? (
 												<Button
