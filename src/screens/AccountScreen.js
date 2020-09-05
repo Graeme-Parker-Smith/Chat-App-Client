@@ -99,7 +99,7 @@ const AccountScreen = ({ navigation }) => {
 	useEffect(() => {
 		if (hasMountedRef.current && firstRef.current) {
 			(async () => {
-				console.log('state.currentUser', state.currentUser);
+				// console.log('state.currentUser', state.currentUser);
 				let r = await registerForNotifications({ user: state.currentUser });
 				if (r === 'no userData received') signout(false);
 				_notificationSubscription = Notifications.addListener(_handleNotification);

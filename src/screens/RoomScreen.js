@@ -395,7 +395,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	};
 
 	const renderItemOutside = (item, index) => {
-		if (currentUser.blocked.some(user => user.username === item.creator)) {
+		if (currentUser.blocked.some((user) => user.username === item.creator)) {
 			return;
 		}
 		return (
@@ -508,7 +508,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					) : // </View>
 					null}
 					<Text style={{ marginLeft: 0, fontSize: 12, color: '#fff', alignSelf: 'center' }}>
-						@{roomName} ({users.length} users online): {userList}
+						@{roomName} ({users.length} {users.length < 2 ? 'user' : 'users'} online): {userList}
 					</Text>
 				</View>
 				{!isCloseToBottom(scrollValues) ? (
