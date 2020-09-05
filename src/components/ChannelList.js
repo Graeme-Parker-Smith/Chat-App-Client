@@ -81,8 +81,8 @@ const ChannelList = ({
 							if (!thisPM) {
 								return;
 							}
-							item.msgCount = parseInt(thisPM.msgCount);
-							item.userCount = parseInt(thisPM.userCount);
+							item.msgCount = thisPM.msgCount;
+							item.userCount = thisPM.userCount;
 							Pm_id = thisPM._id;
 						}
 						return (

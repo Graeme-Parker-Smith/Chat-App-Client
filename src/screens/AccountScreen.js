@@ -223,7 +223,7 @@ const AccountScreen = ({ navigation }) => {
 
 	if (!state.currentUser || isLoading) {
 		return (
-			<View >
+			<View>
 				<NavigationEvents onWillFocus={tryFetchChannels} />
 				<LoadingIndicator />
 			</View>
@@ -328,6 +328,48 @@ const AccountScreen = ({ navigation }) => {
 						/>
 					</View>
 				</Spacer>
+				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+					<TouchableOpacity
+						title="New"
+						// buttonStyle={{ height: 24, width: 24 }}
+						// containerStyle={{ fontSize: 6 }}
+						style={{
+							height: 24,
+							borderRadius: 4,
+							padding: 6,
+							alignItems: 'center',
+							justifyContent: 'center',
+							backgroundColor: activeLists.public ? '#0af' : 'black',
+							borderColor: '#0af',
+							borderWidth: 1,
+						}}
+						// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
+						// type={activeLists.public ? 'solid' : 'outline'}
+						onPress={() => handleListButton('public')}
+					>
+						<Text style={{ fontSize: 12, color: activeLists.public ? 'white' : '#0af' }}>New</Text>
+					</TouchableOpacity>
+					<MaterialCommunityIcons
+						name="message-text"
+						color="#0af"
+						size={24}
+						style={{ alignSelf: 'center', marginLeft: 10 }}
+						onPress={() => handleClick('create_public')}
+					/>
+					<Button
+						title="Old"
+						// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
+						type={activeLists.private ? 'solid' : 'outline'}
+						onPress={() => handleListButton('private')}
+					/>
+					<MaterialCommunityIcons
+						name="guy-fawkes-mask"
+						color="#0af"
+						size={24}
+						style={{ alignSelf: 'center', marginLeft: 10 }}
+						onPress={() => handleClick('create_private')}
+					/>
+				</View>
 				<View
 					style={[styles.channelDivider, { height: Dimensions.get('window').height * 0.62 - keyboardHeight }]}
 				>
