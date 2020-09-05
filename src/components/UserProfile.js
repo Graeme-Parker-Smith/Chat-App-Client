@@ -139,10 +139,6 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 										<>
 											<WhiteText>Created:{searchResults.createdAt}</WhiteText>
 											<WhiteText>Score: {searchResults.msgsSent}</WhiteText>
-
-											<Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>
-												{username}
-											</Text>
 											{friendState === 'isFriend' || friendState === 'isPending' ? (
 												<Button
 													containerStyle={styles.modalButton}

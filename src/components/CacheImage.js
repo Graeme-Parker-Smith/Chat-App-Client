@@ -16,7 +16,7 @@ export default class CacheImage extends React.Component {
 		const name = shorthash.unique(uri);
 		const path = `${FileSystem.cacheDirectory}${name}`;
 		const image = await FileSystem.getInfoAsync(path);
-		console.log('Image uri: ', image);
+		// console.log('Image uri: ', image);
 		if (image.exists) {
 			this.setState({
 				source: {
