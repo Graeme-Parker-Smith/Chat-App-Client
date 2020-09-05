@@ -223,7 +223,7 @@ const AccountScreen = ({ navigation }) => {
 
 	if (!state.currentUser || isLoading) {
 		return (
-			<View>
+			<View >
 				<NavigationEvents onWillFocus={tryFetchChannels} />
 				<LoadingIndicator />
 			</View>

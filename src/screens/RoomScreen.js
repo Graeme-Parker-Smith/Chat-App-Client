@@ -452,14 +452,13 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	};
 
 	const handleOnFocus = async () => {
-		console.log('focusing roomscreen...');
-		// await adjustRoomValues();
+		// console.log('focusing roomscreen...');
+		await adjustRoomValues();
 		socket.emit(
 			'join',
 			{ name: currentUser.username, userId: currentUser._id, room: temp_room_id || room_id },
 			(error) => {
 				if (error) {
-					console.log(error)
 					// if (error === 'Username is taken') {
 					// 	navigation.replace('Account');
 					// 	alert('Error: Username is Taken.');
@@ -467,9 +466,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 				}
 			}
 		);
-		console.log('joined room')
 		socket.on('roomData', ({ users }) => {
-			console.log('got room data');
+			// console.log('got room data');
 			const userNames = users.map((u) => u.name);
 			setUsers(userNames);
 		});
