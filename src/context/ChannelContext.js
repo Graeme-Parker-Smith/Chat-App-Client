@@ -178,6 +178,24 @@ const reportChannel = (dispatch) => async ({ name, id, avatar, description, matu
 	}
 };
 
+const applyFilter = (dispatch) => (filterType) => {
+	console.log('applying filter.');
+	switch (filterType) {
+		case 'new':
+			return dispatch({ type: 'sort_new', payload: null });
+		case 'old':
+			return dispatch({ type: 'sort_old', payload: null });
+		case 'msg':
+			return dispatch({ type: 'sort_msg', payload: null });
+		case 'user':
+			return dispatch({ type: 'sort_user', payload: null });
+		case 'fav':
+			return dispatch({ type: 'sort_fav', payload: null });
+		default:
+			return dispatch({ type: 'sort_new', payload: null });
+	}
+};
+
 const fetchChannels = (dispatch) => async () => {
 	console.log('fetching');
 	try {
