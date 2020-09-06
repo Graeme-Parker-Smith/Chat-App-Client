@@ -33,13 +33,14 @@ import MasonImage from '../components/MasonImage';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
-	const { state, fetchChannels, updateState, addFriend, clearState, refreshChannelsData } = useContext(
+	const { state, fetchChannels, updateState, addFriend, clearState, refreshChannelsData, applyFilter } = useContext(
 		ChannelContext
 	);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [channelSearch, setChannelSearch] = useState('');
 	const [activeLists, setActiveLists] = useState({ public: true, private: true });
+	const [filter, setFilter] = useState('msg');
 	const [publicWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 	const [privateWidthAnim] = useState(new Animated.Value(Dimensions.get('window').width * 0.5));
 
@@ -201,17 +202,22 @@ const AccountScreen = ({ navigation }) => {
 		}
 	};
 
-	const NavigationContainer = (props) => {
-		return (
-			// <View style={styles.navigationContainer}>
-			<View>
-				<StatusBar />
-				{/* <View style={{paddingTop: Platform.OS === 'ios' ? 10 : 0}} /> */}
-				{props.children}
-			</View>
-			// </View>
-		);
+	const handleFilterButton = (filterType) => {
+		setFilter(filterType);
+		applyFilter(filterType);
 	};
+
+	// const NavigationContainer = (props) => {
+	// 	return (
+	// 		// <View style={styles.navigationContainer}>
+	// 		<View>
+	// 			<StatusBar />
+	// 			{/* <View style={{paddingTop: Platform.OS === 'ios' ? 10 : 0}} /> */}
+	// 			{props.children}
+	// 		</View>
+	// 		// </View>
+	// 	);
+	// };
 
 	const handleOnBlur = async () => {
 		// console.log('blurring accountscreen...');
@@ -334,7 +340,7 @@ const AccountScreen = ({ navigation }) => {
 						// buttonStyle={{ height: 24, width: 24 }}
 						// containerStyle={{ fontSize: 6 }}
 						style={{
-							height: 24,
+							height: 36,
 							borderRadius: 4,
 							padding: 6,
 							alignItems: 'center',
