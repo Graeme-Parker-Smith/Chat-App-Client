@@ -28,9 +28,9 @@ const InviteMenu = ({ roomName }) => {
 				animationType="slide"
 				transparent={true}
 				visible={modalVisible}
-				onRequestClose={() => {
-					console.log('Modal has been closed.');
-				}}
+				// onRequestClose={() => {
+				// 	console.log('Modal has been closed.');
+				// }}
 			>
 				<TouchableHighlight
 					style={{
@@ -44,7 +44,7 @@ const InviteMenu = ({ roomName }) => {
 				>
 					<TouchableOpacity
 						activeOpacity={1}
-						onPress={() => console.log('Pressed inside modal!')}
+						// onPress={() => console.log('Pressed inside modal!')}
 						style={{ width: 150, height: 200, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
 					>
 						<View>

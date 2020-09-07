@@ -38,7 +38,7 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 		});
 	}, [state, searchResults]);
 	// console.log('friendState is: ', friendState);
-	console.log('searchResults is: ', searchResults);
+	// console.log('searchResults is: ', searchResults);
 	// useEffect(() => {
 	// 	socket.on('update_user', ({ newData }) => {
 	// 		console.log('received new data', newData.currentUser);
@@ -71,9 +71,9 @@ const UserProfile = ({ username, source, modalVisible, setModalVisible }) => {
 				onShow={() => {
 					socket.emit('usersearch', { currentUser: state.currentUser, searchKey: username });
 				}}
-				onRequestClose={() => {
-					console.log('Modal has been closed.');
-				}}
+				// onRequestClose={() => {
+				// 	console.log('Modal has been closed.');
+				// }}
 			>
 				<TouchableHighlight
 					style={{

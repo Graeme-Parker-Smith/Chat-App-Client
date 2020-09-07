@@ -25,7 +25,7 @@ const UserSearchList = () => {
 	const [userSearch, setUserSearch] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
 
-	console.log('USERSEARCHLIST RENDERING!!!');
+	// console.log('USERSEARCHLIST RENDERING!!!');
 	useEffect(() => {
 		socket.on('usersearch', ({ results }) => {
 			setSearchResults(results);
@@ -34,7 +34,7 @@ const UserSearchList = () => {
 
 	useEffect(() => {
 		if (userSearch.length > 0) {
-			console.log('useEffect usersearch fired!!!');
+			// console.log('useEffect usersearch fired!!!');
 			socket.emit('usersearch', { currentUser: state.currentUser, searchKey: userSearch });
 		}
 	}, [state, userSearch]);

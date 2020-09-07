@@ -47,7 +47,7 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '',
 			newMature: mature,
 		});
 		if (response && response.data.error) {
-			console.log('yes', response.data);
+			// console.log('yes', response.data);
 			setIsLoading(false);
 			setErrMsg(response.data.error);
 			return;

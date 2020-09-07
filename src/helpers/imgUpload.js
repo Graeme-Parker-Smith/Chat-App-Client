@@ -26,41 +26,41 @@ export default async function imgUpload(imgString, isVideo = false) {
 			});
 			return response.data.secure_url;
 
-			let apiUrl = `https://api.cloudinary.com/v1_1/jaded/${fileType}/upload`;
+			// let apiUrl = `https://api.cloudinary.com/v1_1/jaded/${fileType}/upload`;
 
-			console.log('apiUrl', apiUrl);
-			let b = {
-				file: formData,
-				upload_preset: 'auymih3b',
-			};
-			let r = await fetch(apiUrl, {
-				body: formData,
-				headers: {
-					'content-type': 'multipart/form-data',
-				},
-				method: 'POST',
-			});
-			let data = await r.json();
-			console.log('cloud url', data.secure_url);
-			return data.secure_url;
+			// console.log('apiUrl', apiUrl);
+			// let b = {
+			// 	file: formData,
+			// 	upload_preset: 'auymih3b',
+			// };
+			// let r = await fetch(apiUrl, {
+			// 	body: formData,
+			// 	headers: {
+			// 		'content-type': 'multipart/form-data',
+			// 	},
+			// 	method: 'POST',
+			// });
+			// let data = await r.json();
+			// console.log('cloud url', data.secure_url);
+			// return data.secure_url;
 
-			try {
-				let response = await fetch(url, {
-					method: 'post',
-					headers: {
-						'Content-Type': 'multipart/form-data',
-					},
-					body: formData,
-				});
-				return await response.json();
-			} catch (error) {
-				console.log('error : ' + error);
-				return error;
-			}
+			// try {
+			// 	let response = await fetch(url, {
+			// 		method: 'post',
+			// 		headers: {
+			// 			'Content-Type': 'multipart/form-data',
+			// 		},
+			// 		body: formData,
+			// 	});
+			// 	return await response.json();
+			// } catch (error) {
+			// 	console.log('error : ' + error);
+			// 	return error;
+			// }
 		}
 		// file:///var/mobile/Containers/Data/Application/14E88F17-8860-46F6-BB0B-892C349136E9/Library/Caches/ExponentExperienceData/%2540graemesmith%252Fgraeme-chat-app/ImagePicker/28CE9DAA-80FB-4616-B270-F5D6432F8C51.mov
 		let apiUrl = `https://api.cloudinary.com/v1_1/jaded/${fileType}/upload`;
-		console.log('apiUrl', apiUrl);
+		// console.log('apiUrl', apiUrl);
 		let b = {
 			file: imgString,
 			upload_preset: 'auymih3b',
@@ -73,7 +73,7 @@ export default async function imgUpload(imgString, isVideo = false) {
 			method: 'POST',
 		});
 		let data = await r.json();
-		console.log(data.secure_url);
+		// console.log(data.secure_url);
 		return data.secure_url;
 	} catch (err) {
 		console.log(err);

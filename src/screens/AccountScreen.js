@@ -61,13 +61,13 @@ const AccountScreen = ({ navigation }) => {
 
 	const hasMountedRef = useRef(false);
 	const firstRef = useRef(true);
-	console.log('ACCOUNT RENDERING');
+	// console.log('ACCOUNT RENDERING');
 
 	useEffect(() => {
-		console.log('formState changed.');
+		// console.log('formState changed.');
 		if (hasMountedRef.current && !firstRef.current) {
 			tryFetchChannels();
-			console.log('formstate submit fetching channels');
+			// console.log('formstate submit fetching channels');
 			socket.emit('get_channels_data', { socketId: socket.id });
 		}
 	}, [formState]);
@@ -151,7 +151,7 @@ const AccountScreen = ({ navigation }) => {
 			createError('Unable to connect to server.');
 			// signout(false);
 		} else {
-			console.log('applying filter.');
+			// console.log('applying filter.');
 			applyFilter(filter);
 			socket.emit('get_channels_data', { socketId: socket.id });
 		}

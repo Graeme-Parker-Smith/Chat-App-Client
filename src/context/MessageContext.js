@@ -36,7 +36,7 @@ const fetchEarlierMessages = (dispatch) => async (state, roomName, roomType, roo
 };
 
 const fetchMessages = (dispatch) => async (roomName, roomType, room_id) => {
-	console.log('room_id', room_id);
+	// console.log('room_id', room_id);
 	try {
 		// const response = await chatApi.get('/messages');
 		const response = await chatApi.get('/messages', {
@@ -97,7 +97,7 @@ const deleteMessage = (dispatch) => async ({ itemId }) => {
 
 const sendNotification = (dispatch) => async ({ sender, messageBody, receiver, room_id }) => {
 	const response = await chatApi.post('/sendnotification', { sender, messageBody, receiver, room_id });
-	console.log(response);
+	// console.log(response);
 	dispatch({ type: null, payload: null });
 };
 

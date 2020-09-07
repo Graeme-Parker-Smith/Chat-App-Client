@@ -18,9 +18,9 @@ const AreYouSure = ({ yesAction, isOwner, modalVisible, setModalVisible }) => {
 				animationType="slide"
 				transparent={true}
 				visible={modalVisible}
-				onRequestClose={() => {
-					console.log('Modal has been closed.');
-				}}
+				// onRequestClose={() => {
+				// 	console.log('Modal has been closed.');
+				// }}
 			>
 				<TouchableHighlight
 					style={{
@@ -34,7 +34,7 @@ const AreYouSure = ({ yesAction, isOwner, modalVisible, setModalVisible }) => {
 				>
 					<TouchableOpacity
 						activeOpacity={1}
-						onPress={() => console.log('Pressed inside modal!')}
+						// onPress={() => console.log('Pressed inside modal!')}
 						style={{ width: 200, backgroundColor: '#000', paddingTop: 15, paddingBottom: 15 }}
 					>
 						<View>

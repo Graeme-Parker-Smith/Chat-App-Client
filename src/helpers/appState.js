@@ -1,6 +1,6 @@
 const [appState, setAppState] = useState(AppState.currentState);
 useEffect(() => {
-  console.log("mounting!");
+  // console.log("mounting!");
   registerForNotifications();
   AppState.addEventListener("change", _handleAppStateChange);
   return () => {
@@ -11,8 +11,8 @@ useEffect(() => {
 
 const _handleAppStateChange = nextAppState => {
   if (nextAppState.match(/inactive|background/) && appState === "active") {
-    console.log("App has come to the foreground!");
+    // console.log("App has come to the foreground!");
   }
-  console.log(nextAppState);
+  // console.log(nextAppState);
   setAppState(nextAppState);
 };

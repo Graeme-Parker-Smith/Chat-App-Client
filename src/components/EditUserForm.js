@@ -37,7 +37,7 @@ const EditUserForm = () => {
 			newAvatar: newAvatar.base64Uri,
 		});
 		if (response && response.data.error) {
-			console.log('yes', response.data);
+			// console.log('yes', response.data);
 			setIsLoading(false);
 			setErrMsg(response.data.error);
 			return;

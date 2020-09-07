@@ -43,19 +43,19 @@ const channelReducer = (state, action) => {
 		case 'update_channel':
 			return state;
 		case 'sort_new':
-			console.log('sorting channels....');
+			// console.log('sorting channels....');
 			let newChannels = state.channels.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 			let newPrivates = state.privateChannels.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 			let newPMs = state.PMs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 			return { ...state, channels: newChannels, privateChannels: newPrivates, PMs: newPMs };
 		case 'sort_old':
-			console.log('sorting channels....');
+			// console.log('sorting channels....');
 			newChannels = state.channels.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 			newPrivates = state.privateChannels.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 			newPMs = state.PMs.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 			return { ...state, channels: newChannels, privateChannels: newPrivates, PMs: newPMs };
 		case 'sort_msg':
-			console.log('sorting channels....');
+			// console.log('sorting channels....');
 			newChannels = state.channels.sort((a, b) => b.msgCount - a.msgCount);
 			newPrivates = state.privateChannels.sort((a, b) => b.msgCount - a.msgCount);
 			newPMs = state.PMs.sort((a, b) => b.msgCount - a.msgCount);
@@ -100,7 +100,7 @@ const addFriend = (dispatch) => async ({
 };
 
 const report = (dispatch) => async ({ username, reportedUser }) => {
-	console.log('REPORTED', reportedUser);
+	// console.log('REPORTED', reportedUser);
 	try {
 		const response = await chatApi.post('/addfriend', {
 			username: username,
@@ -181,7 +181,7 @@ const updateChannel = (dispatch) => async ({
 };
 
 const reportChannel = (dispatch) => async ({ name, id, avatar, description, mature }) => {
-	console.log('reporting channel');
+	// console.log('reporting channel');
 	try {
 		const response = chatApi.post('reportchannel', {
 			name,
@@ -197,7 +197,7 @@ const reportChannel = (dispatch) => async ({ name, id, avatar, description, matu
 };
 
 const applyFilter = (dispatch) => (filterType) => {
-	console.log('applying filter.');
+	// console.log('applying filter.');
 	switch (filterType) {
 		case 'new':
 			return dispatch({ type: 'sort_new', payload: null });
@@ -215,7 +215,7 @@ const applyFilter = (dispatch) => (filterType) => {
 };
 
 const fetchChannels = (dispatch) => async () => {
-	console.log('fetching');
+	// console.log('fetching');
 	try {
 		const response = await chatApi.get('/channels');
 		// const nojson = JSON.parse(response.data);

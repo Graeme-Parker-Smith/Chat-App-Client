@@ -69,7 +69,7 @@ const signup = (dispatch) => async ({ username, password, avatar }) => {
 			// });
 
 			const cloudUrl = await imgUpload(avatar);
-			console.log('cloudUrl', cloudUrl);
+			// console.log('cloudUrl', cloudUrl);
 			response = await chatApi.post('/signup', {
 				username,
 				password,
@@ -85,10 +85,10 @@ const signup = (dispatch) => async ({ username, password, avatar }) => {
 		dispatch({ type: 'signin', payload: response.data.token });
 		navigate('Account');
 	} catch (err) {
-		console.log('err message', err.message);
+		// console.log('err message', err.message);
 
 		if (err.message === 'Request failed with status code 422') {
-			console.log('got 422 error');
+			// console.log('got 422 error');
 			dispatch({
 				type: 'add_error',
 				payload: 'This username is already taken.',
@@ -115,16 +115,16 @@ const signin = (dispatch) => async ({ username, password }) => {
 		dispatch({ type: 'signin', payload: response.data });
 		navigate('Account');
 	} catch (err) {
-		console.log('err message', err.message);
+		// console.log('err message', err.message);
 
 		if (err.message === 'Request failed with status code 422') {
-			console.log('got 422 error');
+			// console.log('got 422 error');
 			dispatch({
 				type: 'add_error',
 				payload: 'User not found.',
 			});
 		} else if (err.message === 'Request failed with status code 403') {
-			console.log('got 403 error');
+			// console.log('got 403 error');
 			dispatch({
 				type: 'add_error',
 				payload: 'Wrong Password.',

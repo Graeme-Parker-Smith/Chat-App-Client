@@ -33,7 +33,7 @@ const InviteUserForm = ({ friend }) => {
 				>
 					<TouchableOpacity
 						activeOpacity={1}
-						onPress={() => console.log('Pressed inside modal!')}
+						// onPress={() => console.log('Pressed inside modal!')}
 						style={{ width: 100, height: 100, backgroundColor: '#fff' }}
 					>
 						<View>

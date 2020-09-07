@@ -17,9 +17,9 @@ const FullscreenImage = ({ source, modalVisible, setModalVisible }) => {
 				animationType="none"
 				transparent={true}
 				visible={modalVisible}
-				onRequestClose={() => {
-					console.log('Modal has been closed.');
-				}}
+				// onRequestClose={() => {
+				// 	console.log('Modal has been closed.');
+				// }}
 			>
 				<TouchableHighlight
 					style={{

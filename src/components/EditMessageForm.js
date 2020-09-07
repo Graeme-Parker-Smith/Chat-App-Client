@@ -12,7 +12,7 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 	const handleSubmit = async () => {
 		if (!isOwner) return;
 		await updateMessage({ currentContent, newContent: content, itemId });
-		console.log('message edited');
+		// console.log('message edited');
 		setEditMessageVisible(false);
 		await fetchMessages(undefined, undefined, channelId);
 	};
@@ -22,7 +22,7 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 		if (!isOwner) return;
 		// console.log('itemId', itemId);
 		await deleteMessage({ itemId });
-		console.log('message deleted!');
+		// console.log('message deleted!');
 		setEditMessageVisible(false);
 		await fetchMessages(undefined, undefined, channelId);
 	};
@@ -34,9 +34,9 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 				animationType="slide"
 				transparent={true}
 				visible={editMessageVisible}
-				onRequestClose={() => {
-					console.log('Modal has been closed.');
-				}}
+				// onRequestClose={() => {
+				// 	console.log('Modal has been closed.');
+				// }}
 			>
 				<TouchableHighlight
 					style={{
@@ -50,7 +50,7 @@ const EditMessageForm = ({ isOwner, itemId, currentContent, editMessageVisible, 
 				>
 					<TouchableOpacity
 						activeOpacity={1}
-						onPress={() => console.log('Pressed inside modal!')}
+						// onPress={() => console.log('Pressed inside modal!')}
 						style={{ width: 150, backgroundColor: '#000', paddingTop: 5, paddingBottom: 5 }}
 					>
 						<View>

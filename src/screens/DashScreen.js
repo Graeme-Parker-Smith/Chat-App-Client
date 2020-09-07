@@ -35,21 +35,19 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import DashTabs from '../components/DashTabs';
 
 const DashScreen = ({ navigation }) => {
-	const listRef = useRef();
+	// const listRef = useRef();
 	const {
-		signout,
-		createError,
 		state: { errorMessage },
 	} = useContext(AuthContext);
-	const { state, fetchChannels, updateState } = useContext(ChannelContext);
+	const { state, updateState } = useContext(ChannelContext);
 	const socket = useContext(SocketContext);
 	const initialIndex = navigation.getParam('initialIndex');
-	const [userSearch, setUserSearch] = useState('');
-	const [menuIndex, setMenuIndex] = useState(0);
+	// const [userSearch, setUserSearch] = useState('');
+	// const [menuIndex, setMenuIndex] = useState(0);
 
-	const [keyboardHeight, setKeyboardHeight] = useState(0);
+	// const [keyboardHeight, setKeyboardHeight] = useState(0);
 
-	console.log('DASHSCREEN RENDERING!!!');
+	// console.log('DASHSCREEN RENDERING!!!');
 	// useEffect(() => {
 	// 	keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
 	// 	keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
@@ -94,9 +92,9 @@ const DashScreen = ({ navigation }) => {
 	// 	fetchChannels();
 	// }, [menuIndex]);
 
-	const handleClick = () => {
-		navigate('EditUser');
-	};
+	// const handleClick = () => {
+	// 	navigate('EditUser');
+	// };
 
 	// const cancelForm = () => {
 	// 	// showForm(false);

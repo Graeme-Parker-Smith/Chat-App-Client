@@ -138,7 +138,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
 
 		return () => {
-			console.log('component unmounting');
+			// console.log('component unmounting');
 			keyboardDidShowListener.remove();
 			keyboardDidHideListener.remove();
 			socket.emit('leave', { room: roomName, name: currentUser.username });
@@ -491,7 +491,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	};
 
 	const handleOnBlur = async () => {
-		console.log('component blurring...');
+		// console.log('component blurring...');
 		Keyboard.dismiss();
 		keyboardDidShowListener.remove();
 		keyboardDidHideListener.remove();

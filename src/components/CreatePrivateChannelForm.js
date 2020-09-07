@@ -39,7 +39,7 @@ const CreatePrivateChannelForm = ({ showForm }) => {
 		});
 		setIsLoading(false);
 		if (response && response.data.error) {
-			console.log('yes', response.data);
+			// console.log('yes', response.data);
 			setErrMsg(response.data.error);
 			return;
 		}
