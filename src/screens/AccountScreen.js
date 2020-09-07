@@ -308,36 +308,7 @@ const AccountScreen = ({ navigation }) => {
 					{/* <View>
 			<Text style={{color: 'white'}}>{}</Text>
 					</View> */}
-					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-						<Button
-							title="Public"
-							// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
-							type={activeLists.public ? 'solid' : 'outline'}
-							onPress={() => handleListButton('public')}
-						/>
-						<MaterialCommunityIcons
-							name="comment-plus"
-							color="#0af"
-							size={48}
-							style={{ alignSelf: 'center', marginLeft: 10 }}
-							onPress={() => handleClick('create_public')}
-						/>
-						<Button
-							title="Private"
-							// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
-							type={activeLists.private ? 'solid' : 'outline'}
-							onPress={() => handleListButton('private')}
-						/>
-						<MaterialCommunityIcons
-							name="comment-plus"
-							color="#FF8100"
-							size={48}
-							style={{ alignSelf: 'center', marginLeft: 10 }}
-							onPress={() => handleClick('create_private')}
-						/>
-					</View>
-				</Spacer>
-				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+				<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
 					<TouchableOpacity
 						// buttonStyle={{ height: 24, width: 24 }}
 						// containerStyle={{ fontSize: 6 }}
@@ -407,6 +378,35 @@ const AccountScreen = ({ navigation }) => {
 						onPress={() => handleClick('create_private')}
 					/> */}
 				</View>
+					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+						<Button
+							title="Public"
+							// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
+							type={activeLists.public ? 'solid' : 'outline'}
+							onPress={() => handleListButton('public')}
+						/>
+						<MaterialCommunityIcons
+							name="comment-plus"
+							color="#0af"
+							size={48}
+							style={{ alignSelf: 'center', marginLeft: 10 }}
+							onPress={() => handleClick('create_public')}
+						/>
+						<Button
+							title="Private"
+							// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
+							type={activeLists.private ? 'solid' : 'outline'}
+							onPress={() => handleListButton('private')}
+						/>
+						<MaterialCommunityIcons
+							name="comment-plus"
+							color="#FF8100"
+							size={48}
+							style={{ alignSelf: 'center', marginLeft: 10 }}
+							onPress={() => handleClick('create_private')}
+						/>
+					</View>
+				</Spacer>
 				<View
 					style={[styles.channelDivider, { height: Dimensions.get('window').height * 0.62 - keyboardHeight }]}
 				>
