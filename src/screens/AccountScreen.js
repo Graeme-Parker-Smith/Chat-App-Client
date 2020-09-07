@@ -30,8 +30,11 @@ import WhiteText from '../components/WhiteText';
 import { Notifications } from 'expo';
 import { navigate, back } from '../navigationRef';
 import MasonImage from '../components/MasonImage';
+// import Constants from 'expo-constants';
 
 const AccountScreen = ({ navigation }) => {
+	// console.log('CONSTANTS', Constants.nativeAppVersion);
+	// console.log('CONSTANTS', Constants.nativeBuildVersion);
 	const { signout } = useContext(AuthContext);
 	const { state, fetchChannels, updateState, addFriend, clearState, refreshChannelsData, applyFilter } = useContext(
 		ChannelContext
@@ -308,76 +311,76 @@ const AccountScreen = ({ navigation }) => {
 					{/* <View>
 			<Text style={{color: 'white'}}>{}</Text>
 					</View> */}
-				<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
-					<TouchableOpacity
-						// buttonStyle={{ height: 24, width: 24 }}
-						// containerStyle={{ fontSize: 6 }}
-						style={{
-							height: 36,
-							borderRadius: 4,
-							padding: 6,
-							alignItems: 'center',
-							justifyContent: 'center',
-							backgroundColor: filter === 'new' ? '#0af' : 'black',
-							borderColor: '#0af',
-							borderWidth: 1,
-						}}
-						// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
-						// type={filter === 'new' ? 'solid' : 'outline'}
-						onPress={() => handleFilterButton('new')}
-					>
-						<Text style={{ fontSize: 12, color: filter === 'new' ? 'white' : '#0af' }}>New</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => handleFilterButton('old')}
-						style={{
-							height: 36,
-							borderRadius: 4,
-							padding: 6,
-							alignItems: 'center',
-							justifyContent: 'center',
-							backgroundColor: filter === 'old' ? '#0af' : 'black',
-							borderColor: '#0af',
-							borderWidth: 1,
-						}}
-					>
-						<Text style={{ fontSize: 12, color: filter === 'old' ? 'white' : '#0af' }}>Old</Text>
-					</TouchableOpacity>
-					{/* <Button
+					<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
+						<TouchableOpacity
+							// buttonStyle={{ height: 24, width: 24 }}
+							// containerStyle={{ fontSize: 6 }}
+							style={{
+								height: 36,
+								borderRadius: 4,
+								padding: 6,
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: filter === 'new' ? '#0af' : 'black',
+								borderColor: '#0af',
+								borderWidth: 1,
+							}}
+							// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
+							// type={filter === 'new' ? 'solid' : 'outline'}
+							onPress={() => handleFilterButton('new')}
+						>
+							<Text style={{ fontSize: 12, color: filter === 'new' ? 'white' : '#0af' }}>New</Text>
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => handleFilterButton('old')}
+							style={{
+								height: 36,
+								borderRadius: 4,
+								padding: 6,
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: filter === 'old' ? '#0af' : 'black',
+								borderColor: '#0af',
+								borderWidth: 1,
+							}}
+						>
+							<Text style={{ fontSize: 12, color: filter === 'old' ? 'white' : '#0af' }}>Old</Text>
+						</TouchableOpacity>
+						{/* <Button
 						title="Old"
 						// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
 						type={activeLists.private ? 'solid' : 'outline'}
 						onPress={() => handleFilterButton('old')}
 					/> */}
-					<TouchableOpacity
-						onPress={() => handleFilterButton('msg')}
-						style={{
-							height: 36,
-							borderRadius: 4,
-							padding: 6,
-							alignItems: 'center',
-							justifyContent: 'center',
-							backgroundColor: filter === 'msg' ? '#0af' : 'black',
-							borderColor: '#0af',
-							borderWidth: 1,
-						}}
-					>
-						<MaterialCommunityIcons
-							name="message-text"
-							color={filter === 'msg' ? 'black' : '#0af'}
-							size={24}
-							style={{ alignSelf: 'center', marginLeft: 0 }}
-							// onPress={() => handleFilterButton('msg')}
-						/>
-					</TouchableOpacity>
-					{/* <MaterialCommunityIcons
+						<TouchableOpacity
+							onPress={() => handleFilterButton('msg')}
+							style={{
+								height: 36,
+								borderRadius: 4,
+								padding: 6,
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: filter === 'msg' ? '#0af' : 'black',
+								borderColor: '#0af',
+								borderWidth: 1,
+							}}
+						>
+							<MaterialCommunityIcons
+								name="message-text"
+								color={filter === 'msg' ? 'black' : '#0af'}
+								size={24}
+								style={{ alignSelf: 'center', marginLeft: 0 }}
+								// onPress={() => handleFilterButton('msg')}
+							/>
+						</TouchableOpacity>
+						{/* <MaterialCommunityIcons
 						name="star"
 						color="#0af"
 						size={24}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
 						onPress={() => handleClick('create_private')}
 					/> */}
-				</View>
+					</View>
 					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 						<Button
 							title="Public"

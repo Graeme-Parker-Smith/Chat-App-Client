@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "2.15.4",
     "orientation": "portrait",
     "primaryColor": "#000000",
     "icon": "./assets/web_hi_res_512.png",
@@ -26,11 +26,12 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.graeme.jaded"
+      "bundleIdentifier": "com.graeme.jaded",
+      "buildNumber": "2.16.0"
     },
     "android": {
       "package": "com.graeme.jaded",
-      "versionCode": 1
+      "versionCode": 127
     },
     "description": ""
   }
