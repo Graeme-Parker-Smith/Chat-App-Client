@@ -41,6 +41,7 @@ const AccountScreen = ({ navigation }) => {
 	);
 	const [formState, setFormState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [errMsg, setErrMsg] = useState('');
 	const [channelSearch, setChannelSearch] = useState('');
 	const [activeLists, setActiveLists] = useState({ public: true, private: true });
 	const [filter, setFilter] = useState('msg');
@@ -59,10 +60,10 @@ const AccountScreen = ({ navigation }) => {
 	console.log('ACCOUNT RENDERING');
 
 	useEffect(() => {
-		console.log("formState changed.")
+		console.log('formState changed.');
 		if (hasMountedRef.current && !firstRef.current) {
 			tryFetchChannels();
-			console.log("formstate submit fetching channels")
+			console.log('formstate submit fetching channels');
 			socket.emit('get_channels_data', { socketId: socket.id });
 		}
 	}, [formState]);
@@ -141,10 +142,12 @@ const AccountScreen = ({ navigation }) => {
 		const response = await fetchChannels();
 		if (!response || response.error || response.error === null) {
 			// console.log('error. signing out.');
+
 			clearState();
-			signout(false);
+			setErrMsg('Unable to connect to server.');
+			// signout(false);
 		} else {
-			console.log("applying filter.")
+			console.log('applying filter.');
 			applyFilter(filter);
 			socket.emit('get_channels_data', { socketId: socket.id });
 		}
@@ -234,6 +237,9 @@ const AccountScreen = ({ navigation }) => {
 		keyboardDidHideListener.remove();
 	};
 
+	if (errMsg) {
+		return <Text style={{ color: 'red' }}>{errMsg}</Text>;
+	}
 	if (!state.currentUser || isLoading) {
 		return (
 			<View>
@@ -246,6 +252,7 @@ const AccountScreen = ({ navigation }) => {
 	if (formState) {
 		return <FormHandler formState={formState} setFormState={setFormState} setIsLoading={setIsLoading} />;
 	}
+
 	return (
 		// <View style={{ paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 }}>
 		<>
@@ -279,6 +286,7 @@ const AccountScreen = ({ navigation }) => {
 
 				{/* </View> */}
 				{/* <Spacer> */}
+
 				<View>
 					<AnimSearchBar
 						placeholder="Channel Search"
