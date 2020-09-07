@@ -59,8 +59,10 @@ const AccountScreen = ({ navigation }) => {
 	console.log('ACCOUNT RENDERING');
 
 	useEffect(() => {
-		if (hasMountedRef.current && firstRef.current) {
-			fetchChannels();
+		console.log("formState changed.")
+		if (hasMountedRef.current && !firstRef.current) {
+			tryFetchChannels();
+			console.log("formstate submit fetching channels")
 			socket.emit('get_channels_data', { socketId: socket.id });
 		}
 	}, [formState]);
@@ -142,6 +144,8 @@ const AccountScreen = ({ navigation }) => {
 			clearState();
 			signout(false);
 		} else {
+			console.log("applying filter.")
+			applyFilter(filter);
 			socket.emit('get_channels_data', { socketId: socket.id });
 		}
 	};
