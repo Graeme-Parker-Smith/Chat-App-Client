@@ -346,6 +346,27 @@ const AccountScreen = ({ navigation }) => {
 					</View> */}
 					<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
 						<TouchableOpacity
+							onPress={() => handleFilterButton('msg')}
+							style={{
+								height: 36,
+								borderRadius: 4,
+								padding: 6,
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: filter === 'msg' ? '#0af' : 'black',
+								borderColor: '#0af',
+								borderWidth: 1,
+							}}
+						>
+							<MaterialCommunityIcons
+								name="message-text"
+								color={filter === 'msg' ? 'black' : '#0af'}
+								size={24}
+								style={{ alignSelf: 'center', marginLeft: 0 }}
+								// onPress={() => handleFilterButton('msg')}
+							/>
+						</TouchableOpacity>
+						<TouchableOpacity
 							// buttonStyle={{ height: 24, width: 24 }}
 							// containerStyle={{ fontSize: 6 }}
 							style={{
@@ -385,27 +406,7 @@ const AccountScreen = ({ navigation }) => {
 						type={activeLists.private ? 'solid' : 'outline'}
 						onPress={() => handleFilterButton('old')}
 					/> */}
-						<TouchableOpacity
-							onPress={() => handleFilterButton('msg')}
-							style={{
-								height: 36,
-								borderRadius: 4,
-								padding: 6,
-								alignItems: 'center',
-								justifyContent: 'center',
-								backgroundColor: filter === 'msg' ? '#0af' : 'black',
-								borderColor: '#0af',
-								borderWidth: 1,
-							}}
-						>
-							<MaterialCommunityIcons
-								name="message-text"
-								color={filter === 'msg' ? 'black' : '#0af'}
-								size={24}
-								style={{ alignSelf: 'center', marginLeft: 0 }}
-								// onPress={() => handleFilterButton('msg')}
-							/>
-						</TouchableOpacity>
+
 						{/* <MaterialCommunityIcons
 						name="star"
 						color="#0af"
