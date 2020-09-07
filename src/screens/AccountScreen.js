@@ -339,7 +339,6 @@ const AccountScreen = ({ navigation }) => {
 				</Spacer>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 					<TouchableOpacity
-						title="New"
 						// buttonStyle={{ height: 24, width: 24 }}
 						// containerStyle={{ fontSize: 6 }}
 						style={{
@@ -348,36 +347,65 @@ const AccountScreen = ({ navigation }) => {
 							padding: 6,
 							alignItems: 'center',
 							justifyContent: 'center',
-							backgroundColor: activeLists.public ? '#0af' : 'black',
+							backgroundColor: filter === 'new' ? '#0af' : 'black',
 							borderColor: '#0af',
 							borderWidth: 1,
 						}}
 						// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
-						// type={activeLists.public ? 'solid' : 'outline'}
+						// type={filter === 'new' ? 'solid' : 'outline'}
 						onPress={() => handleFilterButton('new')}
 					>
-						<Text style={{ fontSize: 12, color: activeLists.public ? 'white' : '#0af' }}>New</Text>
+						<Text style={{ fontSize: 12, color: filter === 'new' ? 'white' : '#0af' }}>New</Text>
 					</TouchableOpacity>
-					<MaterialCommunityIcons
-						name="message-text"
-						color="#0af"
-						size={24}
-						style={{ alignSelf: 'center', marginLeft: 10 }}
-						onPress={() => handleFilterButton('msg')}
-					/>
-					<Button
+					<TouchableOpacity
+						onPress={() => handleFilterButton('old')}
+						style={{
+							height: 36,
+							borderRadius: 4,
+							padding: 6,
+							alignItems: 'center',
+							justifyContent: 'center',
+							backgroundColor: filter === 'old' ? '#0af' : 'black',
+							borderColor: '#0af',
+							borderWidth: 1,
+						}}
+					>
+						<Text style={{ fontSize: 12, color: filter === 'old' ? 'white' : '#0af' }}>Old</Text>
+					</TouchableOpacity>
+					{/* <Button
 						title="Old"
 						// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
 						type={activeLists.private ? 'solid' : 'outline'}
 						onPress={() => handleFilterButton('old')}
-					/>
-					<MaterialCommunityIcons
+					/> */}
+					<TouchableOpacity
+						onPress={() => handleFilterButton('msg')}
+						style={{
+							height: 36,
+							borderRadius: 4,
+							padding: 6,
+							alignItems: 'center',
+							justifyContent: 'center',
+							backgroundColor: filter === 'msg' ? '#0af' : 'black',
+							borderColor: '#0af',
+							borderWidth: 1,
+						}}
+					>
+						<MaterialCommunityIcons
+							name="message-text"
+							color={filter === 'msg' ? 'black' : '#0af'}
+							size={24}
+							style={{ alignSelf: 'center', marginLeft: 0 }}
+							// onPress={() => handleFilterButton('msg')}
+						/>
+					</TouchableOpacity>
+					{/* <MaterialCommunityIcons
 						name="star"
 						color="#0af"
 						size={24}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
 						onPress={() => handleClick('create_private')}
-					/>
+					/> */}
 				</View>
 				<View
 					style={[styles.channelDivider, { height: Dimensions.get('window').height * 0.62 - keyboardHeight }]}
