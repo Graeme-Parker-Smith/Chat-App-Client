@@ -14,6 +14,8 @@ import {
 import { Input, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { Context as ChannelContext } from '../context/ChannelContext';
+import { Context as AuthContext } from '../context/AuthContext';
+
 import SocketContext from '../context/SocketContext';
 import AvatarPicker from '../components/AvatarPicker';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
@@ -34,6 +36,11 @@ import DashTabs from '../components/DashTabs';
 
 const DashScreen = ({ navigation }) => {
 	const listRef = useRef();
+	const {
+		signout,
+		createError,
+		state: { errorMessage },
+	} = useContext(AuthContext);
 	const { state, fetchChannels, updateState } = useContext(ChannelContext);
 	const socket = useContext(SocketContext);
 	const initialIndex = navigation.getParam('initialIndex');
@@ -117,6 +124,10 @@ const DashScreen = ({ navigation }) => {
 	// 	let pageNum = Math.round(contentOffset.x / viewSize.width);
 	// 	setMenuIndex(pageNum);
 	// }
+
+	if (errorMessage) {
+		return <Text style={{ color: 'red' }}>{errorMessage}</Text>;
+	}
 
 	if (!state.currentUser) {
 		return (

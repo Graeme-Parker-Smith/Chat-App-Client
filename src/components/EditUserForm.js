@@ -10,13 +10,14 @@ import BouncyInput from './BouncyInput';
 import { back, navigate } from '../navigationRef';
 import AreYouSure from './AreYouSure';
 import WhiteText from './WhiteText';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const EditUserForm = () => {
 	const {
 		state: { currentUser },
 		updateUser,
 		fetchChannels,
-		clearState
+		clearState,
 	} = useContext(ChannelContext);
 	const { deleteUser, signout } = useContext(AuthContext);
 
@@ -70,71 +71,75 @@ const EditUserForm = () => {
 	}
 
 	return (
-		<View style={styles.container}>
-			{modalVisible ? (
-				<AreYouSure
-					yesAction={handleDelete}
-					isOwner={true}
-					modalVisible={modalVisible}
-					setModalVisible={setModalVisible}
-				/>
-			) : null}
-			<Spacer />
-			<WhiteText style={{ fontSize: 24, alignSelf: 'center' }}>Edit Account</WhiteText>
-			<View style={styles.userBox}>
-				<WhiteText>{currentUser.username}</WhiteText>
-				<WhiteText>Created:{currentUser.createdAt}</WhiteText>
-				<WhiteText>Score: {currentUser.msgsSent}</WhiteText>
+		<ScrollView>
+			<View style={styles.container}>
+				{modalVisible ? (
+					<AreYouSure
+						yesAction={handleDelete}
+						isOwner={true}
+						modalVisible={modalVisible}
+						setModalVisible={setModalVisible}
+					/>
+				) : null}
+				<Spacer />
+				<WhiteText style={{ fontSize: 24, alignSelf: 'center' }}>Edit Account</WhiteText>
+				<View style={styles.userBox}>
+					<WhiteText>{currentUser.username}</WhiteText>
+					<WhiteText>Created:{currentUser.createdAt}</WhiteText>
+					<WhiteText>Score: {currentUser.msgsSent}</WhiteText>
+				</View>
+				<Spacer>
+					<BouncyInput
+						label="Change Username"
+						value={newUsername}
+						onChangeText={setNewUsername}
+						autoFocus={false}
+						autoCapitalize="none"
+						autoCorrect={false}
+						inputStyle={{ color: 'white' }}
+					/>
+				</Spacer>
+				<Spacer>
+					<BouncyInput
+						secureTextEntry
+						placeholder="Change Password"
+						value={newPassword}
+						onChangeText={setNewPassword}
+						autoCapitalize="none"
+						autoCorrect={false}
+						inputStyle={{ color: 'white' }}
+						secure={true}
+					/>
+				</Spacer>
+				<AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={'User'} />
+				<Spacer />
+				<View style={styles.buttonRow}>
+					<Button buttonStyle={styles.button} title="Update User Info" onPress={handleSubmit} />
+					{/* <Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} /> */}
+					<TouchableOpacity
+						onPress={handleSignout}
+						style={{
+							backgroundColor: 'transparent',
+							borderWidth: 1,
+							borderColor: '#0af',
+							padding: 10,
+							borderRadius: 2,
+							margin: 10,
+						}}
+					>
+						<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>
+							Sign Out
+						</WhiteText>
+					</TouchableOpacity>
+					<Button
+						buttonStyle={styles.deleteButton}
+						title="Delete Account"
+						onPress={() => setModalVisible(true)}
+					/>
+				</View>
+				<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 			</View>
-			<Spacer>
-				<BouncyInput
-					label="Change Username"
-					value={newUsername}
-					onChangeText={setNewUsername}
-					autoFocus={false}
-					autoCapitalize="none"
-					autoCorrect={false}
-					inputStyle={{ color: 'white' }}
-				/>
-			</Spacer>
-			<Spacer>
-				<BouncyInput
-					secureTextEntry
-					placeholder="Change Password"
-					value={newPassword}
-					onChangeText={setNewPassword}
-					autoCapitalize="none"
-					autoCorrect={false}
-					inputStyle={{ color: 'white' }}
-					secure={true}
-				/>
-			</Spacer>
-			<AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={'User'} />
-			<Spacer />
-			<View style={styles.buttonRow}>
-				<Button buttonStyle={styles.button} title="Update User Info" onPress={handleSubmit} />
-				{/* <Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} /> */}
-				<TouchableOpacity
-					onPress={handleSignout}
-					style={{
-						backgroundColor: 'transparent',
-						borderWidth: 1,
-						borderColor: '#0af',
-						padding: 10,
-						borderRadius: 2,
-						margin: 10,
-					}}
-				>
-					<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>Sign Out</WhiteText>
-				</TouchableOpacity>
-				<Button
-					buttonStyle={styles.deleteButton}
-					title="Delete Account"
-					onPress={() => setModalVisible(true)}
-				/>
-			</View>
-			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
-		</View>
+		</ScrollView>
 	);
 };
 

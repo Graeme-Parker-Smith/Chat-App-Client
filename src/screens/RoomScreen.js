@@ -19,6 +19,8 @@ import { back, navigate } from '../navigationRef';
 import Spacer from '../components/Spacer';
 import { Context as MessageContext } from '../context/MessageContext';
 import { Context as ChannelContext } from '../context/ChannelContext';
+import { Context as AuthContext } from '../context/AuthContext';
+
 import SocketContext from '../context/SocketContext';
 import uuid from 'uuid/v4';
 import MessageItem from '../components/MessageItem';
@@ -40,6 +42,11 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	const didMountRef = useRef(false);
 	const socket = useContext(SocketContext);
 	const {
+		signout,
+		createError,
+		state: { errorMessage },
+	} = useContext(AuthContext);
+	const {
 		state: { currentUser, channels },
 	} = useContext(ChannelContext);
 	let temp_roomName = navigation.getParam('roomName');
@@ -58,6 +65,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// console.log('room_id', room_id);
 	// console.log('friend', friend);
 	// console.log('roomCreator', roomCreator);
+	if (errorMessage) {
+		return <Text style={{ color: 'red' }}>{errorMessage}</Text>;
+	}
 
 	const isOwner = currentUser._id === roomCreator;
 
@@ -487,6 +497,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		keyboardDidHideListener.remove();
 		socket.emit('leave', { room: roomName, name: currentUser.username });
 	};
+
+
 
 	if (!currentUser) {
 		return (

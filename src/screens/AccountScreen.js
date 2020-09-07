@@ -35,7 +35,11 @@ import MasonImage from '../components/MasonImage';
 const AccountScreen = ({ navigation }) => {
 	// console.log('CONSTANTS', Constants.nativeAppVersion);
 	// console.log('CONSTANTS', Constants.nativeBuildVersion);
-	const { signout } = useContext(AuthContext);
+	const {
+		signout,
+		createError,
+		state: { errorMessage },
+	} = useContext(AuthContext);
 	const { state, fetchChannels, updateState, addFriend, clearState, refreshChannelsData, applyFilter } = useContext(
 		ChannelContext
 	);
@@ -144,7 +148,7 @@ const AccountScreen = ({ navigation }) => {
 			// console.log('error. signing out.');
 
 			clearState();
-			setErrMsg('Unable to connect to server.');
+			createError('Unable to connect to server.');
 			// signout(false);
 		} else {
 			console.log('applying filter.');
@@ -237,8 +241,25 @@ const AccountScreen = ({ navigation }) => {
 		keyboardDidHideListener.remove();
 	};
 
-	if (errMsg) {
-		return <Text style={{ color: 'red' }}>{errMsg}</Text>;
+	if (errorMessage) {
+		return (
+			<View>
+				<Text style={{ color: 'red' }}>{errorMessage}</Text>
+				<TouchableOpacity
+					onPress={() => signout(false)}
+					style={{
+						backgroundColor: 'transparent',
+						borderWidth: 1,
+						borderColor: '#0af',
+						padding: 10,
+						borderRadius: 2,
+						margin: 10,
+					}}
+				>
+					<WhiteText style={{ color: '#0af', alignSelf: 'center', fontWeight: 'bold' }}>Sign Out</WhiteText>
+				</TouchableOpacity>
+			</View>
+		);
 	}
 	if (!state.currentUser || isLoading) {
 		return (

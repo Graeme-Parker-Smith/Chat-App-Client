@@ -85,12 +85,25 @@ const signup = (dispatch) => async ({ username, password, avatar }) => {
 		dispatch({ type: 'signin', payload: response.data.token });
 		navigate('Account');
 	} catch (err) {
-		console.log(err);
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong with sign up',
-		});
+		console.log('err message', err.message);
+
+		if (err.message === 'Request failed with status code 422') {
+			console.log('got 422 error');
+			dispatch({
+				type: 'add_error',
+				payload: 'This username is already taken.',
+			});
+		} else {
+			dispatch({
+				type: 'add_error',
+				payload: 'Could not connect to server.',
+			});
+		}
 	}
+};
+
+const createError = (dispatch) => (err) => {
+	dispatch({ type: 'add_error', payload: err });
 };
 
 const signin = (dispatch) => async ({ username, password }) => {
@@ -102,12 +115,28 @@ const signin = (dispatch) => async ({ username, password }) => {
 		dispatch({ type: 'signin', payload: response.data });
 		navigate('Account');
 	} catch (err) {
-		console.log(err);
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong with sign up',
-		});
+		console.log('err message', err.message);
+
+		if (err.message === 'Request failed with status code 422') {
+			console.log('got 422 error');
+			dispatch({
+				type: 'add_error',
+				payload: 'User not found.',
+			});
+		} else if (err.message === 'Request failed with status code 403') {
+			console.log('got 403 error');
+			dispatch({
+				type: 'add_error',
+				payload: 'Wrong Password.',
+			});
+		} else {
+			dispatch({
+				type: 'add_error',
+				payload: 'Could not connect to server.',
+			});
+		}
 	}
+
 	return 'error';
 };
 
@@ -130,6 +159,6 @@ const signout = (dispatch) => async (user) => {
 
 export const { Provider, Context } = createDataContext(
 	authReducer,
-	{ signup, signin, signout, clearErrorMessage, tryLocalSignin, deleteUser },
+	{ signup, signin, signout, clearErrorMessage, tryLocalSignin, deleteUser, createError },
 	{ token: null, errorMessage: '' }
 );
