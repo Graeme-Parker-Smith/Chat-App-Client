@@ -6,15 +6,11 @@ import BouncyInput from '../components/BouncyInput';
 import WhiteText from '../components/WhiteText';
 import AvatarPicker from '../components/AvatarPicker';
 import Spacer from './Spacer';
-import AdvSwitch from './AdvSwitch';
-import GSwitch from './GSwitch';
-import NumberDial from './NumberDial';
 
 const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSignup = false }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [avatar, setAvatar] = useState('');
-	const [isLoading, setIsLoading] = useState(false);
 	const _usernameInput = useRef();
 	const _passwordInput = useRef();
 
