@@ -42,6 +42,18 @@ const channelReducer = (state, action) => {
 			};
 		case 'update_channel':
 			return state;
+		case 'sort_new':
+			console.log('sorting channels....');
+			let newChannels = state.channels.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+			let newPrivates = state.privateChannels.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+			let newPMs = state.PMs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+			return { ...state, channels: newChannels, privateChannels: newPrivates, PMs: newPMs };
+		case 'sort_old':
+			console.log('sorting channels....');
+			newChannels = state.channels.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+			newPrivates = state.privateChannels.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+			newPMs = state.PMs.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+			return { ...state, channels: newChannels, privateChannels: newPrivates, PMs: newPMs };
 		case 'update_user':
 			return { ...state, currentUser: action.payload };
 		case 'create_channel':
@@ -305,6 +317,7 @@ export const { Provider, Context } = createDataContext(
 		unblock,
 		report,
 		reportChannel,
+		applyFilter,
 		invite,
 		kick,
 		deleteChannel,

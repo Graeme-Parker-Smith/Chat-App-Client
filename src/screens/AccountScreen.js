@@ -305,6 +305,9 @@ const AccountScreen = ({ navigation }) => {
 				/> */}
 				{/* </Spacer> */}
 				<Spacer>
+					{/* <View>
+			<Text style={{color: 'white'}}>{}</Text>
+					</View> */}
 					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 						<Button
 							title="Public"
@@ -351,7 +354,7 @@ const AccountScreen = ({ navigation }) => {
 						}}
 						// type={publicWidthAnim._value > 0 ? 'solid' : 'outline'}
 						// type={activeLists.public ? 'solid' : 'outline'}
-						onPress={() => handleListButton('public')}
+						onPress={() => handleFilterButton('new')}
 					>
 						<Text style={{ fontSize: 12, color: activeLists.public ? 'white' : '#0af' }}>New</Text>
 					</TouchableOpacity>
@@ -366,7 +369,7 @@ const AccountScreen = ({ navigation }) => {
 						title="Old"
 						// type={privateWidthAnim._value > 0 ? 'solid' : 'outline'}
 						type={activeLists.private ? 'solid' : 'outline'}
-						onPress={() => handleListButton('private')}
+						onPress={() => handleFilterButton('old')}
 					/>
 					<MaterialCommunityIcons
 						name="guy-fawkes-mask"
