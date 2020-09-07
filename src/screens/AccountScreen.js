@@ -363,7 +363,7 @@ const AccountScreen = ({ navigation }) => {
 						color="#0af"
 						size={24}
 						style={{ alignSelf: 'center', marginLeft: 10 }}
-						onPress={() => handleClick('create_public')}
+						onPress={() => handleFilterButton('msg')}
 					/>
 					<Button
 						title="Old"
@@ -372,7 +372,7 @@ const AccountScreen = ({ navigation }) => {
 						onPress={() => handleFilterButton('old')}
 					/>
 					<MaterialCommunityIcons
-						name="guy-fawkes-mask"
+						name="star"
 						color="#0af"
 						size={24}
 						style={{ alignSelf: 'center', marginLeft: 10 }}

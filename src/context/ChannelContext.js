@@ -54,6 +54,12 @@ const channelReducer = (state, action) => {
 			newPrivates = state.privateChannels.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 			newPMs = state.PMs.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 			return { ...state, channels: newChannels, privateChannels: newPrivates, PMs: newPMs };
+		case 'sort_msg':
+			console.log('sorting channels....');
+			newChannels = state.channels.sort((a, b) => b.msgCount - a.msgCount);
+			newPrivates = state.privateChannels.sort((a, b) => b.msgCount - a.msgCount);
+			newPMs = state.PMs.sort((a, b) => b.msgCount - a.msgCount);
+			return { ...state, channels: newChannels, privateChannels: newPrivates, PMs: newPMs };
 		case 'update_user':
 			return { ...state, currentUser: action.payload };
 		case 'create_channel':
