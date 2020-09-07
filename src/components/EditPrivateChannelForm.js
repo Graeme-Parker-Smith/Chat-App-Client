@@ -9,6 +9,7 @@ import LoadingIndicator from './LoadingIndicator';
 import BouncyInput from './BouncyInput';
 import AreYouSure from './AreYouSure';
 import WhiteText from './WhiteText';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '', thisMature = false }) => {
 	const {
@@ -29,10 +30,8 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 	const channelCreator = channelInfo.creator;
 	const userCanEdit = currentUser._id === channelCreator;
 	const [errMsg, setErrMsg] = useState('');
-	const [description, setDescription] = useState(thisDescription)
+	const [description, setDescription] = useState(thisDescription);
 	const [mature, setMature] = useState(thisMature);
-
-
 
 	const handleSubmit = async () => {
 		if (!userCanEdit) {
@@ -46,9 +45,7 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 			newAvatar,
 			isPrivate: true,
 			newDescription: description,
-			newMature: mature
-
-
+			newMature: mature,
 		});
 		if (response && response.data.error) {
 			console.log('yes', response.data);
@@ -57,8 +54,8 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 			return;
 		}
 		showForm('');
-		await fetchChannels();
-		setIsLoading(false);
+		// await fetchChannels();
+		// setIsLoading(false);
 	};
 
 	const handleReport = async () => {
@@ -68,11 +65,11 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 			avatar: thisAvatar,
 			description: thisDescription,
 			mature: thisMature,
-		})
+		});
 		showForm('');
-		await fetchChannels();
-		setIsLoading(false);
-	}
+		// await fetchChannels();
+		// setIsLoading(false);
+	};
 
 	const cancelForm = () => {
 		showForm('');
@@ -89,8 +86,8 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 			roomName: '',
 			avatar: '',
 		});
-		await fetchChannels();
-		setIsLoading(false);
+		// await fetchChannels();
+		// setIsLoading(false);
 	};
 
 	const handleDelete = async () => {
@@ -104,37 +101,38 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 			channel_id: channel_id,
 			isPrivate: true,
 		});
-		await fetchChannels();
+		// await fetchChannels();
 	};
 
 	if (isLoading) return <LoadingIndicator />;
 
 	return (
-		<View style={styles.container}>
-			{modalVisible ? (
-				<AreYouSure
-					yesAction={handleDelete}
-					isOwner={userCanEdit}
-					modalVisible={modalVisible}
-					setModalVisible={setModalVisible}
-				/>
-			) : null}
-			<Spacer>
+		<ScrollView>
+			<View style={styles.container}>
+				{modalVisible ? (
+					<AreYouSure
+						yesAction={handleDelete}
+						isOwner={userCanEdit}
+						modalVisible={modalVisible}
+						setModalVisible={setModalVisible}
+					/>
+				) : null}
+				<Spacer>
+					<BouncyInput
+						label="Edit Channel Name"
+						disabled={!userCanEdit}
+						value={newName}
+						onChangeText={setNewName}
+						autoFocus={false}
+						autoCapitalize="none"
+						autoCorrect={false}
+						inputStyle={{ color: 'white' }}
+					/>
+				</Spacer>
+				<Spacer />
+				<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
+				<Spacer />
 				<BouncyInput
-					label="Edit Channel Name"
-					disabled={!userCanEdit}
-					value={newName}
-					onChangeText={setNewName}
-					autoFocus={false}
-					autoCapitalize="none"
-					autoCorrect={false}
-					inputStyle={{ color: 'white' }}
-				/>
-			</Spacer>
-			<Spacer />
-			<CheckBox title="Mature Content Allowed?" checked={mature} onPress={() => setMature(!mature)} />
-			<Spacer />
-			<BouncyInput
 					value={description}
 					onChangeText={setDescription}
 					label="Edit Description"
@@ -145,33 +143,33 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 					maxLength={225}
 					multiline={true}
 				/>
-			<AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={'Channel'} />
-			<Spacer />
-			<View style={styles.buttonRow}>
-				<Button
-					disabled={!userCanEdit}
-					buttonStyle={styles.button}
-					title="Update Channel Info"
-					onPress={handleSubmit}
-				/>
-				<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
-				<Button
-					disabled={!userCanEdit}
-					buttonStyle={styles.deleteButton}
-					title="Delete Channel"
-					onPress={() => setModalVisible(true)}
-				/>
-			</View>
-			{userCanEdit ? null : (
-				<Button
-					containerStyle={styles.button}
-					buttonStyle={{ padding: 15, backgroundColor: 'red' }}
-					title="Report Channel"
-					onPress={handleReport}
-				/>
-			)}
-			<View>
-				{/* <Input
+				<AvatarPicker avatar={newAvatar} setAvatar={setNewAvatar} whichForm={'Channel'} />
+				<Spacer />
+				<View style={styles.buttonRow}>
+					<Button
+						disabled={!userCanEdit}
+						buttonStyle={styles.button}
+						title="Update Channel Info"
+						onPress={handleSubmit}
+					/>
+					<Button buttonStyle={styles.button} title="Cancel" onPress={cancelForm} />
+					<Button
+						disabled={!userCanEdit}
+						buttonStyle={styles.deleteButton}
+						title="Delete Channel"
+						onPress={() => setModalVisible(true)}
+					/>
+				</View>
+				{userCanEdit ? null : (
+					<Button
+						containerStyle={styles.button}
+						buttonStyle={{ padding: 15, backgroundColor: 'red' }}
+						title="Report Channel"
+						onPress={handleReport}
+					/>
+				)}
+				<View>
+					{/* <Input
 					disabled={!userCanEdit}
 					label="Invite Users"
 					value={userSearch}
@@ -181,11 +179,12 @@ const EditPrivateChannelForm = ({ showForm, thisName, thisAvatar, thisDescriptio
 					inputStyle={{ color: 'white' }}
 					returnKeyType="send"
 					selectTextOnFocus={true}
-				/>
+					/>
 				<Button disabled={!userCanEdit} title="Invite User" onPress={handleInvite} /> */}
+				</View>
+				<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
 			</View>
-			<WhiteText style={{ color: 'red' }}>{errMsg}</WhiteText>
-		</View>
+		</ScrollView>
 	);
 };
 

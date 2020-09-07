@@ -84,7 +84,7 @@ const EditChannelForm = ({ showForm, thisName, thisAvatar, thisDescription = '',
 			roomName: thisName,
 			channel_id: channel_id,
 		});
-		await fetchChannels();
+		// await fetchChannels();
 	};
 
 	if (isLoading) return <LoadingIndicator />;
