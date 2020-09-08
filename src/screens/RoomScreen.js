@@ -546,8 +546,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 							backgroundColor: 'black',
 							height:
 								Platform.OS === 'ios'
-									? Dimensions.get('window').height * 0.88 - keyboardHeight - inputHeight
-									: Dimensions.get('window').height * 0.86 - keyboardHeight - inputHeight,
+									? Dimensions.get('window').height * 0.85 - keyboardHeight - inputHeight
+									: Dimensions.get('window').height * 0.83 - keyboardHeight - inputHeight,
 							flexGrow: 0,
 						}}
 						bounces={true}
@@ -586,7 +586,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 					onChangeText={setContent}
 					blurOnSubmit={false}
 					// onSubmitEditing={sendNewMessage}
-					placeholder="Type Your message here"
+					placeholder="Type here"
 					inputStyle={{
 						color: '#fff',
 						borderWidth: 1,
