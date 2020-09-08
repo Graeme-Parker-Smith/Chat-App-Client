@@ -61,11 +61,7 @@ const ChannelListItem = ({ item, color }) => {
 				}
 				title={item.name ? item.name : item.username}
 				subtitle={
-					showDescription
-						? item.username
-							? `Your Friend`
-							: item.description || 'No Description'
-						: null
+					showDescription ? (item.username ? `Your Friend` : item.description || 'No Description') : null
 				}
 				titleStyle={styles.title}
 				subtitleStyle={styles.subtitle}
@@ -118,9 +114,10 @@ const styles = StyleSheet.create({
 	}),
 	title: {
 		color: 'white',
+		fontSize: 14
 	},
 	subtitle: {
-		fontSize: 12,
+		fontSize: 10,
 		color: 'white',
 	},
 	avatarStyle: {
