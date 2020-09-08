@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
 		overflow: 'scroll',
 	},
 	subtitle: {
-		fontSize: Dimensions.get('window').width > 350 ? 10 : 10,
+		fontSize: 10,
 		color: 'white',
 	},
 	avatarStyle: {
