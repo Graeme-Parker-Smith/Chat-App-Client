@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import CacheImage from './CacheImage';
@@ -7,6 +7,9 @@ import CacheImage from './CacheImage';
 const ChannelListItem = ({ item, color }) => {
 	const [showDescription, setShowDescription] = useState(false);
 	const [heightAnim] = useState(new Animated.Value(60));
+	// const phoneIsSmall =  Dimensions.get('window').width > 350 ?
+	// console.log("screen width: ", Dimensions.get('window').width)
+	// console.log("screen height: ", Dimensions.get('window').height)
 
 	const handleHeightAnim = () => {
 		if (!showDescription) {
@@ -29,7 +32,7 @@ const ChannelListItem = ({ item, color }) => {
 	return (
 		<Animated.View style={{ height: heightAnim, backgroundColor: color, margin: 5, borderRadius: 10 }}>
 			{item.mature ? (
-				<View style={{ position: 'absolute', left: 40, top: 0, backgroundColor: 'red', zIndex: 1000 }}>
+				<View style={{ position: 'absolute', left: 5, top: 0, backgroundColor: 'red', zIndex: 999 }}>
 					<Text>M</Text>
 				</View>
 			) : null}
@@ -56,7 +59,7 @@ const ChannelListItem = ({ item, color }) => {
 				// Component={<Animated.View style={{ height: heightAnim }} />}
 				contentContainerStyle={
 					showDescription
-						? { justifyContent: 'flex-start', height: 140 }
+						? { justifyContent: 'center', height: 140 }
 						: { justifyContent: 'center', height: 20 }
 				}
 				title={item.name ? item.name : item.username}
@@ -76,6 +79,7 @@ const ChannelListItem = ({ item, color }) => {
 							width: 40,
 							borderRadius: 10,
 							justifyContent: 'center',
+							position: 'relative',
 						}}
 					>
 						<AntDesign
@@ -111,13 +115,15 @@ const styles = StyleSheet.create({
 		backgroundColor: color,
 		// margin: 5,
 		borderRadius: 10,
+		overflow: 'hidden',
 	}),
 	title: {
 		color: 'white',
-		fontSize: 14
+		fontSize: Dimensions.get('window').width > 350 ? 14 : 12,
+		overflow: 'scroll',
 	},
 	subtitle: {
-		fontSize: 10,
+		fontSize: Dimensions.get('window').width > 350 ? 10 : 10,
 		color: 'white',
 	},
 	avatarStyle: {

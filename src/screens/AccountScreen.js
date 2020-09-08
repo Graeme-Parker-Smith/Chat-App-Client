@@ -445,7 +445,7 @@ const AccountScreen = ({ navigation }) => {
 					</View>
 				</Spacer>
 				<View
-					style={[styles.channelDivider, { height: Dimensions.get('window').height * 0.62 - keyboardHeight }]}
+					style={[styles.channelDivider, { height: Dimensions.get('window').height * 0.55 - keyboardHeight }]}
 				>
 					<Animated.View style={{ width: publicWidthAnim }}>
 						<ChannelList

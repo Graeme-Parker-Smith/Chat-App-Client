@@ -11,7 +11,7 @@ const MessageCount = ({ msgCount }) => (
 		style={{
 			position: 'absolute',
 			top: 5,
-			right: 80,
+			left:  Dimensions.get('window').width > 350 ? 40 : 25,
 			// backgroundColor: 'black',
 			borderRadius: 5,
 			zIndex: 2,
@@ -20,7 +20,7 @@ const MessageCount = ({ msgCount }) => (
 		}}
 	>
 		{/* <View style={{ flexDirection: 'row' }}> */}
-		<MaterialCommunityIcons name="message-text" color="black" size={20} />
+		<MaterialCommunityIcons name="message-text" color="black" size={15} />
 		<Badge
 			value={msgCount >= 0 ? msgCount : null}
 			badgeStyle={{ backgroundColor: msgCount >= 0 ? 'black' : 'transparent' }}
@@ -42,7 +42,7 @@ const Fawkes = ({ userCount }) => (
 		}}
 	>
 		{/* <View style={{ flexDirection: 'row' }}> */}
-		<MaterialCommunityIcons name="guy-fawkes-mask" color="black" size={20} />
+		<MaterialCommunityIcons name="guy-fawkes-mask" color="black" size={15} />
 		<Badge
 			value={userCount >= 0 ? userCount : null}
 			badgeStyle={{ backgroundColor: userCount >= 0 ? 'black' : 'transparent' }}
