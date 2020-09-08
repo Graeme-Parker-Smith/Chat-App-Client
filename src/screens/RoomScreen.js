@@ -65,11 +65,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	// console.log('room_id', room_id);
 	// console.log('friend', friend);
 	// console.log('roomCreator', roomCreator);
-	if (errorMessage) {
-		return <Text style={{ color: 'red' }}>{errorMessage}</Text>;
-	}
-
-	const isOwner = currentUser._id === roomCreator;
 
 	const [loading, setLoading] = useState(false);
 	const [keyboardShowing, setKeyboardShowing] = useState(false);
@@ -93,6 +88,7 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		clearMessages,
 		sendNotification,
 	} = useContext(MessageContext);
+
 	// const pan = useRef(new Animated.ValueXY()).current;
 
 	// const panResponder = useRef(
@@ -120,13 +116,20 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		setKeyboardShowing(false);
 		setKeyboardHeight(0);
 	};
+	let username;
+	let _id;
+	if (currentUser) {
+		username = currentUser.username;
+		_id = currentUser._id
+	}
+
 
 	// ============================================================
 	//                HANDLE COMPONENT DID MOUNT AND UNMOUNT
 	// ============================================================
 
 	useEffect(() => {
-		socket.emit('join', { name: currentUser.username, userId: currentUser._id, room: room_id }, (error) => {
+		socket.emit('join', { name: username || '', userId: _id, room: room_id }, (error) => {
 			if (error) {
 				// if (error === 'Username is taken') {
 				// 	navigation.replace('Account');
@@ -207,9 +210,23 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		}
 	}, [isFocused]);
 
+	if (errorMessage) {
+		return <Text style={{ color: 'red' }}>{errorMessage}</Text>;
+	}
+	if (!currentUser) {
+		return (
+			<View>
+				<LoadingIndicator />
+			</View>
+		);
+	}
+
+	const isOwner = currentUser._id === roomCreator;
+	
 	// ============================================================
 	//                SEND TEXT MESSAGE FUNCTION
 	// ============================================================
+	
 
 	const sendNewMessage = () => {
 		if (!content) return;
@@ -498,15 +515,6 @@ const RoomScreen = ({ navigation, isFocused }) => {
 		socket.emit('leave', { room: roomName, name: currentUser.username });
 	};
 
-
-
-	if (!currentUser) {
-		return (
-			<View>
-				<LoadingIndicator />
-			</View>
-		);
-	}
 	// console.log('ISOWNER IS: ', isOwner);
 
 	return (
