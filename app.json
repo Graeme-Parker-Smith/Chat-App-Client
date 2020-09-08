@@ -3,7 +3,6 @@
     "name": "Jaded",
     "slug": "Jaded",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android",
