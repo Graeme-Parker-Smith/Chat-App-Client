@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Animated } from 'react-native';
 
-const FadeInView = props => {
+const FadeInView = (props) => {
 	const [fadeAnim] = useState(new Animated.Value(0)); // Initial value for opacity: 0
 
 	useEffect(() => {
 		Animated.timing(fadeAnim, {
 			toValue: 1,
 			duration: 2000,
+			useNativeDriver: false,
 		}).start();
 	}, []);
 

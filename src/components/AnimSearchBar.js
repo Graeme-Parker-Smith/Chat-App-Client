@@ -51,10 +51,12 @@ const AnimSearchBar = forwardRef(
 				Animated.timing(widthAnim, {
 					toValue: 190,
 					duration: 200,
+					useNativeDriver: false
 				}),
 				Animated.timing(widthAnim, {
 					toValue: 200,
 					duration: 200,
+					useNativeDriver: false
 				}),
 			]).start();
 			setIsFocused(false);

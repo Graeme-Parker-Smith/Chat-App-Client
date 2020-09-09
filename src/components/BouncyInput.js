@@ -14,14 +14,14 @@ const BouncyInput = forwardRef(
 			autoCorrect = false,
 			containerStyle = {},
 			inputStyle = { color: 'white' },
-			inputContainerStyle= {},
+			inputContainerStyle = {},
 			returnKeyType = 'next',
 			selectTextOnFocus = true,
 			onSubmitEditing = null,
 			maxLength,
 			secure,
 			multiline = false,
-			keyboardType = 'default'
+			keyboardType = 'default',
 		},
 		ref
 	) => {
@@ -41,10 +41,12 @@ const BouncyInput = forwardRef(
 				Animated.timing(introAnim, {
 					toValue: -10,
 					duration: 130,
+					useNativeDriver: false,
 				}),
 				Animated.timing(introAnim, {
 					toValue: 0,
 					duration: 130,
+					useNativeDriver: false,
 				}),
 			]).start();
 			setIsFocused(true);
@@ -70,7 +72,6 @@ const BouncyInput = forwardRef(
 					returnKeyType={returnKeyType}
 					selectTextOnFocus={selectTextOnFocus}
 					onSubmitEditing={onSubmitEditing}
-					
 					ref={ref}
 					inputContainerStyle={inputContainerStyle}
 					onFocus={handleOnFocus}

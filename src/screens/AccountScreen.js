@@ -172,10 +172,12 @@ const AccountScreen = ({ navigation }) => {
 				Animated.timing(publicWidthAnim, {
 					toValue: 0,
 					duration: 500,
+					useNativeDriver: false,
 				}).start();
 				Animated.timing(privateWidthAnim, {
 					toValue: Dimensions.get('window').width * 0.9,
 					duration: 500,
+					useNativeDriver: false,
 				}).start();
 			} else {
 				setActiveLists({ ...activeLists, public: true });
@@ -183,10 +185,12 @@ const AccountScreen = ({ navigation }) => {
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * (privateWidthAnim._value > 0 ? 0.5 : 0.9),
 					duration: 500,
+					useNativeDriver: false,
 				}).start();
 				Animated.timing(privateWidthAnim, {
 					toValue: Dimensions.get('window').width * (privateWidthAnim._value > 0 ? 0.5 : 0),
 					duration: 500,
+					useNativeDriver: false,
 				}).start();
 			}
 		} else if (listType === 'private') {
@@ -195,10 +199,12 @@ const AccountScreen = ({ navigation }) => {
 				Animated.timing(privateWidthAnim, {
 					toValue: 0,
 					duration: 500,
+					useNativeDriver: false,
 				}).start();
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * 0.9,
 					duration: 500,
+					useNativeDriver: false,
 				}).start();
 				// togglePrivate();
 			} else {
@@ -206,10 +212,12 @@ const AccountScreen = ({ navigation }) => {
 				Animated.timing(privateWidthAnim, {
 					toValue: Dimensions.get('window').width * (publicWidthAnim._value > 0 ? 0.5 : 0.9),
 					duration: 500,
+					useNativeDriver: false,
 				}).start();
 				Animated.timing(publicWidthAnim, {
 					toValue: Dimensions.get('window').width * (publicWidthAnim._value > 0 ? 0.5 : 0),
 					duration: 500,
+					useNativeDriver: false,
 				}).start();
 				// togglePrivate();
 			}

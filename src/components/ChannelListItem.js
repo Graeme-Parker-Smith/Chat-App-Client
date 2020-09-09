@@ -16,6 +16,7 @@ const ChannelListItem = ({ item, color }) => {
 			Animated.timing(heightAnim, {
 				toValue: 180,
 				duration: 500,
+				useNativeDriver: false,
 			}).start();
 			setTimeout(() => {
 				setShowDescription(true);
@@ -24,6 +25,7 @@ const ChannelListItem = ({ item, color }) => {
 			Animated.timing(heightAnim, {
 				toValue: 60,
 				duration: 500,
+				useNativeDriver: false,
 			}).start();
 			setShowDescription(false);
 		}
