@@ -120,9 +120,8 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	let _id;
 	if (currentUser) {
 		username = currentUser.username;
-		_id = currentUser._id
+		_id = currentUser._id;
 	}
-
 
 	// ============================================================
 	//                HANDLE COMPONENT DID MOUNT AND UNMOUNT
@@ -144,7 +143,9 @@ const RoomScreen = ({ navigation, isFocused }) => {
 			// console.log('component unmounting');
 			keyboardDidShowListener.remove();
 			keyboardDidHideListener.remove();
-			socket.emit('leave', { room: roomName, name: currentUser.username });
+			if (currentUser) {
+				socket.emit('leave', { room: roomName, name: currentUser.username || null });
+			}
 		};
 	}, []);
 
@@ -222,11 +223,10 @@ const RoomScreen = ({ navigation, isFocused }) => {
 	}
 
 	const isOwner = currentUser._id === roomCreator;
-	
+
 	// ============================================================
 	//                SEND TEXT MESSAGE FUNCTION
 	// ============================================================
-	
 
 	const sendNewMessage = () => {
 		if (!content) return;

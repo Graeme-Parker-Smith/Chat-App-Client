@@ -26,6 +26,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.graeme.jaded",
+      "infoPlist": {},
       "buildNumber": "1.0.1"
     },
     "android": {
