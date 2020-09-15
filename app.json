@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "primaryColor": "#000000",
     "icon": "./assets/web_hi_res_512.png",
@@ -27,7 +27,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.graeme.jaded",
       "infoPlist": {},
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.0.2"
     },
     "android": {
       "package": "com.graeme.jaded",
