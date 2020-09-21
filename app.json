@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "primaryColor": "#000000",
     "icon": "./assets/web_hi_res_512.png",
@@ -31,7 +31,7 @@
         "NSMicrophoneUsageDescription": "Allow users to create and upload a video with audio",
         "NSPhotoLibraryUsageDescription": "Allows user to upload photos"
   },
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.3"
     },
     "android": {
       "package": "com.graeme.jaded",
