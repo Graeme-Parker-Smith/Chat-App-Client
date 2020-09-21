@@ -26,7 +26,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.graeme.jaded",
-      "infoPlist": {},
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to allow the user to upload images",
+        "NSMicrophoneUsageDescription": "Allow users to create and upload a video with audio",
+        "NSPhotoLibraryUsageDescription": "Allows user to upload photos"
+  },
       "buildNumber": "1.0.2"
     },
     "android": {
