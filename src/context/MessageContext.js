@@ -18,7 +18,6 @@ const messageReducer = (state, action) => {
 };
 
 const clearMessages = (dispatch) => () => {
-	// console.log("clearing message state");
 	dispatch({ type: 'clear_messages' });
 };
 
@@ -27,18 +26,12 @@ const fetchEarlierMessages = (dispatch) => async (state, roomName, roomType, roo
 		const response = await chatApi.get('/messages', {
 			params: { stateLength: state.length, roomName, roomType, room_id },
 		});
-		// console.log(
-		//   "response.data.messages.length is: ",
-		//   response.data.messages.length
-		// );
 		dispatch({ type: 'fetch_messages', payload: response.data });
 	}
 };
 
 const fetchMessages = (dispatch) => async (roomName, roomType, room_id) => {
-	// console.log('room_id', room_id);
 	try {
-		// const response = await chatApi.get('/messages');
 		const response = await chatApi.get('/messages', {
 			params: { roomName, roomType, room_id },
 		});

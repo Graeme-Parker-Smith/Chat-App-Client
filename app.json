@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "primaryColor": "#000000",
     "icon": "./assets/web_hi_res_512.png",
@@ -31,11 +31,11 @@
         "NSMicrophoneUsageDescription": "This app uses the microphone to record audio input when you record videos, which can then be sent to other users as messages and stored inside Jaded Chat.",
         "NSPhotoLibraryUsageDescription": "This app uses your photo library to help you select images on your device, which can then be stored inside Jaded Chat and used for updating your avatar, or sent to other users as messages."
   },
-      "buildNumber": "1.0.4"
+      "buildNumber": "1.0.5"
     },
     "android": {
       "package": "com.graeme.jaded",
-      "versionCode": 2
+      "versionCode": 3
     },
     "description": ""
   }
