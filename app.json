@@ -35,7 +35,8 @@
     },
     "android": {
       "package": "com.graeme.jaded",
-      "versionCode": 3
+      "versionCode": 3,
+      "permissions": ["CAMERA", "RECORD_AUDIO", "READ_EXTERNAL_STORAGE"]
     },
     "description": ""
   }
